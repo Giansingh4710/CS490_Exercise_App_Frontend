@@ -10,6 +10,8 @@ function App() {
   return (
     <BrowserRouter>
       <main>
+        {/* we will need to add logic here to determine whether a user is logged 
+        in, if they are logged in, show sidebar, if not show landing page */}
         <Sidebar />
         <Routes>
           <Route path="/" element={<LandingPage />} />
