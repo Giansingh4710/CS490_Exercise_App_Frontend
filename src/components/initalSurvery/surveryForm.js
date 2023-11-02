@@ -34,13 +34,6 @@ const styles = {
         top: "50%",
         left: "27%"
     },
-    inputField: {
-        width: "100%",
-        fontSize: "15px",
-        height: "40px",
-        borderRadius: "5px",
-        backgroundColor: "#797979",
-    },
     form: {
         display: "grid",
         "grid-template-areas" :` "a a b b"
@@ -51,16 +44,4 @@ const styles = {
         margin: "auto",
         width: "fit-content"
     },
-    button: {
-        backgroundColor: "#797979",
-        color: "white",
-        fontSize: "24px",
-        cursor: "pointer",
-        width: "166px",
-        height: "61px",
-        borderRadius: "10px",
-        margin: "auto",
-        marginTop: "50px"
-    },
-
 }

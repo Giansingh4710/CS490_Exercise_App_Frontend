@@ -4,15 +4,14 @@ import ForgotPassword from "../components/login/forgotPassword"
 import Logo from "../components/Logo"
 import '../components/styles.css'
 
-// const BASE_BACKEND_URL = 'http://127.0.0.1:1313'
 function LoginPage() {
   return (
 	<div style={styles.container}>
 		<Navbar />
-		<div style={styles.logoContainer}>
+		<div style={styles.formContainer}>
 			<Logo />
+			<LoginForm />
 		</div>
-		<LoginForm />
 		<ForgotPassword />
 	</div>
   )
@@ -24,13 +23,10 @@ const styles = {
 		backgroundColor: "#ABABAB",
 		height: "100%",
 		overflow: "hidden",
-		// height
   	},
-  	logoContainer: {
-		margin: "auto",
-		width: "fit-content",
-		paddingTop: "10%",
-  	}
+	formContainer: {
+		marginTop: "5%",	
+	}
 }
 
 export default LoginPage
