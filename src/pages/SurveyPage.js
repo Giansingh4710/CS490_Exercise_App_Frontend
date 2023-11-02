@@ -13,7 +13,7 @@ const styles = {
   container: {
     textAlign: 'center',
     backgroundColor: "#FFFFFF",
-    height: "975px"
+    height: "975px",
   },
 }
 

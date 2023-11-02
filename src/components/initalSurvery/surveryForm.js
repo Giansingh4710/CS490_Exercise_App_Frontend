@@ -1,105 +1,32 @@
+import InputElement from '../InputElement'
 export default function SurveyForm(){
     return (
         <form style={styles.form}>
-            {/* <InputElement1 type="text" style={{"gridArea": "a"}} /> */}
-            {/* <InputElement1 type="text" gridArea="a" /> */}
-            <InputElement type="text" name="First Name" placeholder="First name" gridArea="a" />
-            <InputElement type="text" name="Last Name" placeholder="Last name" gridArea="b" />
-            <InputElement type="email" name="Email" placeholder="Email" gridArea="c" />
-            <InputElement type="tel" name="Phone Number" placeholder="Phone Number" gridArea="d" />
-            <InputElement type="date" name="Date of Birth" gridArea="e" />
-            <InputElement type="text" name="Gender" placeholder="Gender" gridArea="f" />
-            <InputElement type="text" name="Weight" placeholder="Weight" gridArea="g" />
-            <InputElement type="text" name="Height" placeholder="Height" gridArea="h" />
-            <InputElement type="text" name="Role" placeholder="Role" gridArea="i" />
-            <InputElement type="text" name="Activity Level" placeholder="Activity Level" gridArea="j" />
-            <InputElement type="text" name="Goal" placeholder="Goal" gridArea="k"/>
-            
+            <InputGridElement type="text" name="First Name" placeholder="First name" gridArea="a" />
+            <InputGridElement type="text" name="Last Name" placeholder="Last name" gridArea="b" />
+            <InputGridElement type="email" name="Email" placeholder="Email" gridArea="c" />
+            <InputGridElement type="tel" name="Phone Number" placeholder="Phone Number" gridArea="d" />
+            <InputGridElement type="date" name="Date of Birth" gridArea="e" />
+            <InputGridElement type="text" name="Gender" placeholder="Gender" gridArea="f" />
+            <InputGridElement type="text" name="Weight" placeholder="Weight" gridArea="g" />
+            <InputGridElement type="text" name="Height" placeholder="Height" gridArea="h" />
+            <InputGridElement type="text" name="Role" placeholder="Role" gridArea="i" />
+            <InputGridElement type="text" name="Activity Level" placeholder="Activity Level" gridArea="j" />
+            <InputGridElement type="text" name="Goal" placeholder="Goal" gridArea="k"/>
         </form>
     )
 }
 
-function InputElement({type, name, placeholder, gridArea}){
-    if(gridArea === "a")
-        return (
-            <div style={{"gridArea": "a"}}>
-                <p>ENTER {name}</p>
-                <input type={type} name={name} placeholder={placeholder} style={styles.inputField} ></input>
-            </div>
-        )
-    else if(gridArea === "b")
-        return (
-            <div style={{"gridArea": "b"}}>
-                <p>ENTER {name}</p>
-                <input type={type} name={name} placeholder={placeholder} style={styles.inputField} ></input>
-            </div>
-        )
-    else if(gridArea === "c")
-        return (
-            <div style={{"gridArea": "c"}}>
-                <p>ENTER {name}</p>
-                <input type={type} name={name} placeholder={placeholder} style={styles.inputField} ></input>
-            </div>
-        )
-    else if(gridArea === "d")
-        return (
-            <div style={{"gridArea": "d"}}>
-                <p>ENTER {name}</p>
-                <input type={type} name={name} placeholder={placeholder} style={styles.inputField} ></input>
-            </div>
-        )
-    else if(gridArea === "e")
-        return (
-            <div style={{"gridArea": "e"}}>
-                <p>ENTER {name}</p>
-                <input type={type} name={name} placeholder={placeholder} style={styles.inputField} ></input>
-            </div>
-        )
-    else if(gridArea === "f")
-        return (
-            <div style={{"gridArea": "f"}}>
-                <p>ENTER {name}</p>
-                <input type={type} name={name} placeholder={placeholder} style={styles.inputField} ></input>
-            </div>
-        )
-    else if(gridArea === "g")
-        return (
-            <div style={{"gridArea": "g"}}>
-                <p>ENTER {name}</p>
-                <input type={type} name={name} placeholder={placeholder} style={styles.inputField} ></input>
-            </div>
-        )
-    else if(gridArea === "h")
-        return (
-            <div style={{"gridArea": "h"}}>
-                <p>ENTER {name}</p>
-                <input type={type} name={name} placeholder={placeholder} style={styles.inputField} ></input>
-            </div>
-        )
-    else if(gridArea === "i")
-        return (
-            <div style={{"gridArea": "i"}}>
-                <p>ENTER {name}</p>
-                <input type={type} name={name} placeholder={placeholder} style={styles.inputField} ></input>
-            </div>
-        )
-    else if(gridArea === "j")
-        return (
-            <div style={{"gridArea": "j"}}>
-                <p>ENTER {name}</p>
-                <input type={type} name={name} placeholder={placeholder} style={styles.inputField} ></input>
-            </div>
-        )
-    else if(gridArea === "k")
-        return (
-            <div style={{"gridArea": "k"}}>
-                <p>ENTER {name}</p>
-                <input type={type} name={name} placeholder={placeholder} style={styles.inputField} ></input>
-            </div>
-        )
-        
+function InputGridElement({type, name, placeholder, gridArea}){
+    let gridPosition = {
+        "gridArea": gridArea
+    }
+    return (
+        <div style={gridPosition}>
+            <InputElement type={type} name={name} placeholder={placeholder} label={name}/>
+        </div>
+    )       
 }
-
 
 const styles = {
     div: {

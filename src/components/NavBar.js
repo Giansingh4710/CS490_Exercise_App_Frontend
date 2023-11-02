@@ -1,8 +1,6 @@
 import RedirectButton from "./RedirectButton";
 
 export default function NavBar({buttons, }){
-
-
     return (
     <div style={styles.navbar}>
         <div style={styles.logo}>
