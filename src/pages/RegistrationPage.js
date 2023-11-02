@@ -1,19 +1,27 @@
-import LoginModal from "../components/landingPage/loginModal"
-
-const BASE_BACKEND_URL = 'http://127.0.0.1:1313'
+import Navbar from "../components/register/navbar"
+import RegistrationForm from "../components/register/registrationForm"
+import Logo from "../components/Logo"
 function RegistrationPage() {
-  return (
-    <div style={styles.container}>
-      <RegistrationModal />
-
-    </div>
-  )
-}
-
+    return (
+      <div style={styles.container}>
+        <Navbar />
+        <div style={styles.logoContainer}>
+            <Logo />
+        </div>
+        <RegistrationForm />
+      </div>
+    )
+  }
+  
 const styles = {
-  container: {
-    textAlign: 'center',
-  },
+    container: {
+        textAlign: 'center',
+        backgroundColor: "#ABABAB",
+        height: "975px"
+    },
+    logoContainer: {
+        margin: "auto",
+        paddingTop: "10%",
+    }
 }
-
 export default RegistrationPage

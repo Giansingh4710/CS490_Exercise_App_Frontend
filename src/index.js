@@ -3,13 +3,18 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import LandingPage from './pages/LandingPage';
+import RegistrationPage from './pages/RegistrationPage';
+import LoginPage from './pages/LoginPage'
+import SurveyPage from './pages/SurveyPage'
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<LandingPage />} />
-        {/* <Route path="/other" element={<OtherRandomPage />} /> */}
+        <Route path="/Register" element={<RegistrationPage />} />
+        <Route path="/Login" element={<LoginPage />} />
+        <Route path="/Register/Survey" element={<SurveyPage />} />
       </Routes>
     </BrowserRouter>
   );

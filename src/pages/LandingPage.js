@@ -1,18 +1,20 @@
-import LoginModal from "../components/landingPage/loginModal"
+import Navbar from "../components/landing/navbar"
+import Splash from "../components/landing/splash"
+import DataUnit from "../components/landing/dataUnit"
 
-document.body.style = 'background: #3f70f0;';
-
-const BASE_BACKEND_URL = 'http://127.0.0.1:1313'
+// const BASE_BACKEND_URL = 'http://127.0.0.1:1313'
 function LandingPage() {
   return (
     <div style={styles.container}>
-      <LoginModal />
-      <button onClick={()=>{
+        <Navbar />
+        <Splash />
+        <DataUnit />
+      {/* <button onClick={()=>{
         fetch(`${BASE_BACKEND_URL}/health-check`)
         .then(res => res.text())
         .then(data => alert(data))
         .catch(err => alert(err))
-      }}>Health Check</button>
+      }}>Health Check</button> */}
     </div>
   )
 }
@@ -20,6 +22,7 @@ function LandingPage() {
 const styles = {
   container: {
     textAlign: 'center',
+    backgroundColor: "#ABABAB",
   },
 }
 
