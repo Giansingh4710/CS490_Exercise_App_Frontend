@@ -4,7 +4,7 @@ export default function DataUnit(){
     let additionalStyles = {
         width: "166px",
         height: "61px",
-        marginTop: "50px"
+        marginTop: "80px"
     }
     return (
         <>
@@ -133,7 +133,7 @@ const styles = {
         "position": "relative",
         "margin": "auto",
         "width": "443px",
-        "top": "30px",
+        // "top": "30px",
         color: "white",
     },
     cardTitle: {
@@ -142,6 +142,11 @@ const styles = {
         "backgroundColor": "#797979",
         "width": "300px",
         "fontSize": "32px",
+        margin: "auto"
+    },
+    image: {
+        marginTop: "5%",
+        marginBottom: "3%"
     },
     card: {
         "margin": "auto",
@@ -152,6 +157,7 @@ const styles = {
         "display": "grid",
         "grid-template-columns" : "1fr 1fr 1fr",
         "position": "relative",
+        top: "5%"
     },
     cardText: {
         "margin": "auto",
