@@ -1,0 +1,78 @@
+/* ---------------------  msgs with coach styling  ----------------------- */
+.my-coach .my-msg-with-coach {
+  background-color: white;
+  box-shadow: 0 1px 20px 0 rgba(78, 101, 112, 0.08);
+  height: 300px;
+  border: solid rgb(240, 240, 240) 1px;
+}
+
+.my-msg-with-coach-container {
+  margin-left: 10px;
+  margin-right: 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+.my-coach .my-msg-with-coach .my-msg-with-coach-header {
+  width: 100%;
+  padding-left: 5px;
+  padding-right: 5px;
+  padding-bottom: 5px;
+  border-bottom: solid darkgray 1px;
+}
+
+.my-msgs-container {
+  display: block;
+  width: 100%;
+}
+
+/* ---------------------  individual msgs styling  ----------------------- */
+.msg-container-left,
+.msg-container-right {
+  width: 50%;
+  background-color: rgb(235, 235, 235);
+  padding: 10px;
+  margin: 5px;
+  margin-bottom: 10px;
+  border-radius: 15px;
+  box-shadow: 0 1px 20px 0 rgba(78, 101, 112, 0.08);
+}
+.msg-container-right {
+  float: right;
+}
+.msg-container-right .msg-text {
+  /* display: flex; */
+  text-align: right;
+  padding-bottom: 5px;
+}
+
+.msg-timestamp {
+  font-size: 10px;
+  text-align: right;
+}
+
+.msg-container-left {
+  /* display: flex; */
+}
+
+/* ---------------------  send msg button styling  ----------------------- */
+.send-msg-container {
+  display: flex;
+  width: 100%;
+}
+.send-msg-container input {
+  width: 100%;
+  border: 1px solid rgb(238, 238, 238);
+  border-radius: 10px;
+  padding: 5px;
+  padding-left: 10px;
+  outline: none;
+}
+.send-msg-text-box-container {
+  width: 100%;
+  border: 0.5px solid gray;
+  border-radius: 10px;
+}
+input:focus-visible {
+  outline: none;
+}
