@@ -1,5 +1,5 @@
 .sidebar {
-  background-color: grey;
+  background-color: #3f4d67;
   color: #a9b7d0;
   width: 90px;
   position: fixed;
@@ -50,7 +50,7 @@
 }
 
 .icon-text {
-  font-size: 20px;
+  font-size: 15px;
   text-transform: uppercase;
   text-align: center;
   vertical-align: center;
@@ -74,6 +74,7 @@ a:focus {
 
 .sidebar-logo,
 .top-sidebar,
+.middle-sidebar,
 .bottom-sidebar {
   margin-left: 30px;
   display: flex;
