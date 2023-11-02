@@ -1,5 +1,5 @@
 import React from "react";
-import "./MyCoaches.css";
+import "./MyCoach.css";
 
 export default function MyCoaches() {
   return <div className="explore-coaches">My Coaches page</div>;

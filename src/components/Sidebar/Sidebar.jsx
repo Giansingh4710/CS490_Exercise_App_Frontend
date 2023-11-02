@@ -31,13 +31,13 @@ export function SideBarIcons() {
             <span className="icon-text"> Dashboard </span>
           </div>
         </Link>
-        <Link to="/">
+        <Link to="/ExploreCoaches">
           <div className="sidebar-icon">
             <span className="material-symbols-outlined">explore</span>
             <span className="icon-text"> EXPLORE COACHES</span>
           </div>
         </Link>
-        <Link to="/">
+        <Link to="/MyCoach">
           <div className="sidebar-icon">
             <span className="material-symbols-outlined">group</span>
             <span className="icon-text"> MY COACH </span>
