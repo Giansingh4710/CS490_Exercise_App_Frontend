@@ -1,15 +1,20 @@
-import { useNavigate } from 'react-router-dom';
+import RedirectButton from '../RedirectButton';
 
 export default function DataUnit(){
+    let additionalStyles = {
+        width: "166px",
+        height: "61px",
+        marginTop: "50px"
+    }
     return (
         <>
             <div style={styles.div}>
                 <Title text="REACH YOUR GOALS WHETHER YOU ARE A COACH OR CLIENT"/>
                 <div style={styles.infoButtonContainer}>
-                    <InfoButton name="COACHES"/>
-                    <InfoButton name="CLIENTS"/>
-                    <InfoButton name="FEATURES"/>
-                    <InfoButton name="STATISTICS"/>
+                    <InfoLabel name="COACHES"/>
+                    <InfoLabel name="CLIENTS"/>
+                    <InfoLabel name="FEATURES"/>
+                    <InfoLabel name="STATISTICS"/>
                 </div>
                 <SectionTitle text="SECTION NAME"/>
                 <SectionCard />
@@ -21,7 +26,7 @@ export default function DataUnit(){
                     <InfoCard title="LOREM IPSUM" text="Lorem ipsum dolor sit amet, consect adipiscing elit, sed do eiusmod tempor  consecr adipiscing elit, sed do eiusmod tempor"/>
                     <InfoCard title="LOREM IPSUM" text="Lorem ipsum dolor sit amet, consect adipiscing elit, sed do eiusmod tempor  consecr adipiscing elit, sed do eiusmod tempor"/>
                 </div>
-                <SignUpButton name="Sign Up!" style={styles.signUpButton}/>
+                <RedirectButton name="Sign Up!" redirect="Register" additionalStyles={additionalStyles}/>
             </div>
         </>
     )
@@ -73,30 +78,10 @@ function CardText(info){
     )
 }
 
-function SignUpButton({name}){
-    const navigate = useNavigate();
-	const handleClick = () => {
-		navigate("/Register")
-	};
-    const hover = (e) => {
-        e.target.style.background = 'white';
-        e.target.style.color = "#797979";
-
-    }
-    const unHover = (e) => {
-        e.target.style.background = '#797979';
-        e.target.style.color = "white";
-    }
-
-	return (
-		<button style={styles.button} onClick={handleClick} onMouseEnter={hover} onMouseLeave={unHover}>{name}</button>
-	)
-}
-
-function InfoButton({name}){
+function InfoLabel({name}){
     return (
         <>
-            <button style={styles.infoButton}>{name}</button>
+            <button style={styles.infoLabel}>{name}</button>
         </>
     )
 }
@@ -106,11 +91,13 @@ const styles = {
         "backgroundColor": "#FFFFFF",
         "height": "975px",
         "minHeight": "975px",
+        "overflowX": "hidden"
     },
     div1: {
         "backgroundColor": "#ABABAB",
         "height": "975px",
         "minHeight": "975px",
+        "overflowX": "hidden"
     },
     title: {
         "textAlign": "center",
@@ -158,41 +145,28 @@ const styles = {
     },
     card: {
         "margin": "auto",
-        "padding": "25px",
         "width": "350px",
         "position": "relative",
-        "top": "100px"
     },
     cardContainer: {
         "display": "grid",
         "grid-template-columns" : "1fr 1fr 1fr",
+        "position": "relative",
     },
     cardText: {
         "margin": "auto",
         "color": "white",
         "fontSize": "36px",
     },
-    button: {
-        backgroundColor: "#797979",
-        color: "white",
-        fontSize: "24px",
-        cursor: "pointer",
-        marginRight: "auto",
-        width: "166px",
-        height: "61px",
-        borderRadius: "10px",
-        position: "relative",
-        top: "200px",
-        border: "none"
-    },
-    infoButton: {
+    infoLabel: {
         fontSize: "24px",
         cursor: "pointer",
         width: "166px",
         height: "61px",
         marginLeft: "75px",
         marginRight: "75px",
-        borderRadius: "10px"
+        borderRadius: "10px",
+        border: "none",
     },
     infoButtonContainer: {
         position: "relative",

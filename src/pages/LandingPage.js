@@ -1,6 +1,7 @@
 import Navbar from "../components/landing/navbar"
 import Splash from "../components/landing/splash"
 import DataUnit from "../components/landing/dataUnit"
+import '../components/styles.css'
 
 // const BASE_BACKEND_URL = 'http://127.0.0.1:1313'
 function LandingPage() {

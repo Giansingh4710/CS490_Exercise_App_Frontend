@@ -1,6 +1,7 @@
 import Navbar from "../components/register/navbar"
 import RegistrationForm from "../components/register/registrationForm"
 import Logo from "../components/Logo"
+import '../components/styles.css'
 function RegistrationPage() {
     return (
       <div style={styles.container}>
@@ -17,7 +18,7 @@ const styles = {
     container: {
         textAlign: 'center',
         backgroundColor: "#ABABAB",
-        height: "975px"
+        height: "100%",
     },
     logoContainer: {
         margin: "auto",

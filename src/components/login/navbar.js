@@ -1,52 +1,34 @@
-import { Navigate } from "react-router-dom";
+import RedirectButton from "../RedirectButton";
+import Logo from "../Logo";
 
 export default function Navbar() {
+	let additionalStyles = {
+		width: "166px",
+		height: "61px",
+		float: "right",
+		marginRight: "30px",
+		position: "relative",
+		top: "10px",
+	}
   	return (
 		<div style={styles.navbar}>
-			<Login name="Register"/>
+			<div style={styles.logo}>
+				<Logo size="50"/>
+			</div>
+			<RedirectButton name="Register" redirect="Register" additionalStyles={additionalStyles}/>
 		</div>
   )
 }
-function Login({name}){
-	let clicked = false;
-	function redirect(){
-		clicked = true;
-	}
-	const hover = (e) => {
-        e.target.style.background = 'white';
-        e.target.style.color = "#797979";
-
-    }
-    const unHover = (e) => {
-        e.target.style.background = '#797979';
-        e.target.style.color = "white";
-    }
-	return (
-		<div>
-			{clicked && (<Navigate to="\login" /> )}
-			<button style={styles.button} onclick={redirect} onMouseEnter={hover} onMouseLeave={unHover}>{name}</button>
-		</div>
-	)
-
-}
 
 const styles = {
-  navbar: {
-	backgroundColor: '#ABABAB',
-	padding: '10px',
-  },
-  button: {
-	backgroundColor: "#797979",
-	color: "white",
-	fontSize: "24px",
-	cursor: "pointer",
-	marginRight: "30px",
-	width: "166px",
-	height: "61px",
-	borderRadius: "10px",
-	float: "right",
-	position: "relative",
-	top: "10px",
-	border: "none"
-  },
+	navbar: {
+		backgroundColor: '#ABABAB',
+		padding: '10px',
+  	},
+  	logo: {
+		position: "relative",
+		top: "10px",
+		float: "left",
+		left: "20px"
+	},
 }

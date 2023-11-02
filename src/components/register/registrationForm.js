@@ -1,22 +1,14 @@
+import InputElement from "../InputElement"
 export default function RegistrationForm(){
     return (
         <div style={styles.div}>
             <form style={styles.form}>
-                <InputElement type="email" name="EMAIL" placeholder="Email"/>
-                <InputElement type="name" name="NAME" placeholder="Name"/>
-                <InputElement type="password" name="PASSWORD" placeholder="Password"/>
-                <InputElement type="password" name="PASSWORD" placeholder="Reenter Password"/>
+                <InputElement type="email" name="EMAIL" placeholder="Email" label="Enter Email"/>
+                <InputElement type="name" name="NAME" placeholder="Name" label="Enter Name"/>
+                <InputElement type="password" name="PASSWORD" placeholder="Password" label="Enter Password"/>
+                <InputElement type="password" name="REPASSWORD" placeholder="Re-Enter Password" label="Re-Enter Password"/>
             </form>
             <Button name={"Sign Up"}/>
-        </div>
-    )
-}
-
-function InputElement({type, name, placeholder}){
-    return (
-        <div style={styles.inputElement}>
-            <p>ENTER {name}</p>
-            <input type={type} name={name} placeholder={placeholder} style={styles.inputField}></input>
         </div>
     )
 }
@@ -43,15 +35,6 @@ const styles = {
         backgroundColor: "#ABABAB",
         width: "fit-content",
         position: "relative",
-        // top: "5%"
-    },
-    inputField: {
-        width: "100%",
-        fontSize: "15px",
-        height: "40px",
-        borderRadius: "5px",
-        backgroundColor: "#797979",
-        border: "none"
     },
     form: {
         display: "grid",
@@ -70,5 +53,5 @@ const styles = {
         borderRadius: "10px",
         margin: "auto",
         marginTop: "50px"
-      },
+    },
 }

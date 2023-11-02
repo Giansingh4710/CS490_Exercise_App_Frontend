@@ -2,6 +2,7 @@ import Navbar from "../components/login/navbar"
 import LoginForm from "../components/login/loginForm"
 import ForgotPassword from "../components/login/forgotPassword"
 import Logo from "../components/Logo"
+import '../components/styles.css'
 
 // const BASE_BACKEND_URL = 'http://127.0.0.1:1313'
 function LoginPage() {
@@ -21,7 +22,9 @@ const styles = {
   	container: {
 		textAlign: 'center',
 		backgroundColor: "#ABABAB",
-		height: "975px",
+		height: "100%",
+		overflow: "hidden",
+		// height
   	},
   	logoContainer: {
 		margin: "auto",

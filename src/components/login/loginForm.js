@@ -1,20 +1,12 @@
+import InputElement from "../InputElement";
 export default function LoginForm(){
     return (
         <div style={styles.div}>
             <form style={styles.form}>
-                <InputElement type="email" name="EMAIL" placeholder="Email"/>
-                <InputElement type="password" name="PASSWORD" placeholder="Password"/>
+                <InputElement type="email" name="email" placeholder="Enter Email" label="Enter Email"/>
+                <InputElement type="password" name="password" placeholder="Enter Password" label="Enter Password"/>
             </form>
             <Button name={"Login"}/>
-        </div>
-    )
-}
-
-function InputElement({type, name, placeholder}){
-    return (
-        <div style={styles.inputElement}>
-            <p style={styles.inputLabel}>ENTER {name}:</p>
-            <input type={type} name={name} placeholder={placeholder} style={styles.inputField}></input>
         </div>
     )
 }
@@ -38,25 +30,12 @@ function Button({name}){
 const styles = {
     div: {
         margin: "auto",
-        // paddingTop: "2%",
-    },
-    inputField: {
-        width: "517px",
-        fontSize: "15px",
-        height: "40px",
-        borderRadius: "5px",
-        backgroundColor: "#797979",
-        border: "none"
-    },
-    inputLabel: {
-        fontSize: "20px",
-    },
-    form: {
-        margin: "auto",
         width: "fit-content",
     },
-    inputElement: {
-        paddingTop: "25px"
+    form: {
+        display: "grid",
+        "grid-template-columns" : "400px",
+        "grid-gap": "50px 50px",
     },
     button: {
         backgroundColor: "#797979",

@@ -1,38 +1,34 @@
-import '../styles.css'
+import RedirectButton from '../RedirectButton';
+import Logo from '../Logo'
 
 export default function Navbar() {
+	let additionalStyles = {
+		width: "166px",
+		height: "61px",
+		float: "right",
+		marginRight: "30px",
+		position: "relative",
+		top: "10px",
+	}
 	return (
-		<Login name="Login"/>
+		<div style={styles.navbar}>
+			<div style={styles.logo}>
+				<Logo size="50"/>
+			</div>
+			<RedirectButton name="Login" redirect="Login" additionalStyles={additionalStyles}/>
+		</div>
   	)
-}
-function Login({name}){
-	const hover = (e) => {
-        e.target.style.background = 'white';
-        e.target.style.color = "#797979";
-
-    }
-    const unHover = (e) => {
-        e.target.style.background = '#797979';
-        e.target.style.color = "white";
-    }
-
-	return (
-		<button style={styles.button} onMouseEnter={hover} onMouseLeave={unHover}>{name}</button>
-	)
 }
 
 const styles = {
-  	button: {
-		backgroundColor: "#797979",
-		color: "white",
-		fontSize: "24px",
-		cursor: "pointer",
-		marginRight: "30px",
-		width: "166px",
-		height: "61px",
-		borderRadius: "10px",
-		float: "right",
-		position: "relative",
-		top: "10px"
+	navbar: {
+		backgroundColor: '#ABABAB',
+		padding: '10px',
   	},
+	logo: {
+		position: "relative",
+		top: "10px",
+		float: "left",
+		left: "20px"
+	},
 }
