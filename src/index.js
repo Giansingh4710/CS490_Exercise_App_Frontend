@@ -5,7 +5,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import LandingPage from "./pages/LandingPage";
 import OtherRandomPage from "./pages/Other";
 import Sidebar from "./components/Sidebar/Sidebar";
-import MyCoaches from "./components/MyCoach/MyCoach";
+import MyCoach from "./components/MyCoach/MyCoach";
 import ExploreCoaches from "./components/ExploreCoaches/ExploreCoaches";
 
 function App() {
@@ -18,7 +18,7 @@ function App() {
         <Routes>
           <Route path="/" element={<LandingPage />} />
           <Route path="/other" element={<OtherRandomPage />} />
-          <Route path="/MyCoaches" element={<MyCoaches />} />
+          <Route path="/MyCoach" element={<MyCoach />} />
           <Route path="/ExploreCoaches" element={<ExploreCoaches />} />
         </Routes>
       </main>
