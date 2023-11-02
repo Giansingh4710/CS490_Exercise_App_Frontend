@@ -13,23 +13,24 @@ export default function Sidebar() {
 export function SideBarIcons() {
   return (
     <div className="sidebar-icons">
-      <div className="sidebar-logo">
-        <Link to="/">
-          <div className="sidebar-icon">
-            <span className="material-symbols-outlined">run_circle</span>
-            <span className="icon-text"> APP NAME </span>
-          </div>
-        </Link>
-      </div>
       <div className="top-sidebar">
+        <div className="sidebar-logo">
+          <Link to="/">
+            <div className="sidebar-icon">
+              <span className="material-symbols-outlined">run_circle</span>
+              <span className="icon-text"> APP NAME </span>
+            </div>
+          </Link>
+        </div>
+
         <Link to="/">
-          <div className="sidebar-icon">
-            <span className="material-symbols-outlined">desktop_windows</span>
+          <div className="sidebar-icon dashboard">
+            <span className="material-symbols-outlined dashboard">
+              desktop_windows
+            </span>
             <span className="icon-text"> Dashboard </span>
           </div>
         </Link>
-      </div>
-      <div className="middle-sidebar">
         <Link to="/">
           <div className="sidebar-icon">
             <span className="material-symbols-outlined">explore</span>
@@ -55,6 +56,7 @@ export function SideBarIcons() {
           </div>
         </Link>
       </div>
+
       <div className="bottom-sidebar">
         <Link to="/">
           <div className="sidebar-icon">
