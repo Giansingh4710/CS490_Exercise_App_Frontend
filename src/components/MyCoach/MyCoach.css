@@ -5,4 +5,15 @@
   padding: 20px;
   padding-top: 50px;
   height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.fire-coach-link {
+  width: 100%;
+  text-align: center;
+  font-style: italic;
+  color: red;
+  text-decoration: underline;
+  cursor: pointer;
 }
