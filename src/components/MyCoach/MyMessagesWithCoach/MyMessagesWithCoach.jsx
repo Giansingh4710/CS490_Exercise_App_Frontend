@@ -40,7 +40,7 @@ export default function MyMessagesWithCoach({ coachName }) {
   const [msgError, setMsgError] = useState("");
 
   const handleOnSendMsg = async () => {
-    if (newMsg != "") {
+    if (newMsg !== "") {
       setMsgs((prev) => [
         ...prev,
         {
@@ -70,11 +70,12 @@ export default function MyMessagesWithCoach({ coachName }) {
         </div>
         <div className="my-msg-with-coach-text-area-container">
           <div className="my-msgs-container" id="my-msgs-container">
-            {msgs?.map((msg) => (
+            {msgs?.map((msg, index) => (
               <Message
+                key={index}
                 msgText={msg.msgText}
                 timeStamp={msg.timeStamp}
-                orientation={msg.sender == "User" ? "right" : "left"}
+                orientation={msg.sender === "User" ? "right" : "left"}
               />
             ))}
           </div>
@@ -85,7 +86,7 @@ export default function MyMessagesWithCoach({ coachName }) {
             msgError={msgError}
             setMsgError={setMsgError}
           />
-          <div className="error-msg">{msgError == "" ? " " : msgError}</div>
+          <div className="error-msg">{msgError === "" ? " " : msgError}</div>
         </div>
       </div>
     </div>
@@ -115,7 +116,7 @@ function SendMessage({
   setMsgError,
 }) {
   const handleOnMsgTextChange = async (event) => {
-    if (msgError != "") {
+    if (msgError !== "") {
       setMsgError("");
     }
     setNewMsg(event.target.value);
@@ -128,25 +129,26 @@ function SendMessage({
 
   return (
     <div className="send-msg-container">
-      <div className="send-msg-text-box-container">
-        <form onSubmit={handleOnSubmit}>
+      <form
+        id="send-msg-form"
+        onSubmit={handleOnSubmit}
+        className="send-msg-form"
+      >
+        <div className="send-msg-text-box-container">
           <input
+            id="send-msg-input"
             className="send-msg-text-box"
             value={newMsg}
             placeholder="Send a message ..."
             onChange={handleOnMsgTextChange}
           ></input>
-        </form>
-      </div>
-      <div className="send-msg-btn-container">
-        <button
-          className="send-msg-btn"
-          onClick={handleOnSendMsg}
-          type="submit"
-        >
-          <span className="material-symbols-outlined send-icon">send</span>
-        </button>
-      </div>
+        </div>
+        <div className="send-msg-btn-container">
+          <button className="send-msg-btn" type="submit">
+            <span className="material-symbols-outlined send-icon">send</span>
+          </button>
+        </div>
+      </form>
     </div>
   );
 }
