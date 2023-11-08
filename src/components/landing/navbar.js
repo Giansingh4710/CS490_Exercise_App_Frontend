@@ -24,7 +24,7 @@ export default function Navbar() {
 
 const styles = {
   	navbar: {
-		backgroundColor: '#ABABAB',
+		backgroundColor: '#3F4D67',
 		padding: '10px',
 		display: "flex",
 		alignItems: "center",

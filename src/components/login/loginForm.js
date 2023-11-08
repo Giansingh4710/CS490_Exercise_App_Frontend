@@ -15,12 +15,12 @@ export default function LoginForm(){
 function Button({name}){
     const hover = (e) => {
         e.target.style.background = 'white';
-        e.target.style.color = "#797979";
+        e.target.style.color = "#3F4D67";
 
     }
     const unHover = (e) => {
-        e.target.style.background = '#797979';
-        e.target.style.color = "white";
+        e.target.style.background = '#FFFFFF';
+        e.target.style.color = "3F4D67";
     }
 
 	return (
@@ -32,6 +32,7 @@ const styles = {
     div: {
         margin: "auto",
         width: "fit-content",
+        backgroundColor: "#3F4D67"
     },
     form: {
         display: "grid",
@@ -39,8 +40,8 @@ const styles = {
         "grid-gap": "50px 50px",
     },
     button: {
-        backgroundColor: "#797979",
-        color: "white",
+        backgroundColor: "#FFFFFF",
+        color: "#3F4D67",
         fontSize: "24px",
         cursor: "pointer",
         width: "166px",
@@ -48,6 +49,7 @@ const styles = {
         borderRadius: "10px",
         margin: "auto",
         marginTop: "50px",
-        border: "none"
+        border: "none",
+        fontWeight: "bold"
       },
 }

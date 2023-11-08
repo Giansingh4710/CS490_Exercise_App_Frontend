@@ -1,13 +1,13 @@
 export default function Button({name, additionalStyles}){
 
     const hover = (e) => {
-        e.target.style.background = 'white';
-        e.target.style.color = "#797979";
+        e.target.style.background = '#c4c4c4';
+        e.target.style.color = "#3F4D67";
 
     }
     const unHover = (e) => {
-        e.target.style.background = '#797979';
-        e.target.style.color = "white";
+        e.target.style.background = '#FFFFFF';
+        e.target.style.color = "#3F4D67";
     }
     
     return (
@@ -17,11 +17,11 @@ export default function Button({name, additionalStyles}){
 
 const styles = {
     button: {
-        backgroundColor: "#797979",
-        color: "white",
+        backgroundColor: "#FFFFFF",
+        color: "#3F4D67",
         fontSize: "24px",
         cursor: "pointer",
         borderRadius: "10px",
-        border: "none"
+        fontWeight: "bold"
     }
 }

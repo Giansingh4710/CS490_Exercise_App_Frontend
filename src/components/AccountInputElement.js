@@ -33,15 +33,16 @@ const styles = {
         fontSize: "15px",
         height: "40px",
         borderRadius: "5px",
-        backgroundColor: "#797979",
-        border: "none"
+        backgroundColor: "#FFFFFF",
+        border: "1px solid gray"
     },
     inputElementContainer: {
         textAlign: "left"
     },
     label: {
         fontSize: "20px",
-        fontWeight: "bold"
+        fontWeight: "bold",
+        color: "#000000"
     },
     inputUnit: {
         position: "relative",

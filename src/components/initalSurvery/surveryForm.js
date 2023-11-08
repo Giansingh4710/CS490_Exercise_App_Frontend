@@ -30,7 +30,7 @@ function InputGridElement({type, name, placeholder, gridArea, options, units}){
         "gridArea": gridArea
     }
     let additionalStyles = {
-        backgroundColor: "#D9D9D9"
+        backgroundColor: "#FFFFFF"
     }
     if(units !== ""){
         return (
@@ -88,14 +88,15 @@ const styles = {
     },
     submitButton: {
         gridArea: "l",
-        backgroundColor: "#D9D9D9",
-        color: "#000000",
+        backgroundColor: "#3F4D67",
+        color: "#FFFFFF",
         fontWeight: "bold",
         fontSize: "24px",
         cursor: "pointer",
         borderRadius: "10px",
         border: "none",
         width: "153px",
+        height: "57px",
         display: "block",
         margin: "auto"
 

@@ -26,7 +26,7 @@ function SplashParagraph(){
 const styles = {
     div: {
         "height": "750px",
-        "backgroundColor": "#ABABAB"
+        "backgroundColor": "#3F4D67"
     },
     title:{
         "textAlign": "center",
@@ -48,7 +48,6 @@ const styles = {
         marginRight: "auto",
         width: "273px",
         height: "62px",
-
         marginTop: "60px",
 
       },

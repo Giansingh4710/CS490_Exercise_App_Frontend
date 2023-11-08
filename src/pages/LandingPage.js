@@ -23,7 +23,7 @@ function LandingPage() {
 const styles = {
   container: {
     textAlign: 'center',
-    backgroundColor: "#ABABAB",
+    backgroundColor: "#3F4D67",
     overflow: "hidden"
   },
 }

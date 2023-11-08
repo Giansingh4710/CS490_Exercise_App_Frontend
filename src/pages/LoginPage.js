@@ -9,7 +9,7 @@ function LoginPage() {
 	<div style={styles.container}>
 		<Navbar />
 		<div style={styles.formContainer}>
-			<Logo />
+			<Logo size="200"/>
 			<LoginForm />
 		</div>
 		<ForgotPassword />
@@ -20,12 +20,13 @@ function LoginPage() {
 const styles = {
   	container: {
 		textAlign: 'center',
-		backgroundColor: "#ABABAB",
+		backgroundColor: "#3F4D67",
 		height: "100%",
 		overflow: "hidden",
   	},
 	formContainer: {
-		marginTop: "5%",	
+		marginTop: "5%",
+		backgroundColor: "#3F4D67"
 	}
 }
 

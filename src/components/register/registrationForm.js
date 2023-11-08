@@ -2,15 +2,17 @@ import InputElement from "../AccountInputElement"
 import Button from "../LandingPageButton";
 
 export default function RegistrationForm(){
+    let additionalStyles = {
+        width: "400px"
+    }
     return (
         <div style={styles.div}>
             <form style={styles.form}>
-                <InputElement type="email" name="EMAIL" placeholder="Email" label="Enter Email"/>
-                <InputElement type="name" name="NAME" placeholder="Name" label="Enter Name"/>
-                <InputElement type="password" name="PASSWORD" placeholder="Password" label="Enter Password"/>
-                <InputElement type="password" name="REPASSWORD" placeholder="Re-Enter Password" label="Re-Enter Password"/>
+                <InputElement type="email" name="EMAIL" placeholder="youremail@example.com" label="EMAIL" additionalStyles={additionalStyles}/>
+                <InputElement type="password" name="PASSWORD" placeholder="Password" label="PASSWORD" additionalStyles={additionalStyles}/>
+                <InputElement type="password" name="CONFIRM-PASSWORD" placeholder="Confirm Password" label="CONFIRM PASSWORD" />
             </form>
-            <Button name={"Sign Up"} additionalStyles={styles.button}/>
+            <Button name="Create Account" additionalStyles={styles.button}/>
         </div>
     )
 }
@@ -18,23 +20,21 @@ export default function RegistrationForm(){
 const styles = {
     div: {
         margin: "auto",
-        backgroundColor: "#ABABAB",
+        backgroundColor: "#3F4D67",
         width: "fit-content",
         position: "relative",
     },
     form: {
-        display: "grid",
-        "grid-template-columns" : "400px 400px",
-        "grid-gap": "50px 50px",
+        display: "relative",
         textAlign: "center",
         backgroundColor: "#00000",
     },
     button: {
-        backgroundColor: "#797979",
-        color: "white",
+        backgroundColor: "#FFFFFF",
+        color: "#3F4D67",
         fontSize: "24px",
         cursor: "pointer",
-        width: "166px",
+        width: "250px",
         height: "61px",
         borderRadius: "10px",
         margin: "auto",

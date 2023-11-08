@@ -8,7 +8,7 @@ function RegistrationPage() {
 		<div style={styles.container}>
 			<Navbar />
 			<div style={styles.formContainer}>
-				<Logo />
+				<Logo size="200"/>
 				<RegistrationForm />
 			</div>
 		</div>
@@ -18,7 +18,7 @@ function RegistrationPage() {
 const styles = {
 	container: {
 		textAlign: 'center',
-		backgroundColor: "#ABABAB",
+		backgroundColor: "#3F4D67",
 		height: "100%",
 	},
 	formContainer: {
