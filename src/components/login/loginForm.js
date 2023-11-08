@@ -1,4 +1,5 @@
-import InputElement from "../InputElement";
+import InputElement from "../AccountInputElement";
+
 export default function LoginForm(){
     return (
         <div style={styles.div}>

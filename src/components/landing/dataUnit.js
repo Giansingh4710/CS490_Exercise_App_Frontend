@@ -1,4 +1,5 @@
-import RedirectButton from '../RedirectButton';
+import Button from '../LandingPageButton';
+import { Link } from 'react-router-dom';
 
 export default function DataUnit(){
     let additionalStyles = {
@@ -16,8 +17,8 @@ export default function DataUnit(){
                     <InfoLabel name="FEATURES"/>
                     <InfoLabel name="STATISTICS"/>
                 </div>
-                <SectionTitle text="SECTION NAME"/>
                 <SectionCard />
+                <CardImage />
             </div>
             <div style={styles.div1}>
                 <Title text="SEE WHAT [INSERT COMPANY NAME] CAN DO FOR YOU"/>
@@ -26,7 +27,7 @@ export default function DataUnit(){
                     <InfoCard title="LOREM IPSUM" text="Lorem ipsum dolor sit amet, consect adipiscing elit, sed do eiusmod tempor  consecr adipiscing elit, sed do eiusmod tempor"/>
                     <InfoCard title="LOREM IPSUM" text="Lorem ipsum dolor sit amet, consect adipiscing elit, sed do eiusmod tempor  consecr adipiscing elit, sed do eiusmod tempor"/>
                 </div>
-                <RedirectButton name="Sign Up!" redirect="Register" additionalStyles={additionalStyles}/>
+                <Link to="/Register"><Button name="Sign Up!" additionalStyles={additionalStyles}/></Link>
             </div>
         </>
     )
@@ -37,18 +38,21 @@ function Title({text}){
         <h1 style={styles.title}>{text}</h1>
     )
 }
-function SectionTitle({text}){
-    return (
-        <h1 style={styles.sectionTitle}>{text}</h1>
-    )
-}
+
 function SectionCard(){
     return (
-        <div style={styles.sectionCard}>
-            <p style={styles.paragraph}>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor  consecr adipiscing elit, sed do eiusmod tempor</p>
-            <li style={styles.listItem}>Lorem ipsum dolor sit</li>
-            <li style={styles.listItem}>Lorem ipsum dolor sit</li>
-            <li style={styles.listItem}>Lorem ipsum dolor sit</li>
+        <div style={styles.sectionCardContainer}>
+            <h1 style={styles.sectionTitle}>SECTION NAME</h1>
+            <div style={styles.sectionCard}>
+                <div style={styles.sectionContentContainer}>
+                    <p style={styles.sectionHeader}>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor  consecr adipiscing elit, sed do eiusmod tempor</p>
+                    <ul style={styles.ul}>
+                        <li style={styles.sectionPoints}>Lorem ipsum dolor sit</li>
+                        <li style={styles.sectionPoints}>Lorem ipsum dolor sit</li>
+                        <li style={styles.sectionPoints}>Lorem ipsum dolor sit</li>
+                    </ul>
+                </div>
+            </div>
         </div>
     )
 }
@@ -77,7 +81,6 @@ function CardText(info){
         <p style={styles.cardText}>Lorem ipsum dolor sit amet, consect adipiscing elit, sed do eiusmod tempor  consecr adipiscing elit, sed do eiusmod tempor</p>
     )
 }
-
 function InfoLabel({name}){
     return (
         <>
@@ -104,29 +107,6 @@ const styles = {
         "position": "relative",
         "top": "30px",
         "fontSize": "40px",
-    },
-    sectionTitle: {
-        "textAlign": "left",
-        "position": "relative",
-        "top": "75px",
-        "left": "45px",
-        "fontSize": "40px",
-    },
-    sectionCard: {
-        "position": "relative",
-        "top": "8%",
-        "left": "45px",
-        "width": "543px",
-        "height": "570px",
-        "backgroundColor": "#797979",
-        "borderRadius": "10px",
-    },
-    listItem: {
-        fontSize: "32px",
-        marginTop: "50px",
-        marginLeft: "45px",
-        float: "left",
-        color: "white",
     },
     paragraph: {
         "fontSize": "36px",
@@ -166,8 +146,8 @@ const styles = {
     },
     infoLabel: {
         fontSize: "24px",
-        cursor: "pointer",
-        width: "166px",
+        fontWeight: "bold",
+        width: "195px",
         height: "61px",
         marginLeft: "75px",
         marginRight: "75px",
@@ -176,7 +156,52 @@ const styles = {
     },
     infoButtonContainer: {
         position: "relative",
-        marginTop: "50px"
+        marginTop: "50px",
     },
+    sectionCard: {
+        backgroundColor: "#797979",
+        width: "fit-content",
+        height: "585px",
+        borderRadius: "10px",
+
+    },
+    sectionHeader: {
+        fontSize: "30pt",
+        textAlign: "left",
+        margin: "auto",
+        paddingLeft: "50px",
+        paddingRight: "50px",
+        width: "443px",
+        color: "#FFFFFF"
+
+    },
+    sectionPoints: {
+        fontSize: "28pt",
+        textAlign: "left",
+        listStylePosition: "inside",
+        color: "#FFFFFF"
+
+    },
+    sectionContentContainer: {
+        width: "fit-content",
+        height: "fit-content",
+        margin: "0",
+        position: "relative",
+        top: "50%",
+        left: "50%",
+        transform: "translate(-50%, -50%)"
+    },
+    ul: {
+
+    },
+    sectionCardContainer: {
+        position: "absolute",
+        left: "45px",
+    },
+    sectionTitle: {
+        fontSize: "38pt",
+        textAlign: "left"
+    }
+
 
 }

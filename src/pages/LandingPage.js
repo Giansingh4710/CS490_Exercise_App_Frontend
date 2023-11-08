@@ -24,6 +24,7 @@ const styles = {
   container: {
     textAlign: 'center',
     backgroundColor: "#ABABAB",
+    overflow: "hidden"
   },
 }
 

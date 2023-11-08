@@ -1,5 +1,6 @@
-import RedirectButton from '../RedirectButton';
+import Button from '../LandingPageButton';
 import Logo from "../Logo";
+import { Link } from 'react-router-dom';
 
 export default function Navbar() {
 	let buttonSizeStyle = {
@@ -14,8 +15,8 @@ export default function Navbar() {
 			</div>
 			<div style={styles.spacer}></div>
 			<div style={styles.navbarButtonsContainer}>
-				<RedirectButton name="Login" redirect="Login" additionalStyles={buttonSizeStyle}/>
-				<RedirectButton name="Register" redirect="Register" additionalStyles={buttonSizeStyle}/>
+				<Link to="/Login"><Button name="LOGIN" additionalStyles={buttonSizeStyle}/></Link>
+				<Link to="/Register"><Button name="REGISTER" additionalStyles={buttonSizeStyle}/></Link>
 			</div>
 		</div>
   )

@@ -1,11 +1,12 @@
-import { useNavigate } from 'react-router-dom';
+import { Link } from "react-router-dom";
+import Button from "../LandingPageButton";
 
 export default function Splash(){
     return (
         <div style={styles.div}>
             <Title />
             <SplashParagraph />
-            <SignUpButton name="Sign Up Now!"/>
+            <Link to="/Register"><Button name="Sign Up Now!" additionalStyles={styles.button}/></Link>
         </div>
     )
 }
@@ -22,27 +23,6 @@ function SplashParagraph(){
     )
 }
 
-function SignUpButton({name}){
-    const navigate = useNavigate();
-	const handleClick = () => {
-		navigate("/Register")
-	};
-
-    const hover = (e) => {
-        e.target.style.background = 'white';
-        e.target.style.color = "#797979";
-
-    }
-    const unHover = (e) => {
-        e.target.style.background = '#797979';
-        e.target.style.color = "white";
-    }
-
-	return (
-		<button style={styles.button} onClick={handleClick} onMouseEnter={hover} onMouseLeave={unHover}>{name}</button>
-	)
-}
-
 const styles = {
     div: {
         "height": "750px",
@@ -52,24 +32,25 @@ const styles = {
         "textAlign": "center",
         "fontSize": "64px",
         "fontWeight": "bold",
-        "marginTop": "10%"
+        "marginTop": "10%",
+        color: "white"
     },
     paragraph: {
         "fontSize": "36px",
         "margin": "auto",
         "width": "1040px",
+        color: "white"
     },  
     button: {
-        backgroundColor: "#797979",
-        color: "white",
-        fontSize: "24px",
+        backgroundColor: "#D9D9D9",
+        color: "#00000",
         cursor: "pointer",
         marginRight: "auto",
         width: "273px",
         height: "62px",
-        borderRadius: "10px",
+
         marginTop: "60px",
-        border: "none"
+
       },
 
 }

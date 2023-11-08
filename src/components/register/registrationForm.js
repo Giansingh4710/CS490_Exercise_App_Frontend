@@ -1,4 +1,6 @@
-import InputElement from "../InputElement"
+import InputElement from "../AccountInputElement"
+import Button from "../LandingPageButton";
+
 export default function RegistrationForm(){
     return (
         <div style={styles.div}>
@@ -8,25 +10,9 @@ export default function RegistrationForm(){
                 <InputElement type="password" name="PASSWORD" placeholder="Password" label="Enter Password"/>
                 <InputElement type="password" name="REPASSWORD" placeholder="Re-Enter Password" label="Re-Enter Password"/>
             </form>
-            <Button name={"Sign Up"}/>
+            <Button name={"Sign Up"} additionalStyles={styles.button}/>
         </div>
     )
-}
-
-function Button({name}){
-    const hover = (e) => {
-        e.target.style.background = 'white';
-        e.target.style.color = "#797979";
-
-    }
-    const unHover = (e) => {
-        e.target.style.background = '#797979';
-        e.target.style.color = "white";
-    }
-
-	return (
-		<button style={styles.button} onMouseEnter={hover} onMouseLeave={unHover}>{name}</button>
-	)
 }
 
 const styles = {

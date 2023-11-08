@@ -1,5 +1,6 @@
-import RedirectButton from "../RedirectButton";
+import Button from "../LandingPageButton";
 import Logo from "../Logo";
+import { Link } from "react-router-dom";
 
 export default function Navbar() {
 	let additionalStyles = {
@@ -15,7 +16,7 @@ export default function Navbar() {
 				<Logo size="50"/>
 			</div>
 			<div style={styles.spacer}></div>
-			<RedirectButton name="Register" redirect="Register" additionalStyles={additionalStyles}/>
+			<Link to="/Register"><Button name="REGISTER" additionalStyles={additionalStyles}/></Link>
 		</div>
   )
 }
