@@ -1,26 +1,34 @@
-export default function InputElement({type, name, placeholder, additionalStyles, label, options, units}){
+export default function InputElement({type, name, placeholder, additionalStyles, label, options, onChange, elementError}){
+    const handleChange = (event) => {
+        const inputValue = event.target.value;
+        onChange(name, inputValue);
+    };
+
     if(type === "select"){
         return (
             <div style={styles.inputElementContainer}>
-                <p style={styles.label}>{label}</p>
-                <Dropdown options={options} additionalStyles={additionalStyles}/>
+                <p style={styles.label}><span style={styles.required}>*</span> {label}</p>
+                <Dropdown options={options} additionalStyles={additionalStyles} onChange={handleChange}/>
+                <p style={styles.error}>{elementError}</p>
             </div>
         )
     }
+
     return (
         <div style={styles.inputElementContainer}>
-            <p style={styles.label}>{label}</p>
-            <input type={type} name={name} placeholder={placeholder} style={{...styles.inputField, ...additionalStyles}} />
+            <p style={styles.label}><span style={styles.required}>*</span> {label}</p>
+            <input type={type} name={name} placeholder={placeholder} onChange={handleChange} style={{...styles.inputField, ...additionalStyles}} required/>
+            <p style={styles.error}>{elementError}</p>
         </div>
     )
 }
 
-function Dropdown({options, additionalStyles}){
+function Dropdown({options, additionalStyles, onChange}){
     return (
-        <select style={{...styles.inputField, ...additionalStyles}}>
+        <select style={{...styles.inputField, ...additionalStyles}} onChange={onChange}>
             {    
                 options.map((option, index) => (
-                    <option key={index} value={option}> {option} </option>
+                    <option key={index} value={index}> {option} </option>
                 ))
             }
         </select>
@@ -44,14 +52,10 @@ const styles = {
         fontWeight: "bold",
         color: "#000000"
     },
-    inputUnit: {
-        position: "relative",
-        float: "right",
-        paddingRight: "5px",
-        top: "32px",
-        zIndex: "1",
-        color: "#000000",
-        fontWeight: "bold"
-
+    required: {
+        color: "#FF5C5C"
+    },
+    error: {
+        color: "#FF5C5C"
     }
 }

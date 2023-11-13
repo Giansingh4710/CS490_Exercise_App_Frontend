@@ -1,31 +1,239 @@
+import { useState } from 'react';
 import InputElement from '../AccountInputElement';
 
 export default function SurveyForm(){
     const genderOptions = ["Select Gender","Male", "Female", "Other"]
     const roleOptions = ["Select User","Coach", "Client"]
-    const activityOptions = ["Select Activity Level","Low", "Moderate", "High"]
-    const goalOptions = ["Select Goal","Lose Weight", "Gain Weight", "Maintain Weight", "Build Muscle"]
+    const activityOptions = ["Select Activity Level","Sedentary", "Moderate Activity", "High Activity"]
+    const goalOptions = ["Select Goal","Lose Weight", "Gain Weight", "Maintain Weight", "Train for Sport"]
+    const [formData, setFormData] = useState({
+        firstName: '',
+        lastName: '',
+        email: '',
+        phone: '',
+        dob: '',
+        gender: '',
+        weight: '',
+        height: '',
+        role: '',
+        activityLevel: '',
+        goal: '',
+    });
+
+    const [firstName, setFirstNameError] = useState({
+        error: null,
+        errorText: ""
+    });
+
+    const [lastName, setLastNameError] = useState({
+        error: null,
+        errorText: ""
+    });
+
+    const [email, setEmailError] = useState({
+        error: null,
+        errorText: ""
+    });
+
+    const [phone, setPhoneError] = useState({
+        error: null,
+        errorText: ""
+    });
+
+    const [gender, setGenderError] = useState({
+        error: null,
+        errorText: ""
+    });
+
+    const [dob, setDOBError] = useState({
+        error: null,
+        errorText: ""
+    });
+
+    const [weight, setWeightError] = useState({
+        error: null,
+        errorText: ""
+    });
+
+    const [height, setHeightError] = useState({
+        error: null,
+        errorText: ""
+    });
+
+    const [role, setRoleError] = useState({
+        error: null,
+        errorText: ""
+    });
+
+    const [activityLevel, setActivityLevelError] = useState({
+        error: null,
+        errorText: ""
+    });
+
+    const [goal, setGoalError] = useState({
+        error: null,
+        errorText: ""
+    });
+    const handleInputChange = (key, value) => {
+        setFormData({
+            ...formData,
+            [key]: value,
+        });
+    }
+
+    const handleSubmit = (event) => {
+        event.preventDefault();
+
+        // add validation for name using regex
+        if(formData.firstName.length < 2){
+            setFirstNameError({
+                error: true,
+                errorText: "First Name must be longer than 2 characters"
+            });
+        }else{
+            setFirstNameError({
+                error: false,
+                firstName: ""
+            });
+        }
+        
+        if(formData.lastName.length < 2){
+            setLastNameError({
+                error: true,
+                errorText: "Last Name must be longer than 2 characters"
+            });
+        }else{
+            setLastNameError({
+                error: false,
+                errorText: ""
+            });
+        }
+
+        if(formData.gender === "0"){
+            setGenderError({
+                error: true,
+                errorText: "Please choose a gender"
+            });
+        }else{
+            setGenderError({
+                error: false,
+                errorText: ""
+            });
+            setFormData({
+                ...formData,
+                gender: genderOptions[formData.gender],
+            })
+        }
+
+        if(formData.role === "0"){
+            setRoleError({
+                error: true,
+                errorText: "Please choose a role"
+            });
+        }else{
+            setRoleError({
+                error: false,
+                errorText: ""
+            });
+            setFormData({
+                ...formData,
+                role: roleOptions[formData.role],
+            })
+        }
+
+        if(formData.activityLevel === "0"){
+            setActivityLevelError({
+                error: true,
+                errorText: "Please choose an activity level"
+            });
+        }else{
+            setActivityLevelError({
+                error: false,
+                errorText: ""
+            });
+            setFormData({
+                ...formData,
+                activityLevel: activityOptions[formData.activityLevel],
+            })
+        }
+
+        if(formData.goal === "0"){
+            setGoalError({
+                error: true,
+                errorText: "Please choose a goal"
+            });
+        }else{
+            setGoalError({
+                error: false,
+                errorText: ""
+            });
+            setFormData({
+                ...formData,
+                goal: goalOptions[formData.goal],
+            })
+        }
+
+        // email validation is handeled by tag
+
+        if(formData.phone.length !== 10){
+            setPhoneError({
+                error: true,
+                errorText: "Please enter a valid phone number. No Dashes"
+            })
+        }else{
+            setPhoneError({
+                error: false,
+                errorText: ""
+            })
+        }
+
+        if(formData.weight <= 0){
+            setWeightError({
+                error: true,
+                errorText: "Please enter a valid weight"
+            })
+        }else{
+            setWeightError({
+                error: false,
+                errorText: ""
+            })
+        }
+
+        if(formData.height <= 0){
+            setHeightError({
+                error: true,
+                errorText: "Please enter a valid height"
+            })
+        }else{
+            setHeightError({
+                error: false,
+                errorText: ""
+            })
+        }
+
+    }
+
     return (
         <div style={styles.formContainer}>
-            <form style={styles.form}>
-                <InputGridElement type="text" name="First Name" placeholder="First name" gridArea="a" />
-                <InputGridElement type="text" name="Last Name" placeholder="Last name" gridArea="b" />
-                <InputGridElement type="email" name="Email" placeholder="Email" gridArea="c" />
-                <InputGridElement type="tel" name="Phone Number" placeholder="Phone Number" gridArea="d" />
-                <InputGridElement type="date" name="Date of Birth" gridArea="e" />
-                <InputGridElement type="select" name="Gender" placeholder="Gender" gridArea="f" options={genderOptions} />
-                <InputGridElement type="text" name="Weight" placeholder="Weight" gridArea="g" units="lbs" />
-                <InputGridElement type="text" name="Height" placeholder="Height" gridArea="h" units="in"/>
-                <InputGridElement type="select" name="Role" placeholder="Role" gridArea="i" options={roleOptions}/>
-                <InputGridElement type="select" name="Activity Level" placeholder="Activity Level" gridArea="j" options={activityOptions}/>
-                <InputGridElement type="select" name="Goal" placeholder="Goal" gridArea="k" options={goalOptions}/>
-                <Button name="Submit"/>
+            <form style={styles.form} onSubmit={handleSubmit}>
+                <InputGridElement type="text" name="firstName" label="First Name" placeholder="First name" gridArea="a" elementError={firstName.errorText} onChange={handleInputChange}/>
+                <InputGridElement type="text" name="lastName" label="Last Name" placeholder="Last name" gridArea="b" elementError={lastName.errorText} onChange={handleInputChange}/>
+                <InputGridElement type="email" name="email" label="Email" placeholder="Email" gridArea="c" elementError={email.errorText} onChange={handleInputChange}/>
+                <InputGridElement type="tel" name="phone" label="Phone Number" placeholder="Phone Number" gridArea="d" elementError={phone.errorText} onChange={handleInputChange}/>
+                <InputGridElement type="date" name="dob" label="Date of Birth"gridArea="e" elementError={dob.errorText} onChange={handleInputChange}/>
+                <InputGridElement type="select" name="gender" label="Gender" placeholder="Gender" gridArea="f" options={genderOptions} elementError={gender.errorText} onChange={handleInputChange}/>
+                <InputGridElement type="text" name="weight" label="Weight" placeholder="Weight" gridArea="g" units="lbs" elementError={weight.errorText} onChange={handleInputChange}/>
+                <InputGridElement type="text" name="height" label="Height" placeholder="Height" gridArea="h" units="in" elementError={height.errorText} onChange={handleInputChange}/>
+                <InputGridElement type="select" name="role" label="Role" placeholder="Role" gridArea="i" options={roleOptions} elementError={role.errorText} onChange={handleInputChange}/>
+                <InputGridElement type="select" name="activityLevel" label="Activity Level" placeholder="Activity Level" gridArea="j" options={activityOptions} elementError={activityLevel.errorText} onChange={handleInputChange}/>
+                <InputGridElement type="select" name="goal" label="Goal" placeholder="Goal" gridArea="k" options={goalOptions} elementError={goal.errorText} onChange={handleInputChange}/>
+                <Button name="Submit" type="submit"/>
             </form>
         </div>
     )
 }
 
-function InputGridElement({type, name, placeholder, gridArea, options, units}){
+function InputGridElement({type, name, label, placeholder, gridArea, options, units, onChange, elementError}){
     let gridPosition = {
         "gridArea": gridArea
     }
@@ -36,7 +244,7 @@ function InputGridElement({type, name, placeholder, gridArea, options, units}){
         return (
             <div style={gridPosition}>
                 <span style={styles.inputUnit}>{units}</span>
-                <InputElement type={type} name={name} placeholder={placeholder} label={name} additionalStyles={additionalStyles} options={options}/>
+                <InputElement type={type} name={name} placeholder={placeholder} label={label} additionalStyles={additionalStyles} options={options} onChange={onChange} elementError={elementError}/>
             </div>
         ) 
     }
@@ -67,7 +275,7 @@ const styles = {
     div: {
         position: "absolute",
         top: "50%",
-        left: "27%"
+        left: "27%",
     },
     form: {
         display: "grid",
@@ -98,7 +306,8 @@ const styles = {
         width: "153px",
         height: "57px",
         display: "block",
-        margin: "auto"
+        margin: "auto",
+        marginBottom: "50px"
 
     
     },

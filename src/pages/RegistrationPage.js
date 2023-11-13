@@ -22,7 +22,7 @@ const styles = {
 		height: "100%",
 	},
 	formContainer: {
-		marginTop: "5%"
+		// marginTop: "5%"
 	}
 }
 export default RegistrationPage
