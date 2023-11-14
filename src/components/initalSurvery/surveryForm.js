@@ -80,7 +80,7 @@ export default function SurveyForm(){
             [key]: value,
         });
     }
-
+    
     const handleSubmit = (event) => {
         event.preventDefault();
 
@@ -119,6 +119,7 @@ export default function SurveyForm(){
                 error: false,
                 errorText: ""
             });
+            alert(genderOptions[formData.gender]);
             setFormData({
                 ...formData,
                 gender: genderOptions[formData.gender],
@@ -210,6 +211,7 @@ export default function SurveyForm(){
                 errorText: ""
             })
         }
+        alert(formData.gender);
 
     }
 
