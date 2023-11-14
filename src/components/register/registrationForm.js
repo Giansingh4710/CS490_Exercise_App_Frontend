@@ -6,8 +6,8 @@ import { useNavigate } from 'react-router-dom';
 export default function RegistrationForm(){
     const nav = useNavigate();
     const [formData, setFormData] = useState({
-        email: '',
-        password: '',
+        Email: '',
+        Password: '',
         confirm_password: '',
     });
 
@@ -24,7 +24,7 @@ export default function RegistrationForm(){
         event.preventDefault();
         // email input handled by type=email
         // Client side password match validation
-        if(formData.password !== formData.confirm_password){
+        if(formData.Password !== formData.confirm_password){
             setError({...setError,
                  hasError: true,
                  errorText: "ERROR: Passwords do not match."
@@ -37,10 +37,30 @@ export default function RegistrationForm(){
            });
         }
 
-        // server side validation - email is not already registered,
+        // server side validation and submission - email is not already registered,
+        fetch("http://127.0.0.1:1313/register/", {
+                method: "POST",
+                mode: "cors",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Access-Control-Allow-Origin": '*'
+                },
+                body: JSON.stringify(formData)
+            })
+        .then(response => {
+            console.log(response);
+            if(response.status === 400){
+                setError({
+                    ...error,
+                    hasError: true,
+                    errorText: "ERROR: Email is already registered"
+                })
+            }else if(response.status === 201){
+                nav("/Register/Survey", {state: {email: formData.email}});
+            }
+        })
 
         // for demo purpose bypass above and send to inital survery page
-        nav("/Register/Survey", {state: {email: formData.email}});
 
     }
 
@@ -54,10 +74,10 @@ export default function RegistrationForm(){
     return (
         <div style={styles.div}>
             <form style={styles.form} onSubmit={handleSubmit} >
-                <InputElement type="email" name="email" placeholder="youremail@example.com" label="EMAIL"
+                <InputElement type="email" name="Email" placeholder="youremail@example.com" label="EMAIL"
                     additionalStyles={additionalStyles}
                     onChange={handleInputChange}/>
-                <InputElement type="password" name="password" placeholder="Password" label="PASSWORD" onChange={handleInputChange} />
+                <InputElement type="password" name="Password" placeholder="Password" label="PASSWORD" onChange={handleInputChange} />
                 <InputElement type="password" name="confirm_password" placeholder="Confirm Password" label="CONFIRM PASSWORD" onChange={handleInputChange}/>
                 <Button name="Create Account" type="submit" additionalStyles={styles.button}/>
             </form>

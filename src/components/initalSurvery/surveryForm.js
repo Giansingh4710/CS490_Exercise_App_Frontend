@@ -1,23 +1,25 @@
 import { useState } from 'react';
 import InputElement from '../AccountInputElement';
+import { useNavigate } from 'react-router-dom';
 
 export default function SurveyForm(){
+    const nav = useNavigate();
     const genderOptions = ["Select Gender","Male", "Female", "Other"]
     const roleOptions = ["Select User","Coach", "Client"]
     const activityOptions = ["Select Activity Level","Sedentary", "Moderate Activity", "High Activity"]
     const goalOptions = ["Select Goal","Lose Weight", "Gain Weight", "Maintain Weight", "Train for Sport"]
     const [formData, setFormData] = useState({
-        firstName: '',
-        lastName: '',
-        email: '',
-        phone: '',
-        dob: '',
-        gender: '',
-        weight: '',
-        height: '',
-        role: '',
-        activityLevel: '',
-        goal: '',
+        FirstName: '',
+        LastName: '',
+        Email: '',
+        PhoneNum: '',
+        DOB: '',
+        Gender: '',
+        Weight: '',
+        Height: '',
+        Role: '',
+        ActivityLevel: '',
+        Goal: '',
     });
 
     const [firstName, setFirstNameError] = useState({
@@ -74,6 +76,7 @@ export default function SurveyForm(){
         error: null,
         errorText: ""
     });
+
     const handleInputChange = (key, value) => {
         setFormData({
             ...formData,
@@ -84,8 +87,7 @@ export default function SurveyForm(){
     const handleSubmit = (event) => {
         event.preventDefault();
 
-        // add validation for name using regex
-        if(formData.firstName.length < 2){
+        if(formData.FirstName.length < 2){
             setFirstNameError({
                 error: true,
                 errorText: "First Name must be longer than 2 characters"
@@ -97,7 +99,7 @@ export default function SurveyForm(){
             });
         }
         
-        if(formData.lastName.length < 2){
+        if(formData.LastName.length < 2){
             setLastNameError({
                 error: true,
                 errorText: "Last Name must be longer than 2 characters"
@@ -109,7 +111,7 @@ export default function SurveyForm(){
             });
         }
 
-        if(formData.gender === "0"){
+        if(formData.Gender === "0"){
             setGenderError({
                 error: true,
                 errorText: "Please choose a gender"
@@ -121,11 +123,11 @@ export default function SurveyForm(){
             });
             setFormData({
                 ...formData,
-                gender: genderOptions[formData.gender],
+                gender: genderOptions[formData.Gender],
             })
         }
 
-        if(formData.role === "0"){
+        if(formData.Role === "0"){
             setRoleError({
                 error: true,
                 errorText: "Please choose a role"
@@ -137,7 +139,7 @@ export default function SurveyForm(){
             });
             setFormData({
                 ...formData,
-                role: roleOptions[formData.role],
+                Role: roleOptions[formData.Role],
             })
         }
 
@@ -153,11 +155,11 @@ export default function SurveyForm(){
             });
             setFormData({
                 ...formData,
-                activityLevel: activityOptions[formData.activityLevel],
+                ActivityLevel: activityOptions[formData.activityLevel],
             })
         }
 
-        if(formData.goal === "0"){
+        if(formData.Goal === "0"){
             setGoalError({
                 error: true,
                 errorText: "Please choose a goal"
@@ -169,13 +171,13 @@ export default function SurveyForm(){
             });
             setFormData({
                 ...formData,
-                goal: goalOptions[formData.goal],
+                Goal: goalOptions[formData.Goal],
             })
         }
 
         // email validation is handeled by tag
 
-        if(formData.phone.length !== 10){
+        if(formData.PhoneNum.length !== 10){
             setPhoneError({
                 error: true,
                 errorText: "Please enter a valid phone number. No Dashes"
@@ -187,7 +189,7 @@ export default function SurveyForm(){
             })
         }
 
-        if(formData.weight <= 0){
+        if(formData.Weight <= 0){
             setWeightError({
                 error: true,
                 errorText: "Please enter a valid weight"
@@ -199,7 +201,7 @@ export default function SurveyForm(){
             })
         }
 
-        if(formData.height <= 0){
+        if(formData.Height <= 0){
             setHeightError({
                 error: true,
                 errorText: "Please enter a valid height"
@@ -211,22 +213,44 @@ export default function SurveyForm(){
             })
         }
 
+        fetch("http://127.0.0.1:1313/register/initalSurvey/", {
+            method: "POST",
+            mode: "cors",
+            headers: {
+                "Content-Type": "application/json",
+                "Access-Control-Allow-Origin": '*'
+            },
+            body: JSON.stringify(formData)
+        })
+        .then(response => {
+            console.log(response);
+            console.log(formData);
+            if(response.status === 404){
+                setEmailError({
+                    hasError: true,
+                    errorText: response.error_message
+                })
+            }else if(response.status === 200){
+                nav("/UserDashboard");
+            }
+        })
+
     }
 
     return (
         <div style={styles.formContainer}>
             <form style={styles.form} onSubmit={handleSubmit}>
-                <InputGridElement type="text" name="firstName" label="First Name" placeholder="First name" gridArea="a" elementError={firstName.errorText} onChange={handleInputChange}/>
-                <InputGridElement type="text" name="lastName" label="Last Name" placeholder="Last name" gridArea="b" elementError={lastName.errorText} onChange={handleInputChange}/>
-                <InputGridElement type="email" name="email" label="Email" placeholder="Email" gridArea="c" elementError={email.errorText} onChange={handleInputChange}/>
-                <InputGridElement type="tel" name="phone" label="Phone Number" placeholder="Phone Number" gridArea="d" elementError={phone.errorText} onChange={handleInputChange}/>
-                <InputGridElement type="date" name="dob" label="Date of Birth"gridArea="e" elementError={dob.errorText} onChange={handleInputChange}/>
-                <InputGridElement type="select" name="gender" label="Gender" placeholder="Gender" gridArea="f" options={genderOptions} elementError={gender.errorText} onChange={handleInputChange}/>
-                <InputGridElement type="text" name="weight" label="Weight" placeholder="Weight" gridArea="g" units="lbs" elementError={weight.errorText} onChange={handleInputChange}/>
-                <InputGridElement type="text" name="height" label="Height" placeholder="Height" gridArea="h" units="in" elementError={height.errorText} onChange={handleInputChange}/>
-                <InputGridElement type="select" name="role" label="Role" placeholder="Role" gridArea="i" options={roleOptions} elementError={role.errorText} onChange={handleInputChange}/>
-                <InputGridElement type="select" name="activityLevel" label="Activity Level" placeholder="Activity Level" gridArea="j" options={activityOptions} elementError={activityLevel.errorText} onChange={handleInputChange}/>
-                <InputGridElement type="select" name="goal" label="Goal" placeholder="Goal" gridArea="k" options={goalOptions} elementError={goal.errorText} onChange={handleInputChange}/>
+                <InputGridElement type="text" name="FirstName" label="First Name" placeholder="First name" gridArea="a" elementError={firstName.errorText} onChange={handleInputChange}/>
+                <InputGridElement type="text" name="LastName" label="Last Name" placeholder="Last name" gridArea="b" elementError={lastName.errorText} onChange={handleInputChange}/>
+                <InputGridElement type="email" name="Email" label="Email" placeholder="Email" gridArea="c" elementError={email.errorText} onChange={handleInputChange}/>
+                <InputGridElement type="tel" name="PhoneNum" label="Phone Number" placeholder="Phone Number" gridArea="d" elementError={phone.errorText} onChange={handleInputChange}/>
+                <InputGridElement type="date" name="DOB" label="Date of Birth"gridArea="e" elementError={dob.errorText} onChange={handleInputChange}/>
+                <InputGridElement type="select" name="Gender" label="Gender" placeholder="Gender" gridArea="f" options={genderOptions} elementError={gender.errorText} onChange={handleInputChange}/>
+                <InputGridElement type="text" name="Weight" label="Weight" placeholder="Weight" gridArea="g" units="lbs" elementError={weight.errorText} onChange={handleInputChange}/>
+                <InputGridElement type="text" name="Height" label="Height" placeholder="Height" gridArea="h" units="in" elementError={height.errorText} onChange={handleInputChange}/>
+                <InputGridElement type="select" name="Role" label="Role" placeholder="Role" gridArea="i" options={roleOptions} elementError={role.errorText} onChange={handleInputChange}/>
+                <InputGridElement type="select" name="ActivityLevel" label="Activity Level" placeholder="Activity Level" gridArea="j" options={activityOptions} elementError={activityLevel.errorText} onChange={handleInputChange}/>
+                <InputGridElement type="select" name="Goal" label="Goal" placeholder="Goal" gridArea="k" options={goalOptions} elementError={goal.errorText} onChange={handleInputChange}/>
                 <Button name="Submit" type="submit"/>
             </form>
         </div>
