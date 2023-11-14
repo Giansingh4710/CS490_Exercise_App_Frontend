@@ -329,6 +329,32 @@ export default function SurveyForm(){
             errorFlag = errorFlag || false;
         }
 
+        if(!formData.email.match("^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$")){
+            setEmailError({
+                error: true,
+                errorText: "Please enter a valid email"
+            })
+            errorFlag = true
+        }else{
+            setEmailError({
+                error: false,
+                errorText: ""
+            })
+            errorFlag = errorFlag || false;
+        }
+        alert(formData.dob);
+        if(formData.dob.length === 0){
+            setDOBError({
+                error: true,
+                errorText: "Please enter a date"
+            })
+        }else{
+            setDOBError({
+                error: false,
+                errorText: ""
+            })
+        }
+
         if(!errorFlag){
             alert("form submitted")
         }
