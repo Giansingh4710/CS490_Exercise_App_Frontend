@@ -9,6 +9,7 @@ export default function CoachesOverview({
 }) {
   const [viewCoachesOrSentRequests, setViewCoachesOrSentRequests] =
     useState("Coaches");
+  const [viewFilters, setViewFilters] = useState(false);
 
   const handleOnSentRequestsTabClick = () => {
     setViewCoachesOrSentRequests("Sent Requests");
@@ -44,7 +45,7 @@ export default function CoachesOverview({
         </div>
       </div>
       <SearchForCoachByName />
-      <div>filter by:</div>
+      <div>Show filters</div>
       <FilterForCoaches />
       {listOfCoaches?.length <= 0 ? (
         <div>No Coaches Available!</div>
@@ -74,8 +75,8 @@ export function SearchForCoachByName() {
 export function FilterForCoaches() {
   var availability = ["morning", "afternoon", "night"];
   return (
-    <div className="sort-by">
-      <div className="sort-by-dropdown">
+    <div className="select-availability">
+      <div className="select-availability-dropdown">
         <select
           name="selectList"
           id="selectList"
