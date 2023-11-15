@@ -5,7 +5,7 @@ export default function DataUnit(){
     let additionalStyles = {
         width: "273px",
         height: "62px",
-        marginTop: "80px",
+        marginTop: "200px",
     }
     return (
         <>
