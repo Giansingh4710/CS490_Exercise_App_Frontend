@@ -13,13 +13,13 @@ export default function Splash(){
 
 function Title(){
     return (
-        <h1 style={styles.title}>Welome to "Name of App"</h1>
+        <h1 style={styles.title}>Welome to FitFusion</h1>
     )
 }
 
 function SplashParagraph(){
     return (
-        <p style={styles.paragraph}>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat</p>
+        <p style={styles.paragraph}>Discover a healthier, happier you with FitFusion. This is where expert coaching, activity tracking, and mood management converge. Tailored insights and personal guidance at your fingertips, fostering your journey towards well-being. Your goals, our mission. Start transforming today!</p>
     )
 }
 

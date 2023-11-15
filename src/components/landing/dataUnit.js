@@ -6,16 +6,15 @@ export default function DataUnit(){
         width: "273px",
         height: "62px",
         marginTop: "80px",
-        // fontSize: "28pt",
     }
     return (
         <>
             <div style={styles.div}>
-                <Title text="SEE WHAT [INSERT COMPANY NAME] CAN DO FOR YOU"/>
+                <Title text="SEE WHAT FITFUSION CAN DO FOR YOU"/>
                 <div style={styles.cardContainer}>
-                    <InfoCard title="LOREM IPSUM" text="Lorem ipsum dolor sit amet, consect adipiscing elit, sed do eiusmod tempor  consecr adipiscing elit, sed do eiusmod tempor"/>
-                    <InfoCard title="LOREM IPSUM" text="Lorem ipsum dolor sit amet, consect adipiscing elit, sed do eiusmod tempor  consecr adipiscing elit, sed do eiusmod tempor"/>
-                    <InfoCard title="LOREM IPSUM" text="Lorem ipsum dolor sit amet, consect adipiscing elit, sed do eiusmod tempor  consecr adipiscing elit, sed do eiusmod tempor"/>
+                    <InfoCard title="CONNECT" text="In FitFusion, discover a world of expert coaches. Get tailored guidance at your fingertips, making personal connections that helps transform goals into reality."/>
+                    <InfoCard title="TRACK" text="With FitFusion, every activity and calorie counts. Precision tracking meets intuitive design, empowering you with insights for a healthier lifestyle."/>
+                    <InfoCard title="ACHIEVE" text="Achieve holistic well-being with FitFusion. Embrace mood tracking for emotional balance, helping you paving the way to a happier and more fulfilled you."/>
                 </div>
                 <Link to="/Register"><Button name="Sign Up!" additionalStyles={additionalStyles}/></Link>
             </div>
@@ -32,25 +31,10 @@ function Title({text}){
 function InfoCard({title, text}){
     return (
         <div style={styles.card}>
-            <CardTitle title={title}/>
-            <CardImage />
-            <CardText info={text}/>
+            <h4 style={styles.cardTitle}>{title}</h4>
+            <img src={'./images/img_default.png'} alt="this is a something" style={styles.image}/>
+            <p style={styles.cardText}>{text}</p>
         </div>
-    )
-}
-function CardTitle({title}){
-    return(
-        <h4 style={styles.cardTitle}>{title}</h4>
-    )
-}
-function CardImage(img){
-    return (
-        <img src={'./images/img_default.png'} alt="this is a something" style={styles.image}/>
-    )
-}
-function CardText(info){
-    return (
-        <p style={styles.cardText}>Lorem ipsum dolor sit amet, consect adipiscing elit, sed do eiusmod tempor  consecr adipiscing elit, sed do eiusmod tempor</p>
     )
 }
 
@@ -91,18 +75,17 @@ const styles = {
     card: {
         margin: "auto",
         width: "350px",
-        position: "relative",
     },
     cardContainer: {
         display: "grid",
         gridTemplateColumns : "1fr 1fr 1fr",
         position: "relative",
-        top: "5%"
+        top: "5%",
     },
     cardText: {
         margin: "auto",
         color: "#FFFFFF",
-        fontSize: "36px",
+        fontSize: "30px",
     },
     infoLabel: {
         fontSize: "24px",
