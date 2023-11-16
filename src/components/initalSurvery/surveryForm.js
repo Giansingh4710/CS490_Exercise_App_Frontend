@@ -360,7 +360,7 @@ export default function SurveyForm(){
            return; 
         }
 
-        fetch("https://cs490-exerciseproj-backend.azurewebsites.net/register/initalSurvey/", {
+        fetch("https://127.0.0.1:1313/register/survey", {
             method: "POST",
             mode: "cors",
             headers: {

@@ -38,7 +38,7 @@ export default function RegistrationForm(){
         }
 
         // server side validation and submission - email is not already registered,
-        fetch("https://cs490-exerciseproj-backend.azurewebsites.net/register/", {
+        fetch("http://127.0.0.1:1313/register/", {
                 method: "POST",
                 mode: "cors",
                 headers: {
@@ -48,7 +48,7 @@ export default function RegistrationForm(){
                 body: JSON.stringify(formData)
             })
         .then(response => {
-            console.log(response);
+            console.log(response.status);
             if(response.status === 400){
                 setError({
                     ...error,
