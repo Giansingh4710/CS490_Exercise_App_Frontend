@@ -360,7 +360,7 @@ export default function SurveyForm(){
            return; 
         }
 
-        fetch("http://127.0.0.1:1313/register/initalSurvey/", {
+        fetch("https://cs490-exerciseproj-backend.azurewebsites.net/register/initalSurvey/", {
             method: "POST",
             mode: "cors",
             headers: {
@@ -370,8 +370,6 @@ export default function SurveyForm(){
             body: JSON.stringify(formData)
         })
         .then(response => {
-            console.log(response);
-            console.log(formData);
             if(response.status === 404){
                 setEmailError({
                     hasError: true,
