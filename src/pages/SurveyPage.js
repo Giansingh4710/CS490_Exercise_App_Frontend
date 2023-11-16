@@ -1,10 +1,11 @@
-import Navbar from "../components/initalSurvery/navbar"
-import SurveyForm from "../components/initalSurvery/surveryForm"
+import Navbar from '../components/Navbar.jsx'
+import SurveyForm from '../components/initalSurvery/surveryForm'
+
 function SurveyPage() {
   return (
     <div style={styles.container}>
-        <Navbar/>
-        <SurveyForm />
+      <Navbar page='survey' />
+      <SurveyForm />
     </div>
   )
 }
@@ -12,8 +13,8 @@ function SurveyPage() {
 const styles = {
   container: {
     textAlign: 'center',
-    backgroundColor: "#FFFFFF",
-    height: "100%",
+    backgroundColor: '#FFFFFF',
+    height: '100%',
   },
 }
 

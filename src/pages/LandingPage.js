@@ -1,13 +1,13 @@
-import Navbar from "../components/landing/navbar"
+import Navbar from '../components/Navbar.jsx'
 import Splash from "../components/landing/splash"
 import DataUnit from "../components/landing/dataUnit"
-import '../components/styles.css'
+import './styles.css'
 
 // const BASE_BACKEND_URL = 'http://127.0.0.1:1313'
 function LandingPage() {
   return (
     <div style={styles.container}>
-        <Navbar />
+        <Navbar page="landing" />
         <Splash />
         <DataUnit />
       {/* <button onClick={()=>{

@@ -1,13 +1,13 @@
-import Navbar from "../components/login/navbar"
+import Navbar from '../components/Navbar.jsx'
 import LoginForm from "../components/login/loginForm"
 import ForgotPassword from "../components/login/forgotPassword"
 import Logo from "../components/Logo"
-import '../components/styles.css'
+import './styles.css'
 
 function LoginPage() {
   return (
 	<div style={styles.container}>
-		<Navbar />
+		<Navbar page="login"/>
 		<div style={styles.formContainer}>
 			<Logo size="200"/>
 			<LoginForm />
