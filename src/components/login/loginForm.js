@@ -23,7 +23,7 @@ export default function LoginForm(){
     const handleSubmit = (event) => {
         event.preventDefault();
 
-        fetch("http://127.0.0.1:1313/login/", {
+        fetch("https://cs490-exerciseproj-backend.azurewebsites.net/login/", {
             method: "POST",
             mode: "cors",
             headers: {
