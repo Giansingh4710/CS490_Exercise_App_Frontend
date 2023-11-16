@@ -38,7 +38,7 @@ export default function RegistrationForm(){
         }
 
         // server side validation and submission - email is not already registered,
-        fetch("http://127.0.0.1:1313/register/", {
+        fetch("https://cs490-exerciseproj-backend.azurewebsites.net/register/", {
                 method: "POST",
                 mode: "cors",
                 headers: {
