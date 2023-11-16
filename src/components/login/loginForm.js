@@ -1,13 +1,65 @@
 import InputElement from "../AccountInputElement";
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 export default function LoginForm(){
+    const nav = useNavigate();
+    const [formData, setFormData] = useState({
+        Email: '',
+        Password: ''
+    });
+    const [error, setError] = useState({
+        hasError: null,
+        errorText: ''
+    })
+
+    const handleInputChange = (key, value) => {
+        setFormData({
+            ...formData,
+            [key]: value,
+        });
+    }
+
+    const handleSubmit = (event) => {
+        event.preventDefault();
+
+        fetch("https://cs490-exerciseproj-backend.azurewebsites.net/login/", {
+            method: "POST",
+            mode: "cors",
+            headers: {
+                "Content-Type": "application/json",
+                "Access-Control-Allow-Origin": '*'
+            },
+            body: JSON.stringify(formData)
+        })
+        .then(response => {
+        console.log(response);
+        if(response.status === 404){
+            setError({
+                ...error,
+                hasError: true,
+                errorText: "ERROR: Email is not registered"
+            })
+        }else if(response.status === 401){
+            setError({
+                ...error,
+                hasError: true,
+                errorText: "ERROR: Incorrect Username or Password"
+            })
+        }else if(response.status === 200){
+            nav("/UserDashboard");
+        }
+    })
+    }
+
     return (
         <div style={styles.div}>
-            <form style={styles.form}>
-                <InputElement type="email" name="email" placeholder="Enter Email" label="Enter Email"/>
-                <InputElement type="password" name="password" placeholder="Enter Password" label="Enter Password"/>
+            <form style={styles.form} onSubmit={handleSubmit}>
+                <InputElement type="email" name="Email" placeholder="Enter Email" label="Enter Email" onChange={handleInputChange}/>
+                <InputElement type="password" name="Password" placeholder="Enter Password" label="Enter Password" onChange={handleInputChange}/>
+                <Button name={"Login"}/>
             </form>
-            <Button name={"Login"}/>
+            {error.hasError != null && <p style={styles.formError}>{error.errorText}</p>}
         </div>
     )
 }
@@ -51,5 +103,9 @@ const styles = {
         marginTop: "50px",
         border: "none",
         fontWeight: "bold"
-      },
+    },
+    formError: {
+        color: "#FF5C5C",
+        fontStyle: "italic",
+    }
 }
