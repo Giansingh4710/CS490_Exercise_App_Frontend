@@ -1,11 +1,11 @@
 import React from "react";
 import "./CoachView.css";
 
-export default function CoachView() {
-  return (
+export default function CoachView({ selectedCoach }) {
+  return selectedCoach ? (
     <div className="coach-view">
       <div className="coach-header">
-        <h2>NAME OF COACH</h2>
+        <h2>{selectedCoach.name}</h2>
         <button
           className="request-btn"
           // onClick={() => handleOnEditClick()}
@@ -25,6 +25,12 @@ export default function CoachView() {
           <h3 className="about-me-header">ABOUT ME</h3>
           <div>COACHES DETAILS/INTRODUCTION </div>
         </div>
+      </div>
+    </div>
+  ) : (
+    <div className="coach-view">
+      <div className="coach-header">
+        <h2>No coach selected</h2>
       </div>
     </div>
   );

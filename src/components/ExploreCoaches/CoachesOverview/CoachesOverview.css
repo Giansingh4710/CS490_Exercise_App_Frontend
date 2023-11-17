@@ -1,7 +1,12 @@
+* {
+  box-sizing: border-box;
+}
+
 .coaches-overview {
   padding: 10px 30px 10px 30px;
-  width: 200px;
-  min-width: 200px;
+  min-width: 300px;
+  max-width: 400px;
+  /* min-width: 200px; */
   background-color: white;
   box-shadow: 0 1px 20px 0 rgb(69 90 100 / 8%);
   display: flex;
@@ -14,9 +19,10 @@
   justify-content: space-between;
   align-items: center;
 }
-
 .tab {
   cursor: pointer;
+  width: 110px;
+  text-align: center;
 }
 
 .tab:hover {
@@ -25,4 +31,86 @@
 
 .selected {
   font-weight: bolder;
+}
+
+.coach-search {
+  position: relative;
+  width: 100%;
+  /* display: flex;
+  flex-direction: row; */
+  /* widht: 100 */
+}
+
+.coach-search input {
+  width: 100%;
+}
+
+.coach-search input {
+  width: 100%;
+  border: 1px solid darkgray;
+  border-radius: 10px;
+  padding: 5px;
+  padding-left: 10px;
+  outline: none;
+  box-shadow: 0 1px 10px 0 rgba(78, 101, 112, 0.08);
+}
+
+.coach-search input::placeholder {
+  color: rgb(197, 197, 197);
+  font-style: italic;
+}
+.coach-search button {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background: transparent;
+  outline: none;
+  border: none;
+  color: rgb(197, 197, 197);
+  cursor: pointer;
+}
+
+/* ------------ filters styling --------- */
+.filter-container {
+  display: flex;
+  flex-direction: row;
+  /* justify-content: space-between; */
+  padding-top: 10px;
+  padding-bottom: 10px;
+  /* align-items: center; */
+  /* justify-content: center; */
+}
+
+.filter-label {
+  padding-right: 20px;
+  /* font-weight: bold; */
+}
+
+.filter-container select {
+  width: 100%;
+  text-align: center;
+}
+
+/*----- coach card styling -----*/
+.coach-card {
+  background-color: rgb(248, 247, 247);
+  /* border: 1px solid gray; */
+  cursor: pointer;
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+  padding-top: 10px;
+  padding-left: 5px;
+}
+.coach-card p {
+  margin: 0;
+  padding: 0;
+}
+.coach-card:hover {
+  box-shadow: 0 1px 10px 0 rgba(78, 101, 112, 0.08);
+}
+
+.coach-card-selected {
+  background: rgb(223, 223, 223);
+
+  box-shadow: 0 1px 10px 0 rgba(78, 101, 112, 0.08);
 }

@@ -7,22 +7,21 @@ import CoachView from "./CoachView/CoachView";
 // components broken down:
 // ExploreCoaches is the overall page
 // CoachOverview is the search/filter area for coaches
-// CoachCard is the individual result with the name of the coach based on the search/filter results
-// CoachView is the details page for the coach selected
+// CoachView is the detailed area for a selected coach
 
 export default function ExploreCoaches() {
   const [listOfCoaches, setListOfCoaches] = useState([]);
   const [selectedCoach, setSelectedCoach] = useState("");
+  // setListOfCoaches([]);
   return (
     <div className="explore-coaches">
       <CoachesOverview
         listOfCoaches={listOfCoaches}
         setListOfCoaches={setListOfCoaches}
-      />
-      <CoachView
-        selectedCoach={selectedCoach}
         setSelectedCoach={setSelectedCoach}
+        selectedCoach={selectedCoach}
       />
+      <CoachView selectedCoach={selectedCoach} />
     </div>
   );
 }

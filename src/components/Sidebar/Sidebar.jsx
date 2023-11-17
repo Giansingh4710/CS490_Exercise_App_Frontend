@@ -18,7 +18,7 @@ export function SideBarIcons() {
           <Link to="/">
             <div className="sidebar-icon">
               <span className="material-symbols-outlined">run_circle</span>
-              <span className="icon-text"> APP NAME </span>
+              <span className="icon-text"> FITFUSION </span>
             </div>
           </Link>
         </div>
