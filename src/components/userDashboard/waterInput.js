@@ -33,20 +33,20 @@ const WaterInputModal = () => {
   };
 
   return (
-    <div>
-      <h2>Add Water Input</h2>
-      <label>
-        Amount:
-        <input
+    <div style={styles.div}>
+      <h2 style={styles.h2}>Today's Water Intake</h2>
+      <label style={styles.label1}>
+        AMOUNT OF WATER
+        <input style={styles.input}
           type="number"
           step="0.01"
           value={amount}
           onChange={handleAmountChange}
         />
       </label>
-      <label>
-        Unit:
-        <select value={unit} onChange={handleUnitChange}>
+      <label style={styles.label2}>
+        MEASUREMENT
+        <select value={unit} onChange={handleUnitChange} style={styles.select}>
           <option value="fl oz">fl oz</option>
           <option value="cups">cups</option>
           <option value="gallons">gallons</option>
@@ -57,4 +57,60 @@ const WaterInputModal = () => {
   );
 };
 
+const styles = {
+  div: {
+    width: "500px",
+    height: "250px",
+    backgroundColor: "#FFFFFF",
+    position: "relative",
+  },
+
+  h2: {
+    color: "#000",
+    fontSize: "36px",
+    fontFamily: "Inter",
+    fontWeight: "700",
+    lineHeight: "normal",
+  },
+
+  label1: {
+    color: "#000",
+    fontSize: "20px",
+    fontFamily: "Inter",
+    fontWeight: "700",
+    lineHeight: "normal",
+    position: "absolute",
+    left:"0px"
+  },
+
+  input: {
+    width: "257px",
+    height: "45px",
+    borderRadius: "10px",
+    background: "#D9D9D9",
+    position: "relative",
+    left: "-240px",
+    bottom: "-30px"
+  },
+
+  label2: {
+    color: "#000",
+    fontSize: "20px",
+    fontFamily: "Inter",
+    fontWeight: "700",
+    lineHeight: "normal",
+    position: "absolute",
+    right:"-100px"
+  },
+
+  select: {
+    width: "174px",
+    height: "45px",
+    borderRadius: "10px",
+    background: "#D9D9D9",
+    position: "relative",
+    right: "165px",
+    bottom: "-30px"
+  }
+};
 export default WaterInputModal;
