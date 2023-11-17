@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useState } from "react";
 import "./CoachesOverview.css";
 
@@ -31,7 +31,7 @@ export default function CoachesOverview({
 }) {
   const [viewCoachesOrSentRequests, setViewCoachesOrSentRequests] =
     useState("Coaches");
-  const [viewFilters, setViewFilters] = useState(false);
+  //   const [viewFilters, setViewFilters] = useState(false);
 
   const handleOnSentRequestsTabClick = () => {
     setViewCoachesOrSentRequests("Sent Requests");
