@@ -103,12 +103,20 @@ function LandingNav() {
     spacer: {
       flexGrow: '1',
     },
+    logoText: { 
+      color: '#FFFFFF', 
+      marginLeft: '10px', 
+      fontSize: '24px', 
+      fontWeight: 'bold', 
+    },
   }
   return (
     <div style={styles.navbar}>
       <div style={styles.logo}>
         <Logo size='50' />
       </div>
+      <span style={styles.logoText}>FitFusion</span> {/* Adding the text next to the logo */}
+
       <div style={styles.spacer}></div>
       <div style={styles.navbarButtonsContainer}>
         <Link to='/Login'>
