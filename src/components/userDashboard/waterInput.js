@@ -52,7 +52,7 @@ const WaterInputModal = () => {
           <option value="gallons">gallons</option>
         </select>
       </label>
-      <button onClick={handleSubmit}>Submit</button>
+      <button style={styles.button} onClick={handleSubmit}>Submit</button>
     </div>
   );
 };
@@ -80,16 +80,16 @@ const styles = {
     fontWeight: "700",
     lineHeight: "normal",
     position: "absolute",
-    left:"0px"
+    left:"20px"
   },
 
   input: {
-    width: "257px",
+    width: "225px",
     height: "45px",
     borderRadius: "10px",
     background: "#D9D9D9",
     position: "relative",
-    left: "-240px",
+    left: "-210px",
     bottom: "-30px"
   },
 
@@ -111,6 +111,13 @@ const styles = {
     position: "relative",
     right: "165px",
     bottom: "-30px"
+  },
+
+  button: {
+    bottom: "-100px",
+    position: "relative",
+    width: "150px",
+    height: "25px"
   }
 };
 export default WaterInputModal;
