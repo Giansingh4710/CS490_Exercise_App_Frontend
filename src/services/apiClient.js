@@ -34,14 +34,14 @@ class ApiClient {
   // ----------------------- authentication ----------------------- //
   async login(credentials) {
     return await this.request({
-      endpoint: `auth/login`,
+      endpoint: `login`,
       method: `POST`,
       data: credentials,
     });
   }
   async register(credentials) {
     return await this.request({
-      endpoint: `auth/register`,
+      endpoint: `register`,
       method: `POST`,
       data: credentials,
     });
