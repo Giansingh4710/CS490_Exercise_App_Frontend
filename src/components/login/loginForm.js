@@ -20,7 +20,7 @@ export default function LoginForm() {
     });
   };
 
-  const { user, setUser } = useAuthContext();
+  const { setUser } = useAuthContext();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -35,10 +35,11 @@ export default function LoginForm() {
       apiClient.setToken(data.token);
     }
     if (error) {
+      const errorMessage = error ? error : "An unknown error occurred";
       setError({
         ...error,
         hasError: true,
-        errorText: error,
+        errorText: "ERROR: " + errorMessage,
       });
     }
   };

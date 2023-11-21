@@ -26,8 +26,7 @@ export function AppContainer() {
 }
 
 export function App() {
-  const { user, setUser, setInitialized, setIsProcessing, setError } =
-    useAuthContext();
+  const { user, setUser } = useAuthContext();
 
   useEffect(() => {
     const fetchUserInfo = async () => {
@@ -35,19 +34,13 @@ export function App() {
       if (data) {
         setUser(data.user);
       }
-      setInitialized(true);
-      setIsProcessing(false);
     };
     const token = localStorage.getItem("fitness_token");
 
     if (token) {
       apiClient.setToken(token);
-      setIsProcessing(true);
-      setError(null);
       fetchUserInfo();
     }
-    setIsProcessing(false);
-    setInitialized(true);
   }, [setUser]);
 
   return (

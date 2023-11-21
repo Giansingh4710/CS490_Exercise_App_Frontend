@@ -26,7 +26,8 @@ class ApiClient {
       return { data: res.data, error: null };
     } catch (error) {
       console.error({ errorResponse: error.response });
-      const message = error?.response?.data?.error?.message;
+      const message = error?.response?.data?.error;
+      console.log("message:", message);
       return { data: null, error: message || String(error) };
     }
   }
@@ -55,4 +56,5 @@ class ApiClient {
   }
 }
 
-export default new ApiClient(API_BASE_URL);
+const apiClient = new ApiClient(API_BASE_URL);
+export default apiClient;

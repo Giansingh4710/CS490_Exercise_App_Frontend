@@ -6,7 +6,6 @@ import { useAuthContext } from "../../contexts/auth";
 
 export default function RegistrationForm() {
   const { setUser } = useAuthContext();
-  const [errors, setErrors] = useState({});
   const [formData, setFormData] = useState({
     Email: "",
     Password: "",
@@ -42,12 +41,17 @@ export default function RegistrationForm() {
       Email: formData.Email,
       Password: formData.Password,
     });
+    console.log("ERROR:", error);
     if (data) {
+      console.log("ERROR:", error);
+
       setUser(data.user);
       apiClient.setToken(data.token);
     }
     if (error) {
-      setErrors((e) => ({ ...e, form: error }));
+      console.log("ERROR:", error);
+
+      setError((e) => ({ ...e, form: error.error }));
     }
     // for demo purpose bypass above and send to inital survery page
   };
