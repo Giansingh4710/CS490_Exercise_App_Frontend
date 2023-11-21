@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import "./Sidebar.css";
+import { useAuthContext } from "../../contexts/auth";
 
 export default function Sidebar() {
   return (
@@ -11,6 +12,8 @@ export default function Sidebar() {
 }
 
 export function SideBarIcons() {
+  const { logoutUser } = useAuthContext();
+
   return (
     <div className="sidebar-icons">
       <div className="top-sidebar">
@@ -71,7 +74,7 @@ export function SideBarIcons() {
           </div>
         </Link>
         <Link to="/">
-          <div className="sidebar-icon">
+          <div className="sidebar-icon" onClick={logoutUser}>
             <span className="material-symbols-outlined">logout</span>
             <span className="icon-text"> Log Out </span>
           </div>

@@ -1,59 +1,99 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import "./index.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-
-import LandingPage from './pages/LandingPage';
-import RegistrationPage from './pages/RegistrationPage';
-import LoginPage from './pages/LoginPage'
-import SurveyPage from './pages/SurveyPage'
-import UserDashboard from './pages/UserDashboard';
-// import Sidebar from "./components/Sidebar/Sidebar";
+import { useEffect } from "react";
+import apiClient from "./services/apiClient";
+import { useAuthContext } from "./contexts/auth";
+import { AuthContextProvider } from "./contexts/auth";
+import LandingPage from "./pages/LandingPage";
+import RegistrationPage from "./pages/RegistrationPage";
+import LoginPage from "./pages/LoginPage";
+import SurveyPage from "./pages/SurveyPage";
+import UserDashboard from "./pages/UserDashboard";
+import Sidebar from "./components/Sidebar/Sidebar";
 import MyCoach from "./components/MyCoach/MyCoach";
 import ExploreCoaches from "./components/ExploreCoaches/ExploreCoaches";
+import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
+import NotFound from "./components/NotFound/NotFound";
+import "./index.css";
 
+export function AppContainer() {
+  return (
+    <AuthContextProvider>
+      <App />
+    </AuthContextProvider>
+  );
+}
 
-function App() {
-    // const [token, setToken] = useState(null);
-    // if(token == null){
-    //     return(
-    //         <BrowserRouter>
-    //         <main>
-    //             <Routes>
-    //                 <Route path="/" element={<LandingPage />} />
-    //             </Routes>
-    //         </main>
-    //             {/* we will need to add logic here to determine whether a user is logged 
-    //             in, if they are logged in, show sidebar, if not show landing page */}
-    //             {/* Commented out sidebar for now until user login is completed */}
-    //             {/* <Sidebar /> */}
-    //         </BrowserRouter>
-    //     )
-    // }
-    return (
-        <BrowserRouter>
-        <main>
-            <Routes>
-                <Route path="/" element={<LandingPage />} />
-                <Route path="/Register" element={<RegistrationPage />} />
-                <Route path="/Login" element={<LoginPage />} />
-                <Route path="/Register/Survey" element={<SurveyPage />} />
-                <Route path="/UserDashboard" element={<UserDashboard />} />
-                <Route path="/MyCoach" element={<MyCoach />} />
-                <Route path="/ExploreCoaches" element={<ExploreCoaches />} />
-            </Routes>
-        </main>
-            {/* we will need to add logic here to determine whether a user is logged 
-            in, if they are logged in, show sidebar, if not show landing page */}
-            {/* Commented out sidebar for now until user login is completed */}
-            {/* <Sidebar /> */}
-        </BrowserRouter>
+export function App() {
+  const { user, setUser } = useAuthContext();
+
+  useEffect(() => {
+    const fetchUserInfo = async () => {
+      const { data } = await apiClient.fetchUserFromToken();
+      if (data) {
+        setUser(data.user);
+      }
+    };
+    const token = localStorage.getItem("fitness_token");
+
+    if (token) {
+      apiClient.setToken(token);
+      fetchUserInfo();
+    }
+  }, [setUser]);
+
+  return (
+    <BrowserRouter>
+      <main>
+        {user?.email ? (
+          <>
+            <Sidebar />
+          </>
+        ) : (
+          <></>
+        )}
+        <Routes>
+          <Route
+            path="/"
+            element={user?.email ? <UserDashboard /> : <LandingPage />}
+          />
+          <Route
+            path="/Login"
+            element={user?.email ? <UserDashboard /> : <LoginPage />}
+          />
+          <Route
+            path="/Register"
+            element={user?.email ? <UserDashboard /> : <RegistrationPage />}
+          />
+
+          <Route
+            path="/UserDashboard"
+            element={<ProtectedRoute element={<UserDashboard />} />}
+          />
+          <Route
+            path="/MyCoach"
+            element={<ProtectedRoute element={<MyCoach />} />}
+          />
+          <Route
+            path="/ExploreCoaches"
+            element={<ProtectedRoute element={<ExploreCoaches />} />}
+          />
+
+          <Route
+            path="/Register/Survey"
+            element={<ProtectedRoute element={<SurveyPage />} />}
+          />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </main>
+    </BrowserRouter>
   );
 }
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <App />
+    <AppContainer />
   </React.StrictMode>
 );

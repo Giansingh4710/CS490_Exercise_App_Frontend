@@ -269,7 +269,6 @@ export function AvailabilityDropdown() {
 }
 
 export function CoachList({ listOfCoaches, setSelectedCoach, selectedCoach }) {
-  console.log(listOfCoaches);
   return (
     <div>
       {listOfCoaches?.length <= 0 ? (
@@ -290,7 +289,6 @@ export function CoachList({ listOfCoaches, setSelectedCoach, selectedCoach }) {
 export function CoachCard({ coach, setSelectedCoach, selectedCoach }) {
   const handleOnCoachClick = () => {
     setSelectedCoach(coach);
-    console.log(selectedCoach);
   };
   return (
     <div
