@@ -1,7 +1,7 @@
-import Navbar from "../components/Navbar.jsx";
-import RegistrationForm from "../components/register/registrationForm";
-import Logo from "../components/Logo";
-import "./styles.css";
+import Navbar from "../Navbar.jsx";
+import RegistrationForm from "./registerForm";
+import Logo from "../Logo";
+import "../styles.css";
 
 function RegistrationPage() {
   return (

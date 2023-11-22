@@ -1,14 +1,12 @@
-import Navbar from '../components/Navbar.jsx'
-import WaterInputModal from '../components/userDashboard/waterInput'
-import MealInputModal from '../components/userDashboard/mealInput'
-import Logo from '../components/Logo'
+import WaterInputModal from './waterInput'
+import MealInputModal from './mealInput'
+import Logo from '../Logo'
 
 function UserDashboard() {
   return (
     <div style={styles.container}>
-      <Navbar page='userDashboard' />
       <div style={styles.logoContainer}>
-        <Logo />
+        <Logo size={100}/>
       </div>
       <WaterInputModal />
       <MealInputModal />
