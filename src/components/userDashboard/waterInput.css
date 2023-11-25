@@ -13,7 +13,7 @@ h2{
     line-height: "normal";
 }
 
-label1{
+#label1{
     color: "#000";
     font-size: "20px";
     font-family: "Inter";
@@ -33,7 +33,7 @@ input{
     bottom: "-30px";
 }
 
-label2{
+#label2{
     color: "#000";
     font-size: "20px";
     font-family: "Inter";

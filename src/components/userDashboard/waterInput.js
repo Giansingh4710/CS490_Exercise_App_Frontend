@@ -38,7 +38,7 @@ const WaterInputModal = () => {
         <link rel='stylesheer' href='waterInput.css'/>
       </head>
       <h2>Today's Water Intake</h2>
-      <label>
+      <label id='label1'>
         AMOUNT OF WATER
         <input
           type="number"
@@ -47,7 +47,7 @@ const WaterInputModal = () => {
           onChange={handleAmountChange}
         />
       </label>
-      <label>
+      <label id='label2'>
         MEASUREMENT
         <select value={unit} onChange={handleUnitChange}>
           <option value="fl oz">fl oz</option>
@@ -60,67 +60,4 @@ const WaterInputModal = () => {
   );
 };
 
-const styles = {
-  div: {
-    width: "500px",
-    height: "250px",
-    backgroundColor: "#FFFFFF",
-    position: "relative",
-  },
-
-  h2: {
-    color: "#000",
-    fontSize: "36px",
-    fontFamily: "Inter",
-    fontWeight: "700",
-    lineHeight: "normal",
-  },
-
-  label1: {
-    color: "#000",
-    fontSize: "20px",
-    fontFamily: "Inter",
-    fontWeight: "700",
-    lineHeight: "normal",
-    position: "absolute",
-    left:"20px"
-  },
-
-  input: {
-    width: "225px",
-    height: "45px",
-    borderRadius: "10px",
-    background: "#D9D9D9",
-    position: "relative",
-    left: "-210px",
-    bottom: "-30px"
-  },
-
-  label2: {
-    color: "#000",
-    fontSize: "20px",
-    fontFamily: "Inter",
-    fontWeight: "700",
-    lineHeight: "normal",
-    position: "absolute",
-    right:"-100px"
-  },
-
-  select: {
-    width: "174px",
-    height: "45px",
-    borderRadius: "10px",
-    background: "#D9D9D9",
-    position: "relative",
-    right: "165px",
-    bottom: "-30px"
-  },
-
-  button: {
-    bottom: "-100px",
-    position: "relative",
-    width: "150px",
-    height: "25px"
-  }
-};
 export default WaterInputModal;
