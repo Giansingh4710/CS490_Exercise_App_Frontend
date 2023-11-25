@@ -33,26 +33,29 @@ const WaterInputModal = () => {
   };
 
   return (
-    <div style={styles.div}>
-      <h2 style={styles.h2}>Today's Water Intake</h2>
-      <label style={styles.label1}>
+    <div>
+      <head>
+        <link rel='stylesheer' href='waterInput.css'/>
+      </head>
+      <h2>Today's Water Intake</h2>
+      <label>
         AMOUNT OF WATER
-        <input style={styles.input}
+        <input
           type="number"
           step="0.01"
           value={amount}
           onChange={handleAmountChange}
         />
       </label>
-      <label style={styles.label2}>
+      <label>
         MEASUREMENT
-        <select value={unit} onChange={handleUnitChange} style={styles.select}>
+        <select value={unit} onChange={handleUnitChange}>
           <option value="fl oz">fl oz</option>
           <option value="cups">cups</option>
           <option value="gallons">gallons</option>
         </select>
       </label>
-      <button style={styles.button} onClick={handleSubmit}>Submit</button>
+      <button onClick={handleSubmit}>Submit</button>
     </div>
   );
 };

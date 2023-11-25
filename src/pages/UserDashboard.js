@@ -28,4 +28,4 @@ const styles = {
     paddingTop: '10%',
   },
 }
-export default UserDashboard
+export default UserDashboard;
