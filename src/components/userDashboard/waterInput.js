@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import './waterInput.css';
 
 const WaterInputModal = () => {
   const [amount, setAmount] = useState('');
@@ -34,9 +35,8 @@ const WaterInputModal = () => {
 
   return (
     <div>
-      <head>
-        <link rel='stylesheer' href='waterInput.css'/>
-      </head>
+      <link rel='stylesheet' href='./waterInput.css'/>
+      <div id='water'>
       <h2>Today's Water Intake</h2>
       <label id='label1'>
         AMOUNT OF WATER
@@ -56,6 +56,7 @@ const WaterInputModal = () => {
         </select>
       </label>
       <button onClick={handleSubmit}>Submit</button>
+      </div>
     </div>
   );
 };

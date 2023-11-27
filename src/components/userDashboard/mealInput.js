@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import './mealInput.css';
 
 const MealInputModal = () => {
   const [mealName, setMealName] = useState('');
@@ -28,6 +29,8 @@ const MealInputModal = () => {
 
   return (
     <div>
+      <link rel='stylesheet' href='./mealInput.css' />
+      <div id='meal'>
       <h2>Add Meal Input</h2>
       <label>
         Meal Name:
@@ -62,6 +65,7 @@ const MealInputModal = () => {
         />
       </label>
       <button onClick={handleSubmit}>Submit</button>
+      </div>
     </div>
   );
 };
