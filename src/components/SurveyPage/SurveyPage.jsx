@@ -1,5 +1,5 @@
-import Navbar from '../components/Navbar.jsx'
-import SurveyForm from '../components/initalSurvery/surveryForm'
+import Navbar from '../Navbar.jsx'
+import SurveyForm from './surveryForm'
 
 function SurveyPage() {
   return (
