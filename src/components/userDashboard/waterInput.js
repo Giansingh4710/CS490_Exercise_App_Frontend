@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
+import './waterInput.css';
 
 const WaterInputModal = () => {
   const [amount, setAmount] = useState('')
@@ -33,94 +34,31 @@ const WaterInputModal = () => {
   }
 
   return (
-    <div style={styles.div}>
-      <h2 style={styles.h2}>Today's Water Intake</h2>
-      <label style={styles.label1}>
+    <div>
+      <link rel='stylesheet' href='./waterInput.css'/>
+      <div id='water'>
+      <h2>Today's Water Intake</h2>
+      <label id='label1'>
         AMOUNT OF WATER
         <input
-          style={styles.input}
           type='number'
           step='0.01'
           value={amount}
           onChange={handleAmountChange}
         />
       </label>
-      <label style={styles.label2}>
+      <label id='label2'>
         MEASUREMENT
-        <select value={unit} onChange={handleUnitChange} style={styles.select}>
-          <option value='fl oz'>fl oz</option>
-          <option value='cups'>cups</option>
-          <option value='gallons'>gallons</option>
+        <select value={unit} onChange={handleUnitChange}>
+          <option value="fl oz">fl oz</option>
+          <option value="cups">cups</option>
+          <option value="gallons">gallons</option>
         </select>
       </label>
-      <button style={styles.button} onClick={handleSubmit}>
-        Submit
-      </button>
+      <button onClick={handleSubmit}>Submit</button>
+      </div>
     </div>
   )
 }
 
-const styles = {
-  div: {
-    width: '500px',
-    height: '250px',
-    backgroundColor: '#FFFFFF',
-    position: 'relative',
-  },
-
-  h2: {
-    color: '#000',
-    fontSize: '36px',
-    fontFamily: 'Inter',
-    fontWeight: '700',
-    lineHeight: 'normal',
-  },
-
-  label1: {
-    color: '#000',
-    fontSize: '20px',
-    fontFamily: 'Inter',
-    fontWeight: '700',
-    lineHeight: 'normal',
-    position: 'absolute',
-    left: '20px',
-  },
-
-  input: {
-    width: '225px',
-    height: '45px',
-    borderRadius: '10px',
-    background: '#D9D9D9',
-    position: 'relative',
-    left: '-210px',
-    bottom: '-30px',
-  },
-
-  label2: {
-    color: '#000',
-    fontSize: '20px',
-    fontFamily: 'Inter',
-    fontWeight: '700',
-    lineHeight: 'normal',
-    position: 'absolute',
-    right: '-100px',
-  },
-
-  select: {
-    width: '174px',
-    height: '45px',
-    borderRadius: '10px',
-    background: '#D9D9D9',
-    position: 'relative',
-    right: '165px',
-    bottom: '-30px',
-  },
-
-  button: {
-    bottom: '-100px',
-    position: 'relative',
-    width: '150px',
-    height: '25px',
-  },
-}
-export default WaterInputModal
+export default WaterInputModal;
