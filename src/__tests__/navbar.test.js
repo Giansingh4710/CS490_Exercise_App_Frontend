@@ -1,14 +1,14 @@
 import React from 'react'
 import { render, screen } from '@testing-library/react'
 import { MemoryRouter } from 'react-router-dom'
-import Navbar from '../components/navbar'
+import Navbar from '../components/Navbar.jsx'
 
 describe('Navbar Component', () => {
   test('renders 2 navigation links', () => {
     render(
       <MemoryRouter>
         <Navbar />
-      </MemoryRouter>
+      </MemoryRouter>,
     )
 
     const links = screen.getAllByRole('link') // Assert that there are three navigation links
@@ -19,7 +19,7 @@ describe('Navbar Component', () => {
     expect(links[0].getAttribute('href')).toBe('/')
     expect(links[1].getAttribute('href')).toBe('/other')
 
-    links.forEach((link) => {
+    links.forEach(link => {
       expect(link.className).toBe('linkATag')
     })
   })
@@ -28,7 +28,7 @@ describe('Navbar Component', () => {
     render(
       <MemoryRouter>
         <Navbar />
-      </MemoryRouter>
+      </MemoryRouter>,
     )
     const linkElement = screen.getByText(/Landing/i)
     expect(linkElement).toBeInTheDocument()

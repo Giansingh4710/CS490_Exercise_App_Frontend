@@ -4,8 +4,6 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { useEffect } from 'react'
 import apiClient from './services/apiClient'
 import { useAuthContext } from './contexts/auth'
-import { AuthContextProvider } from './contexts/auth'
-
 import LandingPage from './components/LandingPage/LandingPage'
 import RegistrationPage from './components/RegistrationPage/RegistrationPage'
 import LoginPage from './components/LoginPage/LoginPage'
@@ -28,8 +26,6 @@ export function AppContainer() {
 
 export function App() {
   const { user, setUser } = useAuthContext()
-  // const user = {email:'bob'}
-  // const setUser = () => {}
 
   useEffect(() => {
     const fetchUserInfo = async () => {
