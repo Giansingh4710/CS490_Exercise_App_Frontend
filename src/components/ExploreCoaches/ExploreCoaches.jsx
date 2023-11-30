@@ -1,8 +1,8 @@
 import React from 'react'
-import { useState, useEffect } from 'react'
 import './ExploreCoaches.css'
 import CoachesOverview from './CoachesOverview/CoachesOverview'
 import CoachView from './CoachView/CoachView'
+import { useState, useEffect } from 'react'
 import apiClient from '../../services/apiClient'
 
 // components broken down:
@@ -11,32 +11,45 @@ import apiClient from '../../services/apiClient'
 // CoachView is the detailed area for a selected coach
 
 export default function ExploreCoaches() {
-  const [listOfCoaches, setListOfCoaches] = useState([])
-  const [selectedCoach, setSelectedCoach] = useState('')
+  const [isLoading, setIsLoading] = useState(false)
+  const [error, setError] = useState('')
+  const [coaches, setCoaches] = useState([])
+  const [selectedCoach, setSelectedCoach] = useState({})
+  const [selectedTab, setSelectedTab] = useState('Coaches')
+  const [sentRequests, setSelectedRequests] = useState([])
 
   const fetchAllCoaches = async () => {
+    setIsLoading(true)
+    setError(null)
     const { data, error } = await apiClient.getAllCoaches()
-
+    console.log('COACHES:', data)
     if (data) {
-      setListOfCoaches(data)
+      setCoaches(data)
     }
     if (error) {
-      setListOfCoaches([])
+      setCoaches([])
     }
+    setIsLoading(false)
   }
 
   useEffect(() => {
     fetchAllCoaches()
+    setSelectedCoach(null)
   }, [])
   return (
     <div className='explore-coaches'>
       <CoachesOverview
-        listOfCoaches={listOfCoaches}
-        setListOfCoaches={setListOfCoaches}
+        coaches={coaches}
+        setCoaches={setCoaches}
         setSelectedCoach={setSelectedCoach}
         selectedCoach={selectedCoach}
       />
-      <CoachView selectedCoach={selectedCoach} />
+      <CoachView
+        selectedCoach={selectedCoach}
+        setSelectedCoach={setSelectedCoach}
+        loading={isLoading}
+        setLoading={setIsLoading}
+      />
     </div>
   )
 }
