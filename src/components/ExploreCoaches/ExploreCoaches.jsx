@@ -1,5 +1,5 @@
 import React from 'react'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import './ExploreCoaches.css'
 import CoachesOverview from './CoachesOverview/CoachesOverview'
 import CoachView from './CoachView/CoachView'
@@ -25,6 +25,9 @@ export default function ExploreCoaches() {
     }
   }
 
+  useEffect(() => {
+    fetchAllCoaches()
+  }, [])
   return (
     <div className='explore-coaches'>
       <CoachesOverview
