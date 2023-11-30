@@ -22,17 +22,13 @@ class ApiClient {
     }
 
     try {
-      const res = await axios({ url, method, data, headers })
-      return { data: res.data, error: null }
-      // console.error({ errorResponse: error.response });
-      const message = error?.response?.data?.error
-      // console.log("message:", message);
-      return { data: null, error: message || String(error) }
+      const res = await axios({ url, method, data, headers });
+      return { data: res.data, error: null };
     } catch (error) {
-      console.error({ errorResponse: error.response })
-      const message = error?.response?.data?.error
-      console.log('message:', message)
-      return { data: null, error: message || String(error) }
+      console.error({ errorResponse: error.response });
+      const message = error?.response?.data?.error;
+      console.log("message:", message);
+      return { data: null, error: message || String(error) };
     }
   }
 
