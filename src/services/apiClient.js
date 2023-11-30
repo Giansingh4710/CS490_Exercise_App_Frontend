@@ -58,14 +58,14 @@ class ApiClient {
   // ----------------------- coaches requests ----------------------- //
   async getAllCoaches() {
     return await this.request({
-      endpoint: `api/coaches`,
+      endpoint: `Coaches/api/coaches`,
       method: `GET`,
     })
   }
 
   async getAllCoachesBySearchTerm(searchTerm) {
     return await this.request({
-      endpoint: `api/coaches-search-name?name=${encodeURIComponent(
+      endpoint: `Coaches/api/coaches-search-name?name=${encodeURIComponent(
         searchTerm,
       )}`,
       method: `GET`,
