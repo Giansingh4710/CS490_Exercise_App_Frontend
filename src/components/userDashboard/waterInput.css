@@ -1,45 +1,44 @@
-/* waterInput.css */
 #water{
-    width: 500px;
-    height: 250px;
-    font-family: 'Arial', sans-serif;
-    background-color: #f0f0f0;
-    top: 50%;
-    left: 20%;
+  width: 500px;
+  height: 250px;
+  font-family: 'Arial', sans-serif;
+  background-color: #f0f0f0;
+  top: 10%;
+  right: 20%;
 }
-  
-  h2 {
-    color: #333;
-    font-size: 24px;
-    margin-bottom: 0px;
-    top: 10px;
-  }
-  
-  label {
-    display: block;
-    margin-bottom: 0px;
-    color: #555;
-  }
-  
-  input, select {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    box-sizing: border-box;
-    margin-bottom: 15px;
-  }
-  
-  button {
-    background-color: #4caf50;
-    color: white;
-    padding: 12px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  
-  button:hover {
-    background-color: #45a049;
-  }
-  
+
+#water h2 {
+  color: #333;
+  font-size: 24px;
+  margin-bottom: 0px;
+  top: 10px;
+}
+
+#water label {
+  display: block;
+  margin-bottom: 0px;
+  color: #555;
+}
+
+#water input, select {
+  width: 80%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+  margin-bottom: 15px;
+}
+
+#water button {
+  background-color: #4caf50;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#water button:hover {
+  background-color: #45a049;
+}
+

@@ -1,15 +1,14 @@
-import WaterInputModal from './waterInput'
-import MealInputModal from './mealInput'
-import Logo from '../Logo'
+import WaterInputModal from './waterInput.js'
+//import MealInputModal from '../components/userDashboard/mealInput'
+import MealTracker from './mealTable.js'
 
 function UserDashboard() {
   return (
     <div style={styles.container}>
       <div style={styles.logoContainer}>
-        <Logo size={100}/>
       </div>
-      <WaterInputModal />
-      <MealInputModal />
+        <MealTracker />
+        <WaterInputModal />
     </div>
   )
 }
@@ -27,3 +26,4 @@ const styles = {
   },
 }
 export default UserDashboard;
+
