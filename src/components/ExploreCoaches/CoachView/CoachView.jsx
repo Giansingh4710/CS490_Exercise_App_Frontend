@@ -5,11 +5,10 @@ import { useState, useEffect } from 'react'
 
 export default function CoachView({ selectedCoach, setSelectedCoach, loading, setLoading }) {
   const [error, setError] = useState('')
-  console.log(selectedCoach)
-  useEffect(() => {}, [selectedCoach])
 
   const handleOnRequestClick = async () => {
-    // handle the reques click here;
+    // handle the request click here
+    // waiting for backend
   }
   return selectedCoach ? (
     loading ? (

@@ -202,17 +202,12 @@ export function CoachList({ coaches, setSelectedCoach, selectedCoach, viewCoache
 }
 export function CoachCard({ coach, selectedCoach, setSelectedCoach, isLoading, setIsLoading }) {
   const handleOnCoachClick = async () => {
-    console.log('BUTTON IN COACH CARD IS BEING CLICKED')
-    // setIsLoading(true)
     try {
       const { data, error } = await apiClient.getCoachByID(coach.CoachID)
       setSelectedCoach(data)
-      console.log('fetched coach: ', data)
     } catch (error) {
       console.error('Failed to fetch coach details:', error)
-      // Handle error appropriately (e.g., show error message to user)
     }
-    // setIsLoading(false)
   }
 
   return (
