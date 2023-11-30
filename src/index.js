@@ -34,6 +34,7 @@ export function App() {
       if (data) {
         setUser(data.user)
       }
+      setIsProcessing(false)
     }
     const token = localStorage.getItem('fitness_token')
 
