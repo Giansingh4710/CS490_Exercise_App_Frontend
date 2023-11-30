@@ -1,15 +1,14 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { useEffect } from 'react'
 import apiClient from './services/apiClient'
 import { useAuthContext } from './contexts/auth'
-import { AuthContextProvider } from './contexts/auth'
-import LandingPage from './pages/LandingPage'
-import RegistrationPage from './pages/RegistrationPage'
-import LoginPage from './pages/LoginPage'
-import SurveyPage from './pages/SurveyPage'
-import UserDashboard from './pages/UserDashboard'
+import LandingPage from './components/LandingPage/LandingPage'
+import RegistrationPage from './components/RegistrationPage/RegistrationPage'
+import LoginPage from './components/LoginPage/LoginPage'
+import SurveyPage from './components/SurveyPage/SurveyPage'
+import UserDashboard from './components/userDashboard/UserDashboard'
 import Sidebar from './components/Sidebar/Sidebar'
 import MyCoach from './components/MyCoach/MyCoach'
 import ExploreCoaches from './components/ExploreCoaches/ExploreCoaches'
@@ -41,18 +40,14 @@ export function App() {
       apiClient.setToken(token)
       fetchUserInfo()
     }
-  }, [setUser])
+  }, [])
+
+  const ShowSidebar = () => (user?.email ? <Sidebar /> : <></>)
 
   return (
     <BrowserRouter>
       <main>
-        {user?.email ? (
-          <>
-            <Sidebar />
-          </>
-        ) : (
-          <></>
-        )}
+        <ShowSidebar />
         <Routes>
           <Route
             path='/'

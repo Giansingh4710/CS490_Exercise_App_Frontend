@@ -13,8 +13,8 @@ class ApiClient {
     localStorage.setItem(this.tokenName, token)
   }
 
-  async request({ endpoint, method = `GET`, data = {} }) {
-    const url = `${this.remoteHostUrl}/${endpoint}`
+  async request({ endpoint, method = 'GET', data = {} }) {
+    const url = `${this.remoteHostUrl}/${endpoint}`;
 
     const headers = {
       'Content-Type': 'application/json',
@@ -24,26 +24,32 @@ class ApiClient {
     try {
       const res = await axios({ url, method, data, headers })
       return { data: res.data, error: null }
-    } catch (error) {
-      console.error({ errorResponse: error.response })
-      const message = error?.response?.data?.error
-      console.log('message:', message)
-      return { data: null, error: message || String(error) }
+      // console.error({ errorResponse: error.response });
+      const message = error?.response?.data?.error;
+      // console.log("message:", message);
+      return { data: null, error: message || String(error) };
     }
   }
 
   // ----------------------- authentication requests ----------------------- //
   async login(credentials) {
     return await this.request({
-      endpoint: `login`,
-      method: `POST`,
+      endpoint: 'login',
+      method: 'POST',
       data: credentials,
     })
   }
   async register(credentials) {
     return await this.request({
-      endpoint: `register`,
-      method: `POST`,
+      endpoint: 'register',
+      method: 'POST',
+      data: credentials,
+    });
+  }
+  async registerSurvey(credentials) {
+    return await this.request({
+      endpoint: '/register/initalSurvey',
+      method: 'POST',
       data: credentials,
     })
   }

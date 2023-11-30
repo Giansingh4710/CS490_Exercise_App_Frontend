@@ -1,0 +1,46 @@
+#meal{
+  width: 500px;
+  height: 400px;
+  font-family: 'Arial', sans-serif;
+  background-color: #f0f0f0;
+  align-items: center;
+  top: 50%;
+  left: 20%;
+}
+
+#meal h2 {
+  background-color: #3F4D67;
+  height: 10%;
+  color: #333;
+  font-size: 24px;
+  margin-bottom: 20px;
+  top: 50%;
+}
+
+#meal label {
+  display: block;
+  margin-bottom: 20px;
+  color: #555;
+}
+
+#meal input {
+  width: 75%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+  margin-bottom: 15px;
+}
+
+#meal button {
+  background-color: #B6B6B6;
+  color: black;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+#meal button:hover {
+  background-color: #45a049;
+}

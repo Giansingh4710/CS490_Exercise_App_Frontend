@@ -1,17 +1,14 @@
-import Navbar from '../components/Navbar.jsx'
-import WaterInputModal from '../components/userDashboard/waterInput'
-import MealInputModal from '../components/userDashboard/mealInput'
-import Logo from '../components/Logo'
+import WaterInputModal from './waterInput.js'
+//import MealInputModal from '../components/userDashboard/mealInput'
+import MealTracker from './mealTable.js'
 
 function UserDashboard() {
   return (
     <div style={styles.container}>
-      <Navbar page='userDashboard' />
       <div style={styles.logoContainer}>
-        <Logo />
       </div>
-      <WaterInputModal />
-      <MealInputModal />
+        <MealTracker />
+        <WaterInputModal />
     </div>
   )
 }
@@ -28,4 +25,5 @@ const styles = {
     paddingTop: '10%',
   },
 }
-export default UserDashboard
+export default UserDashboard;
+
