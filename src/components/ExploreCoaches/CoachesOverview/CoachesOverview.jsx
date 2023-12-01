@@ -25,15 +25,23 @@ components broken down:
     Coach Card
         * an individual card that holds the name of the coach 
 */
-export default function CoachesOverview({ coaches, setCoaches, selectedCoach, setSelectedCoach }) {
+export default function CoachesOverview({
+  coaches,
+  setCoaches,
+  selectedCoach,
+  setSelectedCoach,
+  coachesToDisplay,
+  setCoachesToDisplay,
+  sentRequests,
+}) {
   const [viewCoachesOrSentRequests, setViewCoachesOrSentRequests] = useState('Coaches')
-  //   const [viewFilters, setViewFilters] = useState(false);
-  const [coachesToDisplay, setCoachesToDisplay] = useState([])
+  const [searchTerm, setSearchTerm] = useState('')
 
+  //   const [viewFilters, setViewFilters] = useState(false);
   const handleOnSentRequestsTabClick = () => {
     if (viewCoachesOrSentRequests == 'Coaches') {
       setViewCoachesOrSentRequests('Sent Requests')
-      setCoachesToDisplay([])
+      setCoachesToDisplay(sentRequests)
     }
   }
 
@@ -44,6 +52,16 @@ export default function CoachesOverview({ coaches, setCoaches, selectedCoach, se
     }
   }
 
+  const handleSearch = async () => {
+    try {
+      const { data, error } = await apiClient.getAllCoachesBySearchTerm(searchTerm)
+      setCoachesToDisplay(data)
+    } catch (error) {
+      console.error('Error fetching coaches:', error)
+      // Handle the error appropriately
+    }
+  }
+
   return (
     <div className='coaches-overview'>
       <CoachOrSentRequest
@@ -51,7 +69,11 @@ export default function CoachesOverview({ coaches, setCoaches, selectedCoach, se
         handleOnSentRequestsTabClick={handleOnSentRequestsTabClick}
         handleOnCoachesTabClick={handleOnCoachesTabClick}
       />
-      <SearchForCoachByName />
+      <SearchForCoachByName
+        searchTerm={searchTerm}
+        setSearchTerm={setSearchTerm}
+        handleSearch={handleSearch}
+      />
       <FilterForCoaches />
       <CoachList
         coaches={coachesToDisplay}
@@ -89,13 +111,30 @@ export function CoachOrSentRequest({
   )
 }
 
-export function SearchForCoachByName() {
+export function SearchForCoachByName({ setSearchTerm, searchTerm, handleSearch }) {
+  const handleInputChange = (e) => {
+    setSearchTerm(e.target.value)
+  }
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    handleSearch()
+  }
   return (
     <div className='coach-search'>
-      <input className='search-input' type='text' name='search' placeholder='search for a coach' />
-      <button className='search-btn'>
-        <i className='material-icons'>search</i>
-      </button>
+      <form onSubmit={handleSubmit} className='coach-search'>
+        <input
+          className='search-input'
+          type='text'
+          name='search'
+          placeholder='search for a coach'
+          value={searchTerm}
+          onChange={handleInputChange}
+        />
+        <button className='search-btn'>
+          <i className='material-icons'>search</i>
+        </button>
+      </form>
     </div>
   )
 }
@@ -179,7 +218,6 @@ export function AvailabilityDropdown() {
 
 export function CoachList({ coaches, setSelectedCoach, selectedCoach, viewCoachesOrSentRequests }) {
   const [isLoading, setIsLoading] = useState(false)
-
   useEffect(() => {}, [viewCoachesOrSentRequests])
   return (
     <div>
