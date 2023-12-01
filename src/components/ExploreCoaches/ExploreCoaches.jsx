@@ -24,7 +24,6 @@ export default function ExploreCoaches() {
     setError(null)
     const { data, error } = await apiClient.getAllCoaches()
     if (data) {
-      console.log('DATA:', data)
       setCoaches(data)
       setCoachesToDisplay(data)
     }
