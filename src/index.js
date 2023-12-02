@@ -26,7 +26,7 @@ export function AppContainer() {
 }
 
 export function App() {
-  const { user, setUser } = useAuthContext()
+  const { user, setUser, setIsProcessing } = useAuthContext()
 
   useEffect(() => {
     const fetchUserInfo = async () => {

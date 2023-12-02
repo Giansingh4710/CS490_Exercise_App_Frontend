@@ -33,8 +33,8 @@ export default function RegistrationForm() {
     // return
 
     const { data, error } = await apiClient.register({
-      email: formData.email,
-      password: formData.password,
+      Email: formData.email,
+      Password: formData.password,
     })
 
     if (data) {

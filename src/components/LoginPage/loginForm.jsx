@@ -28,8 +28,8 @@ export default function LoginForm() {
     // setUser({ email: 'bob@gmail.com', id: '12' })
     // return
     const { data, error } = await apiClient.login({
-      email: formData.email,
-      password: formData.password,
+      Email: formData.email,
+      Password: formData.password,
     })
     if (data) {
       setUser(data.user)
