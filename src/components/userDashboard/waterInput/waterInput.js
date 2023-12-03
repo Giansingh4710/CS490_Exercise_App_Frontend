@@ -56,7 +56,7 @@ const WaterInputModal = () => {
           <option value="gallons">gallons</option>
         </select>
       </label>
-      <button onClick={handleSubmit}>Submit</button>
+      <button onClick={handleSubmit}>SUBMIT</button>
       </div>
     </div>
   )
