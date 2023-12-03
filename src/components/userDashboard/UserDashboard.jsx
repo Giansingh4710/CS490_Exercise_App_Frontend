@@ -1,6 +1,6 @@
 import WaterInputModal from './waterInput/waterInput.js'
 //import MealInputModal from '../components/userDashboard/mealInput'
-import MealTracker from './mealTable/mealTable.js'
+import MealTracker from '../userDashboard/mealTable/mealTable.js'
 
 function UserDashboard() {
   return (
