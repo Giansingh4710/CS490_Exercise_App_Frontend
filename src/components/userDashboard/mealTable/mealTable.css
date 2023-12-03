@@ -11,22 +11,22 @@
   
   /* Meal type label styles */
   .meal-type-label {
-    width: 110px;
-    height: 30.06px;
+    width: 50%;
+    height: 10%;
     color: black;
     font-size: 25px;
     font-family: Inter;
     font-weight: 700;
     /*word-wrap: break-word;*/
-    margin-bottom: 2px; /* Added margin-bottom */
+    margin-left: 0%; /* Added margin-bottom */
   }
   
   /* Meal list styles */
   .meal-list {
-    width: 200px;
-    height: auto;
+    width: 35%;
+    height: 10%;
     color: black;
-    font-size: 25px;
+    font-size: 15px;
     font-family: Inter;
     font-weight: 300;
     /*word-wrap: break-word;*/
@@ -36,12 +36,12 @@
   /* Add meal button styles */
   .add-meal-button {
     width: 10%;
-    height: 24.05px;
+    height: 10%;
     color: #AEAEAE;
     font-size: 15px;
     font-family: Inter;
     font-weight: 700;
     /*word-wrap: break-word;*/
-    margin-top: 10px; /* Added margin-top */
+    margin-top: 0px; /* Added margin-top */
   }
   

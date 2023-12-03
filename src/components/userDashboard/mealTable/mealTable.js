@@ -13,8 +13,12 @@ const MealTracker = () => {
   const [isMealInputModalOpen, setMealInputModalOpen] = useState(false);
 
   useEffect(() => {
-    // Fetch meal data from the backend API
-    fetch('https://your-backend-api.com/meals')
+    let token = localStorage.getItem('fitness_token')
+    fetch('https://your-backend-api.com/meals',{
+      headers: {
+        'Authorization': `Bearer ${token}`,
+      },
+    })
       .then((response) => response.json())
       .then((data) => setMeals(data))
       .catch((error) => console.error('Error fetching meal data:', error));
