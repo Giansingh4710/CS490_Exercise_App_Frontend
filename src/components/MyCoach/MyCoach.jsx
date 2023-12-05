@@ -9,6 +9,7 @@ function MyCoach() {
 
   const toggleMessaging = () => setShowMessaging(!showMessaging);
 
+
   // Mock data, replace with your actual data source
   const workouts = {
     monday: [
@@ -49,13 +50,9 @@ function MyCoach() {
       <Navbar page="MyCoach" />
 
       <header className="my-coach-header">
-        <h1>My Coach</h1>
-        <div className="coach-details">
-          <h2>Coach Doe</h2>
-          <button className="terminate-button">Terminate Coach Doe</button>
-          <i className="fas fa-envelope" onClick={toggleMessaging}></i> {/* Mail Icon */}
-        </div>
-      </header>
+  <h1>Coach Name</h1>
+  <i className="fas fa-envelope" onClick={toggleMessaging}></i> {/* Mail Icon */}
+</header>
 
       {showMessaging && <MyMessagesWithCoach coachName="Coach Doe" />}
 
@@ -75,13 +72,18 @@ function MyCoach() {
           </div>
         ))}
       </div>
-
       <footer className="my-coach-footer">
-        <label htmlFor="coach-rating">Rate Coach:</label>
-        <select id="coach-rating">
-          {/* Options */}
-        </select>
-      </footer>
+  <label htmlFor="coach-rating">Rate Coach:</label>
+  <select id="coach-rating">
+    <option value="5">1/5</option>
+    <option value="4">2/5</option>
+    <option value="3">3/5</option>
+    <option value="2">4/5</option>
+    <option value="1">5/5</option>
+  </select>
+  <button className="terminate-button">Terminate Coach Doe</button>
+</footer>
+
     </div>
   );
 }
