@@ -14,7 +14,7 @@ class ApiClient {
   }
 
   async request({ endpoint, method = 'GET', data = {} }) {
-    const url = `${this.remoteHostUrl}/${endpoint}`;
+    const url = `${this.remoteHostUrl}/${endpoint}`
 
     const headers = {
       'Content-Type': 'application/json',
@@ -24,10 +24,11 @@ class ApiClient {
     try {
       const res = await axios({ url, method, data, headers })
       return { data: res.data, error: null }
-      // console.error({ errorResponse: error.response });
-      const message = error?.response?.data?.error;
-      // console.log("message:", message);
-      return { data: null, error: message || String(error) };
+    } catch (error) {
+      console.error({ errorResponse: error.response })
+      const message = error?.response?.data?.error
+      console.log('message:', message)
+      return { data: null, error: message || String(error) }
     }
   }
 
@@ -44,7 +45,7 @@ class ApiClient {
       endpoint: 'register',
       method: 'POST',
       data: credentials,
-    });
+    })
   }
   async registerSurvey(credentials) {
     return await this.request({
@@ -64,23 +65,34 @@ class ApiClient {
   // ----------------------- coaches requests ----------------------- //
   async getAllCoaches() {
     return await this.request({
-      endpoint: `Coaches/api/coaches`,
+      endpoint: `coaches/getAllCoaches`,
       method: `GET`,
     })
   }
 
   async getAllCoachesBySearchTerm(searchTerm) {
     return await this.request({
-      endpoint: `Coaches/api/coaches-search-name?name=${encodeURIComponent(
-        searchTerm,
-      )}`,
+      endpoint: `coaches/searchByName?name=${encodeURIComponent(searchTerm)}`,
       method: `GET`,
     })
   }
 
   async getCoachByID(coachID) {
     return await this.request({
-      endpoint: `Coaches/${coachID}`,
+      endpoint: `coaches/${coachID}`,
+      method: `GET`,
+    })
+  }
+
+  async createNewRequestForCoachingFromClient(coachID) {
+    return await this.request({
+      endpoint: `request/${coachID}`,
+      method: `GET`,
+    })
+  }
+  async getOpenRequestsForCoach() {
+    return await this.request({
+      endpoint: `request/openClientRequest`,
       method: `GET`,
     })
   }

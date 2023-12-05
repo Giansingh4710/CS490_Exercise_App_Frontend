@@ -3,12 +3,20 @@ import './CoachView.css'
 import apiClient from '../../../services/apiClient'
 import { useState, useEffect } from 'react'
 
-export default function CoachView({ selectedCoach, setSelectedCoach, loading, setLoading }) {
+export default function CoachView({
+  selectedCoach,
+  setSelectedCoach,
+  loading,
+  setLoading,
+  setModalIsOpen,
+}) {
   const [error, setError] = useState('')
 
   const handleOnRequestClick = async () => {
     // handle the request click here
     // waiting for backend
+    setModalIsOpen(true)
+    console.log('modal is open')
   }
   return selectedCoach ? (
     loading ? (

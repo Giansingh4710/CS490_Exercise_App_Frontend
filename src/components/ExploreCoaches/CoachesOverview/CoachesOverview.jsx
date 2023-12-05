@@ -17,7 +17,7 @@ components broken down:
         * the search bar and button 
        
     FilterForCoaches
-        * the filters, & has 3 dropdown componenets ReviewDropdown, LocationDropdown, AvailabilityDropdown
+        * the filters, & has 3 dropdown componenets Specialization, LocationDropdown, PriceDropdown
        
     CoachList
         * the container that will hold all the coaches available based on the filter and search
