@@ -10,13 +10,12 @@ function MyCoach() {
   const toggleMessaging = () => setShowMessaging(!showMessaging);
 
 
-  // Mock data, replace with your actual data source
   const workouts = {
     monday: [
       { exercise: 'Squat', sets: 3, reps: [10, 8, 10], weight: 120 },
       { exercise: 'Lunges', sets: 3, reps: [10, 8, 10], weight: 120 }
     ],
-    Tueday: [
+    tueday: [
       { exercise: 'Squat', sets: 3, reps: [10, 8, 10], weight: 120 },
       { exercise: 'Lunges', sets: 3, reps: [10, 8, 10], weight: 120 }
     ],
