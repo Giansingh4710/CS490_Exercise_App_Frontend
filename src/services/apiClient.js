@@ -84,10 +84,13 @@ class ApiClient {
     })
   }
 
-  async createNewRequestForCoachingFromClient(coachID) {
+  // data must include: "userID", "coachID", "goals", "note"
+  async createNewRequestForCoachingFromClient(data) {
+    console.log(data)
     return await this.request({
-      endpoint: `request/${coachID}`,
-      method: `GET`,
+      endpoint: `request`,
+      method: `POST`,
+      data: data,
     })
   }
   async getOpenRequestsForCoach() {

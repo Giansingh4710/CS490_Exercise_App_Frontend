@@ -13,10 +13,7 @@ export default function CoachView({
   const [error, setError] = useState('')
 
   const handleOnRequestClick = async () => {
-    // handle the request click here
-    // waiting for backend
     setModalIsOpen(true)
-    console.log('modal is open')
   }
   return selectedCoach ? (
     loading ? (

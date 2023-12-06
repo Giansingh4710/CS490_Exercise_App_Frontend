@@ -7,7 +7,16 @@ export default function RequestCoachModal({ coach, setModalIsOpen }) {
   const { user } = useAuthContext()
   const [goal, setGoal] = useState('')
   const [message, setMessage] = useState('')
-
+  console.log('USER:', user)
+  const handleOnSubmitClick = async () => {
+    apiClient.createNewRequestForCoachingFromClient({
+      userID: user?.id,
+      coachID: coach.CoachID,
+      goals: goal,
+      note: message,
+    })
+    setModalIsOpen(true)
+  }
   return (
     <div className='request-coach-modal-background'>
       <div className='request-coach-modal-container'>
@@ -40,10 +49,7 @@ export default function RequestCoachModal({ coach, setModalIsOpen }) {
               }}>
               Cancel
             </button>
-            <button
-              className='submit'
-              //   onClick={ }
-            >
+            <button className='submit' onClick={handleOnSubmitClick}>
               Submit
             </button>
           </div>
