@@ -4,6 +4,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { useEffect } from 'react'
 import apiClient from './services/apiClient'
 import { useAuthContext } from './contexts/auth'
+import { AuthContextProvider } from './contexts/auth'
 import LandingPage from './components/LandingPage/LandingPage'
 import RegistrationPage from './components/RegistrationPage/RegistrationPage'
 import LoginPage from './components/LoginPage/LoginPage'
@@ -25,7 +26,7 @@ export function AppContainer() {
 }
 
 export function App() {
-  const { user, setUser } = useAuthContext()
+  const { user, setUser, setIsProcessing } = useAuthContext()
 
   useEffect(() => {
     const fetchUserInfo = async () => {
@@ -33,6 +34,7 @@ export function App() {
       if (data) {
         setUser(data.user)
       }
+      setIsProcessing(false)
     }
     const token = localStorage.getItem('fitness_token')
 
@@ -49,36 +51,18 @@ export function App() {
       <main>
         <ShowSidebar />
         <Routes>
-          <Route
-            path='/'
-            element={user?.email ? <UserDashboard /> : <LandingPage />}
-          />
-          <Route
-            path='/Login'
-            element={user?.email ? <UserDashboard /> : <LoginPage />}
-          />
+          <Route path='/' element={user?.email ? <UserDashboard /> : <LandingPage />} />
+          <Route path='/Login' element={user?.email ? <UserDashboard /> : <LoginPage />} />
           <Route
             path='/Register'
             element={user?.email ? <UserDashboard /> : <RegistrationPage />}
           />
 
-          <Route
-            path='/UserDashboard'
-            element={<ProtectedRoute element={<UserDashboard />} />}
-          />
-          <Route
-            path='/MyCoach'
-            element={<ProtectedRoute element={<MyCoach />} />}
-          />
-          <Route
-            path='/ExploreCoaches'
-            element={<ProtectedRoute element={<ExploreCoaches />} />}
-          />
+          <Route path='/UserDashboard' element={<ProtectedRoute element={<UserDashboard />} />} />
+          <Route path='/MyCoach' element={<ProtectedRoute element={<MyCoach />} />} />
+          <Route path='/ExploreCoaches' element={<ProtectedRoute element={<ExploreCoaches />} />} />
 
-          <Route
-            path='/Register/Survey'
-            element={<ProtectedRoute element={<SurveyPage />} />}
-          />
+          <Route path='/Register/Survey' element={<ProtectedRoute element={<SurveyPage />} />} />
           <Route path='*' element={<NotFound />} />
         </Routes>
       </main>
