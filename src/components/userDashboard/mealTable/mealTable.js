@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import MealInputModal from './mealInput'; // Import your MealInputModal component
+import MealInputModal from '../mealInput/mealInput'; // Import your MealInputModal component
+import './mealTable.css';
 
 const MealTracker = () => {
   const [meals, setMeals] = useState({
@@ -12,11 +13,15 @@ const MealTracker = () => {
   const [isMealInputModalOpen, setMealInputModalOpen] = useState(false);
 
   useEffect(() => {
-    // Fetch meal data from the backend API
-    fetch('https://your-backend-api.com/meals')
-      .then(response => response.json())
-      .then(data => setMeals(data))
-      .catch(error => console.error('Error fetching meal data:', error));
+    let token = localStorage.getItem('fitness_token')
+    fetch('https://your-backend-api.com/meals',{
+      headers: {
+        'Authorization': `Bearer ${token}`,
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => setMeals(data))
+      .catch((error) => console.error('Error fetching meal data:', error));
   }, []);
 
   const handleDeleteMeal = (mealType, mealId) => {
@@ -42,10 +47,10 @@ const MealTracker = () => {
   };
 
   const renderMealType = (mealType) => (
-    <div key={mealType}>
-      <h2>{mealType.charAt(0).toUpperCase() + mealType.slice(1)}</h2>
+    <div key={mealType} className='meal-type-container'>
+      <h2 className='meal-type-label'>{mealType.charAt(0).toUpperCase() + mealType.slice(1)}</h2>
       {meals[mealType].length > 0 ? (
-        <ul>
+        <ul className='meal-list'>
           {meals[mealType].map((meal) => (
             <li key={meal.id}>
               {meal.name} - {meal.calories} calories
@@ -54,9 +59,11 @@ const MealTracker = () => {
           ))}
         </ul>
       ) : (
-        <p>Nothing tracked yet</p>
+        <p className='meal-list'>Nothing tracked yet</p>
       )}
-      <button onClick={() => handleAddMealClick(mealType)}>+ Add a meal</button>
+      <button className='add-meal-button' onClick={() => handleAddMealClick(mealType)}>
+        + a meal
+      </button>
       {selectedMealType === mealType && isMealInputModalOpen && (
         <MealInputModal onClose={() => { setMealInputModalOpen(false); setSelectedMealType(null); }} />
       )}
@@ -64,9 +71,12 @@ const MealTracker = () => {
   );
 
   return (
-    <div>
-      <h1>Today’s Meals</h1>
-      {Object.keys(meals).map((mealType) => renderMealType(mealType))}
+    <div className='meal-table-container'>
+      <div className='background-rectangle'></div>
+      <div>
+        <h1 className='meal-table-heading'>Today’s Meals</h1>
+        {Object.keys(meals).map((mealType) => renderMealType(mealType))}
+      </div>
     </div>
   );
 };

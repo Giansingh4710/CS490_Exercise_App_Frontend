@@ -14,11 +14,12 @@ const WaterInputModal = () => {
   }
 
   const handleSubmit = () => {
-    // Replace 'YOUR_BACKEND_API_URL' with the actual backend API endpoint
-    fetch('YOUR_BACKEND_API_URL', {
+    let token = localStorage.getItem('fitness_token')
+    fetch('http://127.0.0.1:1313/logActivity/logWaterIntake', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        'Authorization': token
       },
       body: JSON.stringify({ amount, unit }),
     })
@@ -55,7 +56,7 @@ const WaterInputModal = () => {
           <option value="gallons">gallons</option>
         </select>
       </label>
-      <button onClick={handleSubmit}>Submit</button>
+      <button onClick={handleSubmit}>SUBMIT</button>
       </div>
     </div>
   )
