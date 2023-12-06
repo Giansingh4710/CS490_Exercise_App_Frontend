@@ -22,13 +22,13 @@ class ApiClient {
     }
 
     try {
-      const res = await axios({ url, method, data, headers });
-      return { data: res.data, error: null };
+      const res = await axios({ url, method, data, headers })
+      return { data: res.data, error: null }
     } catch (error) {
-      console.error({ errorResponse: error.response });
-      const message = error?.response?.data?.error;
-      console.log("message:", message);
-      return { data: null, error: message || String(error) };
+      console.error({ errorResponse: error.response })
+      const message = error?.response?.data?.error
+      console.log('message:', message)
+      return { data: null, error: message || String(error) }
     }
   }
 
@@ -65,21 +65,37 @@ class ApiClient {
   // ----------------------- coaches requests ----------------------- //
   async getAllCoaches() {
     return await this.request({
-      endpoint: `Coaches/api/coaches`,
+      endpoint: `coaches/getAllCoaches`,
       method: `GET`,
     })
   }
 
   async getAllCoachesBySearchTerm(searchTerm) {
     return await this.request({
-      endpoint: `Coaches/api/coaches-search-name?name=${encodeURIComponent(searchTerm)}`,
+      endpoint: `coaches/searchByName?name=${encodeURIComponent(searchTerm)}`,
       method: `GET`,
     })
   }
 
   async getCoachByID(coachID) {
     return await this.request({
-      endpoint: `Coaches/${coachID}`,
+      endpoint: `coaches/${coachID}`,
+      method: `GET`,
+    })
+  }
+
+  // data must include: "userID", "coachID", "goals", "note"
+  async createNewRequestForCoachingFromClient(data) {
+    console.log(data)
+    return await this.request({
+      endpoint: `request`,
+      method: `POST`,
+      data: data,
+    })
+  }
+  async getOpenRequestsForCoach() {
+    return await this.request({
+      endpoint: `request/openClientRequest`,
       method: `GET`,
     })
   }
