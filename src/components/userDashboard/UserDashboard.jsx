@@ -1,18 +1,23 @@
 import WaterInputModal from './waterInput/waterInput.js'
-//import MealInputModal from '../components/userDashboard/mealInput'
 import MealTracker from '../userDashboard/mealTable/mealTable.js'
+import { useState } from 'react'
+import MealInput from './mealInput/mealInput.js'
+import './UserDashboard.css'
 
 function UserDashboard() {
+  const [modalIsOpen, setModalIsOpen] = useState(false)
   return (
-    <div>
-      <div>
-        <h1>ACTIVITY LOGGER</h1>
-      </div>
-        <MealTracker />
+    <>
+      {modalIsOpen && <MealInput setModalIsOpen={setModalIsOpen} />}
+      <div className={modalIsOpen ? 'user-dashboard blurred' : 'user-dashboard'}>
+        <div>
+          <h1>ACTIVITY LOGGER</h1>
+        </div>
+        <MealTracker isMealInputModalOpen={modalIsOpen} setMealInputModalOpen={setModalIsOpen} />
         <WaterInputModal />
-    </div>
+      </div>
+    </>
   )
 }
 
-export default UserDashboard;
-
+export default UserDashboard

@@ -42,7 +42,7 @@ export default function ExploreCoaches() {
   console.log('modalIsOpen: ', modalIsOpen)
   return (
     <>
-      {/* conditionally render the Modal to create a new ticket  */}
+      {/* conditionally render the Modal to send a request  */}
       {modalIsOpen && <RequestCoachModal setModalIsOpen={setModalIsOpen} coach={selectedCoach} />}
       <div className={modalIsOpen ? 'explore-coaches blurred' : 'explore-coaches'}>
         <CoachesOverview
