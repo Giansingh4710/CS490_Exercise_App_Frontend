@@ -4,10 +4,9 @@ import './mealTable.css'
 
 const MealTracker = ({ isMealInputModalOpen, setMealInputModalOpen }) => {
   const [meals, setMeals] = useState({
-    breakfast: [],
-    lunch: [],
-    dinner: [],
-    snacks: [],
+    breakfast: [{ name: 'Blueberry Muffin', calories: 100 }],
+    lunch: [{ name: 'Cheesesteak', calories: 400 }],
+    dinner: [{ name: 'Chicken Alfredo', calories: 400 }],
   })
   const [selectedMealType, setSelectedMealType] = useState(null)
 
@@ -51,9 +50,12 @@ const MealTracker = ({ isMealInputModalOpen, setMealInputModalOpen }) => {
       {meals[mealType].length > 0 ? (
         <ul className='meal-list'>
           {meals[mealType].map((meal) => (
-            <li key={meal.id}>
-              {meal.name} - {meal.calories} calories
-              <button onClick={() => handleDeleteMeal(mealType, meal.id)}>Delete</button>
+            <li key={meal.id} className='meal-line'>
+              <div>{meal.name}</div>
+              <div> {meal.calories} calories </div>
+              <button className='delete-a-meal' onClick={() => handleDeleteMeal(mealType, meal.id)}>
+                <span class='material-symbols-outlined'>delete</span>
+              </button>
             </li>
           ))}
         </ul>
@@ -68,11 +70,8 @@ const MealTracker = ({ isMealInputModalOpen, setMealInputModalOpen }) => {
 
   return (
     <div className='meal-table-container'>
-      <div className='background-rectangle'></div>
-      <div>
-        <h1 className='meal-table-heading'>Today’s Meals</h1>
-        {Object.keys(meals).map((mealType) => renderMealType(mealType))}
-      </div>
+      <h1 className='meal-table-heading'>Today’s Meals</h1>
+      {Object.keys(meals).map((mealType) => renderMealType(mealType))}
     </div>
   )
 }

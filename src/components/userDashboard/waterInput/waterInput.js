@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import './waterInput.css';
+import React, { useState } from 'react'
+import './waterInput.css'
 
 const WaterInputModal = () => {
   const [amount, setAmount] = useState('')
@@ -19,7 +19,7 @@ const WaterInputModal = () => {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': token
+        Authorization: token,
       },
       body: JSON.stringify({ amount, unit }),
     })
@@ -36,30 +36,30 @@ const WaterInputModal = () => {
 
   return (
     <div>
-      <link rel='stylesheet' href='./waterInput.css'/>
-      <div id='water'>
-      <h2>Today's Water Intake</h2>
-      <label id='label1'>
-        AMOUNT OF WATER
-        <input
-          type='number'
-          step='0.01'
-          value={amount}
-          onChange={handleAmountChange}
-        />
-      </label>
-      <label id='label2'>
-        MEASUREMENT
-        <select value={unit} onChange={handleUnitChange}>
-          <option value="fl oz">fl oz</option>
-          <option value="cups">cups</option>
-          <option value="gallons">gallons</option>
-        </select>
-      </label>
-      <button onClick={handleSubmit}>SUBMIT</button>
+      <link rel='stylesheet' href='./waterInput.css' />
+      <div className='water-card-container'>
+        <h1>Today's Water Intake</h1>
+        <div className='input-fields'>
+          <div className='input-field'>
+            <label id='label1'>
+              AMOUNT OF WATER
+              <input type='number' step='0.01' value={amount} onChange={handleAmountChange} />
+            </label>
+          </div>
+          <div className='input-field'>
+            <label id='label2'>
+              MEASUREMENT
+              <select value={unit} onChange={handleUnitChange}>
+                <option value='fl oz'>fl oz</option>
+                <option value='cups'>cups</option>
+                <option value='gallons'>gallons</option>
+              </select>
+            </label>
+          </div>
+        </div>
       </div>
     </div>
   )
 }
 
-export default WaterInputModal;
+export default WaterInputModal

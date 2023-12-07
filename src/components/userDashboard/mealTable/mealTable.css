@@ -1,28 +1,26 @@
 /* Top-level container styles */
 .meal-table-container {
-  padding: 10px 30px 10px 30px;
+  padding: 10px;
   width: 100%;
+  height: 736px;
   background-color: white;
   box-shadow: var(--card-box-shadow);
   display: flex;
   flex-direction: column;
+  overflow-y: auto;
+}
+
+.meal-table-container h1 {
+  margin: 0;
 }
 
 /* Meal type label styles */
 .meal-type-label {
-  width: 50%;
-  height: 10%;
   color: black;
-  font-size: 25px;
-  font-family: Inter;
-  font-weight: 700;
-  /*word-wrap: break-word;*/
-  margin-left: 0%; /* Added margin-bottom */
 }
 
 /* Meal Type Container styles */
 .meal-type-container {
-  margin-left: 10px;
   padding-bottom: 20px;
 }
 .meal-type-container h2,
@@ -36,30 +34,47 @@ p {
   border: none;
   cursor: pointer;
 }
-.meal-type-container button:hover {
+.add-meal-button:hover {
   color: black;
 }
 
 /* Meal list styles */
 .meal-list {
-  width: 35%;
-  height: 10%;
   color: black;
   font-size: 15px;
-  font-family: Inter;
-  font-weight: 300;
-  /*word-wrap: break-word;*/
-  margin-bottom: 0px; /* Added margin-bottom */
+  margin: 0;
+  padding: 0;
+}
+
+/* Meal Line styling */
+.meal-line {
+  display: flex;
+  width: 100%;
+  padding: 5px;
+  padding-left: 10px;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.meal-line:hover {
+  box-shadow: var(--card-box-shadow);
+  cursor: default;
 }
 
 /* Add meal button styles */
 .add-meal-button {
-  width: 10%;
-  height: 10%;
   color: #aeaeae;
-  font-size: 15px;
-  font-family: Inter;
-  font-weight: 700;
-  /*word-wrap: break-word;*/
-  margin-top: 0px; /* Added margin-top */
+  font-size: 13px;
+  font-style: italic;
+  padding-top: 10px;
+}
+
+.delete-a-meal {
+  color: red;
+  display: flex;
+}
+
+.delete-a-meal:hover {
+  color: red;
+  transform: scale(1.1);
 }
