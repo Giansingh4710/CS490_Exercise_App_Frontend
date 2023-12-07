@@ -1,4 +1,4 @@
-import { LandingPageButton } from '../Buttons.jsx'
+import { LandingPageButton } from '../Buttons/Buttons.jsx'
 import { Link } from 'react-router-dom'
 
 export default function DataUnit() {
@@ -28,24 +28,17 @@ export default function DataUnit() {
         />
       </div>
       <Link to='/Register'>
-        <LandingPageButton
-          name='Sign Up!'
-          additionalStyles={additionalStyles}
-        />
+        <LandingPageButton name='Sign Up!' additionalStyles={additionalStyles} />
       </Link>
     </div>
   )
 }
 
-function InfoCard({ title, text,img }) {
+function InfoCard({ title, text, img }) {
   return (
     <div style={styles.card}>
       <h4 style={styles.cardTitle}>{title}</h4>
-      <img
-        src={img}
-        alt='this is a something'
-        style={styles.image}
-      />
+      <img src={img} alt='this is a something' style={styles.image} />
       <p style={styles.cardText}>{text}</p>
     </div>
   )

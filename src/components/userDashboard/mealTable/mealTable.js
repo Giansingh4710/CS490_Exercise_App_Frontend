@@ -63,9 +63,6 @@ const MealTracker = ({ isMealInputModalOpen, setMealInputModalOpen }) => {
       <button className='add-meal-button' onClick={() => handleAddMealClick(mealType)}>
         + a meal
       </button>
-      {selectedMealType === mealType && isMealInputModalOpen && (
-        <MealInputModal setModalIsOpen={setMealInputModalOpen} />
-      )}
     </div>
   )
 

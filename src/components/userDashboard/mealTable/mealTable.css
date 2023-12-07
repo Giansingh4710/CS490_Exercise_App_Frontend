@@ -1,47 +1,65 @@
 /* Top-level container styles */
 .meal-table-container {
-    width: 764px;
-    height: 485px;
-    left: 130px;
-    top: 146px;
-    position: absolute;
-    background: white;
-    box-shadow: 2px 2px 20px rgba(0, 0, 0, 0.25);
-  }
-  
-  /* Meal type label styles */
-  .meal-type-label {
-    width: 50%;
-    height: 10%;
-    color: black;
-    font-size: 25px;
-    font-family: Inter;
-    font-weight: 700;
-    /*word-wrap: break-word;*/
-    margin-left: 0%; /* Added margin-bottom */
-  }
-  
-  /* Meal list styles */
-  .meal-list {
-    width: 35%;
-    height: 10%;
-    color: black;
-    font-size: 15px;
-    font-family: Inter;
-    font-weight: 300;
-    /*word-wrap: break-word;*/
-    margin-bottom: 0px; /* Added margin-bottom */
-  }
-  
-  /* Add meal button styles */
-  .add-meal-button {
-    width: 10%;
-    height: 10%;
-    color: #AEAEAE;
-    font-size: 15px;
-    font-family: Inter;
-    font-weight: 700;
-    /*word-wrap: break-word;*/
-    margin-top: 0px; /* Added margin-top */
-  }
-  
+  padding: 10px 30px 10px 30px;
+  width: 100%;
+  background-color: white;
+  box-shadow: var(--card-box-shadow);
+  display: flex;
+  flex-direction: column;
+}
+
+/* Meal type label styles */
+.meal-type-label {
+  width: 50%;
+  height: 10%;
+  color: black;
+  font-size: 25px;
+  font-family: Inter;
+  font-weight: 700;
+  /*word-wrap: break-word;*/
+  margin-left: 0%; /* Added margin-bottom */
+}
+
+/* Meal Type Container styles */
+.meal-type-container {
+  margin-left: 10px;
+  padding-bottom: 20px;
+}
+.meal-type-container h2,
+p {
+  margin-bottom: 5px;
+}
+
+.meal-type-container button {
+  background: transparent;
+  outline: none;
+  border: none;
+  cursor: pointer;
+}
+.meal-type-container button:hover {
+  color: black;
+}
+
+/* Meal list styles */
+.meal-list {
+  width: 35%;
+  height: 10%;
+  color: black;
+  font-size: 15px;
+  font-family: Inter;
+  font-weight: 300;
+  /*word-wrap: break-word;*/
+  margin-bottom: 0px; /* Added margin-bottom */
+}
+
+/* Add meal button styles */
+.add-meal-button {
+  width: 10%;
+  height: 10%;
+  color: #aeaeae;
+  font-size: 15px;
+  font-family: Inter;
+  font-weight: 700;
+  /*word-wrap: break-word;*/
+  margin-top: 0px; /* Added margin-top */
+}

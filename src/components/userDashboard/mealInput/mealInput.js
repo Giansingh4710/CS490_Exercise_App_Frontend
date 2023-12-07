@@ -62,22 +62,30 @@ export function inputFields({
 }) {
   return (
     <>
-      <label>
-        Meal Name:
-        <input type='text' value={mealName} onChange={(e) => setMealName(e.target.value)} />
-      </label>
-      <label>
-        Calories:
-        <input type='number' value={calories} onChange={(e) => setCalories(e.target.value)} />
-      </label>
-      <label>
-        Protein (g):
-        <input type='number' value={protein} onChange={(e) => setProtein(e.target.value)} />
-      </label>
-      <label>
-        Fat (g):
-        <input type='number' value={fat} onChange={(e) => setFat(e.target.value)} />
-      </label>
+      <div className='input-field'>
+        <label>
+          Meal Name:
+          <input type='text' value={mealName} onChange={(e) => setMealName(e.target.value)} />
+        </label>
+      </div>
+      <div className='input-field'>
+        <label>
+          Calories:
+          <input type='number' value={calories} onChange={(e) => setCalories(e.target.value)} />
+        </label>
+      </div>
+      <div className='input-field'>
+        <label>
+          Protein (g):
+          <input type='number' value={protein} onChange={(e) => setProtein(e.target.value)} />
+        </label>
+      </div>
+      <div className='input-field'>
+        <label>
+          Fat (g):
+          <input type='number' value={fat} onChange={(e) => setFat(e.target.value)} />
+        </label>
+      </div>
     </>
   )
 }

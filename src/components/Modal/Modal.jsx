@@ -1,10 +1,8 @@
 // import { inputFields } from '../ExploreCoaches/RequestCoachModal/RequestCoachModal'
+import { BlueCancelButton, BlueSubmitButton } from '../Buttons/Buttons'
 import './Modal.css'
-import { useState, useEffect, useRef } from 'react'
 
 export default function Modal({ headerName, setModalIsOpen, handleOnSubmitClick, inputFields }) {
-  const [goal, setGoal] = useState('')
-  const [message, setMessage] = useState('')
   return (
     <div className='modal-background'>
       <div className='modal-container'>
@@ -27,16 +25,12 @@ export default function Modal({ headerName, setModalIsOpen, handleOnSubmitClick,
           </div>
           {/* cancel and submit buttons */}
           <div className='modal-buttons'>
-            <button
-              className='cancel'
-              onClick={() => {
+            <BlueCancelButton
+              handleOnClick={() => {
                 setModalIsOpen(false)
-              }}>
-              Cancel
-            </button>
-            <button className='submit' onClick={handleOnSubmitClick}>
-              Submit
-            </button>
+              }}
+            />
+            <BlueSubmitButton handleOnClick={handleOnSubmitClick} />
           </div>
         </div>
       </div>

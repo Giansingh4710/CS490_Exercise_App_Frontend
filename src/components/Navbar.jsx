@@ -1,4 +1,4 @@
-import { LandingPageButton } from './Buttons.jsx'
+import { LandingPageButton } from './Buttons/Buttons.jsx'
 import Logo from './Logo.js'
 import { Link } from 'react-router-dom'
 
@@ -115,8 +115,7 @@ function LandingNav() {
       <div style={styles.logo}>
         <Logo size='50' />
       </div>
-      <span style={styles.logoText}>FitFusion</span>{' '}
-      {/* Adding the text next to the logo */}
+      <span style={styles.logoText}>FitFusion</span> {/* Adding the text next to the logo */}
       <div style={styles.spacer}></div>
       <div style={styles.navbarButtonsContainer}>
         <Link to='/Login'>

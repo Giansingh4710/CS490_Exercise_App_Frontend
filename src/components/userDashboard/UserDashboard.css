@@ -3,7 +3,34 @@
   margin-right: 10px;
   padding: 20px;
   display: flex;
+  flex-direction: column;
+  height: 100vh;
 }
 .blurred {
+  margin-left: 100px;
+  margin-right: 10px;
+  padding: 20px;
+  display: flex;
   filter: blur(5px);
+}
+
+.user-dashboard-columns {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 100%;
+  margin-bottom: 20px;
+}
+.user-dashboard-column {
+  height: 100%;
+}
+.user-dashboard-column.meal-tracker {
+  margin-right: 20px;
+  width: 60%;
+}
+
+.user-dashboard-btn {
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: center;
 }
