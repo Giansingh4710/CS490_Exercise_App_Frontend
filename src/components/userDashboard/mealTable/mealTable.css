@@ -54,11 +54,11 @@ p {
   padding-left: 10px;
   justify-content: space-between;
   align-items: center;
+  cursor: default;
 }
 
-.meal-line:hover {
+.meal-list li:hover {
   box-shadow: var(--card-box-shadow);
-  cursor: default;
 }
 
 /* Add meal button styles */

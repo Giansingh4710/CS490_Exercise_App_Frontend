@@ -7,6 +7,7 @@ const MealTracker = ({ isMealInputModalOpen, setMealInputModalOpen }) => {
     breakfast: [{ name: 'Blueberry Muffin', calories: 100 }],
     lunch: [{ name: 'Cheesesteak', calories: 400 }],
     dinner: [{ name: 'Chicken Alfredo', calories: 400 }],
+    snacks: [],
   })
   const [selectedMealType, setSelectedMealType] = useState(null)
 
@@ -60,7 +61,7 @@ const MealTracker = ({ isMealInputModalOpen, setMealInputModalOpen }) => {
           ))}
         </ul>
       ) : (
-        <p className='meal-list'>Nothing tracked yet</p>
+        <p className='meal-line'>Nothing tracked yet</p>
       )}
       <button className='add-meal-button' onClick={() => handleAddMealClick(mealType)}>
         + a meal
