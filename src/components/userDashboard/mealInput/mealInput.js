@@ -8,11 +8,12 @@ const MealInputModal = () => {
   const [fat, setFat] = useState('');
 
   const handleSubmit = () => {
-    // Replace 'YOUR_BACKEND_API_URL' with the actual backend API endpoint
+    let token = localStorage.getItem('fitness_token')
     fetch('YOUR_BACKEND_API_URL', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        'Authorization': token
       },
       body: JSON.stringify({ mealName, calories, protein, fat }),
     })
