@@ -144,29 +144,29 @@ export function FilterForCoaches() {
     <div className='filter-container'>
       <div className='filter-label'>Filters</div>
       <div className='filter-select-container'>
-        <ReviewDropdown />
+        <SpecializationDropdown />
         <LocationDropdown />
-        <AvailabilityDropdown />
+        <MaxPrice />
       </div>
     </div>
   )
 }
 
-export function ReviewDropdown() {
-  var reviews = ['☆+', '☆☆+', '☆☆☆+', '☆☆☆☆+', '☆☆☆☆☆+']
+export function SpecializationDropdown() {
+  var specializations = ['lose weight', 'gain muscle', 'train for a sport']
   return (
-    <div className='select-reviews-dropdown'>
+    <div className='select-dropdown'>
       <select
         required
         name='selectList'
         id='selectList'
-        placeholder='Select rating'
+        placeholder='Select specialization'
         // onChange={(evt) => setSelectedAvailability(evt.target.value)}
         // value={selectedAvailability}
       >
         {/* <option value="">Example Placeholder</option> */}
 
-        {reviews?.map((c) => (
+        {specializations?.map((c) => (
           <option value={c.id} key={c.id}>
             {c}
           </option>
@@ -176,42 +176,68 @@ export function ReviewDropdown() {
   )
 }
 export function LocationDropdown() {
-  var locations = ['AL', 'WV', 'WI', 'WY']
+  const locations = [
+    { state: 'Any', cities: [] },
+    { state: 'CA', cities: ['Calabasas', 'Los Angeles', 'San Diego'] },
+    { state: 'NJ', cities: ['Hightstown', 'East Windsor'] },
+  ]
+  const [selectedState, setSelectedState] = useState('Any')
+  const [selectedCity, setSelectedCity] = useState('Any')
+  const [cities, setCities] = useState(['Any'])
+  const handleOnStateChange = (evt) => {
+    setSelectedState(evt.target.value)
+  }
+
+  useEffect(() => {
+    // Find the selected state object
+    const selectedStateObj = locations.find((loc) => loc.state === selectedState)
+
+    // Update cities based on selected state
+    if (selectedStateObj) {
+      setCities(['Any', ...selectedStateObj.cities])
+    }
+  }, [selectedState])
+
   return (
-    <div className='select-location-dropdown'>
+    <div className='select-location-container'>
       <select
         name='selectList'
         id='selectList'
-        placeholder='Select location'
-        // onChange={(evt) => setSelectedAvailability(evt.target.value)}
-        // value={selectedAvailability}
-      >
+        placeholder='Select state'
+        onChange={(evt) => setSelectedState(evt.target.value)}
+        value={selectedState}>
         {locations?.map((c) => (
-          <option value={c} key={c.id}>
-            {c}
+          <option value={c.state} key={c.state}>
+            {c.state}
+          </option>
+        ))}
+      </select>
+      <select
+        name='cityList'
+        id='cityList'
+        placeholder='Select city'
+        value={selectedCity}
+        onChange={(evt) => setSelectedCity(evt.target.value)}>
+        {cities.map((city, index) => (
+          <option key={index} value={city}>
+            {city}
           </option>
         ))}
       </select>
     </div>
   )
 }
-export function AvailabilityDropdown() {
-  var availability = ['morning', 'afternoon', 'night']
+export function MaxPrice() {
+  var price = ['$100', '$125', 'night']
   return (
-    <div className='select-availability-dropdown'>
-      <select
+    <div className='select-price-dropdown'>
+      <input
         name='selectList'
         id='selectList'
-        placeholder='Select availability'
+        placeholder='Type in a maximum monthly price'
         // onChange={(evt) => setSelectedAvailability(evt.target.value)}
         // value={selectedAvailability}
-      >
-        {availability?.map((c) => (
-          <option value={c} key={c.id}>
-            {c}
-          </option>
-        ))}
-      </select>
+      />
     </div>
   )
 }
