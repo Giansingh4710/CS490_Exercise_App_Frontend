@@ -1,47 +1,80 @@
 /* Top-level container styles */
 .meal-table-container {
-    width: 764px;
-    height: 485px;
-    left: 130px;
-    top: 146px;
-    position: absolute;
-    background: white;
-    box-shadow: 2px 2px 20px rgba(0, 0, 0, 0.25);
-  }
-  
-  /* Meal type label styles */
-  .meal-type-label {
-    width: 110px;
-    height: 30.06px;
-    color: black;
-    font-size: 25px;
-    font-family: Inter;
-    font-weight: 700;
-    /*word-wrap: break-word;*/
-    margin-bottom: 2px; /* Added margin-bottom */
-  }
-  
-  /* Meal list styles */
-  .meal-list {
-    width: 200px;
-    height: auto;
-    color: black;
-    font-size: 25px;
-    font-family: Inter;
-    font-weight: 300;
-    /*word-wrap: break-word;*/
-    margin-bottom: 0px; /* Added margin-bottom */
-  }
-  
-  /* Add meal button styles */
-  .add-meal-button {
-    width: 10%;
-    height: 24.05px;
-    color: #AEAEAE;
-    font-size: 15px;
-    font-family: Inter;
-    font-weight: 700;
-    /*word-wrap: break-word;*/
-    margin-top: 10px; /* Added margin-top */
-  }
-  
+  padding: 10px;
+  width: 100%;
+  height: 736px;
+  background-color: white;
+  box-shadow: var(--card-box-shadow);
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+}
+
+.meal-table-container h1 {
+  margin: 0;
+}
+
+/* Meal type label styles */
+.meal-type-label {
+  color: black;
+}
+
+/* Meal Type Container styles */
+.meal-type-container {
+  padding-bottom: 20px;
+}
+.meal-type-container h2,
+p {
+  margin-bottom: 5px;
+}
+
+.meal-type-container button {
+  background: transparent;
+  outline: none;
+  border: none;
+  cursor: pointer;
+}
+.add-meal-button:hover {
+  color: black;
+}
+
+/* Meal list styles */
+.meal-list {
+  color: black;
+  font-size: 15px;
+  margin: 0;
+  padding: 0;
+}
+
+/* Meal Line styling */
+.meal-line {
+  display: flex;
+  width: 100%;
+  padding: 5px;
+  padding-left: 10px;
+  justify-content: space-between;
+  align-items: center;
+  cursor: default;
+}
+
+.meal-list li:hover {
+  box-shadow: var(--card-box-shadow);
+}
+
+/* Add meal button styles */
+.add-meal-button {
+  color: #aeaeae;
+  font-size: 13px;
+  font-style: italic;
+  padding-top: 10px;
+}
+
+.delete-a-meal {
+  color: red;
+  display: flex;
+}
+
+.delete-a-meal:hover {
+  color: red;
+  transform: scale(1.1);
+}

@@ -51,36 +51,18 @@ export function App() {
       <main>
         <ShowSidebar />
         <Routes>
-          <Route
-            path='/'
-            element={user?.email ? <UserDashboard /> : <LandingPage />}
-          />
-          <Route
-            path='/Login'
-            element={user?.email ? <UserDashboard /> : <LoginPage />}
-          />
+          <Route path='/' element={user?.email ? <UserDashboard /> : <LandingPage />} />
+          <Route path='/Login' element={user?.email ? <UserDashboard /> : <LoginPage />} />
           <Route
             path='/Register'
             element={user?.email ? <UserDashboard /> : <RegistrationPage />}
           />
 
-          <Route
-            path='/UserDashboard'
-            element={<ProtectedRoute element={<UserDashboard />} />}
-          />
-          <Route
-            path='/MyCoach'
-            element={<ProtectedRoute element={<MyCoach />} />}
-          />
-          <Route
-            path='/ExploreCoaches'
-            element={<ProtectedRoute element={<ExploreCoaches />} />}
-          />
+          <Route path='/UserDashboard' element={<ProtectedRoute element={<UserDashboard />} />} />
+          <Route path='/MyCoach' element={<ProtectedRoute element={<MyCoach />} />} />
+          <Route path='/ExploreCoaches' element={<ProtectedRoute element={<ExploreCoaches />} />} />
 
-          <Route
-            path='/Register/Survey'
-            element={<ProtectedRoute element={<SurveyPage />} />}
-          />
+          <Route path='/Register/Survey' element={<ProtectedRoute element={<SurveyPage />} />} />
           <Route path='*' element={<NotFound />} />
         </Routes>
       </main>

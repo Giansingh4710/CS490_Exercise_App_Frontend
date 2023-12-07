@@ -2,7 +2,7 @@ import InputElement from '../AccountInputElement'
 import { useState } from 'react'
 import apiClient from '../../services/apiClient'
 import { useAuthContext } from '../../contexts/auth'
-import { LoginButton } from '../Buttons'
+import { LoginButton } from '../Buttons/Buttons.jsx'
 
 export default function LoginForm() {
   const { setUser } = useAuthContext()
@@ -46,11 +46,7 @@ export default function LoginForm() {
   }
 
   function Error() {
-    return error.hasError ? (
-      <p style={styles.formError}>{error.errorText}</p>
-    ) : (
-      <></>
-    )
+    return error.hasError ? <p style={styles.formError}>{error.errorText}</p> : <></>
   }
 
   return (
