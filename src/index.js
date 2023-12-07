@@ -1,21 +1,21 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-import { BrowserRouter, Route, Routes } from 'react-router-dom'
-import { useEffect } from 'react'
-import apiClient from './services/apiClient'
-import { useAuthContext } from './contexts/auth'
-import { AuthContextProvider } from './contexts/auth'
-import LandingPage from './components/LandingPage/LandingPage'
-import RegistrationPage from './components/RegistrationPage/RegistrationPage'
-import LoginPage from './components/LoginPage/LoginPage'
-import SurveyPage from './components/SurveyPage/SurveyPage'
-import UserDashboard from './components/userDashboard/UserDashboard'
-import Sidebar from './components/Sidebar/Sidebar'
-import MyCoach from './components/MyCoach/MyCoach'
-import ExploreCoaches from './components/ExploreCoaches/ExploreCoaches'
-import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute'
-import NotFound from './components/NotFound/NotFound'
-import './index.css'
+import React from "react";
+import ReactDOM from "react-dom/client";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { useEffect } from "react";
+import apiClient from "./services/apiClient";
+import { useAuthContext } from "./contexts/auth";
+import { AuthContextProvider } from "./contexts/auth";
+import LandingPage from "./pages/LandingPage";
+import RegistrationPage from "./pages/RegistrationPage";
+import LoginPage from "./pages/LoginPage";
+import SurveyPage from "./pages/SurveyPage";
+import UserDashboard from "./pages/UserDashboard";
+import Sidebar from "./components/Sidebar/Sidebar";
+import MyCoach from "./components/MyCoach/MyCoach";
+import ExploreCoaches from "./components/ExploreCoaches/ExploreCoaches";
+import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
+import NotFound from "./components/NotFound/NotFound";
+import "./index.css";
 
 export function AppContainer() {
   return (
@@ -92,5 +92,5 @@ const root = ReactDOM.createRoot(document.getElementById('root'))
 root.render(
   <React.StrictMode>
     <AppContainer />
-  </React.StrictMode>,
-)
+  </React.StrictMode>
+);
