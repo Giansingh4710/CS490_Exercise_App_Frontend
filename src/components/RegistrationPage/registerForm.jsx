@@ -26,15 +26,9 @@ export default function RegistrationForm() {
       })
       return
     }
-
-    // setError({ hasError: false, errorText: '' })
-
-    // setUser({ email: 'bob@gmail.com', id: '12' })
-    // return
-
     const { data, error } = await apiClient.register({
-      Email: formData.email,
-      Password: formData.password,
+      email: formData.email,
+      password: formData.password,
     })
 
     if (data) {

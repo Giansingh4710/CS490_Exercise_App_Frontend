@@ -25,11 +25,9 @@ export default function LoginForm() {
 
   const handleSubmit = async (event) => {
     event.preventDefault()
-    // setUser({ email: 'bob@gmail.com', id: '12' })
-    // return
     const { data, error } = await apiClient.login({
-      Email: formData.email,
-      Password: formData.password,
+      email: formData.email,
+      password: formData.password,
     })
     if (data) {
       setUser(data.user)
