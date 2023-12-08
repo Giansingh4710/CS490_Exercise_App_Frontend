@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react'
 import Navbar from '../Navbar'
 import MyMessagesWithCoach from './MyMessagesWithCoach/MyMessagesWithCoach' // Adjust this path as necessary
@@ -8,9 +9,11 @@ function MyCoach() {
 
   const toggleMessaging = () => setShowMessaging(!showMessaging)
 
+
   const workouts = {
     monday: [
       { exercise: 'Squat', sets: 3, reps: [10, 8, 10], weight: 120 },
+
       { exercise: 'Lunges', sets: 3, reps: [10, 8, 10], weight: 120 },
     ],
     tueday: [
@@ -36,6 +39,7 @@ function MyCoach() {
 
     Sunday: [
       { exercise: 'Squat', sets: 3, reps: [10, 8, 10], weight: 120 },
+
       { exercise: 'Lunges', sets: 3, reps: [10, 8, 10], weight: 120 },
     ],
   }
@@ -61,6 +65,7 @@ function MyCoach() {
               <div key={index} className='exercise'>
                 <div className='exercise-name'>{exercise.exercise}</div>
                 <div className='exercise-details'>
+
                   <span>{exercise.sets} sets</span>
                   {/* Map reps and weight if needed */}
                 </div>
@@ -80,6 +85,7 @@ function MyCoach() {
         </select>
         <button className='terminate-button'>Terminate Coach Doe</button>
       </footer>
+
     </div>
   )
 }
