@@ -16,8 +16,7 @@ function LoginPage() {
           overflow: 'hidden',
           color: '#A9B7D0',
           fontStyle: 'italic',
-        }}
-      >
+        }}>
         Forgot Password?
       </button>
     </div>

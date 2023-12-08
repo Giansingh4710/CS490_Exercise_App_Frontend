@@ -2,8 +2,10 @@ import './RequestCoachModal.css'
 import { useState, useEffect, useRef } from 'react'
 import { useAuthContext } from '../../../contexts/auth'
 import apiClient from '../../../services/apiClient'
+import Modal from '../../Modal/Modal'
 
 export default function RequestCoachModal({ coach, setModalIsOpen }) {
+  console.log('COACH: ', coach)
   const { user } = useAuthContext()
   const [goal, setGoal] = useState('')
   const [message, setMessage] = useState('')
@@ -17,45 +19,26 @@ export default function RequestCoachModal({ coach, setModalIsOpen }) {
     })
     setModalIsOpen(true)
   }
-  return (
-    <div className='request-coach-modal-background'>
-      <div className='request-coach-modal-container'>
-        {/* modal header: header text & a close button */}
-        <div className='header'>
-          <p> REQUEST COACH {coach?.LastName.toUpperCase()}</p>
-          <button
-            className='close-modal-btn'
-            onClick={() => {
-              setModalIsOpen(false)
-            }}>
-            X
-          </button>
-        </div>
+  const headerName = 'REQUEST COACH ' + coach?.LastName
+  console.log('headerName: ', headerName)
+  const inputFieldsElement = inputFields({ goal, setGoal, message, setMessage, coach })
 
-        {/* form area to send a request */}
-        <div className='form'>
-          <div className='form-area'>
-            <div className='column'>
-              <AddGoal goal={goal} setGoal={setGoal} />
-              <AddMessage message={message} setMessage={setMessage} coach={coach} />
-            </div>
-          </div>
-          {/* cancel and submit buttons */}
-          <div className='modal-buttons'>
-            <button
-              className='cancel'
-              onClick={() => {
-                setModalIsOpen(false)
-              }}>
-              Cancel
-            </button>
-            <button className='submit' onClick={handleOnSubmitClick}>
-              Submit
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
+  return (
+    <Modal
+      headerName={headerName}
+      setModalIsOpen={setModalIsOpen}
+      inputFields={inputFieldsElement}
+      handleOnSubmitClick={handleOnSubmitClick}
+    />
+  )
+}
+
+export function inputFields({ goal, setGoal, message, setMessage, coach }) {
+  return (
+    <>
+      <AddGoal goal={goal} setGoal={setGoal} />
+      <AddMessage message={message} setMessage={setMessage} coach={coach} />
+    </>
   )
 }
 
@@ -64,11 +47,13 @@ export function AddGoal({ goal, setGoal }) {
     setGoal(event.target.value)
   }
   return (
-    <div className='add-goal'>
-      <label htmlFor='status'>Goals: :</label>
-      <select name='goal' id='goal' onChange={handleOnChange} value={goal}>
-        <option value='Lose weight'>Lose weight</option>
-      </select>
+    <div className='input-field'>
+      <label htmlFor='status'>
+        Goals:
+        <select name='goal' id='goal' onChange={handleOnChange} value={goal}>
+          <option value='Lose weight'>Lose weight</option>
+        </select>
+      </label>
     </div>
   )
 }
@@ -79,19 +64,21 @@ export function AddMessage({ message, setMessage, coach }) {
   }
   const messagePlaceholder = 'Introduce yourself or send a message to coach ' + coach?.LastName
   return (
-    <div className='request-coach-form-message'>
-      <label htmlFor='message'>Note to coach</label>
-      <div className='message-box'>
-        <textarea
-          className='message-input description'
-          name='message'
-          type='text'
-          value={message}
-          onChange={handleOnChange}
-          placeholder={messagePlaceholder}
-          autoComplete='off'
-        />
-      </div>
+    <div className='input-field'>
+      <label htmlFor='message'>
+        Note to coach
+        <div className='message-box'>
+          <textarea
+            className='message-input description'
+            name='message'
+            type='text'
+            value={message}
+            onChange={handleOnChange}
+            placeholder={messagePlaceholder}
+            autoComplete='off'
+          />
+        </div>
+      </label>
     </div>
   )
 }

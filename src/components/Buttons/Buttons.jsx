@@ -1,3 +1,4 @@
+import './Buttons.css'
 export function LandingPageButton({ name, additionalStyles }) {
   const hover = (e) => {
     e.target.style.background = '#c4c4c4'
@@ -12,8 +13,7 @@ export function LandingPageButton({ name, additionalStyles }) {
     <button
       style={{ ...styles.button, ...additionalStyles }}
       onMouseEnter={hover}
-      onMouseLeave={unHover}
-    >
+      onMouseLeave={unHover}>
       {name}
     </button>
   )
@@ -45,10 +45,29 @@ export function LoginButton() {
         fontWeight: 'bold',
       }}
       onMouseEnter={hover}
-      onMouseLeave={unHover}
-    >
+      onMouseLeave={unHover}>
       Login
     </button>
+  )
+}
+
+export function BlueSubmitButton({ handleOnClick }) {
+  return (
+    <div className='blue-btn'>
+      <button className='blue-submit-btn' onClick={handleOnClick}>
+        SUBMIT
+      </button>
+    </div>
+  )
+}
+
+export function BlueCancelButton({ handleOnClick }) {
+  return (
+    <div className='blue-btn'>
+      <button className='blue-cancel-btn' onClick={handleOnClick}>
+        CANCEL
+      </button>
+    </div>
   )
 }
 

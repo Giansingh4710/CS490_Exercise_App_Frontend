@@ -1,5 +1,5 @@
 import InputElement from '../AccountInputElement'
-import { LandingPageButton } from '../Buttons.jsx'
+import { LandingPageButton } from '../Buttons/Buttons.jsx'
 import { useState } from 'react'
 import apiClient from '../../services/apiClient'
 import { useAuthContext } from '../../contexts/auth'
@@ -26,15 +26,9 @@ export default function RegistrationForm() {
       })
       return
     }
-
-    // setError({ hasError: false, errorText: '' })
-
-    // setUser({ email: 'bob@gmail.com', id: '12' })
-    // return
-
     const { data, error } = await apiClient.register({
-      Email: formData.email,
-      Password: formData.password,
+      email: formData.email,
+      password: formData.password,
     })
 
     if (data) {
@@ -59,11 +53,7 @@ export default function RegistrationForm() {
   }
 
   function Error() {
-    return error.hasError ? (
-      <p style={styles.formError}>{error.errorText}</p>
-    ) : (
-      <></>
-    )
+    return error.hasError ? <p style={styles.formError}>{error.errorText}</p> : <></>
   }
 
   // console.log(`${API_BASE_URL}/register`)
@@ -98,11 +88,7 @@ export default function RegistrationForm() {
           value={formData.confirm_password}
         />
         <Error />
-        <LandingPageButton
-          name='Create Account'
-          type='submit'
-          additionalStyles={styles.button}
-        />
+        <LandingPageButton name='Create Account' type='submit' additionalStyles={styles.button} />
       </form>
     </div>
   )

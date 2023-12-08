@@ -1,56 +1,36 @@
-#water{
-  width: 580px;
-  height: 268px;
-  left: 130px;
-  top: 671px;
-  position: absolute;
-  font-family: 'Inter', sans-serif;
-  background-color: #f0f0f0;
-  box-shadow: 2px 2px 20px rgba(0, 0, 0, 0.25);
-  text-align: center;
+.water-card-container {
+  /* width: 100%;
+  background-color: white;
+  box-shadow: var(--card-box-shadow);
+  display: flex;
+  flex-direction: column; */
+
+  padding: 10px;
+  width: 100%;
+  background-color: white;
+  box-shadow: var(--card-box-shadow);
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
 }
 
-#water h2 {
-  color: black;
-  font-size: 36px;
-  margin-bottom: 15px;
-  top: 10px;
+.water-card-container h1 {
+  margin: 0;
 }
 
-#water label {
+.input-fields {
+  display: flex;
+  flex-direction: row;
+}
+
+.water-card-container label {
+  padding: 10px;
+}
+/* .water-card-container label {
   display: block;
   margin-left: 10px;
   color: black;
   font-weight: 700;
   font-size: 24px;
   word-wrap: break-word;
-}
-
-#water input, select {
-  width: 174px;
-  padding: 10px;
-  background-color: #D9D9D9;
-  border: 1px solid #ccc;
-  border-radius: 10px;
-  box-sizing: border-box;
-  margin-left: 15px;
-  margin-bottom: 15px;
-}
-
-#water button {
-  background-color: #B6B6B6;
-  width: 190px;
-  height: 51px;
-  color: black;
-  font-size: 24px;
-  font-weight: 700;
-  padding: 12px 20px;
-  border: none;
-  border-radius: 10px;
-  cursor: pointer;
-}
-
-#water button:hover {
-  background-color: #45a049;
-}
-
+} */

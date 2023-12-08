@@ -1,6 +1,6 @@
 import Navbar from '../Navbar.jsx'
 import { Link } from 'react-router-dom'
-import { LandingPageButton } from '../Buttons.jsx'
+import { LandingPageButton } from '../Buttons/Buttons.jsx'
 import DataUnit from './dataUnit'
 import '../styles.css'
 
@@ -11,17 +11,13 @@ function LandingPage() {
       <div style={styles.div}>
         <h1 style={styles.title}>Welome to FitFusion</h1>
         <p style={styles.paragraph}>
-          Discover a healthier, happier you with FitFusion. This is where expert
-          coaching, activity tracking, and mood management converge. Tailored
-          insights and personal guidance at your fingertips, fostering your
-          journey towards well-being. Your goals, our mission. Start
+          Discover a healthier, happier you with FitFusion. This is where expert coaching, activity
+          tracking, and mood management converge. Tailored insights and personal guidance at your
+          fingertips, fostering your journey towards well-being. Your goals, our mission. Start
           transforming today!
         </p>
         <Link to='/Register'>
-          <LandingPageButton
-            name='Sign Up Now!'
-            additionalStyles={styles.button}
-          />
+          <LandingPageButton name='Sign Up Now!' additionalStyles={styles.button} />
         </Link>
       </div>
       <DataUnit />
