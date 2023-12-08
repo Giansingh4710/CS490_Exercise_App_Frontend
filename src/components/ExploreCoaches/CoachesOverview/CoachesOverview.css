@@ -33,6 +33,12 @@
   font-weight: bolder;
 }
 
+.coach-view .coach-details {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  align-items: baseline;
+}
 .coach-search {
   position: relative;
   width: 100%;
