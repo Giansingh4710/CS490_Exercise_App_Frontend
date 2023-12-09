@@ -1,0 +1,38 @@
+* {
+    box-sizing: border-box;
+  }
+  
+.admin-overview {
+    padding: 10px 30px;
+    background-color: #f8f8f8;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+    margin: 20px;
+    max-width: 600px; 
+  }
+  .coaches-overview h2 {
+    text-align: center;
+        margin-bottom: 20px; 
+  }
+  
+  .coach-card {
+    background-color: rgb(248, 247, 247);
+    cursor: pointer;
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+    padding-top: 10px;
+    padding-left: 5px;
+  }
+.coach-card p {
+  margin: 0;
+  padding: 0;
+}
+.coach-card:hover {
+  box-shadow: 0 1px 10px 0 rgba(78, 101, 112, 0.08);
+}
+
+.coach-card-selected {
+  background: rgb(223, 223, 223);
+
+  box-shadow: 0 1px 10px 0 rgba(78, 101, 112, 0.08);
+}
