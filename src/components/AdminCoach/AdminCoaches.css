@@ -1,0 +1,20 @@
+.admin-coaches {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 20px;
+  gap: 20px; 
+}
+
+.admin-coaches-container {
+  display: flex;
+  width: 100%;
+  max-width: 1200px; 
+}
+.admin-overview {
+  flex: 1;
+  min-width: 300px; 
+  background-color: white;
+  padding: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
