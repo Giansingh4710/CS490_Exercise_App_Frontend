@@ -99,6 +99,13 @@ class ApiClient {
       method: `GET`,
     })
   }
+
+  async getOpenRequestsForClient() {
+    return await this.request({
+      endpoint: `request/openCoachRequests`,
+      method: `GET`,
+    })
+  }
 }
 
 const apiClient = new ApiClient(API_BASE_URL)

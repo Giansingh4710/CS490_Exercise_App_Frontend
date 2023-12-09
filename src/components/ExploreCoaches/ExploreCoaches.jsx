@@ -28,6 +28,7 @@ export default function ExploreCoaches() {
     if (data) {
       setCoaches(data)
       setCoachesToDisplay(data)
+      console.log('Coaches:', data)
     }
     if (error) {
       // setCoaches([])
