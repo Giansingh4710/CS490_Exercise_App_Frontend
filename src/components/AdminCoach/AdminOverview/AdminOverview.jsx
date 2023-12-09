@@ -1,12 +1,12 @@
 import React from 'react';
-import './AdminOverview.css'; // Make sure this path is correct
-import apiClient from '../../../services/apiClient'; // Make sure this path is correct
+import './AdminOverview.css';
+import apiClient from '../../../services/apiClient'; 
 import { useEffect, useState } from 'react';
 
 export default function AdminOverview({ coaches }) {
   return (
     <div className='coaches-overview'>
-            <h3>Incoming Coach Requests</h3> {/* Add this line */}
+            <h3>Incoming Coach Requests</h3> {}
 
       <CoachList coaches={coaches} />
     </div>
@@ -33,7 +33,7 @@ function CoachCard({ coach }) {
   const handleOnCoachClick = async () => {
     try {
       const { data } = await apiClient.getCoachByID(coach.CoachID);
-      console.log(data); // Here you can decide what to do when a coach is clicked
+      console.log(data); 
     } catch (error) {
       console.error('Failed to fetch coach details:', error);
     }

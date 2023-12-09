@@ -1,5 +1,5 @@
 import React from 'react';
-import './AdminView.css'; // Ensure you have an updated CSS file for this
+import './AdminView.css';
 import apiClient from '../../../services/apiClient';
 import { useState, useEffect } from 'react';
 
