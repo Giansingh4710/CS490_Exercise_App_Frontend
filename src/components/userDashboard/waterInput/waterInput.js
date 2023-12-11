@@ -13,7 +13,7 @@ const WaterInputModal = () => {
     setUnit(e.target.value)
   }
 
-  const handleSubmit = () => {
+  /*const handleSubmit = () => {
     let token = localStorage.getItem('fitness_token')
     fetch('http://127.0.0.1:1313/logActivity/logWaterIntake', {
       method: 'POST',
@@ -32,7 +32,7 @@ const WaterInputModal = () => {
         // Handle errors, e.g., display an error message
         console.error(error)
       })
-  }
+  }*/
 
   return (
     <div>
