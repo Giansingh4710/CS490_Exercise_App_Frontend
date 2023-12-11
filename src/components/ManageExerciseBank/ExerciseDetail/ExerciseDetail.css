@@ -1,0 +1,41 @@
+.exercise-list-overview {
+  padding: 10px 30px;
+  min-width: 300px;
+  max-width: 400px;
+  background-color: white;
+  box-shadow: var(--card-box-shadow);
+  display: flex;
+  flex-direction: column;
+}
+
+.exercise-detail-view {
+  padding: 10px 30px;
+  margin-left: 20px;
+  width: 100%;
+  height: 100%;
+  background-color: white;
+  box-shadow: var(--card-box-shadow);
+}
+
+.exercise-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid black;
+}
+
+
+.request-btn {
+  background-color: var(--main-color);
+  box-shadow: 0 1px 20px 0 rgba(255, 0, 140, 0.08);
+  color: white;
+  font-size: 14px;
+  font-weight: bolder;
+  padding: 10px;
+  border-radius: 7px;
+  text-transform: uppercase;
+  cursor: pointer;
+  outline: 0;
+  border: none;
+}
