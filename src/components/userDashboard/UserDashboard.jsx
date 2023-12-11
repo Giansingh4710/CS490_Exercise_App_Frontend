@@ -55,8 +55,8 @@ function UserDashboard() {
             <MoodInputModal setRecordedData={setRecordedData} />
           </div>
         </div>
-        <div className='user-dashboard-btn'>
-          <BlueSubmitButton onClick={handleSubmission} />
+        <div className='user-dashboard-btn'  onClick={handleSubmission}>
+          <BlueSubmitButton />
         </div>
       </div>
     </>
