@@ -1,18 +1,26 @@
 import React, { useState, useEffect } from 'react';
-import './ExerciseBank.css';  // Import the CSS file
 
 const ExerciseBank = () => {
   const [exercises, setExercises] = useState([]);
-  const [selectedMuscleGroup, setSelectedMuscleGroup] = useState(''); // Provide default value
+  const [selectedMuscleGroup, setSelectedMuscleGroup] = useState('');
   const [searchTerm, setSearchTerm] = useState('');
-  const [selectedEquipment, setSelectedEquipment] = useState(''); // Provide default value
+  const [selectedEquipment, setSelectedEquipment] = useState('');
 
   useEffect(() => {
-    // Replace this placeholder URL with your actual backend API endpoint
-    fetch('https://your-backend-api.com/exercises')
-      .then((response) => response.json())
-      .then((data) => setExercises(data))
-      .catch((error) => console.error('Error fetching exercises:', error));
+    const fetchExercises = async () => {
+      try {
+        const response = await fetch('http://localhost:1313/exercises/allExercises');
+        if (!response.ok) {
+          throw new Error('Failed to fetch exercises');
+        }
+        const data = await response.json();
+        setExercises(data);
+      } catch (error) {
+        console.error('Error fetching exercises:', error);
+      }
+    };
+
+    fetchExercises();
   }, []);
 
   const filteredExercises = exercises
@@ -26,14 +34,14 @@ const ExerciseBank = () => {
   const equipmentOptions = exercises ? ['All', 'Barbell', 'Machine', 'Bodyweight', 'Dumbbell', 'Other'] : [];
 
   const handleSubmission = () => {
-    // Implement submission logic here
     console.log('Submitted!');
   };
 
   const handleCancel = () => {
-    // Implement cancel logic here
     console.log('Cancelled!');
   };
+
+  console.log(exercises);
 
   return (
     <div className="exercise-bank-container">
@@ -76,9 +84,10 @@ const ExerciseBank = () => {
         ) : (
           <ul>
             {filteredExercises.map((exercise) => (
-              <li key={exercise.id}>
+              <li key={exercise.id !== undefined ? String(exercise.id) : Math.random().toString()}>
                 <h3>{exercise.name}</h3>
-                <p>{exercise.description}</p>
+                <p>{exercise.difficulty}</p>
+                <p>{exercise.type}</p>
                 <p>Muscle Group: {exercise.muscleGroup}</p>
                 <p>Equipment: {exercise.equipment}</p>
               </li>
