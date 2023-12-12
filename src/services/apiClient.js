@@ -119,6 +119,14 @@ async getWorkoutPlans() {
       method: `GET`,
     })
   }
+
+  // ----------------------- coaches requests ----------------------- //
+  async recordDailySurvey(data) {
+    return await this.request({
+      endpoint: `logActivity/recordDailySurvey`,
+      method: `POST`,
+    })
+  }
 }
 
 const apiClient = new ApiClient(API_BASE_URL)

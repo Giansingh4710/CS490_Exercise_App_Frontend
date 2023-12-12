@@ -7,6 +7,7 @@ export default function MealInputModal({ setModalIsOpen }) {
   const [calories, setCalories] = useState('')
   const [protein, setProtein] = useState('')
   const [fat, setFat] = useState('')
+  const [mealType, setMealType] = useState('')
 
   const handleSubmit = () => {
     let token = localStorage.getItem('fitness_token')
@@ -16,7 +17,7 @@ export default function MealInputModal({ setModalIsOpen }) {
         'Content-Type': 'application/json',
         Authorization: token,
       },
-      body: JSON.stringify({ mealName, calories, protein, fat }),
+      body: JSON.stringify({ mealName, calories, protein, fat, mealType }),
     })
       .then((response) => response.json())
       .then((data) => {
@@ -38,6 +39,8 @@ export default function MealInputModal({ setModalIsOpen }) {
     setProtein,
     fat,
     setFat,
+    mealType,
+    setMealType,
   })
 
   return (
@@ -59,6 +62,8 @@ export function inputFields({
   setProtein,
   fat,
   setFat,
+  mealType,
+  setMealType,
 }) {
   return (
     <>
@@ -84,6 +89,12 @@ export function inputFields({
         <label>
           Fat (g):
           <input type='number' value={fat} onChange={(e) => setFat(e.target.value)} />
+        </label>
+      </div>
+      <div className='input-field'>
+        <label>
+          Meal Type:
+          <input type='text' value={mealType} onChange={(e) => setMealType(e.target.value)} />
         </label>
       </div>
     </>
