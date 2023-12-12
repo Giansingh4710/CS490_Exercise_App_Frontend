@@ -1,81 +1,94 @@
-/* ExerciseBank.css */
+/* Exercise Bank Container */
 .exercise-bank-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+  }
+  
+  /* Header */
+  .exercise-bank-container h2 {
+    color: #333;
+  }
+  
+  /* Filter Section */
+  .filter-section {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  
+  .filter-item {
+    flex: 1 1 200px;
+  }
+  
+  label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+  }
+  
+  select,
+  input {
     width: 100%;
-    height: 100%;
-    position: relative;
-    background: white;
-}
-
-.exercise-header {
-    width: 937px;
-    height: 70px;
-    left: 0;
-    top: 0;
-    position: absolute;
-    background: #3F4D67;
-}
-
-.exercise-header-content {
-    width: 937px;
-    height: 44px;
-    left: 0;
-    top: 13px;
-    position: absolute;
-    text-align: center;
-    color: white;
-    font-size: 36px;
-    font-family: Inter;
-    font-weight: 700;
-    word-wrap: break-word;
-}
-
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  /* Buttons */
+  .submit-button,
+  .cancel-button {
+    padding: 10px 20px;
+    margin-top: 10px;
+    cursor: pointer;
+    background-color: #4caf50;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+  }
+  
+  .cancel-button {
+    background-color: #f44336;
+    margin-left: 10px;
+  }
+  
+/* Exercise List Container */
 .exercise-list-container {
-    width: 813px;
-    height: 467px;
-    left: 48px;
-    top: 219px;
-    position: absolute;
-}
-
-.filter-section {
-    width: 390px;
-    left: 274px;
-    top: 709px;
-    position: absolute;
-}
-
-.filter-item {
-    margin-bottom: 10px;
-}
-
-.submit-button,
-.cancel-button {
-    width: 153px;
-    height: 57px;
-    position: absolute;
-    background: #3F4D67;
-    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.25);
-    border-radius: 10px;
-    text-align: center;
-    font-size: 24px;
-    font-family: Inter;
-    font-weight: 700;
-    word-wrap: break-word;
-    color: white;
-}
-
-.submit-button {
-    left: 237px;
-    top: 0;
-}
-
-.cancel-button {
-    width: 190px;
-    height: 51px;
-    left: 0;
-    top: 3px;
-    background: #E0E0E0;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-    border-radius: 10px;
-    color: black;
-}
+    ul {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+  
+    li {
+      flex: 1 1 calc(33.33% - 20px); /* Adjust the width as needed */
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      padding: 10px;
+      margin-bottom: 20px;
+    }
+  
+    h3 {
+      color: #333;
+      margin-bottom: 10px;
+    }
+  
+    p {
+      margin: 5px 0;
+    }
+  }
+  
+  /* No Exercises Message */
+  .exercise-list-container p {
+    color: #777;
+    font-style: italic;
+  }
+  
+  
