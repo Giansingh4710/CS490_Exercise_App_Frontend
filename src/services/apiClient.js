@@ -40,6 +40,18 @@ class ApiClient {
       data: credentials,
     })
   }
+
+
+
+async getWorkoutPlans() {
+  return await this.request({
+    endpoint: `workoutPlans`, 
+    method: `GET`,
+  });
+}
+
+
+
   async register(credentials) {
     return await this.request({
       endpoint: 'register',
@@ -69,6 +81,14 @@ class ApiClient {
       method: `GET`,
     })
   }
+
+  async getAllExercises() {
+    return await this.request({
+      endpoint: 'exercises/allExercises', // The API endpoint for fetching all exercises
+      method: 'GET'
+    });
+  }
+  
 
   async getAllCoachesBySearchTerm(searchTerm) {
     return await this.request({
@@ -103,3 +123,4 @@ class ApiClient {
 
 const apiClient = new ApiClient(API_BASE_URL)
 export default apiClient
+
