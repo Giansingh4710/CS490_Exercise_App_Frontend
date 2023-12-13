@@ -22,11 +22,11 @@ export default function ExerciseDetail({ selectedExercise }) {
     ) : (
       <div className='exercise-detail'>
         <div className='exercise-header'>
-          <h2>Exercise: {selectedExercise.Name}</h2>
+          <h2>Exercise: {selectedExercise.name}</h2>
           <div className='exercise-details'>
-            <p>Type: {selectedExercise.Type}</p>
-            <p>Difficulty: {selectedExercise.Difficulty}</p>
-            <p>Muscle Group: {selectedExercise.MuscleGroup}</p>
+            <p>Type: {selectedExercise.type}</p>
+            <p>Difficulty: {selectedExercise.difficulty}</p>
+            <p>Muscle Group: {selectedExercise.muscleGroup}</p>
           </div>
           {}
           {}

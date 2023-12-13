@@ -20,7 +20,7 @@ function ExerciseList({ exercises }) {
         <p>Loading...</p>
       ) : (
         exercises?.map((exercise) => (
-          <ExerciseCard key={exercise.ExerciseID} exercise={exercise} />
+          <ExerciseCard key={exercise.exerciseID} exercise={exercise} />
         ))
       )}
     </div>
@@ -38,7 +38,7 @@ function ExerciseCard({ exercise }) {
 
   return (
     <div className='exercise-card' onClick={handleOnExerciseClick}>
-      <p>{exercise?.Name}</p> {}
+      <p>{exercise?.name}</p> {}
     </div>
   );
 }

@@ -267,7 +267,7 @@ export function CoachList({ coaches, setSelectedCoach, selectedCoach, viewCoache
 export function CoachCard({ coach, selectedCoach, setSelectedCoach, isLoading, setIsLoading }) {
   const handleOnCoachClick = async () => {
     try {
-      const { data, error } = await apiClient.getCoachByID(coach.CoachID)
+      const { data, error } = await apiClient.getCoachByID(coach.coachID)
       setSelectedCoach(data)
     } catch (error) {
       console.error('Failed to fetch coach details:', error)
@@ -281,7 +281,7 @@ export function CoachCard({ coach, selectedCoach, setSelectedCoach, isLoading, s
       ) : (
         <div
           className={
-            coach.CoachID === selectedCoach?.CoachID
+            coach.coachID === selectedCoach?.coachID
               ? 'coach-card coach-card-selected'
               : 'coach-card'
           }
