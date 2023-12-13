@@ -43,9 +43,9 @@ class ApiClient {
 
 
 
-async getWorkoutPlans() {
+async getWorkoutPlan() {
   return await this.request({
-    endpoint: `workoutPlans`, 
+    endpoint: `workoutPlan`, 
     method: `GET`,
   });
 }
@@ -126,6 +126,13 @@ async getWorkoutPlans() {
       endpoint: `logActivity/recordDailySurvey`,
       method: `POST`,
       data: data,
+    })
+  }
+
+  async getCoachData(){
+    return await this.request({
+      endpoint: `user/coach`,
+      method: `GET`
     })
   }
 }

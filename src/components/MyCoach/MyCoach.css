@@ -75,6 +75,7 @@ body {
   border: 1px solid #cccccc;
   padding: 15px;
   margin-bottom: 10px;
+  width: 50%;
 }
 
 .button {
@@ -192,4 +193,8 @@ body {
   .terminate-button {
     margin-top: 10px;
   }
+}
+
+th, td{
+  text-align: center;
 }

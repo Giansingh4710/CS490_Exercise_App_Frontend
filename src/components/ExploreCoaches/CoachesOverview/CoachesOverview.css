@@ -11,6 +11,7 @@
   box-shadow: var(--card-box-shadow);
   display: flex;
   flex-direction: column;
+  overflow-y: scroll;
 }
 
 .coaches-or-sent-requests-tab {
