@@ -257,8 +257,7 @@ export default function SurveyForm() {
       }
       sendFormData[key] = value.data
     }
-
-    const { data, error } = await apiClient.registerSurvey(sendFormData)
+    const { data, error } = await apiClient.registerSurvey(sendFormData);
     if(data){
       nav('/UserDashboard');
     }

@@ -1,7 +1,7 @@
 import Navbar from '../Navbar.jsx'
 import LoginForm from './loginForm'
 import Logo from '../Logo'
-import '../styles.css'
+import './loginStyles.css'
 
 function LoginPage() {
   return (

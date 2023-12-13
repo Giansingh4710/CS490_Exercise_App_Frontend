@@ -1,7 +1,7 @@
 import Navbar from "../Navbar.jsx";
 import RegistrationForm from "./registerForm";
 import Logo from "../Logo";
-import "../styles.css";
+import "./registerStyles.css";
 
 function RegistrationPage() {
   return (
@@ -22,7 +22,7 @@ const styles = {
     height: "100%",
   },
   formContainer: {
-    // marginTop: "5%"
+    marginTop: "5%"
   },
 };
 export default RegistrationPage;
