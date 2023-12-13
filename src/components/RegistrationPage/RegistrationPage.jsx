@@ -1,7 +1,6 @@
 import Navbar from "../Navbar.jsx";
 import RegistrationForm from "./registerForm";
 import Logo from "../Logo";
-import "./registerStyles.css";
 
 function RegistrationPage() {
   return (
@@ -19,7 +18,7 @@ const styles = {
   container: {
     textAlign: "center",
     backgroundColor: "#3F4D67",
-    height: "100%",
+    height: "975px",
   },
   formContainer: {
     marginTop: "5%"
