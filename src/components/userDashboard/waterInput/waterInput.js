@@ -1,38 +1,34 @@
-import React, { useState } from 'react'
-import './waterInput.css'
+import React, { useState, useEffect } from 'react';
+import './waterInput.css';
 
-const WaterInputModal = () => {
-  const [amount, setAmount] = useState('')
-  const [unit, setUnit] = useState('fl oz') // Default unit
+const WaterInputModal = ({ setRecordedData }) => {
+  const [amount, setAmount] = useState(''); // Default value is an empty string
+  const [unit, setUnit] = useState('fl oz'); // Default unit
 
   const handleAmountChange = (e) => {
-    setAmount(e.target.value)
-  }
+    setAmount(e.target.value);
+
+    // Call the prop to update the parent component's recordedData
+    setRecordedData((prevData) => ({
+      ...prevData,
+      waterAmount: e.target.value,
+    }));
+  };
 
   const handleUnitChange = (e) => {
-    setUnit(e.target.value)
-  }
+    setUnit(e.target.value);
 
-  /*const handleSubmit = () => {
-    let token = localStorage.getItem('fitness_token')
-    fetch('http://127.0.0.1:1313/logActivity/logWaterIntake', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: token,
-      },
-      body: JSON.stringify({ amount, unit }),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        // Handle the response from the backend, e.g., display a success message
-        console.log(data)
-      })
-      .catch((error) => {
-        // Handle errors, e.g., display an error message
-        console.error(error)
-      })
-  }*/
+    // Call the prop to update the parent component's recordedData
+    setRecordedData((prevData) => ({
+      ...prevData,
+      waterUnit: e.target.value,
+    }));
+  };
+
+  // Log the unit whenever it changes
+  useEffect(() => {
+    console.log('Current Unit:', unit);
+  }, [unit]);
 
   return (
     <div>
@@ -49,7 +45,7 @@ const WaterInputModal = () => {
           <div className='input-field'>
             <label id='label2'>
               MEASUREMENT
-              <select value={unit} onChange={handleUnitChange}>
+              <select value={unit || 'fl oz'} onChange={handleUnitChange}>
                 <option value='fl oz'>fl oz</option>
                 <option value='cups'>cups</option>
                 <option value='gallons'>gallons</option>
@@ -59,7 +55,7 @@ const WaterInputModal = () => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default WaterInputModal
+export default WaterInputModal;

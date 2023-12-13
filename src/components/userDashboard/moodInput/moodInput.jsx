@@ -1,33 +1,30 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import './moodInput.css';
 
-const MoodInputModal = () => {
-  const [mood, setMood] = useState('happy'); // Default mood
+const MoodInputModal = ({ setRecordedData }) => {
+  const [mood, setMood] = useState('very unhappy'); // Default mood
+
+  // Memoize the setRecordedData function using useCallback
+  const memoizedSetRecordedData = useCallback(setRecordedData, [setRecordedData]);
+
+  useEffect(() => {
+    // Call the memoized function to update the parent component's recordedData on mount
+    memoizedSetRecordedData((prevData) => ({
+      ...prevData,
+      mood: mood,
+    }));
+  }, [memoizedSetRecordedData, mood]); // Include mood in the dependency array
 
   const handleMoodChange = (e) => {
-    setMood(e.target.value);
-  };
+    const selectedMood = e.target.value;
+    setMood(selectedMood);
 
-  /*const handleSubmit = () => {
-    let token = localStorage.getItem('fitness_token');
-    fetch('http://127.0.0.1:1313/logActivity/logMood', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: token,
-      },
-      body: JSON.stringify({ mood }),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        // Handle the response from the backend, e.g., display a success message
-        console.log(data);
-      })
-      .catch((error) => {
-        // Handle errors, e.g., display an error message
-        console.error(error);
-      });
-  };*/
+    // Call the memoized function to update the parent component's recordedData when mood changes
+    memoizedSetRecordedData((prevData) => ({
+      ...prevData,
+      mood: selectedMood,
+    }));
+  };
 
   const moodOptions = ['Very Unhappy', 'Unhappy', 'Content', 'Happy', 'Very Happy'];
 

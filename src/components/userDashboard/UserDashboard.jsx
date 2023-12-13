@@ -15,13 +15,16 @@ function UserDashboard() {
 
   const handleSubmission = async () => {
     try {
+      // Log the recordedData before making the API call
+      console.log('Recorded Data:', recordedData);
+
       const { data, error } = await apiClient.recordDailySurvey({
         waterData: {
-          amount: recordedData.waterAmount,
-          unit: recordedData.waterUnit,
+          amount: recordedData.waterAmount, // Assuming waterAmount is a number
+          unit: recordedData.waterUnit,    // Assuming waterUnit is a string
         },
-        weightData: recordedData.weight,
-        moodData: recordedData.mood,
+        weightData: recordedData.weight,    // Assuming weight is a number
+        moodData: recordedData.mood,        // Assuming mood is a string
         // Add other data fields as needed
       });
 
@@ -56,8 +59,8 @@ function UserDashboard() {
           </div>
 
           <div className='user-dashboard-column'>
-            <WaterInputModal />
-            <WeightInputModal />
+            <WaterInputModal setRecordedData={setRecordedData} />
+            <WeightInputModal setRecordedData={setRecordedData} />
             <MoodInputModal setRecordedData={setRecordedData} />
           </div>
         </div>
