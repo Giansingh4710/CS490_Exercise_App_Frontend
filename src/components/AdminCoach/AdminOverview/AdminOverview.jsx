@@ -22,7 +22,7 @@ function CoachList({ coaches }) {
         <p>Loading...</p>
       ) : (
         coaches?.map((coach) => (
-          <CoachCard key={coach.CoachID} coach={coach} />
+          <CoachCard key={coach.coachID} coach={coach} />
         ))
       )}
     </div>
@@ -32,7 +32,7 @@ function CoachList({ coaches }) {
 function CoachCard({ coach }) {
   const handleOnCoachClick = async () => {
     try {
-      const { data } = await apiClient.getCoachByID(coach.CoachID);
+      const { data } = await apiClient.getCoachByID(coach.coachID);
       console.log(data); 
     } catch (error) {
       console.error('Failed to fetch coach details:', error);

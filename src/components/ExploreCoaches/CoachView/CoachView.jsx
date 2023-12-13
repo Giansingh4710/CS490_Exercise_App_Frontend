@@ -29,7 +29,7 @@ export default function CoachView({
         <div className='coach-view'>
           <div className='coach-header'>
             <h2>
-              {selectedCoach?.FirstName} {selectedCoach?.LastName}
+              {selectedCoach?.firstName} {selectedCoach?.lastName}
             </h2>
             <button className='request-btn' onClick={() => handleOnRequestClick()} title='Request'>
               Request
@@ -40,13 +40,13 @@ export default function CoachView({
             <div className='coach-location'>
               <i className='material-icons'>location_on</i>
               <div className='location-text'>
-                {selectedCoach?.City}, {selectedCoach?.State}
+                {selectedCoach?.city}, {selectedCoach?.state}
               </div>
             </div>
 
             <div className='about-me'>
               <h3 className='about-me-header'>ABOUT ME</h3>
-              <div>Specialties: {selectedCoach?.Specialties} </div>
+              <div>Specialties: {selectedCoach?.specialties} </div>
             </div>
           </div>
         </div>

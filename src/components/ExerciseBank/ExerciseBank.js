@@ -26,9 +26,9 @@ const ExerciseBank = () => {
 
   const filteredExercises = exercises
     ? exercises.filter((exercise) => {
-        const isMuscleGroupMatch = !selectedMuscleGroup || exercise.MuscleGroup.toLowerCase() === selectedMuscleGroup.toLowerCase() || selectedMuscleGroup === 'All';
+        const isMuscleGroupMatch = !selectedMuscleGroup || exercise.muscleGroup.toLowerCase() === selectedMuscleGroup.toLowerCase() || selectedMuscleGroup === 'All';
         const isEquipmentMatch = !selectedEquipment || exercise.equipment.toLowerCase() === selectedEquipment.toLowerCase() || selectedEquipment === 'All';
-        const isSearchTermMatch = !searchTerm || exercise.Name.toLowerCase().includes(searchTerm.toLowerCase());
+        const isSearchTermMatch = !searchTerm || exercise.name.toLowerCase().includes(searchTerm.toLowerCase());
         return isMuscleGroupMatch && isEquipmentMatch && isSearchTermMatch;
       })
     : [];
@@ -86,10 +86,10 @@ const ExerciseBank = () => {
           <ul>
             {filteredExercises.map((exercise) => (
               <li key={exercise.id !== undefined ? String(exercise.id) : Math.random().toString()}>
-                <h3>{exercise.Name}</h3>
-                <p>{exercise.Difficulty}</p>
-                <p>{exercise.Type}</p>
-                <p>Muscle Group: {exercise.MuscleGroup}</p>
+                <h3>{exercise.name}</h3>
+                <p>{exercise.difficulty}</p>
+                <p>{exercise.type}</p>
+                <p>Muscle Group: {exercise.muscleGroup}</p>
                 <p>Equipment: {exercise.equipment}</p>
               </li>
             ))}
