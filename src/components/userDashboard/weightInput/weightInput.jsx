@@ -1,33 +1,18 @@
 import React, { useState } from 'react';
 import './weightInput.css';
 
-const WeightInputModal = () => {
+const WeightInputModal = ({ setRecordedData }) => {
   const [weight, setWeight] = useState('');
 
   const handleWeightChange = (e) => {
     setWeight(e.target.value);
-  };
 
-  /*const handleSubmit = () => {
-    let token = localStorage.getItem('fitness_token');
-    fetch('http://127.0.0.1:1313/logActivity/logWeight', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: token,
-      },
-      body: JSON.stringify({ weight }),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        // Handle the response from the backend, e.g., display a success message
-        console.log(data);
-      })
-      .catch((error) => {
-        // Handle errors, e.g., display an error message
-        console.error(error);
-      });
-  };*/
+    // Call the prop to update the parent component's recordedData
+    setRecordedData((prevData) => ({
+      ...prevData,
+      weight: e.target.value,
+    }));
+  };
 
   return (
     <div>

@@ -125,6 +125,7 @@ async getWorkoutPlans() {
     return await this.request({
       endpoint: `logActivity/recordDailySurvey`,
       method: `POST`,
+      data: data,
     })
   }
 }
