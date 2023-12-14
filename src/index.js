@@ -30,7 +30,6 @@ export function AppContainer() {
 
 export function App() {
   const { user, setUser } = useAuthContext()
-
   useEffect(() => {
     const fetchUserInfo = async () => {
       const { data } = await apiClient.fetchUserFromToken()
