@@ -6,12 +6,7 @@ export default function MyAssignedWorkouts() {
   // const [coach, setCoach] = useState(null);
   const [workoutPlan, setWorkoutPlan] = useState({});
 
-  useEffect(() => {
-    // async function getCoachData(){
-    //   const coachData = await apiClient.getCoachData();
-    //   setCoach(coachData.data);
-    // }
-    
+  useEffect(() => {    
     // this endpoint will get the workout for a user
     // as of rn 12/14/23 @ 3pm the database does not have a way to identify a workout as a client created one or a coach created one
     // julien has been assigned a ticket a i will update the backend once the table is updated
@@ -20,7 +15,6 @@ export default function MyAssignedWorkouts() {
       setWorkoutPlan(plan.data);
     }
     getWorkoutPlan();
-    // getCoachData();
   }, [])
 
   return (
