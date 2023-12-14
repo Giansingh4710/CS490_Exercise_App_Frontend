@@ -56,7 +56,12 @@ export function App() {
           <></>
         )}
         <Routes>
-          <Route path='/' element={user?.email ? <UserDashboard /> : <LandingPage />} />
+          <Route
+            path='/'
+            element={
+              user?.email ? user?.role ? <UserDashboard /> : <SurveyPage /> : <LandingPage />
+            }
+          />
           <Route path='/Login' element={user?.email ? <UserDashboard /> : <LoginPage />} />
           <Route
             path='/Register'
