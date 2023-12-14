@@ -2,7 +2,12 @@ import React from 'react'
 import './CoachView.css'
 import apiClient from '../../../services/apiClient'
 import { useState, useEffect } from 'react'
-import { BlueRequestButton, GreenAcceptButton, RedDeclineButton } from '../../Buttons/Buttons'
+import {
+  BlueCancelButton,
+  BlueRequestButton,
+  GreenAcceptButton,
+  RedDeclineButton,
+} from '../../Buttons/Buttons'
 
 export default function CoachView({
   selectedCoach,
@@ -10,17 +15,18 @@ export default function CoachView({
   loading,
   setLoading,
   setModalIsOpen,
+  requestStatusForSelectedCoach,
 }) {
+  console.log('requestStates:', requestStatusForSelectedCoach)
   const [error, setError] = useState('')
 
   const handleOnRequestClick = async () => {
     setModalIsOpen(true)
   }
-  const handleOnDeclineClick = async () => {
+
+  const handleOnCancelClick = async () => {
     setModalIsOpen(true)
-  }
-  const handleOnAcceptClick = async () => {
-    setModalIsOpen(true)
+    // call endpoint to update request to be canceled
   }
   return selectedCoach ? (
     loading ? (
@@ -38,9 +44,12 @@ export default function CoachView({
             <h2>
               {selectedCoach?.firstName} {selectedCoach?.lastName}
             </h2>
-            <BlueRequestButton handleOnClick={handleOnRequestClick} />
-            <RedDeclineButton handleOnClick={handleOnDeclineClick} />
-            <GreenAcceptButton handleOnClick={handleOnAcceptClick} />
+            {/*if request is empty, show request button, otherwise show cancel button*/}
+            {requestStatusForSelectedCoach === '' || requestStatusForSelectedCoach === null ? (
+              <BlueRequestButton handleOnClick={handleOnRequestClick} />
+            ) : (
+              <BlueCancelButton handleOnClick={handleOnCancelClick} />
+            )}
           </div>
 
           <div className='coach-details'>

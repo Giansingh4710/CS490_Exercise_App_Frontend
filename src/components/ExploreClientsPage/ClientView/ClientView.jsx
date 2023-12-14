@@ -2,6 +2,7 @@ import React from 'react'
 import './CoachView.css'
 import apiClient from '../../../services/apiClient'
 import { useState, useEffect } from 'react'
+import { GreenAcceptButton, RedDeclineButton } from '../../Buttons/Buttons'
 
 export default function CoachView({
   selectedCoach,
@@ -11,11 +12,12 @@ export default function CoachView({
   setModalIsOpen,
 }) {
   const [error, setError] = useState('')
-
-  const handleOnRequestClick = async () => {
+  const handleOnDeclineClick = async () => {
     setModalIsOpen(true)
   }
-
+  const handleOnAcceptClick = async () => {
+    setModalIsOpen(true)
+  }
   return selectedCoach ? (
     loading ? (
       <>
@@ -32,9 +34,8 @@ export default function CoachView({
             <h2>
               {selectedCoach?.firstName} {selectedCoach?.lastName}
             </h2>
-            <button className='request-btn' onClick={() => handleOnRequestClick()} title='Request'>
-              Request
-            </button>
+            <RedDeclineButton handleOnClick={handleOnDeclineClick} />
+            <GreenAcceptButton handleOnClick={handleOnAcceptClick} />
           </div>
 
           <div className='coach-details'>

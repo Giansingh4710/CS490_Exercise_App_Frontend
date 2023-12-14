@@ -20,7 +20,7 @@ export default function ExploreCoaches() {
   const [selectedCoach, setSelectedCoach] = useState({})
   const [selectedTab, setSelectedTab] = useState('Coaches')
   const [modalIsOpen, setModalIsOpen] = useState(false)
-
+  const [requestStatusForSelectedCoach, setRequestStatusForSelectedCoach] = useState('')
   const fetchAllCoaches = async () => {
     setIsLoading(true)
     setError(null)
@@ -57,7 +57,6 @@ export default function ExploreCoaches() {
     fetchSentRequests()
   }, [modalIsOpen])
 
-  useEffect(() => {}, [selectedCoach])
   return (
     <>
       {/* conditionally render the Modal to send a request  */}
@@ -72,6 +71,7 @@ export default function ExploreCoaches() {
           setCoachesToDisplay={setCoachesToDisplay}
           sentRequests={sentRequests}
           fetchSentRequests={fetchSentRequests}
+          setRequestStatusForSelectedCoach={setRequestStatusForSelectedCoach}
         />
         <CoachView
           selectedCoach={selectedCoach}
@@ -79,6 +79,7 @@ export default function ExploreCoaches() {
           loading={isLoading}
           setLoading={setIsLoading}
           setModalIsOpen={setModalIsOpen}
+          requestStatusForSelectedCoach={requestStatusForSelectedCoach}
         />
       </div>
     </>

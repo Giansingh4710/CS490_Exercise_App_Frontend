@@ -6,6 +6,7 @@ import { useEffect } from 'react'
 import { Tabs } from '../../ExploreComponents/Tabs/Tabs'
 import { List, ItemCard } from '../../ExploreComponents/ItemList/ItemList'
 import {} from '../../ExploreComponents/ItemList/ItemList'
+import { useAuthContext } from '../../../contexts/auth'
 /*
 components broken down:
     CoachesOverveiw 
@@ -36,6 +37,7 @@ export default function CoachesOverview({
   setCoachesToDisplay,
   sentRequests,
   fetchSentRequests,
+  setRequestStatusForSelectedCoach,
 }) {
   const [viewCoachesOrSentRequests, setViewCoachesOrSentRequests] = useState('Coaches')
   const [searchTerm, setSearchTerm] = useState('')
@@ -112,6 +114,7 @@ export default function CoachesOverview({
         setSelectedCoach={setSelectedCoach}
         selectedCoach={selectedCoach}
         tabs={tabs}
+        setRequestStatusForSelectedCoach={setRequestStatusForSelectedCoach}
       />
     </div>
   )
@@ -130,6 +133,7 @@ export function CoachOverviewContent({
   setSelectedCoach,
   selectedCoach,
   tabs,
+  setRequestStatusForSelectedCoach,
 }) {
   return (
     <>
@@ -151,6 +155,7 @@ export function CoachOverviewContent({
         setSelectedCoach={setSelectedCoach}
         selectedCoach={selectedCoach}
         viewCoachesOrSentRequests={viewCoachesOrSentRequests}
+        setRequestStatusForSelectedCoach={setRequestStatusForSelectedCoach}
       />
     </>
   )
@@ -310,15 +315,41 @@ export function MaxPrice() {
   )
 }
 
-export function CoachList({ coaches, setSelectedCoach, selectedCoach, viewCoachesOrSentRequests }) {
+export function CoachList({
+  coaches,
+  setSelectedCoach,
+  selectedCoach,
+  viewCoachesOrSentRequests,
+  setRequestStatusForSelectedCoach,
+}) {
+  const { user } = useAuthContext()
   const handleOnCoachClick = async (coach) => {
     try {
       const { data, error } = await apiClient.getCoachByID(coach.coachID)
       setSelectedCoach(data)
+      fetchRequestStatus(coach.coachID)
     } catch (error) {
       console.error('Failed to fetch coach details:', error)
     }
   }
+
+  const fetchRequestStatus = async (coachID) => {
+    const { data, error } = await apiClient.getRequestStatus({
+      userID: user.id,
+      coachID: coachID,
+    })
+    if (data) {
+      if (data?.exists == true) {
+        setRequestStatusForSelectedCoach(data?.status)
+      } else {
+        setRequestStatusForSelectedCoach('')
+      }
+    }
+    if (error) {
+      setRequestStatusForSelectedCoach('')
+    }
+  }
+
   return (
     <List
       items={coaches}
