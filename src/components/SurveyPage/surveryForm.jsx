@@ -262,9 +262,8 @@ export default function SurveyForm() {
       nav('/UserDashboard');
     }
     if(error){
-      // updates error message on page with server side validation errors
-      for (const [key, value] of Object.entries(error)) {
-        errorsRef.current[key] = error[key];
+      if(error.status == 403){
+        errorsRef.current['dob'] = error['message'];
       }
       showErrors();
     }  
