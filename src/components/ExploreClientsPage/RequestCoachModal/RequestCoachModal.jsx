@@ -19,12 +19,6 @@ export default function RequestCoachModal({ coach, setModalIsOpen }) {
     })
     if (data) {
       setModalIsOpen(false)
-      {
-        ;<dialog open>
-          <p>Succesfully sent request!</p>
-          <button>OK</button>
-        </dialog>
-      }
     } else {
       console.log('ERROR sending request')
     }

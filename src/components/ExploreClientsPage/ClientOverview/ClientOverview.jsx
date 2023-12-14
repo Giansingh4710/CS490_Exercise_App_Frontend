@@ -33,24 +33,28 @@ export default function CoachesOverview({
   coachesToDisplay,
   setCoachesToDisplay,
   sentRequests,
+  fetchSentRequests,
 }) {
   const [viewCoachesOrSentRequests, setViewCoachesOrSentRequests] = useState('Coaches')
   const [searchTerm, setSearchTerm] = useState('')
-
   //   const [viewFilters, setViewFilters] = useState(false);
-  const handleOnSentRequestsTabClick = () => {
+  const handleOnNewRequestsClick = () => {
     if (viewCoachesOrSentRequests == 'Coaches') {
       setViewCoachesOrSentRequests('Sent Requests')
       setCoachesToDisplay(sentRequests)
     }
   }
 
-  const handleOnCoachesTabClick = () => {
+  const handleOnClientTabClick = () => {
     if (viewCoachesOrSentRequests == 'Sent Requests') {
       setViewCoachesOrSentRequests('Coaches')
       setCoachesToDisplay(coaches)
     }
   }
+  const tabs = [
+    { label: 'Clients', handler: handleOnClientTabClick },
+    { label: 'New Requests', handler: handleOnNewRequestsClick },
+  ]
 
   const handleSearch = async () => {
     try {
@@ -68,6 +72,7 @@ export default function CoachesOverview({
         viewCoachesOrSentRequests={viewCoachesOrSentRequests}
         handleOnSentRequestsTabClick={handleOnSentRequestsTabClick}
         handleOnCoachesTabClick={handleOnCoachesTabClick}
+        tabs={tabs}
       />
       <SearchForCoachByName
         searchTerm={searchTerm}

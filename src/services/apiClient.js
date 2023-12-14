@@ -102,7 +102,36 @@ class ApiClient {
 
   async getOpenRequestsForClient() {
     return await this.request({
-      endpoint: `request/openCoachRequests`,
+      endpoint: `request/openClientRequest`,
+      method: `GET`,
+    })
+  }
+
+  async getCoachLocations() {
+    return await this.request({
+      endpoint: `coaches/cities`,
+      method: `GET`,
+    })
+  }
+
+  async getCoachSpecializations() {
+    return await this.request({
+      endpoint: `coaches/specializations`,
+      method: `GET`,
+    })
+  }
+
+  // ----------------------- requests to get client info for a coach ----------------------- //
+  async getOpenRequestsForCoach() {
+    return await this.request({
+      endpoint: `/request/openCoachRequests`,
+      method: `GET`,
+    })
+  }
+
+  async getCoachesClients(coachID) {
+    return await this.request({
+      endpoint: `/coach/:${coachID}/clients`,
       method: `GET`,
     })
   }

@@ -13,22 +13,6 @@
   flex-direction: column;
 }
 
-.coaches-or-sent-requests-tab {
-  display: flex;
-  width: 100%;
-  justify-content: space-between;
-  align-items: center;
-}
-.tab {
-  cursor: pointer;
-  width: 110px;
-  text-align: center;
-}
-
-.tab:hover {
-  box-shadow: 0 1px 20px 0 rgb(69 90 100 / 8%);
-}
-
 .coach-list-container {
   height: 100%;
   overflow: auto;
@@ -55,7 +39,7 @@
   width: 100%;
   border: 1px solid darkgray;
   border-radius: 10px;
-  padding: 5px;
+  /* padding: 5px; */
   padding-left: 10px;
   outline: none;
   box-shadow: 0 1px 10px 0 rgba(78, 101, 112, 0.08);
@@ -112,7 +96,7 @@
 .filter-container select,
 input {
   padding-top: 10px;
-  margin-top: 10px;
+  /* margin-top: 10px; */
 }
 
 .select-location-container {
