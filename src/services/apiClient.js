@@ -43,7 +43,7 @@ class ApiClient {
 
   async getWorkoutPlan() {
     return await this.request({
-      endpoint: `workoutPlan`,
+      endpoint: `workoutPlan/assignedWorkouts`,
       method: `GET`,
     })
   }

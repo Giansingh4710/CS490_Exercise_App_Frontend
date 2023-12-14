@@ -57,7 +57,7 @@ export default function MyMessagesWithCoach({ coach }) {
       }
       const res = await apiClient.sendMessage(newMessage);
       setMsgs((prev) => [
-        ...prev, newMessage // timestamp not set so wont show. need to fix
+        ...prev, newMessage
       ]);
       setNewMsg("");
     } else {

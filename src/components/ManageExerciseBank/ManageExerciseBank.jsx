@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import './ManageExerciseBank.css'; 
-import ExerciseOverview from './ExerciseOverview/ExerciseOverview'; 
+import './ManageExerciseBank.css';
+import ExerciseOverview from './ExerciseOverview/ExerciseOverview';
 import ExerciseDetail from './ExerciseDetail/ExerciseDetail';
 import apiClient from '../../services/apiClient';
 
@@ -16,18 +16,20 @@ export default function ManageExerciseBank() {
         const response = await apiClient.getAllExercises();
         console.log("API Response:", response);
         setExercises(response.data);
-        setIsLoading(false);
       } catch (error) {
         console.error("Error fetching exercises:", error);
+      } finally {
         setIsLoading(false);
       }
-      
     };
 
     fetchAllExercises();
   }, []);
-  
-  
+
+  const handleSelectExercise = (exercise) => {
+    setSelectedExercise(exercise);
+  };
+
 
   return (
     <div className='manage-exercise-bank'>
@@ -35,13 +37,17 @@ export default function ManageExerciseBank() {
         <p>Loading Exercises...</p>
       ) : (
         <div className="manage-exercise-bank-container">
-          <ExerciseOverview 
-            exercises={exercises} 
-            setSelectedExercise={setSelectedExercise} 
-          />
-          <ExerciseDetail 
-            selectedExercise={selectedExercise} 
-          />
+          <div className="exercise-overview-container">
+            <ExerciseOverview 
+              exercises={exercises} 
+              onSelectExercise={setSelectedExercise} 
+            />
+          </div>
+          <div className="exercise-detail-container">
+            <ExerciseDetail 
+              selectedExercise={selectedExercise} 
+            />
+          </div>
         </div>
       )}
     </div>

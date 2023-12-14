@@ -1,53 +1,62 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import './ExerciseOverview.css';
-import apiClient from '../../../services/apiClient';
+import ExerciseCard from './ExerciseCard'; // Import ExerciseCard component
 
-export default function ExerciseOverview({ exercises, setSelectedExercise }) {
-  return (
-    <div className='exercise-overview'>
-      <h3>Exercise List</h3>
-      {exercises?.map((exercise) => (
-        <ExerciseCard
-          key={exercise.exerciseID}
-          exercise={exercise}
-          setSelectedExercise={setSelectedExercise}
-        />
-      ))}
-    </div>
-  );
-}
-function ExerciseList({ exercises }) {
-  const [isLoading, setIsLoading] = useState(false);
+export default function ExerciseOverview({ exercises, onSelectExercise }) {
+  const [searchTerm, setSearchTerm] = useState('');
 
-  return (
-    <div>
-      {isLoading ? (
-        <p>Loading...</p>
-      ) : (
-        exercises?.map((exercise) => (
-          <ExerciseCard key={exercise.exerciseID} exercise={exercise} />
-        ))
-      )}
-    </div>
-  );
-}
-
-function ExerciseCard({ exercise, setSelectedExercise }) {
-  const handleOnExerciseClick = () => {
-    console.log("Exercise clicked:", exercise); 
-    setSelectedExercise(exercise); 
+  const handleSearchChange = (event) => {
+    setSearchTerm(event.target.value.toLowerCase());
   };
 
-  return (
-    <div className='exercise-card' onClick={handleOnExerciseClick}>
-      <p>{exercise?.Name}</p> {}
+  const handleSearchSubmit = (event) => {
+    event.preventDefault(); // Prevent the default form submit action
+    // Logic to handle search
+  };
+
+  const handleButtonClick = () => {
+    console.log('Button was clicked!');
+  };
+  const handleSearchIconClick = () => {
+    // Logic to handle search
+  };
+ 
+  const filteredExercises = exercises.filter((exercise) =>
+    exercise.name.toLowerCase().includes(searchTerm)
+  );  
+
+return (
+  <div className='exercise-overview'>
+    <div className="exercise-overview-header">
+      <button onClick={handleButtonClick} className="add-exercise-button">CREATE NEW EXERCISE</button>
+      <div className="search-container">
+        <input
+          type="text"
+          placeholder="Search exercises..."
+          value={searchTerm}
+          onChange={handleSearchChange}
+          className="search-input"
+        />
+        <button onClick={handleSearchSubmit} className="search-btn">
+          <i className="material-icons">search</i>
+        </button>
+      </div>
     </div>
-  );
+    <div className="exercise-list-container">
+      {filteredExercises.map((exercise) => (
+        <ExerciseCard key={exercise.exerciseID} exercise={exercise} onSelectExercise={onSelectExercise} />
+      ))}
+    </div>
+  </div>
+);
+}
 
-
+function ExerciseList({ exercises, onSelectExercise }) {
   return (
-    <div className='exercise-card' onClick={handleOnExerciseClick}>
-      <p>{exercise?.Name}</p>
+    <div>
+      {exercises?.map((exercise) => (
+        <ExerciseCard key={exercise.exerciseID} exercise={exercise} onSelectExercise={onSelectExercise} />
+      ))}
     </div>
   );
 }
