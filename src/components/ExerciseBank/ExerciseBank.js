@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import ExerciseBankModal from './ExerciseModal/ExerciseModal'; // Import the modal component
 import './ExerciseBank.css';
 
 const ExerciseBank = () => {
@@ -6,6 +7,7 @@ const ExerciseBank = () => {
   const [selectedMuscleGroup, setSelectedMuscleGroup] = useState('');
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedEquipment, setSelectedEquipment] = useState('');
+  const [isModalOpen, setModalOpen] = useState(false);
 
   useEffect(() => {
     const fetchExercises = async () => {
@@ -44,58 +46,84 @@ const ExerciseBank = () => {
     console.log('Cancelled!');
   };
 
+  const openModal = () => {
+    setModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setModalOpen(false);
+  };
+
   return (
-    <div className="exercise-bank-container">
-      <h2>Exercise Bank</h2>
-      <div className="filter-section">
-        <div className="filter-item" id="filter-search">
-          <label>Search by Exercise Name: </label>
-          <input type="text" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
-        </div>
-        <div className="filter-item" id="filter-muscle-group">
-          <label>Filter by Muscle Group: </label>
-          <select onChange={(e) => setSelectedMuscleGroup(e.target.value)} value={selectedMuscleGroup}>
-            {muscleGroups.map((group) => (
-              <option key={group} value={group}>
-                {group}
-              </option>
-            ))}
-          </select>
-        </div>
-        <div className="filter-item" id="filter-equipment">
-          <label>Filter by Equipment: </label>
-          <select onChange={(e) => setSelectedEquipment(e.target.value)} value={selectedEquipment}>
-            {equipmentOptions.map((equipment) => (
-              <option key={equipment} value={equipment}>
-                {equipment}
-              </option>
-            ))}
-          </select>
-        </div>
-        <button className="submit-button" id="exercise-bank-submit-button" onClick={handleSubmission}>
-          SUBMIT
-        </button>
-        <button className="cancel-button" id="exercise-bank-cancel-button" onClick={handleCancel}>
-          CANCEL
-        </button>
-      </div>
-      <div className="exercise-list-container">
-        {filteredExercises.length === 0 ? (
-          <p>No exercises available for the selected criteria.</p>
-        ) : (
-          <ul>
-            {filteredExercises.map((exercise) => (
-              <li key={exercise.id !== undefined ? String(exercise.id) : Math.random().toString()}>
-                <h3>{exercise.name}</h3>
-                <p>{exercise.difficulty}</p>
-                <p>{exercise.type}</p>
-                <p>Muscle Group: {exercise.muscleGroup}</p>
-                <p>Equipment: {exercise.equipment}</p>
-              </li>
-            ))}
-          </ul>
-        )}
-      </div>
+    <div>
+      <button onClick={openModal}>Open Exercise Bank Modal</button>
+      {isModalOpen && (
+        <ExerciseBankModal onClose={closeModal}>
+          <h2>Exercise Bank</h2>
+          <div className="filter-section">
+            <div className="filter-item" id="filter-search">
+              <label>Search by Exercise Name: </label>
+              <input type="text" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
+            </div>
+            <div className="filter-item" id="filter-muscle-group">
+              <label>Filter by Muscle Group: </label>
+              <select onChange={(e) => setSelectedMuscleGroup(e.target.value)} value={selectedMuscleGroup}>
+                {muscleGroups.map((group) => (
+                  <option key={group} value={group}>
+                    {group}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div className="filter-item" id="filter-equipment">
+              <label>Filter by Equipment: </label>
+              <select onChange={(e) => setSelectedEquipment(e.target.value)} value={selectedEquipment}>
+                {equipmentOptions.map((equipment) => (
+                  <option key={equipment} value={equipment}>
+                    {equipment}
+                  </option>
+                ))}
+              </select>
+            </div>
+          </div>
+          <div className="exercise-list-container">
+            {filteredExercises.length === 0 ? (
+              <p>No exercises available for the selected criteria.</p>
+            ) : (
+              <table>
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>Difficulty</th>
+                    <th>Type</th>
+                    <th>Muscle Group</th>
+                    <th>Equipment</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {filteredExercises.map((exercise) => (
+                    <tr key={exercise.id !== undefined ? String(exercise.id) : Math.random().toString()}>
+                      <td>{exercise.name}</td>
+                      <td>{exercise.difficulty}</td>
+                      <td>{exercise.type}</td>
+                      <td>{exercise.muscleGroup}</td>
+                      <td>{exercise.equipment}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            )}
+          </div>
+          <div className="button-container">
+            <button className="submit-button" id="exercise-bank-submit-button" onClick={handleSubmission}>
+              SUBMIT
+            </button>
+            <button className="cancel-button" id="exercise-bank-cancel-button" onClick={handleCancel}>
+              CANCEL
+            </button>
+          </div>
+        </ExerciseBankModal>
+      )}
     </div>
   );
 };

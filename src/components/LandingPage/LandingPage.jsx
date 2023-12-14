@@ -1,28 +1,32 @@
-import Navbar from '../Navbar.jsx'
-import { Link } from 'react-router-dom'
-import { LandingPageButton } from '../Buttons/Buttons.jsx'
-import DataUnit from './dataUnit'
-import '../styles.css'
+import React from 'react';
+import Navbar from '../Navbar.jsx';
+import { Link } from 'react-router-dom';
+import { LandingPageButton } from '../Buttons/Buttons.jsx';
+import DataUnit from './dataUnit';
+import ExerciseBank from '../ExerciseBank/ExerciseBank.js';
+import '../styles.css';
 
 function LandingPage() {
+
   return (
     <div style={styles.container}>
       <Navbar page='landing' />
       <div style={styles.div}>
-        <h1 style={styles.title}>Welome to FitFusion</h1>
+        <h1 style={styles.title}>Welcome to FitFusion</h1>
         <p style={styles.paragraph}>
           Discover a healthier, happier you with FitFusion. This is where expert coaching, activity
           tracking, and mood management converge. Tailored insights and personal guidance at your
           fingertips, fostering your journey towards well-being. Your goals, our mission. Start
           transforming today!
         </p>
+        <ExerciseBank />
         <Link to='/Register'>
           <LandingPageButton name='Sign Up Now!' additionalStyles={styles.button} />
         </Link>
       </div>
       <DataUnit />
     </div>
-  )
+  );
 }
 
 const styles = {
@@ -57,6 +61,7 @@ const styles = {
     height: '62px',
     marginTop: '60px',
   },
-}
+};
 
-export default LandingPage
+export default LandingPage;
+
