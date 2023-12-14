@@ -6,6 +6,7 @@ import MealInput from './mealInput/mealInput.js';
 import apiClient from '../../services/apiClient.js';
 import { useState } from 'react';
 import { BlueSubmitButton } from '../Buttons/Buttons.jsx';
+import WeightGraph from './weightGraph/weightGraph.jsx';
 import './UserDashboard.css';
 
 function UserDashboard() {
@@ -62,6 +63,10 @@ function UserDashboard() {
             <WaterInputModal setRecordedData={setRecordedData} />
             <WeightInputModal setRecordedData={setRecordedData} />
             <MoodInputModal setRecordedData={setRecordedData} />
+          </div>
+
+          <div>
+            <WeightGraph />
           </div>
         </div>
         {error && <p className="error-message">{error}</p>}

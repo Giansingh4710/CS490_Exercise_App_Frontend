@@ -1,0 +1,9 @@
+.overview {
+  padding: 10px 30px 10px 30px;
+  min-width: 300px;
+  max-width: 400px;
+  background-color: white;
+  box-shadow: var(--card-box-shadow);
+  display: flex;
+  flex-direction: column;
+}

@@ -14,16 +14,20 @@ export default function ManageExerciseBank() {
       setIsLoading(true);
       try {
         const response = await apiClient.getAllExercises();
-        setExercises(response.data); 
+        console.log("API Response:", response);
+        setExercises(response.data);
         setIsLoading(false);
       } catch (error) {
         console.error("Error fetching exercises:", error);
         setIsLoading(false);
       }
+      
     };
 
     fetchAllExercises();
   }, []);
+  
+  
 
   return (
     <div className='manage-exercise-bank'>
