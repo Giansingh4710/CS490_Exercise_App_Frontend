@@ -28,7 +28,6 @@ export default function ExploreClients() {
     if (data) {
       setClients(data)
       setClientsToDisplay(data)
-      console.log('Clients:', data)
     }
     if (error) {
       setClients([])
@@ -42,7 +41,6 @@ export default function ExploreClients() {
     const { data, error } = await apiClient.getOpenRequestsForClient()
     if (data) {
       setSentRequests(data)
-      console.log('Clients:', data)
     }
     if (error) {
       setClients([])
@@ -228,7 +226,6 @@ export function ClientCard({ client, selectedClient, setSelectedClient, isLoadin
   const handleOnClientClick = async () => {
     try {
       const { data, error } = await apiClient.getClientByID(client.clientID)
-      console.log('Selected client: ', data)
       setSelectedClient(data)
     } catch (error) {
       console.error('Failed to fetch client details:', error)

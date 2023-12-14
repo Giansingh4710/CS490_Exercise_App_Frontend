@@ -43,10 +43,10 @@ class ApiClient {
 
   async getWorkoutPlan() {
     return await this.request({
-      endpoint: `workoutPlan`, 
+      endpoint: `workoutPlan`,
       method: `GET`,
-    });
-}
+    })
+  }
 
   async register(credentials) {
     return await this.request({
@@ -70,6 +70,14 @@ class ApiClient {
     localStorage.setItem(this.tokenName, '')
   }
 
+  // --------------- general requests -------------//
+  async getRequestStatus(data) {
+    console.log(`REQUEST : request/status?userID=${data?.userID}&coachID=${data?.coachID}`)
+    return await this.request({
+      endpoint: `request/status?userID=${data?.userID}&coachID=${data?.coachID}`,
+      method: `GET`,
+    })
+  }
   // ----------------------- coaches requests ----------------------- //
   async getAllCoaches() {
     return await this.request({
@@ -160,10 +168,10 @@ class ApiClient {
     })
   }
 
-  async getCoachData(){
+  async getCoachData() {
     return await this.request({
       endpoint: `user/coach`,
-      method: `GET`
+      method: `GET`,
     })
   }
 
@@ -181,19 +189,19 @@ class ApiClient {
       method: `GET`,
     })
   }
-  
-  async getMessages(userID){
+
+  async getMessages(userID) {
     return await this.request({
       endpoint: `messages/${userID}`,
-      method: `GET`
+      method: `GET`,
     })
   }
 
-  async sendMessage(data){
+  async sendMessage(data) {
     return await this.request({
       endpoint: `messages`,
       method: `POST`,
-      data: data
+      data: data,
     })
   }
 }

@@ -5,11 +5,9 @@ import apiClient from '../../../services/apiClient'
 import Modal from '../../Modal/Modal'
 
 export default function RequestCoachModal({ coach, setModalIsOpen }) {
-  console.log('COACH: ', coach)
   const { user } = useAuthContext()
   const [goal, setGoal] = useState('')
   const [message, setMessage] = useState('')
-  console.log('USER:', user)
   const handleOnSubmitClick = async () => {
     const { data, error } = await apiClient.createNewRequestForCoachingFromClient({
       userID: user?.id,
@@ -24,7 +22,6 @@ export default function RequestCoachModal({ coach, setModalIsOpen }) {
     }
   }
   const headerName = 'REQUEST COACH ' + coach?.lastName
-  console.log('headerName: ', headerName)
   const inputFieldsElement = inputFields({ goal, setGoal, message, setMessage, coach })
 
   return (
