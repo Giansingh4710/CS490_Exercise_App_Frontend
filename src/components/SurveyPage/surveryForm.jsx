@@ -333,7 +333,7 @@ export default function SurveyForm() {
           onChange={handleInputChange}
         />
         <InputGridElement
-          type='text'
+          type='number'
           name='weight'
           label='Weight'
           placeholder='Weight'
@@ -344,7 +344,7 @@ export default function SurveyForm() {
           value={formData.weight.data}
         />
         <InputGridElement
-          type='text'
+          type='number'
           name='height'
           label='Height'
           placeholder='Height'
@@ -411,7 +411,7 @@ export default function SurveyForm() {
           onChange={handleInputChange}
         />
         <InputGridElement
-          type='text'
+          type='number'
           name='zipCode'
           label='Zip Code'
           placeholder='5 Digit Zip Code'
@@ -530,8 +530,8 @@ const styles = {
   inputUnit: {
     position: 'relative',
     float: 'right',
-    paddingRight: '5px',
-    top: '75px',
+    paddingRight: '20px',
+    top: '60px',
     zIndex: '1',
     color: '#000000',
     fontWeight: 'bold',

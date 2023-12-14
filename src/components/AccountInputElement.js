@@ -74,6 +74,8 @@ const styles = {
     borderRadius: '5px',
     backgroundColor: '#FFFFFF',
     border: '1px solid gray',
+    paddingLeft: '5px',
+    paddingBottom: '10px'
   },
   inputElementContainer: {
     textAlign: 'left',
