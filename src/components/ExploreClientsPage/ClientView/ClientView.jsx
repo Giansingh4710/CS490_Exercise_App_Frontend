@@ -1,63 +1,60 @@
 import React from 'react'
-import './CoachView.css'
-import apiClient from '../../../services/apiClient'
-import { useState, useEffect } from 'react'
+import './ClientView.css'
 import { GreenAcceptButton, RedDeclineButton } from '../../Buttons/Buttons'
 
-export default function CoachView({
-  selectedCoach,
-  setSelectedCoach,
+export default function ClientView({
+  selectedClient,
+  setSelectedClient,
   loading,
   setLoading,
   setModalIsOpen,
 }) {
-  const [error, setError] = useState('')
   const handleOnDeclineClick = async () => {
     setModalIsOpen(true)
   }
   const handleOnAcceptClick = async () => {
     setModalIsOpen(true)
   }
-  return selectedCoach ? (
+  return selectedClient ? (
     loading ? (
       <>
-        <div className='coach-view'>
-          <div className='coach-header'>
+        <div className='client-view'>
+          <div className='client-header'>
             <h2>Loading...</h2>
           </div>
         </div>
       </>
     ) : (
       <>
-        <div className='coach-view'>
-          <div className='coach-header'>
+        <div className='client-view'>
+          <div className='client-header'>
             <h2>
-              {selectedCoach?.firstName} {selectedCoach?.lastName}
+              {selectedClient?.firstName} {selectedClient?.lastName}
             </h2>
             <RedDeclineButton handleOnClick={handleOnDeclineClick} />
             <GreenAcceptButton handleOnClick={handleOnAcceptClick} />
           </div>
 
-          <div className='coach-details'>
-            <div className='coach-location'>
+          <div className='client-details'>
+            <div className='client-location'>
               <i className='material-icons'>location_on</i>
               <div className='location-text'>
-                {selectedCoach?.city}, {selectedCoach?.state}
+                {selectedClient?.city}, {selectedClient?.state}
               </div>
             </div>
 
             <div className='about-me'>
               <h3 className='about-me-header'>ABOUT ME</h3>
-              <div>Specialties: {selectedCoach?.specialties} </div>
+              <div>Specialties: {selectedClient?.specialties} </div>
             </div>
           </div>
         </div>
       </>
     )
   ) : (
-    <div className='coach-view'>
-      <div className='coach-header'>
-        <h2>No coach selected</h2>
+    <div className='client-view'>
+      <div className='client-header'>
+        <h2>No client selected</h2>
       </div>
     </div>
   )

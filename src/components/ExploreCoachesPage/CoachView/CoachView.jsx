@@ -16,8 +16,11 @@ export default function CoachView({
   setLoading,
   setModalIsOpen,
   requestStatusForSelectedCoach,
+  notes,
+  setShowErrorDialog,
 }) {
   console.log('requestStates:', requestStatusForSelectedCoach)
+  console.log('Notes:', notes)
   const [error, setError] = useState('')
 
   const handleOnRequestClick = async () => {
@@ -32,6 +35,15 @@ export default function CoachView({
     loading ? (
       <>
         <div className='coach-view'>
+          {notes !== '' ? (
+            <div className='coach-view-notes'>
+              {' '}
+              <p>{notes}</p>
+            </div>
+          ) : (
+            <></>
+          )}
+
           <div className='coach-header'>
             <h2>Loading...</h2>
           </div>

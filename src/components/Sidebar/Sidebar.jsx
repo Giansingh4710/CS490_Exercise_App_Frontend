@@ -50,6 +50,30 @@ export function SideBarIcons() {
             <span className='icon-text'> WORKOUTS </span>
           </div>
         </Link>
+
+        {/* START Coach Specific Links */}
+        <Link to='/MyClients'>
+          <div className='sidebar-icon'>
+            <span class='material-symbols-outlined'>groups_3</span>{' '}
+            <span className='icon-text'> MY CLIENTS </span>
+          </div>
+        </Link>
+        {/* END Coach Specific Links */}
+
+        {/* START Admin Specific Links */}
+        <Link to='/ManageCoaches'>
+          <div className='sidebar-icon'>
+            <span class='material-symbols-outlined'>manage_accounts</span>{' '}
+            <span className='icon-text'> MANAGE COACHES </span>
+          </div>
+        </Link>
+        <Link to='/ManageExercises'>
+          <div className='sidebar-icon'>
+            <span class='material-symbols-outlined'>folder_managed</span>
+            <span className='icon-text'> MANAGE EXERCISES </span>
+          </div>
+        </Link>
+        {/* END Admin Specific Links */}
       </div>
 
       <div className='bottom-sidebar'>

@@ -4,7 +4,7 @@ import { useAuthContext } from '../../../contexts/auth'
 import apiClient from '../../../services/apiClient'
 import Modal from '../../Modal/Modal'
 
-export default function RequestCoachModal({ coach, setModalIsOpen }) {
+export default function RequestCoachModal({ coach, setModalIsOpen, specializations, setNotes }) {
   const { user } = useAuthContext()
   const [goal, setGoal] = useState('')
   const [message, setMessage] = useState('')
@@ -19,6 +19,17 @@ export default function RequestCoachModal({ coach, setModalIsOpen }) {
       setModalIsOpen(false)
     } else {
       console.log('ERROR sending request')
+      setModalIsOpen(false)
+      return (
+        <dialog open>
+          <p> Error sending request</p>
+          <form method='dialog'>
+            <button>OK</button>
+          </form>
+        </dialog>
+      )
+    }
+    if (error) {
     }
   }
   const headerName = 'REQUEST COACH ' + coach?.lastName

@@ -5,7 +5,6 @@ import apiClient from '../../../services/apiClient'
 import { useEffect } from 'react'
 import { Tabs } from '../../ExploreComponents/Tabs/Tabs'
 import { List, ItemCard } from '../../ExploreComponents/ItemList/ItemList'
-import {} from '../../ExploreComponents/ItemList/ItemList'
 import { useAuthContext } from '../../../contexts/auth'
 /*
 components broken down:
@@ -38,17 +37,11 @@ export default function CoachesOverview({
   sentRequests,
   fetchSentRequests,
   setRequestStatusForSelectedCoach,
+  specializations,
 }) {
   const [viewCoachesOrSentRequests, setViewCoachesOrSentRequests] = useState('Coaches')
   const [searchTerm, setSearchTerm] = useState('')
   const [locations, setLocations] = useState([{ state: 'Any State', cities: [] }])
-  const [specializations, setSpecializations] = useState(['Any Specialization'])
-  const handleOnSentRequestsTabClick = () => {
-    if (viewCoachesOrSentRequests == 'Coaches') {
-      setViewCoachesOrSentRequests('Sent Requests')
-      setCoachesToDisplay(sentRequests)
-    }
-  }
 
   const handleOnCoachesTabClick = () => {
     if (viewCoachesOrSentRequests == 'Sent Requests') {
@@ -56,7 +49,12 @@ export default function CoachesOverview({
       setCoachesToDisplay(coaches)
     }
   }
-
+  const handleOnSentRequestsTabClick = () => {
+    if (viewCoachesOrSentRequests == 'Coaches') {
+      setViewCoachesOrSentRequests('Sent Requests')
+      setCoachesToDisplay(sentRequests)
+    }
+  }
   const tabs = [
     { label: 'Coaches', handler: handleOnCoachesTabClick },
     { label: 'Sent Requests', handler: handleOnSentRequestsTabClick },
@@ -71,20 +69,7 @@ export default function CoachesOverview({
       throw new Error('Error fetching states and cities')
     }
   }
-  const fetchSpecializations = async () => {
-    try {
-      const { data, error } = await apiClient.getCoachSpecializations()
-      // if (error) {
-      //   setSpecializations(['Any specialization'])
-      //   throw new Error('Error fetching specializations')
-      // }
-      const specializationList = data.map((spec) => spec.specialties)
-      setSpecializations(['Any Specialization', ...specializationList])
-    } catch (error) {
-      setSpecializations(['Any specialization'])
-      throw new Error('Error fetching specializations')
-    }
-  }
+
   const handleSearch = async () => {
     try {
       const { data, error } = await apiClient.getAllCoachesBySearchTerm(searchTerm)
@@ -97,8 +82,8 @@ export default function CoachesOverview({
 
   useEffect(() => {
     fetchLocations()
-    fetchSpecializations()
   }, [])
+
   return (
     <div className='coaches-overview'>
       <CoachOverviewContent

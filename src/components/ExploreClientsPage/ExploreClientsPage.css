@@ -1,4 +1,4 @@
-.explore-coaches {
+.explore-clients {
   margin-left: 100px;
   margin-right: 10px;
   padding: 20px;
@@ -7,4 +7,149 @@
 }
 .blurred {
   filter: blur(5px);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.clients-overview {
+  padding: 10px 30px 10px 30px;
+  min-width: 300px;
+  max-width: 400px;
+  /* min-width: 200px; */
+  background-color: white;
+  box-shadow: var(--card-box-shadow);
+  display: flex;
+  flex-direction: column;
+}
+
+.client-list-container {
+  height: 100%;
+  overflow: auto;
+}
+.selected {
+  font-weight: bolder;
+}
+
+.client-view .client-details {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  align-items: baseline;
+}
+.client-search {
+  position: relative;
+  width: 100%;
+  /* display: flex;
+  flex-direction: row; */
+  /* widht: 100 */
+}
+
+.client-search input {
+  width: 100%;
+  border: 1px solid darkgray;
+  border-radius: 10px;
+  /* padding: 5px; */
+  padding-left: 10px;
+  outline: none;
+  box-shadow: 0 1px 10px 0 rgba(78, 101, 112, 0.08);
+}
+
+.client-search input::placeholder {
+  color: rgb(197, 197, 197);
+  font-style: italic;
+}
+.client-search button {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background: transparent;
+  outline: none;
+  border: none;
+  color: rgb(197, 197, 197);
+  cursor: pointer;
+}
+
+/* ------------ filters styling --------- */
+.filter-container {
+  display: flex;
+  flex-direction: column;
+  /* justify-content: space-between; */
+  padding-top: 10px;
+  padding-bottom: 10px;
+  /* align-items: center; */
+  /* justify-content: center; */
+}
+
+.filter-label {
+  padding: 0;
+  margin: 0;
+  padding-right: 20px;
+  display: flex;
+  flex-direction: row;
+  font-weight: bold;
+  padding-top: 10px;
+}
+
+.filter-label:hover {
+  cursor: default;
+}
+.filter-label p {
+  margin: 0;
+}
+.filter-container select {
+  width: 100%;
+  text-align: center;
+  cursor: pointer;
+}
+
+.filter-container select,
+input {
+  padding-top: 10px;
+  /* margin-top: 10px; */
+}
+
+.select-location-container {
+  display: flex;
+  flex-direction: rows;
+}
+
+.select-price-input input {
+  width: 100%;
+  border: 1px solid darkgray;
+  border-radius: 10px;
+  padding: 5px;
+  padding-left: 10px;
+  outline: none;
+  box-shadow: 0 1px 10px 0 rgba(78, 101, 112, 0.08);
+}
+
+.select-price-input input::placeholder {
+  color: rgb(197, 197, 197);
+  font-style: italic;
+}
+
+/*----- client card styling -----*/
+.client-card {
+  background-color: rgb(248, 247, 247);
+  /* border: 1px solid gray; */
+  cursor: pointer;
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+  padding-top: 10px;
+  padding-left: 5px;
+}
+.client-card p {
+  margin: 0;
+  padding: 0;
+}
+.client-card:hover {
+  box-shadow: 0 1px 10px 0 rgba(78, 101, 112, 0.08);
+}
+
+.client-card-selected {
+  background: rgb(223, 223, 223);
+
+  box-shadow: 0 1px 10px 0 rgba(78, 101, 112, 0.08);
 }

@@ -1,11 +1,10 @@
 import React from 'react'
-import './ExploreClients.css'
-import ClientsOverview from './ClientOverview/ClientOverview'
+import './ExploreClientsPage.css'
 import ClientView from './ClientView/ClientView'
 import { useState, useEffect } from 'react'
 import apiClient from '../../services/apiClient'
-import RequestClientModal from './RequestClientModal/RequestClientModal'
-
+import { Tabs } from '../ExploreComponents/Tabs/Tabs'
+import { List, ItemCard } from '../ExploreComponents/ItemList/ItemList'
 // components broken down:
 // ExploreClients is the overall page
 // ClientOverview is the search area for clients
@@ -24,7 +23,7 @@ export default function ExploreClients() {
   const fetchAllClients = async () => {
     setIsLoading(true)
     setError(null)
-    const { data, error } = await apiClient.getClientsClients()
+    const { data, error } = await apiClient.getCoachesClients()
     if (data) {
       setClients(data)
       setClientsToDisplay(data)
@@ -52,17 +51,11 @@ export default function ExploreClients() {
     fetchAllClients()
     fetchSentRequests()
     setSelectedClient(null)
-  }, []);
-
-  useEffect(() => {
-    fetchSentRequests()
-  }, [isModalOpen]);
+  }, [])
 
   return (
     <>
-      {/* conditionally render the Modal to send a request  */}
-      {modalIsOpen && <RequestClientModal setModalIsOpen={setModalIsOpen} client={selectedClient} />}
-      <div className={modalIsOpen ? 'explore-clients blurred' : 'explore-clients'}>
+      <div className='explore-clients'>
         <ClientsOverview
           clients={clients}
           setClients={setClients}
@@ -72,6 +65,8 @@ export default function ExploreClients() {
           setClientsToDisplay={setClientsToDisplay}
           sentRequests={sentRequests}
           fetchSentRequests={fetchSentRequests}
+          selectedTab={selectedTab}
+          setSelectedTab={setSelectedTab}
         />
         <ClientView
           selectedClient={selectedClient}
@@ -85,35 +80,38 @@ export default function ExploreClients() {
   )
 }
 
-
-export default function ClientsOverview({
+export function ClientsOverview({
   clients,
   setClients,
-  setSelectedClient,
   setSelectedClient,
   clientsToDisplay,
   setClientsToDisplay,
   sentRequests,
   fetchSentRequests,
+  selectedClient,
+  selectedTab,
+  setSelectedTab,
 }) {
-  const [viewClientsOrSentRequests, setViewClientsOrSentRequests] = useState('Clients')
   const [searchTerm, setSearchTerm] = useState('')
 
   //   const [viewFilters, setViewFilters] = useState(false);
-  const handleOnSentRequestsTabClick = () => {
-    if (viewClientsOrSentRequests == 'Clients') {
-      setViewClientsOrSentRequests('Sent Requests')
+  const handleOnRequestsTabClick = () => {
+    if (selectedTab == 'Clients') {
+      setSelectedTab('Sent Requests')
       setClientsToDisplay(sentRequests)
     }
   }
 
   const handleOnClientsTabClick = () => {
-    if (viewClientsOrSentRequests == 'Sent Requests') {
-      setViewClientsOrSentRequests('Clients')
+    if (selectedTab == 'Sent Requests') {
+      setSelectedTab('Clients')
       setClientsToDisplay(clients)
     }
   }
-
+  const tabs = [
+    { label: 'Clients', handler: handleOnClientsTabClick },
+    { label: 'New Requests', handler: handleOnRequestsTabClick },
+  ]
   const handleSearch = async () => {
     try {
       const { data, error } = await apiClient.getAllClientsBySearchTerm(searchTerm)
@@ -126,11 +124,7 @@ export default function ClientsOverview({
 
   return (
     <div className='clients-overview'>
-      <ClientOrSentRequest
-        viewClientsOrSentRequests={viewClientsOrSentRequests}
-        handleOnSentRequestsTabClick={handleOnSentRequestsTabClick}
-        handleOnClientsTabClick={handleOnClientsTabClick}
-      />
+      <Tabs tabs={tabs} activeTab={selectedTab} />
       <SearchForClientByName
         searchTerm={searchTerm}
         setSearchTerm={setSearchTerm}
@@ -140,32 +134,30 @@ export default function ClientsOverview({
         clients={clientsToDisplay}
         setSelectedClient={setSelectedClient}
         selectedClient={selectedClient}
-        viewClientsOrSentRequests={viewClientsOrSentRequests}
+        selectedTab={selectedTab}
       />
     </div>
   )
 }
 
 export function ClientOrSentRequest({
-  viewClientsOrSentRequests,
-  handleOnSentRequestsTabClick,
+  selectedTab,
+  handleOnRequestsTabClick,
   handleOnClientsTabClick,
 }) {
   return (
     <div className='clients-or-sent-requests-tab'>
       <div
-        className={viewClientsOrSentRequests === 'Clients' ? 'clients-tab selected' : 'clients-tab'}
+        className={selectedTab === 'Clients' ? 'clients-tab selected' : 'clients-tab'}
         onClick={handleOnClientsTabClick}>
         <p className='tab'>Clients</p>
       </div>
       <div className='divider'>|</div>
       <div
         className={
-          viewClientsOrSentRequests === 'Sent Requests'
-            ? 'sent-requests-tab selected'
-            : 'sent-requests-tab'
+          selectedTab === 'Sent Requests' ? 'sent-requests-tab selected' : 'sent-requests-tab'
         }
-        onClick={handleOnSentRequestsTabClick}>
+        onClick={handleOnRequestsTabClick}>
         <p className='tab'>Sent Requests</p>
       </div>
     </div>
@@ -200,26 +192,46 @@ export function SearchForClientByName({ setSearchTerm, searchTerm, handleSearch 
   )
 }
 
-export function ClientList({ clients, setSelectedClient, selectedClient, viewClientsOrSentRequests }) {
-  const [isLoading, setIsLoading] = useState(false)
-  useEffect(() => {}, [viewClientsOrSentRequests])
+export function ClientList({ clients, setSelectedClient, selectedClient, selectedTab }) {
+  useEffect(() => {}, [selectedTab])
+
+  const handleOnClientClick = async (client) => {
+    try {
+      const { data, error } = await apiClient.getClientByID(client.userID)
+      setSelectedClient(data)
+    } catch (error) {
+      console.log('Failed to fetch client details:', error)
+    }
+  }
+
   return (
-    <div className='client-list-container'>
-      {clients?.length <= 0 ? (
-        <div>No Clients Available!</div>
-      ) : (
-        clients?.map((client) => (
-          <ClientCard
-            client={client}
-            selectedClient={selectedClient}
-            setSelectedClient={setSelectedClient}
-            isLoading={isLoading}
-            setIsLoading={setIsLoading}
-            // handleOnClientClick={() => handleOnClientClick(client.ClientID)}
-          />
-        ))
-      )}
-    </div>
+    <List
+      items={clients}
+      renderItem={(item, index) =>
+        selectedTab === 'New Requests' ? (
+          <ItemCard
+            key={index}
+            item={item.Client}
+            isSelected={selectedClient?.userID === item?.Client?.userID}
+            handleClick={() => handleOnClientClick(item.Coach)}>
+            <p>
+              {item.Client.firstName} {item.Client.lastName}
+            </p>
+          </ItemCard>
+        ) : (
+          <ItemCard
+            key={index}
+            item={item}
+            isSelected={selectedClient?.userID === item.userID}
+            handleClick={() => handleOnClientClick(item)}>
+            <p>
+              {item.firstName} {item.lastName}
+            </p>
+          </ItemCard>
+        )
+      }
+      noAvailableItemsMessage={'No clients available.'}
+    />
   )
 }
 export function ClientCard({ client, selectedClient, setSelectedClient, isLoading, setIsLoading }) {
