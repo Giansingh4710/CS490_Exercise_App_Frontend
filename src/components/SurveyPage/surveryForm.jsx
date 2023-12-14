@@ -15,7 +15,7 @@ export default function SurveyForm() {
   const nav = useNavigate();
   const { user, setUser } = useAuthContext() //get user data like email
 
-  const [serverRes, setServerRes] = useState('')
+  // const [serverRes, setServerRes] = useState('')
   const errorsRef = useRef({
     firstName: '',
     lastName: '',
@@ -216,7 +216,7 @@ export default function SurveyForm() {
       errorsRef.current['state'] = ''
     }
 
-    if(formData.role.data == 'Coach'){
+    if(formData.role.data === 'Coach'){
       if(!formData.specialties.data){
         errorsRef.current['specialties'] = 'Please select a specialties'
       }else{
@@ -262,7 +262,7 @@ export default function SurveyForm() {
       nav('/UserDashboard');
     }
     if(error){
-      if(error.status == 403){
+      if(error.status === 403){
         errorsRef.current['dob'] = error['message'];
       }
       showErrors();
@@ -420,7 +420,7 @@ export default function SurveyForm() {
           value={formData.zipCode.data}
         />
         {
-          formData.role.data == "Coach" && (
+          formData.role.data === "Coach" && (
             <>
               <InputGridElement
                 type='select'

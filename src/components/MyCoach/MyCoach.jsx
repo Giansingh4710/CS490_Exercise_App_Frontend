@@ -5,6 +5,7 @@ import MyMessagesWithCoach from './MyMessagesWithCoach/MyMessagesWithCoach' // A
 import './MyCoach.css'
 import apiClient from '../../services/apiClient'
 import NoCoachFound from './NoCoach'
+import MyAssignedWorkouts from './MyAssignedWorkouts/MyAssignedWorkouts'
 
 function MyCoach() {
   const [showMessaging, setShowMessaging] = useState(false)
@@ -27,58 +28,32 @@ function MyCoach() {
   }, [])
 
   return (
-  coach ? (
-    <div className='my-coach'>
+    <>
       <Navbar page='MyCoach' />
+      {coach ? (
+        
+        <div className='my-coach'>
+          <header className='my-coach-header'>
+            <h1>Coach {coach.firstName + ' ' +coach.lastName}</h1>
+            <span class='material-symbols-outlined' onClick={toggleMessaging}>
+              mail
+            </span>
+          </header>
 
-      <header className='my-coach-header'>
-        <h1>Coach {coach.firstName + ' ' +coach.lastName}</h1>
-        <span class='material-symbols-outlined' onClick={toggleMessaging}>
-          mail
-        </span>
-      </header>
+          {showMessaging && <MyMessagesWithCoach coach={coach} />}
 
-      {showMessaging && <MyMessagesWithCoach coach={coach} />}
-
-      <div className='workouts'>
-        {console.log(Object.entries(workoutPlan))}
-        {Object.entries(workoutPlan).map(([day, exercise]) => (
-          <div key={day} className='workout-day'>{day.toUpperCase()}
-            {
-              exercise.map((exercise, index) => (
-
-                <table class='workout-card'>
-                  <tr>
-                    <th>Exercise</th>
-                    <th>Set #</th>
-                    <th># of Reps</th>
-                    <th>Weight</th>
-                  </tr>
-                  {
-                    exercise.reps.map((rep, index) => (
-                      <tr>
-                      {index === 0 ? <td>{exercise.exercise}</td> : <td></td>}
-                      <td>{index+1}</td>
-                      <td>{exercise.reps[index]}</td>
-                      <td>{exercise.weight} lbs</td>
-                    </tr>
-                    ))
-                  }
-                </table>
-              ))
-            }
+          <div className='workouts'>
+            {Object.keys(workoutPlan).length === 0 ? <h3>Coach {coach.firstName + ' ' + coach.lastName} has not assigned you any workouts.</h3> : <MyAssignedWorkouts></MyAssignedWorkouts>}
           </div>
-
-        ))}
-      </div>
-      <button className='terminate-button'>Terminate Coach Doe</button>
-    </div>
-  ) : 
-  (
-    <NoCoachFound></NoCoachFound>
-  )
-  
-  )
+          <button className='terminate-button'>Terminate Coach {coach.firstName}</button>
+        </div>
+      ) : 
+      (
+        <NoCoachFound></NoCoachFound>
+      )
+      }
+  </>
+      )
 }
 
 export default MyCoach

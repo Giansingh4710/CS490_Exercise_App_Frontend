@@ -16,7 +16,7 @@ export default function Navbar(props) {
   if (page === 'login' || page === 'userDashboard') {
     return <LoginNav />
   }
-  if(page === 'default'){
+  if(page === 'MyCoach'){
     return <DefaultNav />
   }
 }
@@ -178,7 +178,7 @@ function DefaultNav(){
     },
     title: {
       marginLeft: '150px',
-      fontSize: '48px',
+      fontSize: '35px',
       padding: '0px',
       marginTop: '10px',
       marginBottom: '10px',
