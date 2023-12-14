@@ -61,7 +61,7 @@ async getWorkoutPlans() {
   }
   async registerSurvey(surveyData) {
     return await this.request({
-      endpoint: '/register/initalSurvey',
+      endpoint: 'register/initalSurvey',
       method: 'POST',
       data: surveyData,
     })
