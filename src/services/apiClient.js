@@ -130,11 +130,17 @@ async getWorkoutPlans() {
   }
   
   async mealInput(data) {
-    console.log('Data to be sent to the backend:', data);
     return await this.request({
       endpoint: `meals/mealInput`,
       method: `POST`,
       data: data,
+    })
+  }
+
+  async dailyweight(data) {
+    return await this.request({
+      endpoint: `dailyweight`,
+      method: `GET`,
     })
   }
 }
