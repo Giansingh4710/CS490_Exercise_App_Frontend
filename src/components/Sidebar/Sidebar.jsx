@@ -2,10 +2,18 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import './Sidebar.css'
 import { useAuthContext } from '../../contexts/auth'
+import { link } from 'fs'
 
 export default function Sidebar() {
   const { logoutUser } = useAuthContext()
   const { user } = useAuthContext()
+
+  /* role options: 
+      null   => initial survey is not completed, has client access to links
+      admin  => access to only the manage coaches and manage exercises link
+      coach  => access to all links except admin links 
+      client => access to all links except admin links and my clients link
+  */
   const role = user?.role
 
   return (
