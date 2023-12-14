@@ -1,35 +1,43 @@
-import React, { useState } from 'react'
-import './mealInput.css'
-import Modal from '../../Modal/Modal'
+import React, { useState } from 'react';
+import './mealInput.css';
+import Modal from '../../Modal/Modal';
+import apiClient from '../../../services/apiClient';
 
 export default function MealInputModal({ setModalIsOpen }) {
-  const [mealName, setMealName] = useState('')
-  const [calories, setCalories] = useState('')
-  const [protein, setProtein] = useState('')
-  const [fat, setFat] = useState('')
-  const [mealType, setMealType] = useState('')
+  const [mealName, setMealName] = useState('');
+  const [calories, setCalories] = useState('');
+  const [protein, setProtein] = useState('');
+  const [fat, setFat] = useState('');
+  const [mealType, setMealType] = useState('');
 
-  const handleSubmit = () => {
-    let token = localStorage.getItem('fitness_token')
-    fetch('YOUR_BACKEND_API_URL', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: token,
-      },
-      body: JSON.stringify({ mealName, calories, protein, fat, mealType }),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        // Handle the response from the backend, e.g., display a success message, and close modal
-        console.log(data)
-        setModalIsOpen(false)
-      })
-      .catch((error) => {
-        // Handle errors, e.g., display an error message
-        console.error(error)
-      })
-  }
+  const handleSubmit = async () => {
+    try {
+      const { data, error } = await apiClient.mealInput({
+        mealName,
+        calories,
+        protein,
+        fat,
+        mealType,
+      });
+
+      if (data) {
+        // Handle successful response
+        console.log('Meal input successful:', data);
+
+        // Optionally close the modal or perform other actions on success
+        setModalIsOpen(false);
+      } else {
+        // Handle error response
+        console.error('Error:', error);
+
+        // Optionally display an error message or take other actions on error
+      }
+    } catch (error) {
+      // Handle unexpected errors, e.g., display an error message
+      console.error('Unexpected error:', error);
+    }
+  };
+
   const inputFieldsElement = inputFields({
     mealName,
     setMealName,
@@ -41,7 +49,7 @@ export default function MealInputModal({ setModalIsOpen }) {
     setFat,
     mealType,
     setMealType,
-  })
+  });
 
   return (
     <Modal
@@ -50,7 +58,7 @@ export default function MealInputModal({ setModalIsOpen }) {
       setModalIsOpen={setModalIsOpen}
       handleOnSubmitClick={handleSubmit}
     />
-  )
+  );
 }
 
 export function inputFields({
@@ -98,5 +106,5 @@ export function inputFields({
         </label>
       </div>
     </>
-  )
+  );
 }

@@ -120,10 +120,19 @@ async getWorkoutPlans() {
     })
   }
 
-  // ----------------------- coaches requests ----------------------- //
+  // ----------------------- User Dashboard ----------------------- //
   async recordDailySurvey(data) {
     return await this.request({
       endpoint: `logActivity/recordDailySurvey`,
+      method: `POST`,
+      data: data,
+    })
+  }
+  
+  async mealInput(data) {
+    console.log('Data to be sent to the backend:', data);
+    return await this.request({
+      endpoint: `meals/mealInput`,
       method: `POST`,
       data: data,
     })
