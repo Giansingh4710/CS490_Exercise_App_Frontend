@@ -1,7 +1,6 @@
 import Navbar from '../Navbar.jsx'
 import LoginForm from './loginForm'
 import Logo from '../Logo'
-import '../styles.css'
 
 function LoginPage() {
   return (
@@ -27,7 +26,7 @@ const styles = {
   container: {
     textAlign: 'center',
     backgroundColor: '#3F4D67',
-    height: '100%',
+    height: '975px',
     overflow: 'hidden',
   },
   formContainer: {

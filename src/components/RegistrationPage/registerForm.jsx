@@ -3,8 +3,10 @@ import { LandingPageButton } from '../Buttons/Buttons.jsx'
 import { useState } from 'react'
 import apiClient from '../../services/apiClient'
 import { useAuthContext } from '../../contexts/auth'
+import { useNavigate } from 'react-router-dom';
 
 export default function RegistrationForm() {
+  const navigate = useNavigate();
   const { setUser } = useAuthContext()
   const [formData, setFormData] = useState({
     email: 'bob@bob.com',
@@ -33,6 +35,7 @@ export default function RegistrationForm() {
 
     if (data) {
       console.log('Data:', data)
+      navigate('/Register/Survey');
       setUser(data.user) // will change page. When you change user
       apiClient.setToken(data.token)
     }

@@ -2,49 +2,17 @@
   box-sizing: border-box;
 }
 
-.exercise-detail {
-  padding: 10px 30px;
-  min-width: 50%;
-  max-width: 50%;
-  background-color: white;
-  box-shadow: var(--card-box-shadow);
-  display: flex;
-  flex-direction: column;
-}
-
-.tab {
-  cursor: pointer;
-  width: 50%;
-  text-align: center;
-}
-
-.tab:hover {
-  box-shadow: 0 1px 20px 0 rgb(69 90 100 / 8%);
-}
-
-.selected {
-  font-weight: bolder;
-}
-
-.exercise-view .exercise-details {
-  display: flex;
-  min-width: 50%;
-  flex-direction: column;
-  text-align: left;
-  align-items: baseline;
-}
-
-
 .exercise-card {
-  background-color: rgb(248, 247, 247);
+  background-color: #f8f8f8; 
+  padding: 10px; 
+  margin-bottom: 10px; 
   cursor: pointer;
-  margin-bottom: 10px;
-  padding: 10px;
+  border: 1px solid #ddd; 
 }
 
 .exercise-card p {
-  margin: 0;
-  padding: 0;
+  color: black;
+  font-size: 16px; 
 }
 
 .exercise-card:hover {
@@ -56,54 +24,10 @@
   box-shadow: 0 1px 10px 0 rgba(78, 101, 112, 0.08);
 }
 
-.exercise-view {
-  padding: 10px 30px;
-  margin-left: 20px;
-  width: 100%;
-  height: 100%;
+.exercise-overview {
   background-color: white;
-  box-shadow: var(--card-box-shadow);
-}
-
-.exercise-header {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  border-bottom: 1px solid black;
-}
-
-.exercise-view {
-  padding: 10px 30px 10px 30px;
-  margin-left: 20px;
-  width: calc(100% - 20px); 
-  min-height: 100vh; 
-  background-color: white;
+  padding: 20px;
   box-shadow: var(--card-box-shadow);
   overflow-y: auto; 
 }
-.exercise-list {
-  flex-direction: column;
-  min-width: 50%; 
-}
 
-.coaches-overview {
-  padding: 10px 30px 10px 30px;
-  min-width: 300px;
-  max-width: 400px;
-  width: 100%; 
-  flex-grow: 1; 
-  background-color: white;
-  box-shadow: var(--card-box-shadow);
-  display: flex;
-  flex-direction: column;
-}
-.parent-container {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px; 
-}
-.coach-view {
-  padding: 10px 2vw; 
-  width: 80vw; 
-}
