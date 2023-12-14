@@ -38,7 +38,7 @@ function MyCoach() {
         </span>
       </header>
 
-      {showMessaging && <MyMessagesWithCoach coachName={coach.firstName + ' ' +coach.lastName} />}
+      {showMessaging && <MyMessagesWithCoach coach={coach} />}
 
       <div className='workouts'>
         {console.log(Object.entries(workoutPlan))}

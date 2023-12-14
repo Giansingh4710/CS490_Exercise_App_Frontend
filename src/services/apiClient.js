@@ -181,6 +181,21 @@ class ApiClient {
       method: `GET`,
     })
   }
+  
+  async getMessages(userID){
+    return await this.request({
+      endpoint: `messages/${userID}`,
+      method: `GET`
+    })
+  }
+
+  async sendMessage(data){
+    return await this.request({
+      endpoint: `messages`,
+      method: `POST`,
+      data: data
+    })
+  }
 }
 
 const apiClient = new ApiClient(API_BASE_URL)

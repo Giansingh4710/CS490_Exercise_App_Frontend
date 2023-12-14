@@ -1,8 +1,9 @@
 import React from "react";
 import { useState, useEffect } from "react";
+import apiClient from '../../../services/apiClient'
 import "./MyMessagesWithCoach.css";
 
-export default function MyMessagesWithCoach({ coachName }) {
+export default function MyMessagesWithCoach({ coach }) {
   var testMsgs = [
     { sender: "User", msgText: "testing", timeStamp: "3/3/23 12:01pm" },
     {
@@ -36,18 +37,26 @@ export default function MyMessagesWithCoach({ coachName }) {
     },
   ];
   const [newMsg, setNewMsg] = useState("");
-  const [msgs, setMsgs] = useState(testMsgs);
+  const [msgs, setMsgs] = useState(null);
   const [msgError, setMsgError] = useState("");
+
+  useEffect(() => {
+    async function getMessages(){
+      const messages = await apiClient.getMessages(coach.userID);
+      setMsgs(messages.data);
+    }
+    getMessages();
+  }, [])
 
   const handleOnSendMsg = async () => {
     if (newMsg !== "") {
+      const newMessage = {
+        content: newMsg,
+        receiverID: coach.userID,
+      }
+      const res = await apiClient.sendMessage(newMessage);
       setMsgs((prev) => [
-        ...prev,
-        {
-          sender: "User",
-          msgText: newMsg,
-          timeStamp: "3/3/23 10:00pm",
-        },
+        ...prev, newMessage // timestamp not set so wont show. need to fix
       ]);
       setNewMsg("");
     } else {
@@ -65,7 +74,7 @@ export default function MyMessagesWithCoach({ coachName }) {
       <div className="my-msg-with-coach-container">
         <div className="my-msg-with-coach-header-container">
           <h2 className="my-msg-with-coach-header">
-            Message Coach {coachName}
+            Message Coach {coach.firstName + ' ' + coach.lastName}
           </h2>
         </div>
         <div className="my-msg-with-coach-text-area-container">
@@ -73,9 +82,9 @@ export default function MyMessagesWithCoach({ coachName }) {
             {msgs?.map((msg, index) => (
               <Message
                 key={index}
-                msgText={msg.msgText}
-                timeStamp={msg.timeStamp}
-                orientation={msg.sender === "User" ? "right" : "left"}
+                msgText={msg.content}
+                timeStamp={msg.created}
+                orientation={msg.senderID === coach.userID ? "left" : "right"}
               />
             ))}
           </div>
