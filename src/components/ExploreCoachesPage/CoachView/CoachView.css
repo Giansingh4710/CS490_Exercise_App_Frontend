@@ -14,19 +14,3 @@
   align-items: center;
   border-bottom: 1px solid black;
 }
-
-.request-btn {
-  background-color: var(--main-color);
-  box-shadow: 0 1px 20px 0 rgba(255, 0, 140, 0.08);
-
-  color: white;
-  font-size: 14px;
-  font-weight: bolder;
-  /* height: 20px; */
-  padding: 10px;
-  border-radius: 7px;
-  text-transform: uppercase;
-  cursor: pointer;
-  outline: 0;
-  border: none;
-}
