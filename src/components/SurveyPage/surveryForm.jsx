@@ -12,7 +12,7 @@ import {
 import { useAuthContext } from '../../contexts/auth'
 
 export default function SurveyForm() {
-  const nav = useNavigate()
+  const nav = useNavigate();
   const { user, setUser } = useAuthContext() //get user data like email
 
   const [serverRes, setServerRes] = useState('')
@@ -32,6 +32,8 @@ export default function SurveyForm() {
     city: '',
     state: '',
     zipCode: '',
+    specialties: '',
+    cost: '',
   })
 
   const [formData, setFormData] = useState({
@@ -44,8 +46,8 @@ export default function SurveyForm() {
       errorText: '',
     },
     email: {
-      data: '',
-      errorText: '',
+      data: user.email, // pulls email from auth
+      errorText: '', 
     },
     phoneNum: {
       data: '',
@@ -95,6 +97,14 @@ export default function SurveyForm() {
       data: '',
       errorText: '',
     },
+    specialties: {
+      data: '',
+      errorText: '',
+    },
+    cost: {
+      data: '',
+      errorText: '',
+    }
   })
 
   function handleInputChange(key, value) {
@@ -205,6 +215,20 @@ export default function SurveyForm() {
     } else {
       errorsRef.current['state'] = ''
     }
+
+    if(formData.role.data == 'Coach'){
+      if(!formData.specialties.data){
+        errorsRef.current['specialties'] = 'Please select a specialties'
+      }else{
+        errorsRef.current['specialties'] = ''
+      }
+
+      if(!formData.cost.data){
+        errorsRef.current['cost'] = 'Please enter a cost for your services'
+      }else{
+        errorsRef.current['cost'] = ''
+      }
+    }
   }
 
   function showErrors() {
@@ -223,7 +247,6 @@ export default function SurveyForm() {
 
     updateErrors()
     showErrors()
-    console.log('Done with validation')
 
     const sendFormData = {}
     for (const [key, value] of Object.entries(formData)) {
@@ -234,34 +257,17 @@ export default function SurveyForm() {
       }
       sendFormData[key] = value.data
     }
-
-    console.log('Error check passed')
-    alert('All Error Checks Passed!')
-
-    // const { data, error } = await apiClient.registerSurvey(sendFormData)
-    // setServerRes(data.message)
-
-    // fetch('https://127.0.0.1:1313/register/survey', {
-    //   method: 'POST',
-    //   mode: 'cors',
-    //   headers: {
-    //     'Content-Type': 'application/json',
-    //     'Access-Control-Allow-Origin': '*',
-    //   },
-    //   body: JSON.stringify(formData),
-    // }).then((response) => {
-    //   if (response.status === 404) {
-    //     setFormData({
-    //       ...formData,
-    //       email: {
-    //         data: formData.email.data,
-    //         errorText: response.error_message,
-    //       },
-    //     })
-    //   } else if (response.status === 200) {
-    //     nav('/UserDashboard')
-    //   }
-    // })
+    const { data, error } = await apiClient.registerSurvey(sendFormData);
+    if(data){
+      nav('/UserDashboard');
+    }
+    if(error){
+      // updates error message on page with server side validation errors
+      for (const [key, value] of Object.entries(error)) {
+        errorsRef.current[key] = error[key];
+      }
+      showErrors();
+    }  
   }
 
   return (
@@ -296,6 +302,7 @@ export default function SurveyForm() {
           elementError={formData.email.errorText}
           onChange={handleInputChange}
           value={formData.email.data}
+          disabled={true} // disabling email so user cannot change it once register, would could problem in db is email is different
         />
         <InputGridElement
           type='tel'
@@ -413,6 +420,31 @@ export default function SurveyForm() {
           onChange={handleInputChange}
           value={formData.zipCode.data}
         />
+        {
+          formData.role.data == "Coach" && (
+            <>
+              <InputGridElement
+                type='select'
+                name='specialties'
+                label='Specialties'
+                gridArea='q'
+                options={goalOptions} // goal options and specialites are the same, need to double check
+                elementError={formData.specialties.errorText}
+                onChange={handleInputChange}
+              />
+              <InputGridElement
+                type='number'
+                name='cost'
+                label='Cost'
+                placeholder='$120/hr'
+                gridArea='r'
+                elementError={formData.cost.errorText}
+                onChange={handleInputChange}
+                value={formData.cost.data}
+              />
+          </>
+          )
+        }
         <Button name='Submit' type='submit' />
       </form>
     </div>
@@ -469,6 +501,7 @@ const styles = {
                                  "m n o p"
                                  "e f g h"
                                  "i j k k"
+                                 "q q r r"
                                  "l l l l" `,
     gridGap: '50px 50px',
     margin: 'auto',

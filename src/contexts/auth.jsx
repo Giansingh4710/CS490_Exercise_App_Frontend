@@ -5,7 +5,7 @@ const AuthContext = createContext(null);
 export const AuthContextProvider = ({ children }) => {
   const [user, setUser] = useState({});
   const [initialized, setInitialized] = useState(false);
-  const [isProcessing, setIsProcessing] = useState(true);
+  const [isProcessing, setIsProcessing] = useState(false);
   const [error, setError] = useState();
 
   const loginUser = async (credentials) => {

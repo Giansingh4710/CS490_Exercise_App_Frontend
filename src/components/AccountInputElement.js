@@ -8,6 +8,7 @@ export default function InputElement({
   onChange,
   elementError,
   value,
+  disabled
 }) {
   const handleChange = (event) => {
     const inputValue = event.target.value
@@ -43,6 +44,7 @@ export default function InputElement({
         value={value}
         style={{ ...styles.inputField, ...additionalStyles }}
         required
+        disabled={disabled}
       />
       <p style={styles.error}>{elementError}</p>
     </div>
@@ -56,7 +58,7 @@ function Dropdown({ options, additionalStyles, onChange }) {
       onChange={onChange}
     >
       {options.map((option, index) => (
-        <option key={index} value={index}>
+        <option key={index} value={option}>
           {option}
         </option>
       ))}

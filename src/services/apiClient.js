@@ -55,11 +55,11 @@ class ApiClient {
       data: credentials,
     })
   }
-  async registerSurvey(credentials) {
+  async registerSurvey(surveyData) {
     return await this.request({
-      endpoint: '/register/initalSurvey',
+      endpoint: 'register/initalSurvey',
       method: 'POST',
-      data: credentials,
+      data: surveyData,
     })
   }
   async fetchUserFromToken() {
