@@ -2,7 +2,6 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import './Sidebar.css'
 import { useAuthContext } from '../../contexts/auth'
-import { link } from 'fs'
 
 export default function Sidebar() {
   const { logoutUser } = useAuthContext()
