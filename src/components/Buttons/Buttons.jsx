@@ -71,6 +71,26 @@ export function BlueCancelButton({ handleOnClick }) {
   )
 }
 
+export function GreenAcceptButton({ handleOnClick }) {
+  return (
+    <div className='green-accept-btn'>
+      <button className='green-accept-btn' onClick={handleOnClick}>
+        ACCEPT
+      </button>
+    </div>
+  )
+}
+
+export function RedDeclineButton({ handleOnClick }) {
+  return (
+    <div className='red-decline-btn'>
+      <button className='red-decline-btn' onClick={handleOnClick}>
+        DECLINE
+      </button>
+    </div>
+  )
+}
+
 const styles = {
   button: {
     backgroundColor: '#FFFFFF',

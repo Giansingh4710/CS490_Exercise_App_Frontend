@@ -11,13 +11,17 @@ export default function RequestCoachModal({ coach, setModalIsOpen }) {
   const [message, setMessage] = useState('')
   console.log('USER:', user)
   const handleOnSubmitClick = async () => {
-    apiClient.createNewRequestForCoachingFromClient({
+    const { data, error } = await apiClient.createNewRequestForCoachingFromClient({
       userID: user?.id,
-      coachID: coach.coachID,
+      coachID: coach?.coachID,
       goals: goal,
       note: message,
     })
-    setModalIsOpen(true)
+    if (data) {
+      setModalIsOpen(false)
+    } else {
+      console.log('ERROR sending request')
+    }
   }
   const headerName = 'REQUEST COACH ' + coach?.lastName
   console.log('headerName: ', headerName)

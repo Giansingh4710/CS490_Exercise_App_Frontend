@@ -33,24 +33,28 @@ export default function CoachesOverview({
   coachesToDisplay,
   setCoachesToDisplay,
   sentRequests,
+  fetchSentRequests,
 }) {
   const [viewCoachesOrSentRequests, setViewCoachesOrSentRequests] = useState('Coaches')
   const [searchTerm, setSearchTerm] = useState('')
-
   //   const [viewFilters, setViewFilters] = useState(false);
-  const handleOnSentRequestsTabClick = () => {
+  const handleOnNewRequestsClick = () => {
     if (viewCoachesOrSentRequests == 'Coaches') {
       setViewCoachesOrSentRequests('Sent Requests')
       setCoachesToDisplay(sentRequests)
     }
   }
 
-  const handleOnCoachesTabClick = () => {
+  const handleOnClientTabClick = () => {
     if (viewCoachesOrSentRequests == 'Sent Requests') {
       setViewCoachesOrSentRequests('Coaches')
       setCoachesToDisplay(coaches)
     }
   }
+  const tabs = [
+    { label: 'Clients', handler: handleOnClientTabClick },
+    { label: 'New Requests', handler: handleOnNewRequestsClick },
+  ]
 
   const handleSearch = async () => {
     try {
@@ -68,6 +72,7 @@ export default function CoachesOverview({
         viewCoachesOrSentRequests={viewCoachesOrSentRequests}
         handleOnSentRequestsTabClick={handleOnSentRequestsTabClick}
         handleOnCoachesTabClick={handleOnCoachesTabClick}
+        tabs={tabs}
       />
       <SearchForCoachByName
         searchTerm={searchTerm}
@@ -142,7 +147,11 @@ export function SearchForCoachByName({ setSearchTerm, searchTerm, handleSearch }
 export function FilterForCoaches() {
   return (
     <div className='filter-container'>
-      <div className='filter-label'>Filters</div>
+      <div className='filter-label'>
+        <span class='material-symbols-outlined'>filter_alt</span>
+
+        <p>Filters</p>
+      </div>
       <div className='filter-select-container'>
         <SpecializationDropdown />
         <LocationDropdown />
@@ -153,7 +162,7 @@ export function FilterForCoaches() {
 }
 
 export function SpecializationDropdown() {
-  var specializations = ['lose weight', 'gain muscle', 'train for a sport']
+  var specializations = ['Any Specialization', 'lose weight', 'gain muscle', 'train for a sport']
   return (
     <div className='select-dropdown'>
       <select
@@ -177,13 +186,13 @@ export function SpecializationDropdown() {
 }
 export function LocationDropdown() {
   const locations = [
-    { state: 'Any', cities: [] },
+    { state: 'Any State', cities: [] },
     { state: 'CA', cities: ['Calabasas', 'Los Angeles', 'San Diego'] },
     { state: 'NJ', cities: ['Hightstown', 'East Windsor'] },
   ]
-  const [selectedState, setSelectedState] = useState('Any')
-  const [selectedCity, setSelectedCity] = useState('Any')
-  const [cities, setCities] = useState(['Any'])
+  const [selectedState, setSelectedState] = useState('Any State')
+  const [selectedCity, setSelectedCity] = useState('Any City')
+  const [cities, setCities] = useState(['Any City'])
   const handleOnStateChange = (evt) => {
     setSelectedState(evt.target.value)
   }
@@ -194,7 +203,7 @@ export function LocationDropdown() {
 
     // Update cities based on selected state
     if (selectedStateObj) {
-      setCities(['Any', ...selectedStateObj.cities])
+      setCities(['Any City', ...selectedStateObj.cities])
     }
   }, [selectedState])
 
@@ -230,10 +239,9 @@ export function LocationDropdown() {
 export function MaxPrice() {
   var price = ['$100', '$125', 'night']
   return (
-    <div className='select-price-dropdown'>
+    <div className='select-price-input'>
       <input
-        name='selectList'
-        id='selectList'
+        name='selectPrice'
         placeholder='Type in a maximum monthly price'
         // onChange={(evt) => setSelectedAvailability(evt.target.value)}
         // value={selectedAvailability}
@@ -246,7 +254,7 @@ export function CoachList({ coaches, setSelectedCoach, selectedCoach, viewCoache
   const [isLoading, setIsLoading] = useState(false)
   useEffect(() => {}, [viewCoachesOrSentRequests])
   return (
-    <div>
+    <div className='coach-list-container'>
       {coaches?.length <= 0 ? (
         <div>No Coaches Available!</div>
       ) : (

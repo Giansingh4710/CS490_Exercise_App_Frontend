@@ -41,16 +41,12 @@ class ApiClient {
     })
   }
 
-
-
-async getWorkoutPlans() {
-  return await this.request({
-    endpoint: `workoutPlans`, 
-    method: `GET`,
-  });
-}
-
-
+  async getWorkoutPlans() {
+    return await this.request({
+      endpoint: `workoutPlans`,
+      method: `GET`,
+    })
+  }
 
   async register(credentials) {
     return await this.request({
@@ -85,10 +81,9 @@ async getWorkoutPlans() {
   async getAllExercises() {
     return await this.request({
       endpoint: 'exercises/allExercises', // The API endpoint for fetching all exercises
-      method: 'GET'
-    });
+      method: 'GET',
+    })
   }
-  
 
   async getAllCoachesBySearchTerm(searchTerm) {
     return await this.request({
@@ -120,6 +115,42 @@ async getWorkoutPlans() {
     })
   }
 
+  async getOpenRequestsForClient() {
+    return await this.request({
+      endpoint: `request/openClientRequest`,
+      method: `GET`,
+    })
+  }
+
+  async getCoachLocations() {
+    return await this.request({
+      endpoint: `coaches/cities`,
+      method: `GET`,
+    })
+  }
+
+  async getCoachSpecializations() {
+    return await this.request({
+      endpoint: `coaches/specializations`,
+      method: `GET`,
+    })
+  }
+
+  // ----------------------- requests to get client info for a coach ----------------------- //
+  async getOpenRequestsForCoach() {
+    return await this.request({
+      endpoint: `/request/openCoachRequests`,
+      method: `GET`,
+    })
+  }
+
+  async getCoachesClients(coachID) {
+    return await this.request({
+      endpoint: `/coach/:${coachID}/clients`,
+      method: `GET`,
+    })
+  }
+
   // ----------------------- User Dashboard ----------------------- //
   async recordDailySurvey(data) {
     return await this.request({
@@ -128,7 +159,7 @@ async getWorkoutPlans() {
       data: data,
     })
   }
-  
+
   async mealInput(data) {
     return await this.request({
       endpoint: `meals/mealInput`,
@@ -147,4 +178,3 @@ async getWorkoutPlans() {
 
 const apiClient = new ApiClient(API_BASE_URL)
 export default apiClient
-

@@ -1,5 +1,5 @@
 import React from 'react'
-import './ExploreCoaches.css'
+import './ExploreCoachesPage.css'
 import CoachesOverview from './CoachesOverview/CoachesOverview'
 import CoachView from './CoachView/CoachView'
 import { useState, useEffect } from 'react'
@@ -28,17 +28,40 @@ export default function ExploreCoaches() {
     if (data) {
       setCoaches(data)
       setCoachesToDisplay(data)
+      console.log('Coaches:', data)
     }
     if (error) {
-      // setCoaches([])
+      setCoaches([])
+    }
+    setIsLoading(false)
+  }
+
+  const fetchSentRequests = async () => {
+    setIsLoading(true)
+    setError(null)
+    const { data, error } = await apiClient.getOpenRequestsForClient()
+    if (data) {
+      setSentRequests(data)
+      console.log('Coaches open request:', data)
+    }
+    if (error) {
+      setCoaches([])
     }
     setIsLoading(false)
   }
 
   useEffect(() => {
     fetchAllCoaches()
+    fetchSentRequests()
     setSelectedCoach(null)
   }, [])
+  useEffect(() => {
+    fetchSentRequests()
+  }, [modalIsOpen])
+
+  useEffect(() => {
+    console.log('Selected coach:', selectedCoach)
+  }, [selectedCoach])
   console.log('modalIsOpen: ', modalIsOpen)
   return (
     <>
@@ -53,6 +76,7 @@ export default function ExploreCoaches() {
           coachesToDisplay={coachesToDisplay}
           setCoachesToDisplay={setCoachesToDisplay}
           sentRequests={sentRequests}
+          fetchSentRequests={fetchSentRequests}
         />
         <CoachView
           selectedCoach={selectedCoach}
