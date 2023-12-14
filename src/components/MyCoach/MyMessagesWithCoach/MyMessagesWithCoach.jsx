@@ -53,6 +53,7 @@ export default function MyMessagesWithCoach({ coach }) {
       const newMessage = {
         content: newMsg,
         receiverID: coach.userID,
+        created: new Date().toLocaleString()
       }
       const res = await apiClient.sendMessage(newMessage);
       setMsgs((prev) => [
@@ -83,7 +84,7 @@ export default function MyMessagesWithCoach({ coach }) {
               <Message
                 key={index}
                 msgText={msg.content}
-                timeStamp={msg.created}
+                timeStamp={new Date(msg.created).toLocaleString()}
                 orientation={msg.senderID === coach.userID ? "left" : "right"}
               />
             ))}
