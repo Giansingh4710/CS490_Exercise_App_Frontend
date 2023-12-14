@@ -4,6 +4,7 @@ import Navbar from '../Navbar'
 import MyMessagesWithCoach from './MyMessagesWithCoach/MyMessagesWithCoach' // Adjust this path as necessary
 import './MyCoach.css'
 import apiClient from '../../services/apiClient'
+import NoCoachFound from './NoCoach'
 
 function MyCoach() {
   const [showMessaging, setShowMessaging] = useState(false)
@@ -74,7 +75,7 @@ function MyCoach() {
     </div>
   ) : 
   (
-    <h2>No Coach!</h2>
+    <NoCoachFound></NoCoachFound>
   )
   
   )

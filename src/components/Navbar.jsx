@@ -16,6 +16,9 @@ export default function Navbar(props) {
   if (page === 'login' || page === 'userDashboard') {
     return <LoginNav />
   }
+  if(page === 'default'){
+    return <DefaultNav />
+  }
 }
 
 function RegistrationNav() {
@@ -158,6 +161,41 @@ function LoginNav() {
       <Link to='/Register'>
         <LandingPageButton name='REGISTER' additionalStyles={additionalStyles} />
       </Link>
+    </div>
+  )
+}
+
+function DefaultNav(){
+  const styles = {
+    navbar: {
+      backgroundColor: '#3F4D67',
+      padding: '10px',
+      display: 'flex',
+      alignItems: 'center',
+    },
+    spacer: {
+      flexGrow: '1',
+    },
+    title: {
+      marginLeft: '150px',
+      fontSize: '48px',
+      padding: '0px',
+      marginTop: '10px',
+      marginBottom: '10px',
+      color: 'white'
+    }
+  }
+
+  let additionalStyles = {
+    width: '166px',
+    height: '61px',
+    float: 'right',
+    marginRight: '10px',
+    position: 'relative',
+  }
+  return (
+    <div style={styles.navbar}>
+      <h2 style={styles.title}>My Coach</h2>
     </div>
   )
 }
