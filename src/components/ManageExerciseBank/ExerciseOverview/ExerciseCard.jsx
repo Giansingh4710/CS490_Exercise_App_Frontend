@@ -1,16 +1,13 @@
 // ExerciseCard.jsx
-import React from 'react';
-import './ExercisesCard.css';
-
-export default function ExerciseCard({ exercise, setSelectedExercise }) {
+export default function ExerciseCard({ exercise, onSelectExercise }) {
   const handleOnExerciseClick = () => {
-    console.log("Exercise clicked:", exercise); // This will log the clicked exercise object
-    setSelectedExercise(exercise);
+    console.log("Exercise clicked:", exercise);
+    onSelectExercise(exercise);
   };
 
   return (
     <div className='exercise-card' onClick={handleOnExerciseClick}>
-      <p>{exercise.name}</p> {/* Ensure you use 'exercise.Name' if that's how your data properties are formatted */}
+      <p>{exercise.name}</p> {}
     </div>
   );
 }
