@@ -28,9 +28,7 @@ export function SideBarIcons() {
 
         <Link to='/'>
           <div className='sidebar-icon dashboard'>
-            <span className='material-symbols-outlined dashboard'>
-              desktop_windows
-            </span>
+            <span className='material-symbols-outlined dashboard'>desktop_windows</span>
             <span className='icon-text'> Dashboard </span>
           </div>
         </Link>
@@ -44,12 +42,6 @@ export function SideBarIcons() {
           <div className='sidebar-icon'>
             <span className='material-symbols-outlined'>group</span>
             <span className='icon-text'> MY COACH </span>
-          </div>
-        </Link>
-        <Link to='/'>
-          <div className='sidebar-icon'>
-            <span className='material-symbols-outlined'>edit_note</span>
-            <span className='icon-text'> LOG ACTIVITIES </span>
           </div>
         </Link>
         <Link to='/'>

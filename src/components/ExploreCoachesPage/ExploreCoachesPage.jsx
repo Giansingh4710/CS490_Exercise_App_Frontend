@@ -28,7 +28,6 @@ export default function ExploreCoaches() {
     if (data) {
       setCoaches(data)
       setCoachesToDisplay(data)
-      console.log('Coaches:', data)
     }
     if (error) {
       setCoaches([])
@@ -42,7 +41,6 @@ export default function ExploreCoaches() {
     const { data, error } = await apiClient.getOpenRequestsForClient()
     if (data) {
       setSentRequests(data)
-      console.log('Coaches open request:', data)
     }
     if (error) {
       setCoaches([])
@@ -59,10 +57,7 @@ export default function ExploreCoaches() {
     fetchSentRequests()
   }, [modalIsOpen])
 
-  useEffect(() => {
-    console.log('Selected coach:', selectedCoach)
-  }, [selectedCoach])
-  console.log('modalIsOpen: ', modalIsOpen)
+  useEffect(() => {}, [selectedCoach])
   return (
     <>
       {/* conditionally render the Modal to send a request  */}

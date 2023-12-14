@@ -15,7 +15,6 @@ export default function CoachView({
   const handleOnRequestClick = async () => {
     setModalIsOpen(true)
   }
-
   return selectedCoach ? (
     loading ? (
       <>

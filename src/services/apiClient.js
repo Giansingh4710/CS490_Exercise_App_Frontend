@@ -43,10 +43,10 @@ class ApiClient {
 
   async getWorkoutPlan() {
     return await this.request({
-      endpoint: `workoutPlan`, 
+      endpoint: `workoutPlan`,
       method: `GET`,
-    });
-}
+    })
+  }
 
   async register(credentials) {
     return await this.request({
@@ -160,10 +160,10 @@ class ApiClient {
     })
   }
 
-  async getCoachData(){
+  async getCoachData() {
     return await this.request({
       endpoint: `user/coach`,
-      method: `GET`
+      method: `GET`,
     })
   }
 
@@ -181,19 +181,19 @@ class ApiClient {
       method: `GET`,
     })
   }
-  
-  async getMessages(userID){
+
+  async getMessages(userID) {
     return await this.request({
       endpoint: `messages/${userID}`,
-      method: `GET`
+      method: `GET`,
     })
   }
 
-  async sendMessage(data){
+  async sendMessage(data) {
     return await this.request({
       endpoint: `messages`,
       method: `POST`,
-      data: data
+      data: data,
     })
   }
 }

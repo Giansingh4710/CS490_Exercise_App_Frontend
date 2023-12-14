@@ -86,7 +86,6 @@ export default function CoachesOverview({
   const handleSearch = async () => {
     try {
       const { data, error } = await apiClient.getAllCoachesBySearchTerm(searchTerm)
-      console.log('DATA: ', data)
       setCoachesToDisplay(data)
     } catch (error) {
       console.error('Error fetching coaches:', error)
@@ -263,8 +262,6 @@ export function LocationDropdown({ locations }) {
     // Find the selected state object
     const selectedStateObj = locations.find((loc) => loc.state === selectedState)
 
-    console.log('selected state: ', selectedStateObj)
-    console.log('CITY:', ...selectedStateObj?.cities)
     // Update cities based on selected state
     if (selectedStateObj) {
       setCities(['Any City', ...selectedStateObj?.cities])
@@ -317,13 +314,11 @@ export function CoachList({ coaches, setSelectedCoach, selectedCoach, viewCoache
   const handleOnCoachClick = async (coach) => {
     try {
       const { data, error } = await apiClient.getCoachByID(coach.coachID)
-      console.log('Selected coach: ', data)
       setSelectedCoach(data)
     } catch (error) {
       console.error('Failed to fetch coach details:', error)
     }
   }
-
   return (
     <List
       items={coaches}
@@ -331,11 +326,11 @@ export function CoachList({ coaches, setSelectedCoach, selectedCoach, viewCoache
         viewCoachesOrSentRequests === 'Sent Requests' ? (
           <ItemCard
             key={index}
-            item={item.coach}
-            isSelected={selectedCoach?.coachID === item?.coach?.coachID}
-            handleClick={() => handleOnCoachClick(item.coach)}>
+            item={item.Coach}
+            isSelected={selectedCoach?.coachID === item?.Coach?.coachID}
+            handleClick={() => handleOnCoachClick(item.Coach)}>
             <p>
-              {item.coach.firstName} {item.coach.lastName}
+              {item.Coach.firstName} {item.Coach.lastName}
             </p>
             {/* You can add more content specific to coaches here */}
           </ItemCard>
@@ -355,56 +350,3 @@ export function CoachList({ coaches, setSelectedCoach, selectedCoach, viewCoache
     />
   )
 }
-// export function CoachList({ coaches, setSelectedCoach, selectedCoach, viewCoachesOrSentRequests }) {
-//   const [isLoading, setIsLoading] = useState(false)
-//   useEffect(() => {}, [viewCoachesOrSentRequests])
-//   return (
-//     <div className='coach-list-container'>
-//       {coaches?.length <= 0 ? (
-//         <div>No Coaches Available!</div>
-//       ) : (
-//         coaches?.map((coach) => (
-//           <CoachCard
-//             coach={coach}
-//             selectedCoach={selectedCoach}
-//             setSelectedCoach={setSelectedCoach}
-//             isLoading={isLoading}
-//             setIsLoading={setIsLoading}
-//             // handleOnCoachClick={() => handleOnCoachClick(coach.CoachID)}
-//           />
-//         ))
-//       )}
-//     </div>
-//   )
-// }
-// export function CoachCard({ coach, selectedCoach, setSelectedCoach, isLoading }) {
-//   const handleOnCoachClick = async () => {
-//     try {
-//       const { data, error } = await apiClient.getCoachByID(coach.coachID)
-//       console.log('Selected coach: ', data)
-//       setSelectedCoach(data)
-//     } catch (error) {
-//       console.error('Failed to fetch coach details:', error)
-//     }
-//   }
-
-//   return (
-//     <>
-//       {isLoading ? (
-//         <div className='loading-indicator'>Loading...</div>
-//       ) : (
-//         <div
-//           className={
-//             coach.coachID === selectedCoach?.coachID
-//               ? 'coach-card coach-card-selected'
-//               : 'coach-card'
-//           }
-//           onClick={() => handleOnCoachClick()}>
-//           <p>
-//             {coach?.firstName} {coach.lastName}
-//           </p>
-//         </div>
-//       )}
-//     </>
-//   )
-// }
