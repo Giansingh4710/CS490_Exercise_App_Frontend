@@ -22,57 +22,78 @@ export function AppContainer() {
     <AuthContextProvider>
       <App />
     </AuthContextProvider>
-  )
+  );
 }
 
 export function App() {
-  const { user, setUser, setIsProcessing } = useAuthContext()
+  const { user, setUser } = useAuthContext();
 
   useEffect(() => {
     const fetchUserInfo = async () => {
-      const { data } = await apiClient.fetchUserFromToken()
+      const { data } = await apiClient.fetchUserFromToken();
       if (data) {
-        setUser(data.user)
+        setUser(data.user);
       }
-      setIsProcessing(false)
-    }
-    const token = localStorage.getItem('fitness_token')
+    };
+    const token = localStorage.getItem("fitness_token");
 
     if (token) {
-      apiClient.setToken(token)
-      fetchUserInfo()
+      apiClient.setToken(token);
+      fetchUserInfo();
     }
-  }, [])
-
-  const ShowSidebar = () => (user?.email ? <Sidebar /> : <></>)
+  }, [setUser]);
 
   return (
     <BrowserRouter>
       <main>
-        <ShowSidebar />
+        {user?.email ? (
+          <>
+            <Sidebar />
+          </>
+        ) : (
+          <></>
+        )}
         <Routes>
-          <Route path='/' element={user?.email ? <UserDashboard /> : <LandingPage />} />
-          <Route path='/Login' element={user?.email ? <UserDashboard /> : <LoginPage />} />
           <Route
-            path='/Register'
+            path="/"
+            element={user?.email ? <UserDashboard /> : <LandingPage />}
+          />
+          <Route
+            path="/Login"
+            element={user?.email ? <UserDashboard /> : <LoginPage />}
+          />
+          <Route
+            path="/Register"
             element={user?.email ? <UserDashboard /> : <RegistrationPage />}
           />
 
-          <Route path='/UserDashboard' element={<ProtectedRoute element={<UserDashboard />} />} />
-          <Route path='/MyCoach' element={<ProtectedRoute element={<MyCoach />} />} />
-          <Route path='/ExploreCoaches' element={<ProtectedRoute element={<ExploreCoaches />} />} />
+          <Route
+            path="/UserDashboard"
+            element={<ProtectedRoute element={<UserDashboard />} />}
+          />
+          <Route
+            path="/MyCoach"
+            element={<ProtectedRoute element={<MyCoach />} />}
+          />
+          <Route
+            path="/ExploreCoaches"
+            element={<ProtectedRoute element={<ExploreCoaches />} />}
+          />
 
-          <Route path='/Register/Survey' element={<ProtectedRoute element={<SurveyPage />} />} />
-          <Route path='*' element={<NotFound />} />
+          <Route
+            path="/Register/Survey"
+            element={<ProtectedRoute element={<SurveyPage />} />}
+          />
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </main>
     </BrowserRouter>
-  )
+  );
 }
 
-const root = ReactDOM.createRoot(document.getElementById('root'))
+const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <AppContainer />
-  </React.StrictMode>,
-)
+  </React.StrictMode>
+);

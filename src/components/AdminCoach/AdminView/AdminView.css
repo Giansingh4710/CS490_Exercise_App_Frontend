@@ -1,0 +1,25 @@
+.admin-view {
+    padding: 10px 30px 10px 30px;
+    margin-left: 20px;
+    width: 100%;
+    height: 100%;
+    background-color: white;
+    box-shadow: var(--card-box-shadow);
+  }
+  
+  .admin-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid black;
+  }
+  /* Base styles */
+.admin-coaches {
+  margin-left: 100px;
+  margin-right: 10px;
+  padding: 20px;
+  display: flex;
+  height: 100vh;
+}
+

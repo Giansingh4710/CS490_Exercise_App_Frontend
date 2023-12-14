@@ -1,0 +1,38 @@
+.weight-card-container {
+    /* width: 100%;
+    background-color: white;
+    box-shadow: var(--card-box-shadow);
+    display: flex;
+    flex-direction: column; */
+  
+    padding: 10px;
+    width: 100%;
+    background-color: white;
+    box-shadow: var(--card-box-shadow);
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    margin-top: 5%;
+  }
+  
+  .weight-card-container h1 {
+    margin: 0;
+  }
+  
+  .input-fields {
+    display: flex;
+    flex-direction: row;
+  }
+  
+  .weight-card-container label {
+    padding: 10px;
+  }
+  /* .water-card-container label {
+    display: block;
+    margin-left: 10px;
+    color: black;
+    font-weight: 700;
+    font-size: 24px;
+    word-wrap: break-word;
+  } */
+  

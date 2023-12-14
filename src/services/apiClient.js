@@ -40,6 +40,14 @@ class ApiClient {
       data: credentials,
     })
   }
+
+  async getWorkoutPlans() {
+    return await this.request({
+      endpoint: `workoutPlans`,
+      method: `GET`,
+    })
+  }
+
   async register(credentials) {
     return await this.request({
       endpoint: 'register',
@@ -67,6 +75,13 @@ class ApiClient {
     return await this.request({
       endpoint: `coaches/getAllCoaches`,
       method: `GET`,
+    })
+  }
+
+  async getAllExercises() {
+    return await this.request({
+      endpoint: 'exercises/allExercises', // The API endpoint for fetching all exercises
+      method: 'GET',
     })
   }
 
@@ -132,6 +147,30 @@ class ApiClient {
   async getCoachesClients(coachID) {
     return await this.request({
       endpoint: `/coach/:${coachID}/clients`,
+      method: `GET`,
+    })
+  }
+
+  // ----------------------- User Dashboard ----------------------- //
+  async recordDailySurvey(data) {
+    return await this.request({
+      endpoint: `logActivity/recordDailySurvey`,
+      method: `POST`,
+      data: data,
+    })
+  }
+
+  async mealInput(data) {
+    return await this.request({
+      endpoint: `meals/mealInput`,
+      method: `POST`,
+      data: data,
+    })
+  }
+
+  async dailyweight(data) {
+    return await this.request({
+      endpoint: `dailyweight`,
       method: `GET`,
     })
   }

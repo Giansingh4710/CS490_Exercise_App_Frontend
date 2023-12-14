@@ -1,37 +1,46 @@
 import React, { useState, useEffect } from 'react';
-import './ExerciseBank.css';  // Import the CSS file
+import './ExerciseBank.css';
 
 const ExerciseBank = () => {
   const [exercises, setExercises] = useState([]);
-  const [selectedMuscleGroup, setSelectedMuscleGroup] = useState(''); // Provide default value
+  const [selectedMuscleGroup, setSelectedMuscleGroup] = useState('');
   const [searchTerm, setSearchTerm] = useState('');
-  const [selectedEquipment, setSelectedEquipment] = useState(''); // Provide default value
+  const [selectedEquipment, setSelectedEquipment] = useState('');
 
   useEffect(() => {
-    // Replace this placeholder URL with your actual backend API endpoint
-    fetch('https://your-backend-api.com/exercises')
-      .then((response) => response.json())
-      .then((data) => setExercises(data))
-      .catch((error) => console.error('Error fetching exercises:', error));
+    const fetchExercises = async () => {
+      try {
+        const response = await fetch('http://localhost:1313/exercises/allExercises');
+        if (!response.ok) {
+          throw new Error('Failed to fetch exercises');
+        }
+        const data = await response.json();
+        setExercises(data);
+      } catch (error) {
+        console.error('Error fetching exercises:', error);
+      }
+    };
+
+    fetchExercises();
   }, []);
 
   const filteredExercises = exercises
-    ? exercises
-        .filter((exercise) => (!selectedMuscleGroup || exercise.muscleGroup === selectedMuscleGroup))
-        .filter((exercise) => (!searchTerm || exercise.name.toLowerCase().includes(searchTerm.toLowerCase())))
-        .filter((exercise) => (!selectedEquipment || exercise.equipment === selectedEquipment))
+    ? exercises.filter((exercise) => {
+        const isMuscleGroupMatch = !selectedMuscleGroup || exercise.muscleGroup.toLowerCase() === selectedMuscleGroup.toLowerCase() || selectedMuscleGroup === 'All';
+        const isEquipmentMatch = !selectedEquipment || exercise.equipment.toLowerCase() === selectedEquipment.toLowerCase() || selectedEquipment === 'All';
+        const isSearchTermMatch = !searchTerm || exercise.name.toLowerCase().includes(searchTerm.toLowerCase());
+        return isMuscleGroupMatch && isEquipmentMatch && isSearchTermMatch;
+      })
     : [];
 
-  const muscleGroups = exercises ? ['All', 'Chest', 'Back', 'Arms', 'Shoulders', 'Abs', 'Legs'] : [];
-  const equipmentOptions = exercises ? ['All', 'Barbell', 'Machine', 'Bodyweight', 'Dumbbell', 'Other'] : [];
+  const muscleGroups = exercises ? ['All', 'Chest', 'Back', 'Bicep', 'Tricep', 'Shoulder', 'Abdominal', 'Leg'] : [];
+  const equipmentOptions = exercises ? ['All', 'Barbell', 'Machine', 'Bodyweight', 'Dumbells', 'Bench Press', 'Other'] : [];
 
   const handleSubmission = () => {
-    // Implement submission logic here
     console.log('Submitted!');
   };
 
   const handleCancel = () => {
-    // Implement cancel logic here
     console.log('Cancelled!');
   };
 
@@ -39,6 +48,10 @@ const ExerciseBank = () => {
     <div className="exercise-bank-container">
       <h2>Exercise Bank</h2>
       <div className="filter-section">
+        <div className="filter-item" id="filter-search">
+          <label>Search by Exercise Name: </label>
+          <input type="text" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
+        </div>
         <div className="filter-item" id="filter-muscle-group">
           <label>Filter by Muscle Group: </label>
           <select onChange={(e) => setSelectedMuscleGroup(e.target.value)} value={selectedMuscleGroup}>
@@ -48,10 +61,6 @@ const ExerciseBank = () => {
               </option>
             ))}
           </select>
-        </div>
-        <div className="filter-item" id="filter-search">
-          <label>Search by Exercise Name: </label>
-          <input type="text" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
         </div>
         <div className="filter-item" id="filter-equipment">
           <label>Filter by Equipment: </label>
@@ -76,9 +85,10 @@ const ExerciseBank = () => {
         ) : (
           <ul>
             {filteredExercises.map((exercise) => (
-              <li key={exercise.id}>
+              <li key={exercise.id !== undefined ? String(exercise.id) : Math.random().toString()}>
                 <h3>{exercise.name}</h3>
-                <p>{exercise.description}</p>
+                <p>{exercise.difficulty}</p>
+                <p>{exercise.type}</p>
                 <p>Muscle Group: {exercise.muscleGroup}</p>
                 <p>Equipment: {exercise.equipment}</p>
               </li>

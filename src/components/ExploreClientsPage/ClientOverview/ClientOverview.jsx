@@ -276,7 +276,6 @@ export function CoachCard({ coach, selectedCoach, setSelectedCoach, isLoading, s
   const handleOnCoachClick = async () => {
     try {
       const { data, error } = await apiClient.getCoachByID(coach.coachID)
-      console.log('Selected coach: ', data)
       setSelectedCoach(data)
     } catch (error) {
       console.error('Failed to fetch coach details:', error)

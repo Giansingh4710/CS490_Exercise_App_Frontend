@@ -23,7 +23,7 @@ export default function RequestCoachModal({ coach, setModalIsOpen }) {
       console.log('ERROR sending request')
     }
   }
-  const headerName = 'REQUEST COACH ' + coach?.LastName
+  const headerName = 'REQUEST COACH ' + coach?.lastName
   console.log('headerName: ', headerName)
   const inputFieldsElement = inputFields({ goal, setGoal, message, setMessage, coach })
 
@@ -66,7 +66,7 @@ export function AddMessage({ message, setMessage, coach }) {
   const handleOnChange = (event) => {
     setMessage(event.target.value)
   }
-  const messagePlaceholder = 'Introduce yourself or send a message to coach ' + coach?.LastName
+  const messagePlaceholder = 'Introduce yourself or send a message to coach ' + coach?.lastName
   return (
     <div className='input-field'>
       <label htmlFor='message'>
