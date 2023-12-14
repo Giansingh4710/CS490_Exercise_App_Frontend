@@ -71,7 +71,7 @@ export function App() {
           <Route path='/MyCoach' element={<ProtectedRoute element={<MyCoach />} />} />
           <Route path='/ExploreCoaches' element={<ProtectedRoute element={<ExploreCoaches />} />} />
           <Route path='/Register/Survey' element={<ProtectedRoute element={<SurveyPage />} />} />
-
+          <Route path='/Workouts' element={<ProtectedRoute element={<SurveyPage />} />} />
           {/* START Coach Specific Links */}
           <Route path='/MyClients' element={<ProtectedRoute element={<ExploreClients />} />} />
           {/* END Coach Specific Links */}
@@ -84,6 +84,8 @@ export function App() {
           />
           {/* END Admin Specific Links */}
 
+          <Route path='/Profile' element={<ProtectedRoute element={<SurveyPage />} />} />
+          <Route path='/Settings' element={<ProtectedRoute element={<SurveyPage />} />} />
           <Route path='*' element={<NotFound />} />
         </Routes>
       </main>

@@ -49,7 +49,7 @@ export default function Sidebar() {
                   <span className='icon-text'> MY COACH </span>
                 </div>
               </Link>
-              <Link to='/'>
+              <Link to='/Workouts'>
                 <div className='sidebar-icon'>
                   <span className='material-symbols-outlined'>exercise</span>
                   <span className='icon-text'> MY WORKOUTS </span>
@@ -90,13 +90,13 @@ export default function Sidebar() {
         </div>
 
         <div className='bottom-sidebar'>
-          <Link to='/'>
+          <Link to='/Profile'>
             <div className='sidebar-icon'>
               <span className='material-symbols-outlined'>account_circle</span>
               <span className='icon-text'> PROFILE </span>
             </div>
           </Link>
-          <Link to='/'>
+          <Link to='/Settings'>
             <div className='sidebar-icon'>
               <span className='material-symbols-outlined'>settings</span>
               <span className='icon-text'> SETTINGS </span>
