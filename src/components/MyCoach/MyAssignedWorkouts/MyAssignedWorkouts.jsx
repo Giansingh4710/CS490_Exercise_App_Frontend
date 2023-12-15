@@ -61,7 +61,7 @@ function DailySchedule({ day, exercise}) {
             <tr>
               <th>Exercise</th>
               <th>Set #</th>
-              <th># of Reps</th>
+              {exercise.metric === 'Reps' ? <th># of Reps</th> : <th>Duration</th>}
               <th>Weight</th>
             </tr>
             {
@@ -70,7 +70,7 @@ function DailySchedule({ day, exercise}) {
                 {index === 0 ? <td>{exercise.exercise}</td> : <td></td>}
                 <td>{index+1}</td>
                 <td>{exercise.reps[index]}</td>
-                <td>{exercise.weight} lbs</td>
+                <td>{exercise.equipment === 'Bodyweight' ? <p>Bodyweight</p> : exercise.weight + ' lbs'}</td>
               </tr>
               ))
             }
