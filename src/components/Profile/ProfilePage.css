@@ -1,4 +1,4 @@
-.modal-container {
+.delete-account-modal-container {
     position: fixed;
     top: 0;
     left: 0;
@@ -10,7 +10,7 @@
     background: rgba(0, 0, 0, 0.5);
   }
   
-  .modal {
+  .delete-account-modal {
     width: 600px;
     height: 400px;
     background: #fff;
@@ -19,39 +19,39 @@
     flex-direction: column;
   }
   
-  .modal-header {
+  .delete-account-modal-header {
     background: #3F4D67;
     color: #fff;
     height: auto;
     padding: 2px;
     text-align: center;
   }
-  h2 {
+  #delete-account-header {
     font-size: 34px;
     padding: 0px;
   }
   
-  .modal-content {
+  .delete-account-modal-content {
     padding: 20px;
     text-align: center;
   }
-  .modal-content > h3 {
+  .delete-account-modal-content > h3 {
     color: #FF5C5C;
     font-size: 30px;
     text-decoration: underline;
   }
-  .modal-content > p {
+  .delete-account-modal-content > p {
     font-size: 24px;
     font-weight: bold;
   }
   
-  .modal-actions {
+  .delete-account-modal-actions {
     display: flex;
     justify-content: space-between;
     padding: 20px;
   }
   
-  .cancel-button {
+  .delete-account-cancel-button {
     background-color: #E0E0E0;
     padding: 10px 20px;
     border: none;
@@ -59,7 +59,7 @@
     cursor: pointer;
   }
   
-  .confirm-button {
+  #delete-account-confirm-button {
     background-color: #FF5C5C;
     padding: 10px 20px;
     border: none;
@@ -67,7 +67,7 @@
     cursor: pointer;
   }
 
-  button {
+  .delete-modal-buttons {
     width: 200px;
     height: 50px;
     font-size: 24px;

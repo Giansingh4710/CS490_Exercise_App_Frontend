@@ -518,19 +518,19 @@ function DeleteAccountModal({ onClose }){
   }
   
   return (
-    <div className="modal-container">
-      <div className="modal">
-        <div className="modal-header">
-          <h2>DELETE YOUR ACCOUNT</h2>
+    <div className="delete-account-modal-container">
+      <div className="delete-account-modal">
+        <div className="delete-account-modal-header">
+          <h2 id='delete-account-header'>DELETE YOUR ACCOUNT</h2>
         </div>
-        <div className="modal-content">
+        <div className="delete-account-modal-content">
           <h3>CAUTION</h3>
           <p>Are you sure you want to delete your account?</p>
-          <div className="modal-actions">
-          <button onClick={onClose} disabled={isLoading}>
+          <div className="delete-account-modal-actions">
+          <button onClick={onClose} disabled={isLoading} class='delete-modal-buttons' id='delete-account-cancel-button'>
               CANCEL
             </button>
-            <button onClick={handleDeleteAccount} disabled={isLoading}>
+            <button onClick={handleDeleteAccount} disabled={isLoading} class='delete-modal-buttons' id='delete-account-confirm-button'>
               {isLoading ? 'DELETING...' : 'CONFIRM'}
             </button>
           </div>
