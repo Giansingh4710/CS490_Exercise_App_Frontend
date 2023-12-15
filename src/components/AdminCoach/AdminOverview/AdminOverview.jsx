@@ -3,37 +3,31 @@ import './AdminOverview.css';
 import apiClient from '../../../services/apiClient'; 
 import { useEffect, useState } from 'react';
 
-export default function AdminOverview({ coaches }) {
+
+export default function AdminOverview({ coaches, setSelectedCoach }) {
   return (
     <div className='coaches-overview'>
-            <h3>Incoming Coach Requests</h3> {}
-
-      <CoachList coaches={coaches} />
+      <h3>Incoming Coach Requests</h3>
+      <CoachList coaches={coaches} onSelectCoach={setSelectedCoach} />
     </div>
   );
 }
 
-function CoachList({ coaches }) {
-  const [isLoading, setIsLoading] = useState(false);
-
+function CoachList({ coaches, onSelectCoach }) {
   return (
     <div>
-      {isLoading ? (
-        <p>Loading...</p>
-      ) : (
-        coaches?.map((coach) => (
-          <CoachCard key={coach.coachID} coach={coach} />
-        ))
-      )}
+      {coaches?.map((coach) => (
+        <CoachCard key={coach.coachID} coach={coach} onSelectCoach={onSelectCoach} />
+      ))}
     </div>
   );
 }
 
-function CoachCard({ coach }) {
+function CoachCard({ coach, onSelectCoach }) {
   const handleOnCoachClick = async () => {
     try {
       const { data } = await apiClient.getCoachByID(coach.coachID);
-      console.log(data); 
+      onSelectCoach(data);
     } catch (error) {
       console.error('Failed to fetch coach details:', error);
     }
@@ -41,9 +35,7 @@ function CoachCard({ coach }) {
 
   return (
     <div className='coach-card' onClick={handleOnCoachClick}>
-      <p>
-        {coach?.firstName} {coach.lastName}
-      </p>
+      <p>{coach?.firstName} {coach.lastName}</p>
     </div>
   );
 }
