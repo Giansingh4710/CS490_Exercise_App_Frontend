@@ -25,6 +25,7 @@ export default function InputElement({
           options={options}
           additionalStyles={additionalStyles}
           onChange={handleChange}
+          disabled={disabled}
         />
         <p style={styles.error}>{elementError}</p>
       </div>
@@ -51,11 +52,12 @@ export default function InputElement({
   )
 }
 
-function Dropdown({ options, additionalStyles, onChange }) {
+function Dropdown({ options, additionalStyles, onChange, disabled }) {
   return (
     <select
       style={{ ...styles.inputField, ...additionalStyles }}
       onChange={onChange}
+      disabled={disabled}
     >
       {options.map((option, index) => (
         <option key={index} value={option}>

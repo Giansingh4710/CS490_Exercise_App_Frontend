@@ -19,6 +19,7 @@ import './index.css'
 import ExploreClients from './components/ExploreClientsPage/ExploreClientsPage'
 import AdminOverview from './components/AdminCoach/AdminOverview/AdminOverview'
 import ManageExerciseBank from './components/ManageExerciseBank/ManageExerciseBank'
+import ProfilePage from './components/Profile/ProfilePage'
 
 export function AppContainer() {
   return (
@@ -91,7 +92,7 @@ export function App() {
           />
           {/* END Admin Specific Links */}
 
-          <Route path='/Profile' element={<ProtectedRoute element={<SurveyPage />} />} />
+          <Route path='/Profile' element={<ProtectedRoute element={<ProfilePage />} />} />
           <Route path='/Settings' element={<ProtectedRoute element={<SurveyPage />} />} />
           <Route path='*' element={<NotFound />} />
         </Routes>
