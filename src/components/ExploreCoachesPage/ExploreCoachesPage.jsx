@@ -14,13 +14,26 @@ import RequestCoachModal from './RequestCoachModal/RequestCoachModal'
 export default function ExploreCoaches() {
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState('')
+  const [notes, setNotes] = useState('')
   const [coaches, setCoaches] = useState([])
   const [sentRequests, setSentRequests] = useState([])
   const [coachesToDisplay, setCoachesToDisplay] = useState([])
   const [selectedCoach, setSelectedCoach] = useState({})
-  const [selectedTab, setSelectedTab] = useState('Coaches')
   const [modalIsOpen, setModalIsOpen] = useState(false)
   const [requestStatusForSelectedCoach, setRequestStatusForSelectedCoach] = useState('')
+  const [specializations, setSpecializations] = useState(['Any Specialization'])
+  const [showErrorDialog, setShowErrorDialog] = useState(false)
+
+  const fetchSpecializations = async () => {
+    try {
+      const { data, error } = await apiClient.getCoachSpecializations()
+      const specializationList = data.map((spec) => spec.specialties)
+      setSpecializations(['Any Specialization', ...specializationList])
+    } catch (error) {
+      setSpecializations(['Any specialization'])
+      throw new Error('Error fetching specializations')
+    }
+  }
   const fetchAllCoaches = async () => {
     setIsLoading(true)
     setError(null)
@@ -51,8 +64,10 @@ export default function ExploreCoaches() {
   useEffect(() => {
     fetchAllCoaches()
     fetchSentRequests()
+    fetchSpecializations()
     setSelectedCoach(null)
   }, [])
+
   useEffect(() => {
     fetchSentRequests()
   }, [modalIsOpen])
@@ -60,7 +75,36 @@ export default function ExploreCoaches() {
   return (
     <>
       {/* conditionally render the Modal to send a request  */}
-      {modalIsOpen && <RequestCoachModal setModalIsOpen={setModalIsOpen} coach={selectedCoach} />}
+      {modalIsOpen && (
+        <RequestCoachModal
+          setModalIsOpen={setModalIsOpen}
+          coach={selectedCoach}
+          specializations={specializations}
+          setNotes={setNotes}
+          setShowErrorDialog={setShowErrorDialog}
+        />
+      )}
+      {showErrorDialog && (
+        <dialog open>
+          <form method='dialog'>
+            ERROR SENDING REQUEST
+            <button type='submit' autofocus onClick={() => setShowErrorDialog(false)}>
+              close
+            </button>
+          </form>
+        </dialog>
+      )}
+      {error ? (
+        <dialog open>
+          <form method='dialog'>
+            <button type='submit' autofocus>
+              close
+            </button>
+          </form>
+        </dialog>
+      ) : (
+        <></>
+      )}
       <div className={modalIsOpen ? 'explore-coaches blurred' : 'explore-coaches'}>
         <CoachesOverview
           coaches={coaches}
@@ -72,6 +116,7 @@ export default function ExploreCoaches() {
           sentRequests={sentRequests}
           fetchSentRequests={fetchSentRequests}
           setRequestStatusForSelectedCoach={setRequestStatusForSelectedCoach}
+          specializations={specializations}
         />
         <CoachView
           selectedCoach={selectedCoach}
@@ -80,6 +125,8 @@ export default function ExploreCoaches() {
           setLoading={setIsLoading}
           setModalIsOpen={setModalIsOpen}
           requestStatusForSelectedCoach={requestStatusForSelectedCoach}
+          notes={notes}
+          setShowErrorDialog={setShowErrorDialog}
         />
       </div>
     </>

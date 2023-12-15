@@ -6,21 +6,17 @@ export default function MyAssignedWorkouts() {
   // const [coach, setCoach] = useState(null);
   const [workoutPlan, setWorkoutPlan] = useState({});
 
-  useEffect(() => {
-    // async function getCoachData(){
-    //   const coachData = await apiClient.getCoachData();
-    //   setCoach(coachData.data);
-    // }
-    
-    // this endpoint will get the workout for a user
-    // as of rn 12/14/23 @ 3pm the database does not have a way to identify a workout as a client created one or a coach created one
-    // julien has been assigned a ticket a i will update the backend once the table is updated
+  useEffect(() => {    
     async function getWorkoutPlan(){
-      const plan = await apiClient.getWorkoutPlan();
-      setWorkoutPlan(plan.data);
+      const { data, error } = await apiClient.getWorkoutPlan();
+      if(data){
+        setWorkoutPlan(data);
+      }
+      if(error){
+        setWorkoutPlan({});
+      }
     }
     getWorkoutPlan();
-    // getCoachData();
   }, [])
 
   return (
@@ -65,7 +61,7 @@ function DailySchedule({ day, exercise}) {
             <tr>
               <th>Exercise</th>
               <th>Set #</th>
-              <th># of Reps</th>
+              {exercise.metric === 'Reps' ? <th># of Reps</th> : <th>Duration</th>}
               <th>Weight</th>
             </tr>
             {
@@ -74,7 +70,7 @@ function DailySchedule({ day, exercise}) {
                 {index === 0 ? <td>{exercise.exercise}</td> : <td></td>}
                 <td>{index+1}</td>
                 <td>{exercise.reps[index]}</td>
-                <td>{exercise.weight} lbs</td>
+                <td>{exercise.equipment === 'Bodyweight' ? <p>Bodyweight</p> : exercise.weight + ' lbs'}</td>
               </tr>
               ))
             }

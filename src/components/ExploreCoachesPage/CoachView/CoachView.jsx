@@ -6,6 +6,7 @@ import {
   BlueCancelButton,
   BlueRequestButton,
   GreenAcceptButton,
+  RedCancelButton,
   RedDeclineButton,
 } from '../../Buttons/Buttons'
 
@@ -16,8 +17,9 @@ export default function CoachView({
   setLoading,
   setModalIsOpen,
   requestStatusForSelectedCoach,
+  notes,
+  setShowErrorDialog,
 }) {
-  console.log('requestStates:', requestStatusForSelectedCoach)
   const [error, setError] = useState('')
 
   const handleOnRequestClick = async () => {
@@ -25,13 +27,22 @@ export default function CoachView({
   }
 
   const handleOnCancelClick = async () => {
-    setModalIsOpen(true)
+    setModalIsOpen(false)
     // call endpoint to update request to be canceled
   }
   return selectedCoach ? (
     loading ? (
       <>
         <div className='coach-view'>
+          {notes !== '' ? (
+            <div className='coach-view-notes'>
+              {' '}
+              <p>{notes}</p>
+            </div>
+          ) : (
+            <></>
+          )}
+
           <div className='coach-header'>
             <h2>Loading...</h2>
           </div>
@@ -48,7 +59,10 @@ export default function CoachView({
             {requestStatusForSelectedCoach === '' || requestStatusForSelectedCoach === null ? (
               <BlueRequestButton handleOnClick={handleOnRequestClick} />
             ) : (
-              <BlueCancelButton handleOnClick={handleOnCancelClick} />
+              <RedCancelButton
+                handleOnClick={handleOnCancelClick}
+                title={'Cancel your outgoing request'}
+              />
             )}
           </div>
 

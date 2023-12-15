@@ -15,13 +15,23 @@ function MyCoach() {
 
   useEffect(() => {
     async function getCoachData(){
-      const coachData = await apiClient.getCoachData();
-      setCoach(coachData.data);
+      const { data, error } = await apiClient.getCoachData();
+      if(data){
+        setCoach(data);
+      }
+      if(error){
+        alert("Error getting coach data");
+      }
     }
 
     async function getWorkoutPlan(){
-      const plan = await apiClient.getWorkoutPlan();
-      setWorkoutPlan(plan.data);
+      const { data, error } = await apiClient.getWorkoutPlan();
+      if(data){
+        setWorkoutPlan(data);
+      }
+      if(error){
+        alert("Error getting workout plan");
+      }
     }
     getWorkoutPlan();
     getCoachData();
@@ -29,8 +39,8 @@ function MyCoach() {
 
   return (
     <>
-      <Navbar page='MyCoach' />
-      {coach ? (
+      <Navbar page='MyCoach' />{
+      coach ? (
         
         <div className='my-coach'>
           <header className='my-coach-header'>

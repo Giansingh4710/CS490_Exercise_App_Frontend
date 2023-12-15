@@ -4,48 +4,22 @@ import apiClient from '../../../services/apiClient'
 import "./MyMessagesWithCoach.css";
 
 export default function MyMessagesWithCoach({ coach }) {
-  var testMsgs = [
-    { sender: "User", msgText: "testing", timeStamp: "3/3/23 12:01pm" },
-    {
-      sender: "Coach Doe",
-      msgText: "testing coach messages",
-      timeStamp: "3/3/23 12:10pm",
-    },
-    {
-      sender: "User",
-      msgText:
-        "testing user messages testing user messages testing user testing user messages testing user messages testing user ",
-      timeStamp: "3/3/23 12:01pm",
-    },
-    {
-      sender: "Coach Doe",
-      msgText: "testing coach messages",
-      timeStamp: "3/3/23 12:10pm",
-    },
-    { sender: "User", msgText: "testing", timeStamp: "3/3/23 12:01pm" },
-    {
-      sender: "Coach Doe",
-      msgText: "testing coach messages",
-      timeStamp: "3/3/23 12:10pm",
-    },
-    { sender: "User", msgText: "testing", timeStamp: "3/3/23 12:01pm" },
-    {
-      sender: "Coach Doe",
-      msgText:
-        "testing coach messages testing coach messages testing coach messages testing coach messages testing coach messages testing coach messages",
-      timeStamp: "3/3/23 12:10pm",
-    },
-  ];
   const [newMsg, setNewMsg] = useState("");
   const [msgs, setMsgs] = useState(null);
   const [msgError, setMsgError] = useState("");
 
   useEffect(() => {
     async function getMessages(){
-      const messages = await apiClient.getMessages(coach.userID);
-      setMsgs(messages.data);
+      const { data, error } = await apiClient.getMessages(coach.userID);
+      if(data){
+        setMsgs(data);
+      }
+      if(error){
+        setMsgs([])
+      }
     }
     getMessages();
+    // eslint-disable-next-line
   }, [])
 
   const handleOnSendMsg = async () => {
@@ -55,10 +29,16 @@ export default function MyMessagesWithCoach({ coach }) {
         receiverID: coach.userID,
         created: new Date().toLocaleString()
       }
-      const res = await apiClient.sendMessage(newMessage);
-      setMsgs((prev) => [
-        ...prev, newMessage // timestamp not set so wont show. need to fix
-      ]);
+      const { res, error } = await apiClient.sendMessage(newMessage);
+      if(res){
+        setMsgs((prev) => [
+          ...prev, newMessage
+        ]);
+      }
+      if(error){
+        alert("Error getting messages");
+      }
+      
       setNewMsg("");
     } else {
       setMsgError("Cannot send an empty message!");

@@ -63,7 +63,7 @@ export function BlueSubmitButton({ handleOnClick }) {
 
 export function BlueCancelButton({ handleOnClick }) {
   return (
-    <div className='blue-btn'>
+    <div className='blue-btn btn'>
       <button className='blue-cancel-btn' onClick={handleOnClick}>
         CANCEL
       </button>
@@ -71,9 +71,18 @@ export function BlueCancelButton({ handleOnClick }) {
   )
 }
 
+export function RedCancelButton({ handleOnClick, title }) {
+  return (
+    <div className='red-btn btn'>
+      <button className='red-cancel-btn' onClick={handleOnClick} title={title}>
+        CANCEL
+      </button>
+    </div>
+  )
+}
 export function GreenAcceptButton({ handleOnClick }) {
   return (
-    <div className='green-accept-btn btn'>
+    <div className='green-btn btn'>
       <button className='green-accept-btn' onClick={handleOnClick}>
         ACCEPT
       </button>

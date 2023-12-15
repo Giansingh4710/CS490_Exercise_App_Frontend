@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import apiClient from '../../../services/apiClient';
-import { LineChart, Line, XAxis, YAxis, Tooltip, Legend, CartesianGrid, ReferenceLine } from 'recharts';
+import { LineChart, Line, XAxis, YAxis, Tooltip, Legend, CartesianGrid } from 'recharts';
 
 const WeightGraph = () => {
   const [weightData, setWeightData] = useState([]);
-  const weightGoal = 140; // Set a default weight goal
 
   useEffect(() => {
     // Fetch weight data from the backend
     const fetchWeightData = async () => {
       try {
-        const response = await apiClient.dailyWeight();
+        const response = await apiClient.dailyweight();
+        console.log('Response:', response);
         setWeightData(response.data);
       } catch (error) {
         console.error('Error fetching weight data:', error);
@@ -20,13 +20,10 @@ const WeightGraph = () => {
     fetchWeightData();
   }, []);
 
-  const renderGoalLine = () => {
-    if (!weightData.length || isNaN(weightGoal)) {
-      return null;
-    }
+  // Updated to always return null
+  const renderGoalLine = () => null;
 
-    return <ReferenceLine y={weightGoal} label="Weight Goal" stroke="red" strokeDasharray="3 3" />;
-  };
+  console.log('Final Weight Data:', weightData);
 
   return (
     <LineChart width={600} height={300} data={weightData}>
