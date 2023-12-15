@@ -78,6 +78,13 @@ class ApiClient {
       method: `GET`,
     })
   }
+
+  async getUserData(){
+    return await this.request({
+      endpoint: `user/data`,
+      method: `GET`
+    })
+  }
   // ----------------------- coaches requests ----------------------- //
   async getAllCoaches() {
     return await this.request({
