@@ -9,7 +9,7 @@ components broken down:
     CoachesOverveiw 
         * the overall container where a user can search, filter and view the results for coaches 
         * holds all of the following components
-
+ 
     CoachOrSentRequest
         * The heading area, holds 2 tabs, Coaches or Sent Requests, user cna click on either tab
        

@@ -8,13 +8,12 @@ export default function Sidebar() {
   const { user } = useAuthContext()
 
   /* Valid role options: 
-      null   => initial survey is not completed, has client access to links
-      'admin'  => access to only the manage coaches and manage exercises link
-      'coach'  => access to all links except admin links 
-      'client' => access to all links except admin links and my clients link
+      null   => initial survey is not completed, has Client access to links
+      'Admin'  => access to only the Manage Coaches and Manage Exercises link
+      'Coach'  => access to all links except Admin links 
+      'Client' => access to all links except Admin links and My Clients link
   */
   const role = user?.role
-
   return (
     <div className='sidebar'>
       <div className='sidebar-icons'>
@@ -28,7 +27,7 @@ export default function Sidebar() {
             </Link>
           </div>
 
-          {role !== 'admin' && (
+          {role !== 'Admin' && (
             <>
               <Link to='/'>
                 <div className='sidebar-icon dashboard'>
@@ -59,7 +58,7 @@ export default function Sidebar() {
           )}
 
           {/* START Coach Specific Links */}
-          {role === 'coach' && (
+          {role === 'Coach' && (
             <Link to='/MyClients'>
               <div className='sidebar-icon'>
                 <span class='material-symbols-outlined'>groups_3</span>{' '}
@@ -70,7 +69,7 @@ export default function Sidebar() {
           {/* END Coach Specific Links */}
 
           {/* START Admin Specific Links */}
-          {role === 'admin' && (
+          {role === 'Admin' && (
             <>
               <Link to='/ManageCoaches'>
                 <div className='sidebar-icon'>

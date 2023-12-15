@@ -45,7 +45,6 @@ export function App() {
       fetchUserInfo()
     }
   }, [setUser])
-
   return (
     <BrowserRouter>
       <main>
@@ -60,7 +59,15 @@ export function App() {
           <Route
             path='/'
             element={
-              user?.email ? user?.role ? <UserDashboard /> : <SurveyPage /> : <LandingPage />
+              user?.email ? (
+                user?.role !== null ? (
+                  <UserDashboard />
+                ) : (
+                  <SurveyPage />
+                )
+              ) : (
+                <LandingPage />
+              )
             }
           />
           <Route path='/Login' element={user?.email ? <UserDashboard /> : <LoginPage />} />

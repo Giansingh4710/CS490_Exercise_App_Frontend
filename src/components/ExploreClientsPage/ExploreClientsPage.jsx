@@ -14,7 +14,7 @@ export default function ExploreClients() {
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState('')
   const [clients, setClients] = useState([])
-  const [sentRequests, setSentRequests] = useState([])
+  const [newRequests, setNewRequests] = useState([])
   const [clientsToDisplay, setClientsToDisplay] = useState([])
   const [selectedClient, setSelectedClient] = useState({})
   const [selectedTab, setSelectedTab] = useState('Clients')
@@ -34,12 +34,15 @@ export default function ExploreClients() {
     setIsLoading(false)
   }
 
-  const fetchSentRequests = async () => {
+  const fetchNewRequests = async () => {
     setIsLoading(true)
     setError(null)
-    const { data, error } = await apiClient.getOpenRequestsForClient()
+    const { data, error } = await apiClient.getOpenRequestsForCoach()
+    console.log('DATA:', data)
     if (data) {
-      setSentRequests(data)
+      const clients = data.map((item) => item.User)
+      setNewRequests(clients)
+      console.log('CLIENTS:', clients)
     }
     if (error) {
       setClients([])
@@ -49,7 +52,7 @@ export default function ExploreClients() {
 
   useEffect(() => {
     fetchAllClients()
-    fetchSentRequests()
+    fetchNewRequests()
     setSelectedClient(null)
   }, [])
 
@@ -63,8 +66,8 @@ export default function ExploreClients() {
           selectedClient={selectedClient}
           clientsToDisplay={clientsToDisplay}
           setClientsToDisplay={setClientsToDisplay}
-          sentRequests={sentRequests}
-          fetchSentRequests={fetchSentRequests}
+          newRequests={newRequests}
+          fetchNewRequests={fetchNewRequests}
           selectedTab={selectedTab}
           setSelectedTab={setSelectedTab}
         />
@@ -86,8 +89,8 @@ export function ClientsOverview({
   setSelectedClient,
   clientsToDisplay,
   setClientsToDisplay,
-  sentRequests,
-  fetchSentRequests,
+  newRequests,
+  fetchNewRequests,
   selectedClient,
   selectedTab,
   setSelectedTab,
@@ -97,13 +100,13 @@ export function ClientsOverview({
   //   const [viewFilters, setViewFilters] = useState(false);
   const handleOnRequestsTabClick = () => {
     if (selectedTab == 'Clients') {
-      setSelectedTab('Sent Requests')
-      setClientsToDisplay(sentRequests)
+      setSelectedTab('New Requests')
+      setClientsToDisplay(newRequests)
     }
   }
 
   const handleOnClientsTabClick = () => {
-    if (selectedTab == 'Sent Requests') {
+    if (selectedTab == 'New Requests') {
       setSelectedTab('Clients')
       setClientsToDisplay(clients)
     }
@@ -140,13 +143,13 @@ export function ClientsOverview({
   )
 }
 
-export function ClientOrSentRequest({
+export function ClientOrNewRequest({
   selectedTab,
   handleOnRequestsTabClick,
   handleOnClientsTabClick,
 }) {
   return (
-    <div className='clients-or-sent-requests-tab'>
+    <div className='clients-or-new-requests-tab'>
       <div
         className={selectedTab === 'Clients' ? 'clients-tab selected' : 'clients-tab'}
         onClick={handleOnClientsTabClick}>
@@ -155,10 +158,10 @@ export function ClientOrSentRequest({
       <div className='divider'>|</div>
       <div
         className={
-          selectedTab === 'Sent Requests' ? 'sent-requests-tab selected' : 'sent-requests-tab'
+          selectedTab === 'New Requests' ? 'new-requests-tab selected' : 'new-requests-tab'
         }
         onClick={handleOnRequestsTabClick}>
-        <p className='tab'>Sent Requests</p>
+        <p className='tab'>New Requests</p>
       </div>
     </div>
   )
@@ -211,11 +214,11 @@ export function ClientList({ clients, setSelectedClient, selectedClient, selecte
         selectedTab === 'New Requests' ? (
           <ItemCard
             key={index}
-            item={item.Client}
-            isSelected={selectedClient?.userID === item?.Client?.userID}
-            handleClick={() => handleOnClientClick(item.Coach)}>
+            item={item}
+            isSelected={selectedClient?.userID === item?.userID}
+            handleClick={() => handleOnClientClick(item)}>
             <p>
-              {item.Client.firstName} {item.Client.lastName}
+              {item.firstName} {item.lastName}
             </p>
           </ItemCard>
         ) : (
