@@ -6,27 +6,7 @@ import { useEffect } from 'react'
 import { Tabs } from '../../ExploreComponents/Tabs/Tabs'
 import { List, ItemCard } from '../../ExploreComponents/ItemList/ItemList'
 import { useAuthContext } from '../../../contexts/auth'
-/*
-components broken down:
-    CoachesOverveiw 
-        * the overall container where a user can search, filter and view the results for coaches 
-        * holds all of the following components
 
-    CoachOrSentRequest
-        * The heading area, holds 2 tabs, Coaches or Sent Requests, user cna click on either tab
-       
-    SearchForCoachByName
-        * the search bar and button 
-       
-    FilterForCoaches
-        * the filters, & has 3 dropdown componenets Specialization, LocationDropdown, PriceDropdown
-       
-    CoachList
-        * the container that will hold all the coaches available based on the filter and search
-    
-    CoachCard
-        * an individual card that holds the name of the coach 
-*/
 export default function CoachesOverview({
   coaches,
   setCoaches,
@@ -39,25 +19,34 @@ export default function CoachesOverview({
   setRequestStatusForSelectedCoach,
   specializations,
 }) {
-  const [viewCoachesOrSentRequests, setViewCoachesOrSentRequests] = useState('Coaches')
-  const [searchTerm, setSearchTerm] = useState('')
+  const [selectedTab, setSelectedTab] = useState('Coaches')
   const [locations, setLocations] = useState([{ state: 'Any State', cities: [] }])
 
-  const handleOnCoachesTabClick = () => {
-    if (viewCoachesOrSentRequests == 'Sent Requests') {
-      setViewCoachesOrSentRequests('Coaches')
-      setCoachesToDisplay(coaches)
-    }
-  }
-  const handleOnSentRequestsTabClick = () => {
-    if (viewCoachesOrSentRequests == 'Coaches') {
-      setViewCoachesOrSentRequests('Sent Requests')
-      setCoachesToDisplay(sentRequests)
-    }
-  }
+  const [searchTerm, setSearchTerm] = useState('')
+  const [selectedSpecialization, setSelectedSpecialization] = useState('')
+  const [selectedMaxPrice, setSelectedMaxPrice] = useState('')
+  const [selectedState, setSelectedState] = useState('')
+  const [selectedCity, setSelectedCity] = useState('')
+
   const tabs = [
-    { label: 'Coaches', handler: handleOnCoachesTabClick },
-    { label: 'Sent Requests', handler: handleOnSentRequestsTabClick },
+    {
+      label: 'Coaches',
+      handler: () => {
+        if (selectedTab == 'Sent Requests') {
+          setSelectedTab('Coaches')
+          setCoachesToDisplay(coaches)
+        }
+      },
+    },
+    {
+      label: 'Sent Requests',
+      handler: () => {
+        if (selectedTab == 'Coaches') {
+          setSelectedTab('Sent Requests')
+          setCoachesToDisplay(sentRequests)
+        }
+      },
+    },
   ]
 
   const fetchLocations = async () => {
@@ -72,7 +61,14 @@ export default function CoachesOverview({
 
   const handleSearch = async () => {
     try {
-      const { data, error } = await apiClient.getAllCoachesBySearchTerm(searchTerm)
+      const { data, error } = await apiClient.getAllCoachesBySearchTermAndFilters(
+        searchTerm,
+        selectedSpecialization,
+        selectedMaxPrice,
+        selectedState,
+        selectedCity,
+      )
+      console.log('COACHES FROM SEARCH:', data)
       setCoachesToDisplay(data)
     } catch (error) {
       console.error('Error fetching coaches:', error)
@@ -86,88 +82,31 @@ export default function CoachesOverview({
 
   return (
     <div className='coaches-overview'>
-      <CoachOverviewContent
-        viewCoachesOrSentRequests={viewCoachesOrSentRequests}
-        handleOnSentRequestsTabClick={handleOnSentRequestsTabClick}
-        handleOnCoachesTabClick={handleOnCoachesTabClick}
-        searchTerm={searchTerm}
-        setSearchTerm={setSearchTerm}
-        handleSearch={handleSearch}
-        specializations={specializations}
-        locations={locations}
-        coaches={coachesToDisplay}
-        setSelectedCoach={setSelectedCoach}
-        selectedCoach={selectedCoach}
-        tabs={tabs}
-        setRequestStatusForSelectedCoach={setRequestStatusForSelectedCoach}
-      />
-    </div>
-  )
-}
-
-export function CoachOverviewContent({
-  viewCoachesOrSentRequests,
-  handleOnSentRequestsTabClick,
-  handleOnCoachesTabClick,
-  searchTerm,
-  setSearchTerm,
-  handleSearch,
-  specializations,
-  locations,
-  coaches,
-  setSelectedCoach,
-  selectedCoach,
-  tabs,
-  setRequestStatusForSelectedCoach,
-}) {
-  return (
-    <>
-      <Tabs tabs={tabs} activeTab={viewCoachesOrSentRequests} />
-      {/* 
-      <CoachOrSentRequest
-        viewCoachesOrSentRequests={viewCoachesOrSentRequests}
-        handleOnSentRequestsTabClick={handleOnSentRequestsTabClick}
-        handleOnCoachesTabClick={handleOnCoachesTabClick}
-      /> */}
+      <Tabs tabs={tabs} activeTab={selectedTab} />
       <SearchForCoachByName
         searchTerm={searchTerm}
         setSearchTerm={setSearchTerm}
         handleSearch={handleSearch}
       />
-      <FilterForCoaches specializations={specializations} locations={locations} />
+      <FilterForCoaches
+        specializations={specializations}
+        locations={locations}
+        selectedSpecialization={selectedSpecialization}
+        setSelectedSpecialization={setSelectedSpecialization}
+        selectedMaxPrice={selectedMaxPrice}
+        setSelectedMaxPrice={setSelectedMaxPrice}
+        selectedState={selectedState}
+        setSelectedState={setSelectedState}
+        selectedCity={selectedCity}
+        setSelectedCity={setSelectedCity}
+      />
       <CoachList
-        coaches={coaches}
+        coaches={coachesToDisplay}
         setSelectedCoach={setSelectedCoach}
         selectedCoach={selectedCoach}
-        viewCoachesOrSentRequests={viewCoachesOrSentRequests}
+        selectedTab={selectedTab}
         setRequestStatusForSelectedCoach={setRequestStatusForSelectedCoach}
       />
-    </>
-  )
-}
-
-export function CoachOrSentRequest({
-  viewCoachesOrSentRequests,
-  handleOnSentRequestsTabClick,
-  handleOnCoachesTabClick,
-}) {
-  return (
-    <div className='coaches-or-sent-requests-tab'>
-      <div
-        className={viewCoachesOrSentRequests === 'Coaches' ? 'coaches-tab selected' : 'coaches-tab'}
-        onClick={handleOnCoachesTabClick}>
-        <p className='tab'>Coaches</p>
-      </div>
-      <div className='divider'>|</div>
-      <div
-        className={
-          viewCoachesOrSentRequests === 'Sent Requests'
-            ? 'sent-requests-tab selected'
-            : 'sent-requests-tab'
-        }
-        onClick={handleOnSentRequestsTabClick}>
-        <p className='tab'>Sent Requests</p>
-      </div>
     </div>
   )
 }
@@ -176,7 +115,6 @@ export function SearchForCoachByName({ setSearchTerm, searchTerm, handleSearch }
   const handleInputChange = (e) => {
     setSearchTerm(e.target.value)
   }
-
   const handleSubmit = (e) => {
     e.preventDefault()
     handleSearch()
@@ -200,7 +138,18 @@ export function SearchForCoachByName({ setSearchTerm, searchTerm, handleSearch }
   )
 }
 
-export function FilterForCoaches({ specializations, locations }) {
+export function FilterForCoaches({
+  specializations,
+  locations,
+  selectedSpecialization,
+  setSelectedSpecialization,
+  selectedMaxPrice,
+  setSelectedMaxPrice,
+  selectedState,
+  setSelectedState,
+  selectedCity,
+  setSelectedCity,
+}) {
   return (
     <div className='filter-container'>
       <div className='filter-label'>
@@ -209,15 +158,29 @@ export function FilterForCoaches({ specializations, locations }) {
         <p>Filters</p>
       </div>
       <div className='filter-select-container'>
-        <SpecializationDropdown specializations={specializations} />
-        <LocationDropdown locations={locations} />
-        <MaxPrice />
+        <SpecializationDropdown
+          specializations={specializations}
+          selectedSpecialization={selectedSpecialization}
+          setSelectedSpecialization={setSelectedSpecialization}
+        />
+        <LocationDropdown
+          locations={locations}
+          selectedCity={selectedCity}
+          selectedState={selectedState}
+          setSelectedCity={setSelectedCity}
+          setSelectedState={setSelectedState}
+        />
+        <MaxPrice selectedMaxPrice={selectedMaxPrice} setSelectedMaxPrice={setSelectedMaxPrice} />
       </div>
     </div>
   )
 }
 
-export function SpecializationDropdown({ specializations }) {
+export function SpecializationDropdown({
+  specializations,
+  selectedSpecialization,
+  setSelectedSpecialization,
+}) {
   return (
     <div className='select-dropdown'>
       <select
@@ -225,11 +188,12 @@ export function SpecializationDropdown({ specializations }) {
         name='selectList'
         id='selectList'
         placeholder='Select specialization'
-        // onChange={(evt) => setSelectedAvailability(evt.target.value)}
-        // value={selectedAvailability}
-      >
-        {/* <option value="">Example Placeholder</option> */}
-
+        onChange={(evt) =>
+          setSelectedSpecialization(
+            evt.target.value == 'Any specialization' ? '' : evt.target.value,
+          )
+        }
+        value={selectedSpecialization}>
         {specializations?.map((c) => (
           <option value={c} key={c}>
             {c}
@@ -239,14 +203,15 @@ export function SpecializationDropdown({ specializations }) {
     </div>
   )
 }
-export function LocationDropdown({ locations }) {
-  const [selectedState, setSelectedState] = useState('Any State')
-  const [selectedCity, setSelectedCity] = useState('Any City')
+export function LocationDropdown({
+  locations,
+  selectedState,
+  setSelectedState,
+  selectedCity,
+  setSelectedCity,
+}) {
   const [states, setStates] = useState(['Any State'])
   const [cities, setCities] = useState(['Any City'])
-  const handleOnStateChange = (evt) => {
-    setSelectedState(evt.target.value)
-  }
 
   useEffect(() => {
     // Find the selected state object
@@ -264,7 +229,9 @@ export function LocationDropdown({ locations }) {
         name='selectList'
         id='selectList'
         placeholder='Select state'
-        onChange={(evt) => setSelectedState(evt.target.value)}
+        onChange={(evt) => {
+          setSelectedState(evt.target.value == 'Any State' ? '' : evt.target.value)
+        }}
         value={selectedState}>
         {locations?.map((c) => (
           <option value={c.state} key={c.state}>
@@ -277,7 +244,9 @@ export function LocationDropdown({ locations }) {
         id='cityList'
         placeholder='Select city'
         value={selectedCity}
-        onChange={(evt) => setSelectedCity(evt.target.value)}>
+        onChange={(evt) =>
+          setSelectedCity(evt.target.value === 'Any City' ? '' : evt.target.value)
+        }>
         {cities.map((city, index) => (
           <option key={index} value={city}>
             {city}
@@ -287,14 +256,15 @@ export function LocationDropdown({ locations }) {
     </div>
   )
 }
-export function MaxPrice() {
+export function MaxPrice({ selectedMaxPrice, setSelectedMaxPrice }) {
+  console.log('selcetedMaxprice:', selectedMaxPrice)
   return (
     <div className='select-price-input'>
       <input
         name='selectPrice'
         placeholder='Type in a maximum monthly price'
-        // onChange={(evt) => setSelectedAvailability(evt.target.value)}
-        // value={selectedAvailability}
+        onChange={(evt) => setSelectedMaxPrice(evt.target.value)}
+        value={selectedMaxPrice}
       />
     </div>
   )
@@ -304,7 +274,7 @@ export function CoachList({
   coaches,
   setSelectedCoach,
   selectedCoach,
-  viewCoachesOrSentRequests,
+  selectedTab,
   setRequestStatusForSelectedCoach,
 }) {
   const { user } = useAuthContext()
@@ -342,7 +312,7 @@ export function CoachList({
     <List
       items={coaches}
       renderItem={(item, index) =>
-        viewCoachesOrSentRequests === 'Sent Requests' ? (
+        selectedTab === 'Sent Requests' ? (
           <ItemCard
             key={index}
             item={item.Coach}

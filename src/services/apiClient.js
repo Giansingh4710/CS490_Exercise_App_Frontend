@@ -100,6 +100,41 @@ class ApiClient {
     })
   }
 
+  async getAllCoachesBySearchTermAndFilters(
+    searchTerm,
+    selectedSpecialization,
+    selectedMaxPrice,
+    selectedState,
+    selectedCity,
+  ) {
+    console.log(
+      'Search terms: ',
+      searchTerm,
+      selectedSpecialization,
+      selectedMaxPrice,
+      selectedState,
+      selectedCity,
+    )
+    console.log(
+      'Search api call: ',
+      `coaches/search?
+      name=${encodeURIComponent(searchTerm)}
+      &specialty=${encodeURIComponent(selectedSpecialization)}
+      &maxPrice=${encodeURIComponent(selectedMaxPrice)}
+      &state=${encodeURIComponent(selectedState)}
+      &city=${encodeURIComponent(selectedCity)}`,
+    )
+    return await this.request({
+      endpoint: `coaches/search?
+      name=${encodeURIComponent(searchTerm)}
+      &specialty=${encodeURIComponent(selectedSpecialization)}
+      &maxPrice=${encodeURIComponent(selectedMaxPrice)}
+      &state=${encodeURIComponent(selectedState)}
+      &city=${encodeURIComponent(selectedCity)}`,
+      method: `GET`,
+    })
+  }
+
   async getCoachByID(coachID) {
     return await this.request({
       endpoint: `coaches/${coachID}`,
