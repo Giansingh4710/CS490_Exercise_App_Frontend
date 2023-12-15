@@ -116,13 +116,8 @@ class ApiClient {
       data: data,
     })
   }
-  async getOpenRequestsForCoach() {
-    return await this.request({
-      endpoint: `request/openClientRequest`,
-      method: `GET`,
-    })
-  }
 
+  // open requests from the logged in CLIENT that has not been answered yet
   async getOpenRequestsForClient() {
     return await this.request({
       endpoint: `request/openClientRequest`,
@@ -145,20 +140,27 @@ class ApiClient {
   }
 
   // ----------------------- requests to get client info for a coach ----------------------- //
+  // open requests that the logged in COACH has not answered
   async getOpenRequestsForCoach() {
     return await this.request({
-      endpoint: `/request/openCoachRequests`,
+      endpoint: `request/openCoachRequests`,
       method: `GET`,
     })
   }
 
   async getCoachesClients(coachID) {
     return await this.request({
-      endpoint: `/coach/:${coachID}/clients`,
+      endpoint: `coach/:${coachID}/clients`,
       method: `GET`,
     })
   }
 
+  async getClientByID(clientID) {
+    return await this.request({
+      endpoint: `client/${clientID}`,
+      method: `GET`,
+    })
+  }
   // ----------------------- User Dashboard ----------------------- //
   async recordDailySurvey(data) {
     return await this.request({
