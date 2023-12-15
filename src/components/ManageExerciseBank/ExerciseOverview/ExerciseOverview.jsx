@@ -55,6 +55,7 @@ export default function ExerciseOverview({ exercises, onSelectExercise }) {
       </div>
     </div>
   )
+
 }
 
 function ExerciseList({ exercises, onSelectExercise }) {

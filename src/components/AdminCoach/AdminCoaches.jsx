@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import './AdminCoaches.css'; // Ensure this CSS file has the styles you need
-import AdminOverview from './AdminOverview/AdminOverview'; // Adjust path as necessary
-import AdminView from './AdminView/AdminView'; // Adjust path as necessary
+import './AdminCoaches.css';
+import AdminOverview from './AdminOverview/AdminOverview';
+import AdminView from './AdminView/AdminView';
 import apiClient from '../../services/apiClient';
 
 export default function AdminCoaches() {
@@ -14,7 +14,7 @@ export default function AdminCoaches() {
       setIsLoading(true);
       try {
         const response = await apiClient.getAllCoaches();
-        setCoaches(response.data); // Adjust according to your API's response structure
+        setCoaches(response.data);
         setIsLoading(false);
       } catch (error) {
         console.error("Error fetching coaches:", error);
@@ -25,19 +25,24 @@ export default function AdminCoaches() {
     fetchAllCoaches();
   }, []);
 
+ 
   return (
     <div className='admin-coaches'>
       {isLoading ? (
         <p>Loading Coaches...</p>
       ) : (
         <div className="admin-coaches-container">
-          <AdminOverview 
-            coaches={coaches} 
-            setSelectedCoach={setSelectedCoach} 
-          />
-          <AdminView 
-            selectedCoach={selectedCoach} 
-          />
+          <div className="admin-overview-container">
+            <AdminOverview 
+              coaches={coaches} 
+              setSelectedCoach={setSelectedCoach} 
+            />
+          </div>
+          <div className="admin-view-container">
+            <AdminView 
+              selectedCoach={selectedCoach} 
+            />
+          </div>
         </div>
       )}
     </div>

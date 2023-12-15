@@ -11,9 +11,20 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    align-items: center;
+    align-items: left;
     border-bottom: 1px solid black;
   }
+
+  .admin-header h2{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: left;
+    font-weight: bold;
+    font-size: 30px;
+    border-bottom: 1px solid black;
+  }
+
   /* Base styles */
 .admin-coaches {
   margin-left: 100px;
@@ -23,3 +34,46 @@
   height: 100vh;
 }
 
+.coach-details {
+  display: flex;
+  flex-direction: column; /* Aligns items vertically */
+  text-align: left; /* Aligns text to the left */
+}
+
+.coach-details div {
+  text-align: left; /* Explicitly align text to the left for each detail section */
+  margin-bottom: 15px; /* Space between each detail section */
+  padding-bottom: 10px; /* Padding at the bottom */
+  border-bottom: 1px solid #ccc; /* Adds a border line to separate details */
+}
+
+.coach-details strong, .coach-details p {
+  text-align: left; /* Ensuring text alignment is left for both labels and values */
+  display: block; /* Ensures each item is on its own line */
+  font-weight: bold; /* Optional for labels */
+}
+
+.coach-details p {
+  margin-top: 5px;
+  font-weight: normal; /* Resets the font weight for paragraph text */
+}.admin-view .coach-details {
+  display: flex;
+  flex-direction: column;
+}
+
+.admin-view .coach-details div,
+.admin-view .coach-details strong,
+.admin-view .coach-details p {
+  text-align: left; /* Force left alignment */
+  width: 100%; /* Ensure full width */
+}
+
+.admin-view .coach-details strong {
+  font-weight: bold; /* Optional: makes the label bold */
+  display: block; /* Ensures the label is on its own line */
+}
+
+.admin-view .coach-details p {
+  margin-top: 5px;
+  font-weight: normal;
+}
