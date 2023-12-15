@@ -8,10 +8,23 @@ import {
   stateOptions,
 } from './options.jsx'
 import { useAuthContext } from '../../contexts/auth'
+import { Navigate, useNavigate } from 'react-router-dom'
+import './ProfilePage.css'
 
 export default function ProfileForm() {
+  const navigate = useNavigate();
   // eslint-disable-next-line
   const { user, setUser } = useAuthContext() //get user data like email
+  const [isDeleteAccountModalOpen, setDeleteAccountModalOpen] = useState(false);
+
+  const openModal = (event) => {
+    event.preventDefault();
+    setDeleteAccountModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setDeleteAccountModalOpen(false);
+  };
 
   useEffect(() => {
     async function getUserData(){
@@ -445,8 +458,12 @@ export default function ProfileForm() {
           </>
           )
         }
-        <Button name='Submit' type='submit' />
+        <Button name='Submit' type='submit' gridArea='u' onClick={handleSubmit}/>
+        <Button name='Delete Account' type='cancel' gridArea='t' onClick={openModal}/>
       </form>
+      {
+        isDeleteAccountModalOpen && <DeleteAccountModal onClose={closeModal} />
+      }
     </div>
   )
 }
@@ -471,7 +488,7 @@ function InputGridElement(props) {
   )
 }
 
-function Button({ name }) {
+function Button({ name, gridArea, onClick }) {
   const hover = (e) => {
     e.target.style.background = '#252e3d'
     e.target.style.color = '#FFFFFF'
@@ -482,11 +499,47 @@ function Button({ name }) {
   }
 
   return (
-    <button style={styles.submitButton} onMouseEnter={hover} onMouseLeave={unHover}>
+    <button style={{...styles.submitButton, gridArea: gridArea}} onMouseEnter={hover} onMouseLeave={unHover} onClick={onClick}>
       {name}
     </button>
   )
 }
+
+function DeleteAccountModal({ onClose }){
+  const [isLoading, setIsLoading] = useState(false);
+
+  async function handleDeleteAccount(){
+    setIsLoading(true);
+
+    console.log("deleted account");
+
+    onClose();
+    setIsLoading(false);
+  }
+  
+  return (
+    <div className="modal-container">
+      <div className="modal">
+        <div className="modal-header">
+          <h2>DELETE YOUR ACCOUNT</h2>
+        </div>
+        <div className="modal-content">
+          <h3>CAUTION</h3>
+          <p>Are you sure you want to delete your account?</p>
+          <div className="modal-actions">
+          <button onClick={onClose} disabled={isLoading}>
+              CANCEL
+            </button>
+            <button onClick={handleDeleteAccount} disabled={isLoading}>
+              {isLoading ? 'DELETING...' : 'CONFIRM'}
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 
 const styles = {
   div: {
@@ -502,7 +555,7 @@ const styles = {
                                  "e f g h"
                                  "j j k k"
                                  "q q r r"
-                                 "l l l l" `,
+                                 "s t u v" `,
     gridGap: '50px 50px',
     margin: 'auto',
     width: '85%',
