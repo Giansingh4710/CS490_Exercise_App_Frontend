@@ -1,7 +1,6 @@
 import './ItemList.css'
 
 export function List({ items, renderItem, noAvailableItemsMessage }) {
-  console.log('noAvaialeMessages:', noAvailableItemsMessage)
   return (
     <div className='list-container'>
       {items?.length > 0 ? (

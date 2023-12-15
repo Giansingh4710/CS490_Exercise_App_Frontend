@@ -11,6 +11,9 @@
   outline: 0;
   border: none;
 }
+.red-btn button {
+  background: var(--red-color);
+}
 
 .blue-btn button {
   background: var(--main-color);

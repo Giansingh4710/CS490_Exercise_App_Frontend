@@ -38,11 +38,9 @@ export default function ExploreClients() {
     setIsLoading(true)
     setError(null)
     const { data, error } = await apiClient.getOpenRequestsForCoach()
-    console.log('DATA:', data)
     if (data) {
       const clients = data.map((item) => item.User)
       setNewRequests(clients)
-      console.log('CLIENTS:', clients)
     }
     if (error) {
       setClients([])

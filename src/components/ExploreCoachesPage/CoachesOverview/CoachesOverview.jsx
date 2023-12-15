@@ -313,6 +313,7 @@ export function CoachList({
       const { data, error } = await apiClient.getCoachByID(coach.coachID)
       setSelectedCoach(data)
       fetchRequestStatus(coach.coachID)
+      console.log('GETTING COACH ID:')
     } catch (error) {
       console.error('Failed to fetch coach details:', error)
     }
@@ -323,6 +324,8 @@ export function CoachList({
       userID: user.id,
       coachID: coachID,
     })
+    console.log('USERID and coachid:', user.id, coachID)
+    console.log('DATA FRO SENT REQUEST:', data)
     if (data) {
       if (data?.exists == true) {
         setRequestStatusForSelectedCoach(data?.status)
