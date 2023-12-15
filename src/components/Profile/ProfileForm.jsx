@@ -1,18 +1,16 @@
 import { useEffect, useRef, useState } from 'react'
 import InputElement from '../AccountInputElement'
-// import { useNavigate } from 'react-router-dom'
 import apiClient from '../../services/apiClient'
 import {
   activityOptions,
   genderOptions,
   goalOptions,
-  roleOptions,
   stateOptions,
 } from './options.jsx'
 import { useAuthContext } from '../../contexts/auth'
 
 export default function ProfileForm() {
-//   const nav = useNavigate();
+  // eslint-disable-next-line
   const { user, setUser } = useAuthContext() //get user data like email
 
   useEffect(() => {
@@ -25,7 +23,12 @@ export default function ProfileForm() {
                 errorText: '', // Set errorText to an empty string initially
             };
         }
-        setFormData(transformedData);
+        if(data){
+          setFormData(transformedData);
+        }
+        if(error){
+          alert("Error getting user data.");
+        }
     }
     getUserData();
   }, [])
@@ -265,7 +268,7 @@ export default function ProfileForm() {
     }
     const { data, error } = await apiClient.registerSurvey(sendFormData);
     if(data){
-        alert("Data Updated");
+        alert("Data Updated")
     }
     if(error){
       if(error.status === 403){
