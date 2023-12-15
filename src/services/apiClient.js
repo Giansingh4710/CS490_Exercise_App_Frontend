@@ -219,7 +219,7 @@ class ApiClient {
 
   async dailyweight(data) {
     return await this.request({
-      endpoint: `logActivity/dailyweight`,
+      endpoint: `logActivity/dailyWeight`,
       method: `GET`,
     })
   }

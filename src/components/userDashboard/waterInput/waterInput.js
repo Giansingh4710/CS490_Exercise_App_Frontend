@@ -3,7 +3,7 @@ import './waterInput.css';
 
 const WaterInputModal = ({ setRecordedData }) => {
   const [amount, setAmount] = useState(''); // Default value is an empty string
-  const [unit, setUnit] = useState('fl oz'); // Default unit
+  const [unit, setUnit] = useState('Select a Unit'); // Default unit
 
   const handleAmountChange = (e) => {
     setAmount(e.target.value);
@@ -45,9 +45,10 @@ const WaterInputModal = ({ setRecordedData }) => {
           <div className='input-field'>
             <label id='label2'>
               MEASUREMENT
-              <select value={unit || 'fl oz'} onChange={handleUnitChange}>
-                <option value='fl oz'>fl oz</option>
-                <option value='cups'>cups</option>
+              <select value={unit} onChange={handleUnitChange}>
+                <option value='Select a Unit'>Select a Unit</option>
+                <option value='Cups'>cups</option>
+                <option value='Fl. Oz'>Fl. Oz</option>
                 <option value='gallons'>gallons</option>
               </select>
             </label>
