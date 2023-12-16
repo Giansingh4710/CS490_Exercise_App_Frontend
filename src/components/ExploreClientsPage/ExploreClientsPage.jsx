@@ -1,11 +1,12 @@
 import React from 'react'
+import Messaging from '../ExploreComponents/Messaging/Messaging'
 import './ExploreClientsPage.css'
 import { useState, useEffect } from 'react'
 import apiClient from '../../services/apiClient'
 import { Tabs } from '../ExploreComponents/Tabs/Tabs'
 import { List, ItemCard } from '../ExploreComponents/ItemList/ItemList'
-import { GreenAcceptButton, RedDeclineButton } from '../Buttons/Buttons'
-
+import { GreenAcceptButton, RedDeclineButton, MailIconButton } from '../Buttons/Buttons'
+import { useAuthContext } from '../../contexts/auth'
 // components broken down:
 // ExploreClients is the overall page
 // ClientOverview is the search area for clients
@@ -24,6 +25,7 @@ export default function ExploreClients() {
   const [requestStatusForSelectedClient, setRequestStatusForSelectedCoach] = useState({})
   const [usersCoachID, setUsersCoachID] = useState()
 
+  const { user } = useAuthContext()
   const fetchUsersCoachID = async () => {
     const { data, error } = await apiClient.getUsersCoachID()
     if (data) {
@@ -77,7 +79,14 @@ export default function ExploreClients() {
 
   return (
     <>
-      <div className='explore-clients'>
+      {modalIsOpen ? <Messaging user={user} setModalIsOpen={setModalIsOpen} /> : <></>}
+
+      <div className={modalIsOpen ? 'explore-clients blurred' : 'explore-clients'}>
+        <MailIconButton
+          handleOnClick={() => {
+            setModalIsOpen(true)
+          }}
+        />
         <ClientsOverview
           clients={clients}
           setClients={setClients}
@@ -343,7 +352,7 @@ export function ClientView({
             <h2>
               {selectedClient?.firstName} {selectedClient?.lastName}
             </h2>
-
+            <span class='material-symbols-outlined'>mail</span>
             <RedDeclineButton handleOnClick={handleOnDeclineClick} />
             <GreenAcceptButton handleOnClick={handleOnAcceptClick} />
           </div>

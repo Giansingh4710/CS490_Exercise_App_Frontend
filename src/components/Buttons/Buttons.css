@@ -11,6 +11,17 @@
   outline: 0;
   border: none;
 }
+
+.btn button:hover,
+.btn:hover {
+  cursor: pointer;
+}
+
+.mail-icon-btn {
+  font-size: 50px;
+  margin-right: 20px;
+}
+
 .red-btn button {
   background: var(--red-color);
 }

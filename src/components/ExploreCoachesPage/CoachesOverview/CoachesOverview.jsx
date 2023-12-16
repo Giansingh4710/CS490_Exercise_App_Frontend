@@ -221,8 +221,6 @@ export function CoachList({
   selectedTab,
   setRequestStatusForSelectedCoach,
 }) {
-  console.log('COACHES', coaches)
-  console.log('SELECTEDTAB:', selectedTab)
   const { user } = useAuthContext()
   const handleOnCoachClick = async (coach) => {
     try {
