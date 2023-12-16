@@ -157,7 +157,7 @@ export function FilterForCoaches({
   selectedCity,
   setSelectedCity,
 }) {
-  const states = ['Any State', ...locations.map((location) => location.state)]
+  const states = ['Any State', ...locations?.map((location) => location.state)]
   const [cities, setCities] = useState(['Any City'])
 
   useEffect(() => {

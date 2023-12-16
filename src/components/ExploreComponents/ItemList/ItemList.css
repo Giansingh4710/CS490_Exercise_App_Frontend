@@ -1,5 +1,6 @@
 .list-container {
   height: 100%;
+  margin-top: 20px;
   overflow: auto;
 }
 /*----- coach card styling -----*/
