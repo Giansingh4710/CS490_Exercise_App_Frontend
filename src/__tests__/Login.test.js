@@ -1,15 +1,17 @@
 const { Builder, By, Key } = require('selenium-webdriver')
 const assert = require('assert')
+import BASE_URLS from '../constants'
+const baseURL = BASE_URLS.UI_BASE_URL
 
 describe('LoginPage Tests', function () {
   let driver
-
+  console.log('BASEURL', baseURL)
   beforeAll(async function () {
     driver = await new Builder().forBrowser('chrome').build()
   })
-
+  console.log('BASEURL:', baseURL)
   it('Should load the login page and check for elements', async function () {
-    await driver.get('http://localhost:3000/login')
+    await driver.get(baseURL + '/login')
     const loginForm = await driver.findElement(By.tagName('form'))
     assert(loginForm, 'LoginForm is not present')
     const emailInput = await driver.findElement(By.name('email'))
@@ -24,9 +26,12 @@ describe('LoginPage Tests', function () {
     await driver.findElement(By.name('password')).sendKeys('123', Key.RETURN)
     await driver.sleep(3000)
     const currentUrl = await driver.getCurrentUrl()
-    const expectedUrl = 'http://localhost:3000/UserDashboard'
+    const expectedUrl = baseURL + '/UserDashboard'
     expect(currentUrl).toBe(expectedUrl)
   })
+
+  // user is now logged in
+  // this is where we add the testing for the other 7 features
 
   afterAll(() => driver && driver.quit())
 })

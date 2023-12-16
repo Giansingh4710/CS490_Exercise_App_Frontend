@@ -1,5 +1,5 @@
 import axios from 'axios'
-import API_BASE_URL from '../constants'
+import BASE_URLS from '../constants'
 
 class ApiClient {
   constructor(remoteHostUrl) {
@@ -336,6 +336,5 @@ class ApiClient {
   }
 }
 
-// console.log(API_BASE_URL);
-const apiClient = new ApiClient(API_BASE_URL)
+const apiClient = new ApiClient(BASE_URLS.API_BASE_URL)
 export default apiClient
