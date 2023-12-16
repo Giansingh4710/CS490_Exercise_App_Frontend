@@ -72,7 +72,6 @@ export default function CoachesOverview({
         selectedState,
         selectedCity,
       )
-      console.log('SEARCH RESULTS:', data)
       setCoachesToDisplay(data)
     } catch (error) {
       console.error('Error fetching coaches:', error)
