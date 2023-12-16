@@ -103,7 +103,7 @@ class ApiClient {
   async cancelRequest(requestID) {
     return await this.request({
       endpoint: `request/cancel?requestID=${requestID}`,
-      method: `GET`,
+      method: `DELETE`,
     })
   }
 
