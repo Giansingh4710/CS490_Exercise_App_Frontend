@@ -68,6 +68,7 @@ export default function CoachView({
             <div className='about-me'>
               <h3 className='about-me-header'>ABOUT ME</h3>
               <div>Specialties: {selectedCoach?.specialties} </div>
+              <div>Monthly Price: ${selectedCoach?.cost} </div>
             </div>
           </div>
         </div>
