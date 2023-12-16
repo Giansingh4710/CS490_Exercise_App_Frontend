@@ -1,0 +1,66 @@
+.Modal {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.2);
+  width: 90%;
+  max-width: 500px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.Modal h2 {
+  color: #333;
+  margin-bottom: 15px;
+}
+
+.Modal label {
+  width: 100%;
+  margin-bottom: 5px;
+  color: #333;
+  font-weight: 500;
+}
+
+.Modal input,
+.Modal select,
+.Modal textarea {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.Modal button {
+  padding: 8px 26px;
+  border: none;
+  border-radius: 4px;
+  margin-right: 10px;
+  cursor: pointer;
+  background-color: #007bff;
+  color: white;
+  font-weight: 500;
+}
+
+.Modal button:hover {
+  background-color: #0056b3;
+}
+
+.Modal button:last-child {
+  margin-top: 10px;
+}
+
+/* Adjust the overlay background style */
+.ReactModal__Overlay {
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

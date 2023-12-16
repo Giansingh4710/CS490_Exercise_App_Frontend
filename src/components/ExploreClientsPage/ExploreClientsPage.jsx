@@ -56,7 +56,7 @@ export default function ExploreClients() {
     setError(null)
     const { data, error } = await apiClient.getOpenRequestsForCoach()
     if (data) {
-      const clients = data.map((item) => item.User)
+      const clients = data?.map((item) => item.User)
       setNewRequests(data)
       setClientsToDisplay(clients)
     }
@@ -143,7 +143,7 @@ export function ClientsOverview({
       handler: () => {
         if (selectedTab == 'Clients') {
           setSelectedTab('New Requests')
-          const clientsFromRequests = newRequests.map((request) => request.User)
+          const clientsFromRequests = newRequests?.map((request) => request.User)
           setClientsToDisplay(clientsFromRequests)
         }
       },

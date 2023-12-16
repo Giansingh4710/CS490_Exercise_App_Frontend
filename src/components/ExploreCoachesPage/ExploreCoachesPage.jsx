@@ -29,7 +29,7 @@ export default function ExploreCoaches() {
   const fetchSpecializations = async () => {
     try {
       const { data, error } = await apiClient.getCoachSpecializations()
-      const specializationList = data.map((spec) => spec.specialties)
+      const specializationList = data?.map((spec) => spec.specialties)
       setSpecializations(['Any Specialization', ...specializationList])
     } catch (error) {
       setSpecializations(['Any Specialization'])
@@ -89,10 +89,6 @@ export default function ExploreCoaches() {
 
   useEffect(() => {
     fetchSentRequests()
-  }, [requestModalIsOpen])
-
-  useEffect(() => {
-    fetchSentRequests()
   }, [coaches])
 
   useEffect(() => {
@@ -109,6 +105,7 @@ export default function ExploreCoaches() {
           specializations={specializations}
           setShowErrorDialog={setShowErrorDialog}
           fetchRequestStatus={fetchRequestStatus}
+          fetchSentRequests={fetchSentRequests}
         />
       )}
       {messageModalIsOpen && (

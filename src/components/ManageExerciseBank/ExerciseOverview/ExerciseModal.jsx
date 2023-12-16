@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
 import Modal from 'react-modal';
-import './ExerciseModal.css';
+import './modal.css';
 import apiClient from '../../../services/apiClient';
 
 Modal.setAppElement('#root'); // Set the root element for the modal
 
 
-Modal.setAppElement('#root'); // Set the root element for the modal
 
 export default function ExerciseModal({ isOpen, closeModal, onSave }) {
   const [exerciseName, setExerciseName] = useState('');
@@ -32,6 +31,8 @@ export default function ExerciseModal({ isOpen, closeModal, onSave }) {
       setDescription('');
       setEquipment('');
       closeModal();
+      window.location.reload(); // Reloads the current page
+
     } catch (error) {
       console.error('Error creating exercise:', error);
       // Handle error scenarios here
@@ -41,8 +42,12 @@ export default function ExerciseModal({ isOpen, closeModal, onSave }) {
 
   return (
 
-    <Modal isOpen={isOpen} onRequestClose={closeModal}>
-      <h2>Add New Exercise</h2>
+<Modal 
+  isOpen={isOpen} 
+  onRequestClose={closeModal} 
+  className="Modal"
+  overlayClassName="ReactModal__Overlay"
+>      <h2>Add New Exercise</h2>
       <div>
         <label>Exercise Name:</label>
         <input type="text" value={exerciseName} onChange={(e) => setExerciseName(e.target.value)} required />
