@@ -8,7 +8,7 @@ export default function MyAssignedWorkouts() {
 
   useEffect(() => {    
     async function getWorkoutPlan(){
-      const { data, error } = await apiClient.getWorkoutPlan();
+      const { data, error } = await apiClient.getCoachAssignedWorkoutPlan();
       if(data){
         setWorkoutPlan(data);
       }

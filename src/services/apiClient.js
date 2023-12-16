@@ -41,13 +41,6 @@ class ApiClient {
     })
   }
 
-  async getWorkoutPlan() {
-    return await this.request({
-      endpoint: `workoutPlan/assignedWorkouts`,
-      method: `GET`,
-    })
-  }
-
   async register(credentials) {
     return await this.request({
       endpoint: 'register',
@@ -239,13 +232,36 @@ class ApiClient {
     })
   }
 
-  // exercise bank
+  // Workout Plan / Exercises
   async getExerciseData(exerciseID){
     return await this.request({
       endpoint: `exercises/${exerciseID}`,
       method: `GET`
     })
   }
+
+  async getCoachAssignedWorkoutPlan() {
+    return await this.request({
+      endpoint: `workoutPlan/assignedWorkouts`,
+      method: `GET`,
+    })
+  }
+
+  async getPersonalWorkoutPlan() {
+    return await this.request({
+      endpoint: `workoutPlan/personalWorkouts`,
+      method: `GET`,
+    })
+  }
+
+  async clientAddExerciseToPlan(data){
+    return await this.request({
+      endpoint: `workoutPlan/client/addExercise`,
+      method: `POST`,
+      data: data
+    });
+  }
+
 }
 
 

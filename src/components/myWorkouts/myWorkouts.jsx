@@ -9,7 +9,7 @@ export default function MyWorkouts() {
     useEffect(() => {
         async function getWorkoutPlan() {
             try {
-                const response = await apiClient.getWorkoutPlan();
+                const response = await apiClient.getPersonalWorkoutPlan();
                 if (response.data) {
                     setWorkoutPlan(response.data);
                 }
@@ -36,14 +36,18 @@ function WeeklySchedule({ workoutPlan }) {
     const [selectedExerciseID, setSelectedExerciseID] = useState(null);
     const [isAddExerciseModalOpen, setAddExerciseModalOpen] = useState(false);
     const [exerciseData, setExerciseData] = useState({});
-    let localExerciseData = null;
 
     useEffect(() => {
         
         async function getExerciseData(){
             if(selectedExerciseID !== null){
-                const {data, error} = await apiClient.getExerciseData(selectedExerciseID);
-                setExerciseData(data);
+                const { data , error } = await apiClient.getExerciseData(selectedExerciseID);
+                if(data){
+                    setExerciseData(data[0]);
+                }
+                if(error){
+                    alert("Error getting exerise data");
+                }
                 setAddExerciseModalOpen(true);
             }
         }
@@ -115,12 +119,13 @@ function DailySchedule({ day, exercise }) {
 function NoWorkoutsAssigned() {
     return (
         <div className='day-card'>
-            <p className='no-workout-text'>No workouts assigned!</p>
+            <p className='no-workout-text'>No workouts planned!</p>
         </div>
     );
 }
 
 function AddExerciseModal({ onClose, exerciseData }){
+    // eslint-disable-next-line
     const [exerciseName, setExerciseName] = useState('');
     const [sets, setSets] = useState([{ reps: 0, weight: 0 }]);
     const [duration, setDuration] = useState(0);
@@ -140,15 +145,27 @@ function AddExerciseModal({ onClose, exerciseData }){
       );
     };
   
-    const handleAddExercise = () => {
-      const exerciseData = {
-        name: exerciseName,
+    const handleAddExercise = async () => {
+      const newExerciseData = {
+        name: exerciseData.name,
         sets,
         duration,
         dayOfWeek,
+        exerciseID: exerciseData.exerciseID,
+        metric: exerciseData.metric
       };
+
+      const { data, error } = await apiClient.clientAddExerciseToPlan(newExerciseData);
+
+      if(data){
+        alert("Exercise added");
+      }
+      if(error){
+        alert("Error adding exercise");
+      }
+    
   
-    //   onAddExercise(exerciseData);
+    //   onAddExercise();
   
       onClose();
     };
@@ -163,6 +180,7 @@ function AddExerciseModal({ onClose, exerciseData }){
             type="text"
             value={exerciseData.name}
             onChange={(e) => setExerciseName(e.target.value)}
+            disabled
           />
         </label>
         <label>
@@ -188,30 +206,30 @@ function AddExerciseModal({ onClose, exerciseData }){
             {sets.map((set, index) => (
               <tr key={index}>
                 <td>{index + 1}</td>
-                <td>{
-                    exerciseData.equipment === 'Bodyweight' ? <p>Bodyweight</p> :
-                  <input
-                    type="number"
-                    value={set.reps}
-                    onChange={(e) => handleUpdateSet(index, 'reps', e.target.value)}
-                  />
-                }
-                </td>
                 <td>
                     {
-                        exerciseData.metric === 'Reps' ?
+                    exerciseData.metric === 'Reps' ?
+                        <input
+                        type="number"
+                        value={set.reps}
+                        onChange={(e) => handleUpdateSet(index, 'reps', e.target.value)}
+                        />
+                    :
+                        <input
+                        type="number"
+                        value={duration}
+                        onChange={(e) => setDuration(Number(e.target.value))}
+                        />
+                    }
+                </td>
+                <td>{
+                    exerciseData.equipment === 'Bodyweight' ? <p>Bodyweight</p> :
                     <input
                         type="number"
                         value={set.weight}
                         onChange={(e) => handleUpdateSet(index, 'weight', e.target.value)}
                     />
-                    :
-                    <input
-                      type="number"
-                      value={duration}
-                      onChange={(e) => setDuration(Number(e.target.value))}
-                    />
-                    }
+                }
                 </td>
                 <td>
                   <button type="button" onClick={() => handleRemoveSet(index)}>
