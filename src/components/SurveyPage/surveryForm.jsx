@@ -12,8 +12,8 @@ import {
 import { useAuthContext } from '../../contexts/auth'
 
 export default function SurveyForm() {
-  const nav = useNavigate();
-  const { user, setUser } = useAuthContext() //get user data like email
+  const nav = useNavigate()
+  const { user, setUser, fetchUserFromToken } = useAuthContext() //get user data like email
 
   // const [serverRes, setServerRes] = useState('')
   const errorsRef = useRef({
@@ -47,7 +47,7 @@ export default function SurveyForm() {
     },
     email: {
       data: user.email, // pulls email from auth
-      errorText: '', 
+      errorText: '',
     },
     phoneNum: {
       data: '',
@@ -104,7 +104,7 @@ export default function SurveyForm() {
     cost: {
       data: '',
       errorText: '',
-    }
+    },
   })
 
   function handleInputChange(key, value) {
@@ -216,16 +216,16 @@ export default function SurveyForm() {
       errorsRef.current['state'] = ''
     }
 
-    if(formData.role.data === 'Coach'){
-      if(!formData.specialties.data){
+    if (formData.role.data === 'Coach') {
+      if (!formData.specialties.data) {
         errorsRef.current['specialties'] = 'Please select a specialties'
-      }else{
+      } else {
         errorsRef.current['specialties'] = ''
       }
 
-      if(!formData.cost.data){
+      if (!formData.cost.data) {
         errorsRef.current['cost'] = 'Please enter a cost for your services'
-      }else{
+      } else {
         errorsRef.current['cost'] = ''
       }
     }
@@ -257,16 +257,18 @@ export default function SurveyForm() {
       }
       sendFormData[key] = value.data
     }
-    const { data, error } = await apiClient.registerSurvey(sendFormData);
-    if(data){
-      nav('/UserDashboard');
+    const { data, error } = await apiClient.registerSurvey(sendFormData)
+    if (data) {
+      await fetchUserFromToken()
+
+      nav('/UserDashboard')
     }
-    if(error){
-      if(error.status === 403){
-        errorsRef.current['dob'] = error['message'];
+    if (error) {
+      if (error.status === 403) {
+        errorsRef.current['dob'] = error['message']
       }
-      showErrors();
-    }  
+      showErrors()
+    }
   }
 
   return (
@@ -419,31 +421,29 @@ export default function SurveyForm() {
           onChange={handleInputChange}
           value={formData.zipCode.data}
         />
-        {
-          formData.role.data === "Coach" && (
-            <>
-              <InputGridElement
-                type='select'
-                name='specialties'
-                label='Specialties'
-                gridArea='q'
-                options={goalOptions} // goal options and specialites are the same, need to double check
-                elementError={formData.specialties.errorText}
-                onChange={handleInputChange}
-              />
-              <InputGridElement
-                type='number'
-                name='cost'
-                label='Cost'
-                placeholder='$120/hr'
-                gridArea='r'
-                elementError={formData.cost.errorText}
-                onChange={handleInputChange}
-                value={formData.cost.data}
-              />
+        {formData.role.data === 'Coach' && (
+          <>
+            <InputGridElement
+              type='select'
+              name='specialties'
+              label='Specialties'
+              gridArea='q'
+              options={goalOptions} // goal options and specialites are the same, need to double check
+              elementError={formData.specialties.errorText}
+              onChange={handleInputChange}
+            />
+            <InputGridElement
+              type='number'
+              name='cost'
+              label='Cost'
+              placeholder='$120/hr'
+              gridArea='r'
+              elementError={formData.cost.errorText}
+              onChange={handleInputChange}
+              value={formData.cost.data}
+            />
           </>
-          )
-        }
+        )}
         <Button name='Submit' type='submit' />
       </form>
     </div>
