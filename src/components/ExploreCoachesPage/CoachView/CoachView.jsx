@@ -21,7 +21,7 @@ export default function CoachView({
   setShowErrorDialog,
 }) {
   const [error, setError] = useState('')
-
+  console.log('SELECRTED OBJCET:', selectedCoach)
   const handleOnRequestClick = async () => {
     setModalIsOpen(true)
   }

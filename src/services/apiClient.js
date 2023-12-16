@@ -72,7 +72,6 @@ class ApiClient {
 
   // --------------- general requests -------------//
   async getRequestStatus(data) {
-    console.log(`REQUEST : request/status?userID=${data?.userID}&coachID=${data?.coachID}`)
     return await this.request({
       endpoint: `request/status?userID=${data?.userID}&coachID=${data?.coachID}`,
       method: `GET`,

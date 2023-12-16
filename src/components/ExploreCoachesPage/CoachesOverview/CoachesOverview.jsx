@@ -28,6 +28,10 @@ export default function CoachesOverview({
   const [selectedState, setSelectedState] = useState('')
   const [selectedCity, setSelectedCity] = useState('')
 
+  useEffect(() => {
+    handleSearch()
+  }, [searchTerm, selectedSpecialization, selectedMaxPrice, selectedState, selectedCity])
+
   const tabs = [
     {
       label: 'Coaches',
@@ -68,10 +72,10 @@ export default function CoachesOverview({
         selectedState,
         selectedCity,
       )
+      console.log('SEARCH RESULTS:', data)
       setCoachesToDisplay(data)
     } catch (error) {
       console.error('Error fetching coaches:', error)
-      // Handle the error appropriately
     }
   }
 
@@ -153,7 +157,6 @@ export function FilterForCoaches({
     <div className='filter-container'>
       <div className='filter-label'>
         <span class='material-symbols-outlined'>filter_alt</span>
-
         <p>Filters</p>
       </div>
       <div className='filter-select-container'>
@@ -187,11 +190,11 @@ export function SpecializationDropdown({
         name='selectList'
         id='selectList'
         placeholder='Select specialization'
-        onChange={(evt) =>
+        onChange={(evt) => {
           setSelectedSpecialization(
-            evt.target.value == 'Any specialization' ? '' : evt.target.value,
+            evt.target.value === 'Any Specialization' ? '' : evt.target.value,
           )
-        }
+        }}
         value={selectedSpecialization}>
         {specializations?.map((c) => (
           <option value={c} key={c}>
@@ -209,14 +212,11 @@ export function LocationDropdown({
   selectedCity,
   setSelectedCity,
 }) {
-  const [states, setStates] = useState(['Any State'])
+  const states = ['Any State', ...locations.map((location) => location.state)]
   const [cities, setCities] = useState(['Any City'])
 
   useEffect(() => {
-    // Find the selected state object
     const selectedStateObj = locations.find((loc) => loc.state === selectedState)
-
-    // Update cities based on selected state
     if (selectedStateObj) {
       setCities(['Any City', ...selectedStateObj?.cities])
     }
@@ -232,9 +232,9 @@ export function LocationDropdown({
           setSelectedState(evt.target.value == 'Any State' ? '' : evt.target.value)
         }}
         value={selectedState}>
-        {locations?.map((c) => (
-          <option value={c.state} key={c.state}>
-            {c.state}
+        {states?.map((state) => (
+          <option value={state} key={state}>
+            {state}
           </option>
         ))}
       </select>
@@ -243,9 +243,9 @@ export function LocationDropdown({
         id='cityList'
         placeholder='Select city'
         value={selectedCity}
-        onChange={(evt) =>
+        onChange={(evt) => {
           setSelectedCity(evt.target.value === 'Any City' ? '' : evt.target.value)
-        }>
+        }}>
         {cities.map((city, index) => (
           <option key={index} value={city}>
             {city}
@@ -261,7 +261,9 @@ export function MaxPrice({ selectedMaxPrice, setSelectedMaxPrice }) {
       <input
         name='selectPrice'
         placeholder='Type in a maximum monthly price'
-        onChange={(evt) => setSelectedMaxPrice(evt.target.value)}
+        onChange={(evt) => {
+          setSelectedMaxPrice(evt.target.value)
+        }}
         value={selectedMaxPrice}
       />
     </div>
