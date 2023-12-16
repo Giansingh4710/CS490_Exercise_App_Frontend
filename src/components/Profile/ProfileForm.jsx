@@ -8,11 +8,10 @@ import {
   stateOptions,
 } from './options.jsx'
 import { useAuthContext } from '../../contexts/auth'
-import { Navigate, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import './ProfilePage.css'
 
 export default function ProfileForm() {
-  const navigate = useNavigate();
   // eslint-disable-next-line
   const { user, setUser } = useAuthContext() //get user data like email
   const [isDeleteAccountModalOpen, setDeleteAccountModalOpen] = useState(false);
@@ -46,7 +45,6 @@ export default function ProfileForm() {
     getUserData();
   }, [])
 
-  // const [serverRes, setServerRes] = useState('')
   const errorsRef = useRef({
     firstName: '',
     lastName: '',
@@ -506,12 +504,21 @@ function Button({ name, gridArea, onClick }) {
 }
 
 function DeleteAccountModal({ onClose }){
+  const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
 
   async function handleDeleteAccount(){
     setIsLoading(true);
 
-    console.log("deleted account");
+    const { data, error } = apiClient.deleteAccount();
+
+    if(data){
+      navigate("/Login");
+      window.location.reload();
+    }
+    if(error){
+      alert("Error deleting account");
+    }
 
     onClose();
     setIsLoading(false);

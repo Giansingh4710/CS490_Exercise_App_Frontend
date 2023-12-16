@@ -63,6 +63,13 @@ class ApiClient {
     localStorage.setItem(this.tokenName, '')
   }
 
+  async deleteAccount(){
+    return await this.request({
+      endpoint: `user/deleteAccount`,
+      method: `DELETE`
+    })
+  }
+
   // --------------- general requests -------------//
   async getRequestStatus(data) {
     return await this.request({
