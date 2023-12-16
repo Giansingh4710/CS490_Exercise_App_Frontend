@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import WorkoutPlanExerciseBankModal from './WorkoutPlanExerciseModal/WorkoutPlanExerciseModal';
 import './WorkoutPlanExerciseBank.css';
+import apiClient from '../../services/apiClient';
 
 const WorkoutPlanExerciseBank = ({ viewOnly, onExerciseSelect }) => {
   const [exercises, setExercises] = useState([]);
@@ -13,15 +14,12 @@ const WorkoutPlanExerciseBank = ({ viewOnly, onExerciseSelect }) => {
 
   useEffect(() => {
     const fetchExercises = async () => {
-      try {
-        const response = await fetch('http://localhost:1313/exercises/allExercises');
-        if (!response.ok) {
-          throw new Error('Failed to fetch exercises');
-        }
-        const data = await response.json();
+      const { data, error } = await apiClient.getAllExercises();
+      if(data){
         setExercises(data);
-      } catch (error) {
-        console.error('Error fetching exercises:', error);
+      }
+      if(error){
+        console.error("Error fetching exercises", error);
       }
     };
 
