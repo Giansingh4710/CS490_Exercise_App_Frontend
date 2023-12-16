@@ -101,7 +101,7 @@ export default function ExploreCoaches() {
 
   return (
     <>
-      {/* conditionally render the Modal to send a request  */}
+      {/* conditionally render the modal to send a request/message a coach */}
       {requestModalIsOpen && (
         <RequestCoachModal
           setRequestModalIsOpen={setRequestModalIsOpen}

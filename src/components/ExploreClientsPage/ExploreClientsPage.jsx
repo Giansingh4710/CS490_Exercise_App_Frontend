@@ -1,12 +1,13 @@
+import './ExploreClientsPage.css'
 import React from 'react'
 import Messaging from '../ExploreComponents/Messaging/Messaging'
-import './ExploreClientsPage.css'
 import { useState, useEffect } from 'react'
 import apiClient from '../../services/apiClient'
 import { Tabs } from '../ExploreComponents/Tabs/Tabs'
 import { List, ItemCard } from '../ExploreComponents/ItemList/ItemList'
 import { GreenAcceptButton, RedDeclineButton, MailIconButton } from '../Buttons/Buttons'
 import { useAuthContext } from '../../contexts/auth'
+
 // components broken down:
 // ExploreClients is the overall page
 // ClientOverview is the search area for clients
@@ -20,7 +21,7 @@ export default function ExploreClients() {
   const [clientsToDisplay, setClientsToDisplay] = useState([])
   const [selectedClient, setSelectedClient] = useState({})
   const [selectedTab, setSelectedTab] = useState('Clients')
-  const [modalIsOpen, setModalIsOpen] = useState(false)
+  const [messageModalIsOpen, setMessageModalIsOpen] = useState(false)
   const [searchTerm, setSearchTerm] = useState('')
   const [requestStatusForSelectedClient, setRequestStatusForSelectedCoach] = useState({})
   const [usersCoachID, setUsersCoachID] = useState()
@@ -79,14 +80,13 @@ export default function ExploreClients() {
 
   return (
     <>
-      {modalIsOpen ? <Messaging user={user} setModalIsOpen={setModalIsOpen} /> : <></>}
+      {messageModalIsOpen ? (
+        <Messaging user={selectedClient} setModalIsOpen={setMessageModalIsOpen} />
+      ) : (
+        <></>
+      )}
 
-      <div className={modalIsOpen ? 'explore-clients blurred' : 'explore-clients'}>
-        <MailIconButton
-          handleOnClick={() => {
-            setModalIsOpen(true)
-          }}
-        />
+      <div className={messageModalIsOpen ? 'explore-clients blurred' : 'explore-clients'}>
         <ClientsOverview
           clients={clients}
           setClients={setClients}
@@ -104,7 +104,7 @@ export default function ExploreClients() {
           setSelectedClient={setSelectedClient}
           loading={isLoading}
           setLoading={setIsLoading}
-          setModalIsOpen={setModalIsOpen}
+          setMessageModalIsOpen={setMessageModalIsOpen}
           clients={clients}
           newRequests={newRequests}
           fetchAllClients={fetchAllClients}
@@ -289,7 +289,7 @@ export function ClientView({
   setSelectedClient,
   loading,
   setLoading,
-  setModalIsOpen,
+  setMessageModalIsOpen,
   clients,
   newRequests,
   fetchAllClients,
@@ -352,9 +352,14 @@ export function ClientView({
             <h2>
               {selectedClient?.firstName} {selectedClient?.lastName}
             </h2>
-            <span class='material-symbols-outlined'>mail</span>
-            <RedDeclineButton handleOnClick={handleOnDeclineClick} />
-            <GreenAcceptButton handleOnClick={handleOnAcceptClick} />
+            <div className='buttons'>
+              <MailIconButton
+                user={selectedClient}
+                handleOnClick={() => setMessageModalIsOpen(true)}
+              />
+              <RedDeclineButton handleOnClick={handleOnDeclineClick} />
+              <GreenAcceptButton handleOnClick={handleOnAcceptClick} />
+            </div>
           </div>
 
           <div className='client-details'>
