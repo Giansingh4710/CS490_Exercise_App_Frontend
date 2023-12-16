@@ -13,7 +13,7 @@ export default function AdminCoaches() {
     const fetchAllCoaches = async () => {
       setIsLoading(true);
       try {
-        const response = await apiClient.getAllCoaches();
+        const response = await apiClient.getAllPending();
         setCoaches(response.data);
         setIsLoading(false);
       } catch (error) {
@@ -40,6 +40,7 @@ export default function AdminCoaches() {
           </div>
           <div className="admin-view-container">
             <AdminView 
+            
               selectedCoach={selectedCoach} 
             />
           </div>

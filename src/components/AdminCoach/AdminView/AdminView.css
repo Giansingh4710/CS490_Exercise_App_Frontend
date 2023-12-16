@@ -77,3 +77,26 @@
   margin-top: 5px;
   font-weight: normal;
 }
+.admin-header button{
+  font-size: 12px;
+
+}
+.accept-button, .deny-button {
+  padding: 10px 15px;  /* Adjust the padding to control the size of the buttons */
+  border: none;        /* No border for the buttons */
+  border-radius: 50%;  /* This will make the buttons round */
+  color: white;        /* Text color */
+  font-size: 3em;      /* Adjust font size as needed */
+  cursor: pointer;     /* Changes the cursor to a pointer on hover */
+  outline: none;       /* Removes the outline to keep the bubble shape intact */
+  margin: 0 5px;       /* Adds space between the buttons */
+}
+.accept-button {
+  background-color: #4CAF50; /* Green background */
+  color: white; /* White text */
+}
+
+.deny-button {
+  background-color: #F44336; /* Red background */
+  color: white; /* White text */
+}

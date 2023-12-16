@@ -17,7 +17,7 @@ function CoachList({ coaches, onSelectCoach }) {
   return (
     <div>
       {coaches?.map((coach) => (
-        <CoachCard key={coach.coachID} coach={coach} onSelectCoach={onSelectCoach} />
+        <CoachCard key={coach.coachRequestID} coach={coach} onSelectCoach={onSelectCoach} />
       ))}
     </div>
   );
@@ -26,7 +26,7 @@ function CoachList({ coaches, onSelectCoach }) {
 function CoachCard({ coach, onSelectCoach }) {
   const handleOnCoachClick = async () => {
     try {
-      const { data } = await apiClient.getCoachByID(coach.coachID);
+      const { data } = await apiClient.getCoachByID(coach.coachRequestID);
       onSelectCoach(data);
     } catch (error) {
       console.error('Failed to fetch coach details:', error);
