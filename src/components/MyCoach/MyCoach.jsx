@@ -13,6 +13,8 @@ function MyCoach() {
   const [workoutPlan, setWorkoutPlan] = useState({});
   const toggleMessaging = () => setShowMessaging(!showMessaging)
 
+  // add terminate coach backend
+
   useEffect(() => {
     async function getCoachData(){
       const { data, error } = await apiClient.getCoachData();
@@ -55,7 +57,7 @@ function MyCoach() {
           <div className='workouts'>
             {Object.keys(workoutPlan).length === 0 ? <h3>Coach {coach.firstName + ' ' + coach.lastName} has not assigned you any workouts.</h3> : <MyAssignedWorkouts></MyAssignedWorkouts>}
           </div>
-          <button className='terminate-button'>Terminate Coach {coach.firstName}</button>
+          <button className='terminate-button'>Terminate Coach {coach.firstName}</button> 
         </div>
       ) : 
       (

@@ -107,7 +107,6 @@ function DailySchedule({ day, exercise }) {
           {hasReps ? (
             exercise.reps.map((rep, index) => (
               <>
-              {console.log(exercise)}
               <tr key={index}>
                 {index === 0 ? <td>{exercise.exercise}</td> : <td></td>}
                 <td>{index + 1}</td>
