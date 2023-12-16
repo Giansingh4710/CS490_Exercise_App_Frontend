@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import MealInputModal from '../mealInput/mealInput';
+//import MealInputModal from '../mealInput/mealInput';
 import './mealTable.css';
 
 const MealTracker = ({ isMealInputModalOpen, setMealInputModalOpen }) => {

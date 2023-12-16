@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import './waterInput.css';
 
 const WaterInputModal = ({ setRecordedData }) => {
@@ -42,8 +42,8 @@ const WaterInputModal = ({ setRecordedData }) => {
               MEASUREMENT
               <select value={unit} onChange={handleUnitChange}>
                 <option value='Select a Unit'>Select a Unit</option>
-                <option value='Cups'>cups</option>
-                <option value='Fl. Oz'>Fl. Oz</option>
+                <option value='cups'>cups</option>
+                <option value='fl oz'>fl oz</option>
                 <option value='gallons'>gallons</option>
               </select>
             </label>
