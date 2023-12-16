@@ -23,7 +23,7 @@ export default function MyAssignedWorkouts() {
 
   return (
     <div className="my-assigned-workouts">
-      {successMessage && <p className="success-message">{errorMessage}</p>}
+      {errorMessage && <p className="success-message">{errorMessage}</p>}
       <div className="my-assigned-workouts-container">
         <div className="my-assigned-workouts-header-container">
           <h2 className="my-assigned-workouts-header">Current Workout Assigned</h2>
