@@ -20,6 +20,7 @@ import ExploreClients from './components/ExploreClientsPage/ExploreClientsPage'
 import AdminOverview from './components/AdminCoach/AdminOverview/AdminOverview'
 import ManageExerciseBank from './components/ManageExerciseBank/ManageExerciseBank'
 import ProfilePage from './components/Profile/ProfilePage'
+import MyWorkouts from './components/myWorkouts/myWorkouts'
 
 export function AppContainer() {
   return (
@@ -79,7 +80,7 @@ export function App() {
           <Route path='/MyCoach' element={<ProtectedRoute element={<MyCoach />} />} />
           <Route path='/ExploreCoaches' element={<ProtectedRoute element={<ExploreCoaches />} />} />
           <Route path='/Register/Survey' element={<ProtectedRoute element={<SurveyPage />} />} />
-          <Route path='/Workouts' element={<ProtectedRoute element={<SurveyPage />} />} />
+          <Route path='/Workouts' element={<ProtectedRoute element={<MyWorkouts />} />} />
           {/* START Coach Specific Links */}
           <Route path='/MyClients' element={<ProtectedRoute element={<ExploreClients />} />} />
           {/* END Coach Specific Links */}

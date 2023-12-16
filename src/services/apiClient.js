@@ -238,7 +238,17 @@ class ApiClient {
       data: data,
     })
   }
+
+  // exercise bank
+  async getExerciseData(exerciseID){
+    return await this.request({
+      endpoint: `exercises/${exerciseID}`,
+      method: `GET`
+    })
+  }
 }
+
+
 
 const apiClient = new ApiClient(API_BASE_URL)
 export default apiClient
