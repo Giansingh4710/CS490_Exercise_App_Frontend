@@ -29,7 +29,7 @@ export default function Sidebar() {
 
           {role !== 'Admin' && (
             <>
-              <Link to='/'>
+              <Link to='/UserDashboard'>
                 <div className='sidebar-icon dashboard'>
                   <span className='material-symbols-outlined dashboard'>desktop_windows</span>
                   <span className='icon-text'> Dashboard </span>

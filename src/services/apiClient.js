@@ -15,6 +15,7 @@ class ApiClient {
 
   async request({ endpoint, method = 'GET', data = {} }) {
     const url = `${this.remoteHostUrl}/${endpoint}`
+    console.log(url)
 
     const headers = {
       'Content-Type': 'application/json',
@@ -23,6 +24,7 @@ class ApiClient {
 
     try {
       const res = await axios({ url, method, data, headers })
+      console.log(res)
       return { data: res.data, error: null }
     } catch (error) {
       console.error({ errorResponse: error.response })
@@ -63,10 +65,10 @@ class ApiClient {
     localStorage.setItem(this.tokenName, '')
   }
 
-  async deleteAccount(){
+  async deleteAccount() {
     return await this.request({
       endpoint: `user/deleteAccount`,
-      method: `DELETE`
+      method: `DELETE`,
     })
   }
 
@@ -101,7 +103,7 @@ class ApiClient {
   async cancelRequest(requestID) {
     return await this.request({
       endpoint: `request/cancel?requestID=${requestID}`,
-      method: `GET`,
+      method: `DELETE`,
     })
   }
 
@@ -192,6 +194,13 @@ class ApiClient {
   }
 
   // ----------------------- requests to get client info for a coach ----------------------- //
+  async getUsersCoachID() {
+    return await this.request({
+      endpoint: `coaches/getCoachID`,
+      method: `GET`,
+    })
+  }
+
   // open requests that the logged in COACH has not answered
   async getOpenRequestsForCoach() {
     return await this.request({
@@ -200,16 +209,16 @@ class ApiClient {
     })
   }
 
-  async getCoachesClients(coachID) {
+  async getCoachesClients() {
     return await this.request({
-      endpoint: `coach/:${coachID}/clients`,
+      endpoint: `coaches/clients`,
       method: `GET`,
     })
   }
 
   async getClientByID(clientID) {
     return await this.request({
-      endpoint: `client/${clientID}`,
+      endpoint: `coaches/clientInfo?userID=${clientID}`,
       method: `GET`,
     })
   }
@@ -237,6 +246,20 @@ class ApiClient {
     })
   }
 
+  async getMeals() {
+    return await this.request({
+      endpoint: `/meals`,
+      method: `GET`,
+    })
+  }
+
+  async deleteMeal(mealID) {
+    return await this.request({
+      endpoint: `/meals/${mealID}`,
+      method: `DELETE`,
+    })
+  }
+
   async dailyweight() {
     return await this.request({
       endpoint: `logActivity/dailyweight`,
@@ -260,10 +283,10 @@ class ApiClient {
   }
 
   // Workout Plan / Exercises
-  async getExerciseData(exerciseID){
+  async getExerciseData(exerciseID) {
     return await this.request({
       endpoint: `exercises/${exerciseID}`,
-      method: `GET`
+      method: `GET`,
     })
   }
 
@@ -281,17 +304,14 @@ class ApiClient {
     })
   }
 
-  async clientAddExerciseToPlan(data){
+  async clientAddExerciseToPlan(data) {
     return await this.request({
       endpoint: `workoutPlan/client/addExercise`,
       method: `POST`,
-      data: data
-    });
+      data: data,
+    })
   }
 
-
-
-  
   async getAllPending() {
     return await this.request({
       endpoint: `/coachApply/allPending`,
@@ -299,14 +319,13 @@ class ApiClient {
     })
   }
 
-
   async deleteExercise(exerciseID) {
     return await this.request({
       endpoint: `exercises/deleteExercise?exerciseID=${exerciseID}`,
       method: 'GET',
-    });
+    })
   }
- 
+
   async createNewRequestForCoachingFromClient(data) {
     console.log(data)
     return await this.request({
@@ -317,7 +336,6 @@ class ApiClient {
   }
 }
 
-
-
+// console.log(API_BASE_URL);
 const apiClient = new ApiClient(API_BASE_URL)
 export default apiClient

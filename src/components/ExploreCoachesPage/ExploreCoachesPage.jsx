@@ -6,6 +6,7 @@ import { useState, useEffect } from 'react'
 import apiClient from '../../services/apiClient'
 import RequestCoachModal from './RequestCoachModal/RequestCoachModal'
 import { useAuthContext } from '../../contexts/auth'
+import Messaging from '../ExploreComponents/Messaging/Messaging'
 
 // components broken down:
 // ExploreCoaches is the overall page
@@ -19,7 +20,8 @@ export default function ExploreCoaches() {
   const [sentRequests, setSentRequests] = useState([])
   const [coachesToDisplay, setCoachesToDisplay] = useState([])
   const [selectedCoach, setSelectedCoach] = useState({})
-  const [modalIsOpen, setModalIsOpen] = useState(false)
+  const [requestModalIsOpen, setRequestModalIsOpen] = useState(false)
+  const [messageModalIsOpen, setMessageModalIsOpen] = useState(false)
   const [requestStatusForSelectedCoach, setRequestStatusForSelectedCoach] = useState('')
   const [specializations, setSpecializations] = useState(['Any Specialization'])
   const [showErrorDialog, setShowErrorDialog] = useState(false)
@@ -67,7 +69,6 @@ export default function ExploreCoaches() {
       coachID: coachID,
     })
     if (data) {
-      console.log('Request status!:', data)
       if (data?.exists == true) {
         setRequestStatusForSelectedCoach(data)
       } else {
@@ -88,29 +89,30 @@ export default function ExploreCoaches() {
 
   useEffect(() => {
     fetchSentRequests()
-  }, [modalIsOpen])
+  }, [requestModalIsOpen])
 
   useEffect(() => {
     fetchSentRequests()
-    console.log('COACHES:', coaches)
   }, [coaches])
 
   useEffect(() => {
-    console.log('Selected coach', selectedCoach)
     fetchRequestStatus(selectedCoach?.coachID)
   }, [selectedCoach])
 
   return (
     <>
-      {/* conditionally render the Modal to send a request  */}
-      {modalIsOpen && (
+      {/* conditionally render the modal to send a request/message a coach */}
+      {requestModalIsOpen && (
         <RequestCoachModal
-          setModalIsOpen={setModalIsOpen}
+          setRequestModalIsOpen={setRequestModalIsOpen}
           coach={selectedCoach}
           specializations={specializations}
           setShowErrorDialog={setShowErrorDialog}
           fetchRequestStatus={fetchRequestStatus}
         />
+      )}
+      {messageModalIsOpen && (
+        <Messaging user={selectedCoach} setModalIsOpen={setMessageModalIsOpen} />
       )}
       {showErrorDialog && (
         <dialog open>
@@ -133,7 +135,10 @@ export default function ExploreCoaches() {
       ) : (
         <></>
       )}
-      <div className={modalIsOpen ? 'explore-coaches blurred' : 'explore-coaches'}>
+      <div
+        className={
+          requestModalIsOpen || messageModalIsOpen ? 'explore-coaches blurred' : 'explore-coaches'
+        }>
         <CoachesOverview
           coaches={coaches}
           setCoaches={setCoaches}
@@ -151,7 +156,8 @@ export default function ExploreCoaches() {
           setSelectedCoach={setSelectedCoach}
           loading={isLoading}
           setLoading={setIsLoading}
-          setModalIsOpen={setModalIsOpen}
+          setRequestModalIsOpen={setRequestModalIsOpen}
+          setMessageModalIsOpen={setMessageModalIsOpen}
           requestStatusForSelectedCoach={requestStatusForSelectedCoach}
           setShowErrorDialog={setShowErrorDialog}
           fetchRequestStatus={fetchRequestStatus}

@@ -27,7 +27,7 @@ export default function MyWorkouts() {
                     <h2 className="my-workouts-header">Workout Plan</h2>
                     <WeeklySchedule workoutPlan={workoutPlan} />
                 </div>
-            </div>
+            </div>  
         </div>
     );
 }
@@ -36,6 +36,7 @@ function WeeklySchedule({ workoutPlan }) {
     const [selectedExerciseID, setSelectedExerciseID] = useState(null);
     const [isAddExerciseModalOpen, setAddExerciseModalOpen] = useState(false);
     const [exerciseData, setExerciseData] = useState({});
+    const [successMessage, setSuccessMessage] = useState(null);
 
     useEffect(() => {
         
@@ -46,7 +47,7 @@ function WeeklySchedule({ workoutPlan }) {
                     setExerciseData(data[0]);
                 }
                 if(error){
-                    alert("Error getting exerise data");
+                    setMessage("Error getting exercise data");
                 }
                 setAddExerciseModalOpen(true);
             }
@@ -62,12 +63,19 @@ function WeeklySchedule({ workoutPlan }) {
     const closeAddExercise = () => {
         setAddExerciseModalOpen(false);
     }
+    const setMessage = (message) => {
+      setSuccessMessage(message);
+      setTimeout(() => {
+        setSuccessMessage(null);
+      }, 3000);
+    }
 
     var weekdaySchedule = ["sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday"];
     return (
         <div className="weekly-schedule">
+          {successMessage && <p className="success-message">{successMessage}</p>}
             <WorkoutPlanExerciseBank viewOnly={false} onExerciseSelect={handleExerciseSelect}/>
-            {isAddExerciseModalOpen && <AddExerciseModal onClose={closeAddExercise} exerciseData={exerciseData}></AddExerciseModal>}
+            {isAddExerciseModalOpen && <AddExerciseModal onClose={closeAddExercise} exerciseData={exerciseData} message={setMessage}></AddExerciseModal>}
             {weekdaySchedule.map((day, index) => (
                 <div key={index}>
                     <div className='week-day'>{day.toUpperCase()}</div>
@@ -126,7 +134,7 @@ function NoWorkoutsAssigned() {
     );
 }
 
-function AddExerciseModal({ onClose, exerciseData }){
+function AddExerciseModal({ onClose, exerciseData, message }){
     // eslint-disable-next-line
     const [exerciseName, setExerciseName] = useState('');
     const [sets, setSets] = useState([{ reps: 0, weight: 0 }]);
@@ -162,12 +170,11 @@ function AddExerciseModal({ onClose, exerciseData }){
       };
 
       const { data, error } = await apiClient.clientAddExerciseToPlan(newExerciseData);
-
       if(data){
-        alert("Exercise added");
+        message("Exercise added");
       }
       if(error){
-        alert("Error adding exercise");
+        message("Error adding exercise");
       }
     
   

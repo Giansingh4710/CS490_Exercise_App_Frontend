@@ -2,15 +2,17 @@ import React from 'react'
 import './CoachView.css'
 import apiClient from '../../../services/apiClient'
 import { useState, useEffect } from 'react'
-import { BlueRequestButton, RedCancelButton } from '../../Buttons/Buttons'
+import { BlueRequestButton, MailIconButton, RedCancelButton } from '../../Buttons/Buttons'
 import { useAuthContext } from '../../../contexts/auth'
+import Messaging from '../../ExploreComponents/Messaging/Messaging'
 
 export default function CoachView({
   selectedCoach,
   setSelectedCoach,
   loading,
   setLoading,
-  setModalIsOpen,
+  setRequestModalIsOpen,
+  setMessageModalIsOpen,
   requestStatusForSelectedCoach,
   setShowErrorDialog,
   fetchRequestStatus,
@@ -24,7 +26,7 @@ export default function CoachView({
       setError('Please fill out initial survey on dashboard before requesting a coach.')
     } else {
       setError('')
-      setModalIsOpen(true)
+      setRequestModalIsOpen(true)
     }
   }
 
@@ -58,10 +60,13 @@ export default function CoachView({
 
             {/*if request is empty, show request button, otherwise show cancel button*/}
             {requestStatusForSelectedCoach?.exists ? (
-              <RedCancelButton
-                handleOnClick={handleOnCancelClick}
-                title={'Cancel your outgoing request'}
-              />
+              <div className='buttons'>
+                <MailIconButton handleOnClick={() => setMessageModalIsOpen(true)} />
+                <RedCancelButton
+                  handleOnClick={handleOnCancelClick}
+                  title={'Cancel your outgoing request'}
+                />
+              </div>
             ) : (
               <BlueRequestButton handleOnClick={handleOnRequestClick} />
             )}

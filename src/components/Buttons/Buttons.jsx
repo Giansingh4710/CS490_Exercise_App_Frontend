@@ -110,6 +110,17 @@ export function BlueRequestButton({ handleOnClick }) {
   )
 }
 
+export function MailIconButton({ handleOnClick }) {
+  return (
+    <span
+      className='material-symbols-outlined mail-icon-btn btn'
+      onClick={() => handleOnClick()}
+      title='Send a message'>
+      mail
+    </span>
+  )
+}
+
 const styles = {
   button: {
     backgroundColor: '#FFFFFF',

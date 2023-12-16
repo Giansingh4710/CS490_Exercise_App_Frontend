@@ -1,10 +1,12 @@
-import React from 'react'
 import './ExploreClientsPage.css'
+import React from 'react'
+import Messaging from '../ExploreComponents/Messaging/Messaging'
 import { useState, useEffect } from 'react'
 import apiClient from '../../services/apiClient'
 import { Tabs } from '../ExploreComponents/Tabs/Tabs'
 import { List, ItemCard } from '../ExploreComponents/ItemList/ItemList'
-import { GreenAcceptButton, RedDeclineButton } from '../Buttons/Buttons'
+import { GreenAcceptButton, RedDeclineButton, MailIconButton } from '../Buttons/Buttons'
+import { useAuthContext } from '../../contexts/auth'
 
 // components broken down:
 // ExploreClients is the overall page
@@ -19,8 +21,20 @@ export default function ExploreClients() {
   const [clientsToDisplay, setClientsToDisplay] = useState([])
   const [selectedClient, setSelectedClient] = useState({})
   const [selectedTab, setSelectedTab] = useState('Clients')
-  const [modalIsOpen, setModalIsOpen] = useState(false)
+  const [messageModalIsOpen, setMessageModalIsOpen] = useState(false)
   const [searchTerm, setSearchTerm] = useState('')
+  const [requestStatusForSelectedClient, setRequestStatusForSelectedCoach] = useState({})
+  const [usersCoachID, setUsersCoachID] = useState()
+
+  const { user } = useAuthContext()
+  const fetchUsersCoachID = async () => {
+    const { data, error } = await apiClient.getUsersCoachID()
+    if (data) {
+      setUsersCoachID(data.coachID)
+    } else {
+      setUsersCoachID('')
+    }
+  }
 
   const fetchAllClients = async () => {
     setIsLoading(true)
@@ -43,7 +57,7 @@ export default function ExploreClients() {
     const { data, error } = await apiClient.getOpenRequestsForCoach()
     if (data) {
       const clients = data.map((item) => item.User)
-      setNewRequests(clients)
+      setNewRequests(data)
       setClientsToDisplay(clients)
     }
     if (error) {
@@ -54,14 +68,25 @@ export default function ExploreClients() {
   }
 
   useEffect(() => {
-    fetchAllClients()
-    fetchNewRequests()
+    fetchUsersCoachID()
+
     setSelectedClient(null)
   }, [])
 
+  useEffect(() => {
+    fetchAllClients()
+    fetchNewRequests()
+  }, [usersCoachID])
+
   return (
     <>
-      <div className='explore-clients'>
+      {messageModalIsOpen ? (
+        <Messaging user={selectedClient} setModalIsOpen={setMessageModalIsOpen} />
+      ) : (
+        <></>
+      )}
+
+      <div className={messageModalIsOpen ? 'explore-clients blurred' : 'explore-clients'}>
         <ClientsOverview
           clients={clients}
           setClients={setClients}
@@ -79,7 +104,10 @@ export default function ExploreClients() {
           setSelectedClient={setSelectedClient}
           loading={isLoading}
           setLoading={setIsLoading}
-          setModalIsOpen={setModalIsOpen}
+          setMessageModalIsOpen={setMessageModalIsOpen}
+          clients={clients}
+          newRequests={newRequests}
+          fetchAllClients={fetchAllClients}
         />
       </div>
     </>
@@ -115,11 +143,13 @@ export function ClientsOverview({
       handler: () => {
         if (selectedTab == 'Clients') {
           setSelectedTab('New Requests')
-          setClientsToDisplay(newRequests)
+          const clientsFromRequests = newRequests.map((request) => request.User)
+          setClientsToDisplay(clientsFromRequests)
         }
       },
     },
   ]
+
   const handleSearch = async () => {
     try {
       const { data, error } = await apiClient.getAllClientsBySearchTerm(searchTerm)
@@ -147,6 +177,7 @@ export function ClientsOverview({
         setSelectedClient={setSelectedClient}
         selectedClient={selectedClient}
         selectedTab={selectedTab}
+        newRequests={newRequests}
       />
     </div>
   )
@@ -182,7 +213,7 @@ export function SearchForClientByName({ setSearchTerm, searchTerm, handleSearch 
 
 export function ClientList({ clients, setSelectedClient, selectedClient, selectedTab }) {
   useEffect(() => {}, [selectedTab])
-
+  console.log('Clients to display:', clients)
   const handleOnClientClick = async (client) => {
     try {
       const { data, error } = await apiClient.getClientByID(client.userID)
@@ -258,14 +289,53 @@ export function ClientView({
   setSelectedClient,
   loading,
   setLoading,
-  setModalIsOpen,
+  setMessageModalIsOpen,
+  clients,
+  newRequests,
+  fetchAllClients,
 }) {
   const handleOnDeclineClick = async () => {
-    setModalIsOpen(true)
+    const matchingRequest = newRequests.find(
+      (request) => request.User.userID === selectedClient.userID,
+    )
+    if (matchingRequest) {
+      const reqID = matchingRequest.requestID
+      try {
+        const { data, error } = await apiClient.declineRequest(reqID)
+        if (data) {
+          console.log('Request declined', data)
+        } else if (error) {
+          console.error('Error declining request:', error)
+        }
+      } catch (err) {
+        console.error('Error:', err)
+      }
+    } else {
+      console.log('No matching request found for selected client.')
+    }
   }
   const handleOnAcceptClick = async () => {
-    setModalIsOpen(true)
+    const matchingRequest = newRequests.find(
+      (request) => request.User.userID === selectedClient.userID,
+    )
+    if (matchingRequest) {
+      const reqID = matchingRequest.requestID
+      try {
+        const { data, error } = await apiClient.acceptRequest(reqID)
+        if (data) {
+          console.log('Request Accepted', data)
+          fetchAllClients()
+        } else if (error) {
+          console.error('Error accepting request:', error)
+        }
+      } catch (err) {
+        console.error('Error:', err)
+      }
+    } else {
+      console.log('No matching request found for selected client.')
+    }
   }
+
   return selectedClient ? (
     loading ? (
       <>
@@ -282,8 +352,14 @@ export function ClientView({
             <h2>
               {selectedClient?.firstName} {selectedClient?.lastName}
             </h2>
-            <RedDeclineButton handleOnClick={handleOnDeclineClick} />
-            <GreenAcceptButton handleOnClick={handleOnAcceptClick} />
+            <div className='buttons'>
+              <MailIconButton
+                user={selectedClient}
+                handleOnClick={() => setMessageModalIsOpen(true)}
+              />
+              <RedDeclineButton handleOnClick={handleOnDeclineClick} />
+              <GreenAcceptButton handleOnClick={handleOnAcceptClick} />
+            </div>
           </div>
 
           <div className='client-details'>

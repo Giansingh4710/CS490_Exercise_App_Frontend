@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 //import MealInputModal from '../mealInput/mealInput';
 import './mealTable.css';
+import apiClient from '../../../services/apiClient';
 
 const MealTracker = ({ isMealInputModalOpen, setMealInputModalOpen }) => {
   const [meals, setMeals] = useState({
@@ -12,48 +13,41 @@ const MealTracker = ({ isMealInputModalOpen, setMealInputModalOpen }) => {
   const [selectedMealType, setSelectedMealType] = useState(null);
 
   useEffect(() => {
-    let token = localStorage.getItem('fitness_token');
-    fetch('http://127.0.0.1:1313/meals', {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        // Log the response to inspect its structure
-        console.log('API Response:', data);
+      async function getMeals(){
+        const { data, error } = await apiClient.getMeals();
+        if(data){
+          console.log('API Response:', data);
 
-        // Check if the response has the expected structure
-        if (data && typeof data === 'object') {
-          setMeals(data);
-        } else {
-          // Handle the case where the response doesn't have the expected structure
-          console.error('Unexpected response format:', data);
+          // Check if the response has the expected structure
+          if (data && typeof data === 'object') {
+            setMeals(data);
+          } else {
+            // Handle the case where the response doesn't have the expected structure
+            console.error('Unexpected response format:', data);
+          }
+          if(error){
+            console.error('Unexpected response format:', data);
+          }
         }
-      })
-      .catch((error) => console.error('Error fetching meal data:', error));
+      }
+      getMeals();
   }, []);
 
-  const handleDeleteMeal = (mealType, mealId) => {
+  const handleDeleteMeal = async (mealType, mealId) => {
     // Implement logic to delete a specific meal from the backend
     let token = localStorage.getItem('fitness_token');
-  
-    fetch(`http://127.0.0.1:1313/meals/${mealId}`, {
-      method: 'DELETE',
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error('Failed to delete meal');
-        }
-        // Update the local state after successful deletion
-        const updatedMeals = { ...meals };
-        updatedMeals[mealType] = updatedMeals[mealType].filter((meal) => meal.id !== mealId);
-        setMeals(updatedMeals);
-      })
-      .catch((error) => console.error('Error deleting meal:', error));
+    
+    const { data, error } = await apiClient.deleteMeal(mealId);
+
+    if(data){
+      const updatedMeals = { ...meals };
+      updatedMeals[mealType] = updatedMeals[mealType].filter((meal) => meal.id !== mealId);
+      setMeals(updatedMeals);
+    }
+
+    if(error){
+      console.error('Error deleting meal:', error);
+    }
   };  
 
   const handleAddMealClick = (mealType) => {

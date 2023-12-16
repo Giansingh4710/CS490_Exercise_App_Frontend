@@ -1,0 +1,175 @@
+/* -------- background styling ----------- */
+
+.modal-background {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  position: absolute;
+  justify-content: center;
+  vertical-align: top;
+  z-index: 1;
+}
+
+.modal-container {
+  width: 500px;
+  height: 500px;
+  display: flex;
+  background: whitesmoke;
+  flex-direction: column;
+  box-shadow: 1px 0 15px 0 #3f4d67;
+  border-radius: 23px;
+  justify-content: space-between;
+}
+
+/* ---------------------  msgs with user styling  ----------------------- */
+.my-user .my-msg-with-user {
+  background-color: white;
+  box-shadow: 0 1px 20px 0 rgba(78, 101, 112, 0.08);
+  height: 100%;
+  border: solid rgb(240, 240, 240) 1px;
+  margin-bottom: 25px;
+}
+
+.my-msg-with-user-container {
+  margin-left: 10px;
+  margin-right: 10px;
+  padding-bottom: 5px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.my-user .my-msg-with-user .my-msg-with-user-header {
+  width: 100%;
+  padding-left: 5px;
+  padding-right: 5px;
+  padding-bottom: 5px;
+  border-bottom: solid darkgray 1px;
+}
+
+.my-msgs-container {
+  display: flex;
+  flex-direction: column;
+  overflow-y: scroll;
+  max-height: 300px;
+  border: 0.5px solid rgb(243, 243, 243);
+  /* background-color: rgb(254, 254, 254); */
+}
+
+/* ---------------------  individual msgs styling  ----------------------- */
+.msg-line {
+  width: 100%;
+  overflow-wrap: break-word;
+}
+.msg-container-left,
+.msg-container-right {
+  /* max-width: 50%; */
+  background-color: rgb(235, 235, 235);
+  padding: 10px;
+  margin: 5px;
+  margin-bottom: 10px;
+  border-radius: 15px;
+  box-shadow: 0 1px 20px 0 rgba(78, 101, 112, 0.08);
+  display: inline-block;
+  max-width: 50%;
+  min-width: 20%;
+}
+
+.msg-container-left {
+  max-width: 50%;
+}
+.msg-container-right {
+  float: right;
+  max-width: 50%;
+  text-align: right;
+}
+
+.msg-text {
+  padding-bottom: 5px;
+}
+
+.msg-timestamp {
+  font-size: 10px;
+  /* text-align: right; */
+}
+
+/* ---------------------  send msg area  ----------------------- */
+.send-msg-container {
+  padding-top: 10px;
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+}
+
+.send-msg-form {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+}
+
+/* ----- send msg text box ----- */
+.send-msg-container input {
+  width: 100%;
+  border: 1px solid darkgray;
+  border-radius: 10px;
+  padding: 5px;
+  padding-left: 10px;
+  outline: none;
+  box-shadow: 0 1px 10px 0 rgba(78, 101, 112, 0.08);
+}
+
+.send-msg-text-box-container {
+  width: 100%;
+  border-radius: 10px;
+  margin-right: 10px;
+}
+
+/* ----- send button ----- */
+.send-msg-btn-container {
+  transition: background 0.23s;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.send-msg-btn-container button {
+  height: 100%;
+  border-radius: 10px;
+  outline: none;
+  border: 1px solid rgb(123, 133, 151);
+  cursor: pointer;
+  background-color: rgb(169, 183, 208);
+  font-weight: bolder;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: whitesmoke;
+  box-shadow: 0 1px 10px 0 rgba(78, 101, 112, 0.08);
+}
+
+.send-msg-btn-container button:hover {
+  background-color: rgb(150, 168, 182);
+  box-shadow: 0 1px 10px 0 rgba(113, 164, 187, 0.08);
+}
+
+.send-msg-btn .send-icon {
+  font-size: 20px;
+  text-align: center;
+}
+
+.send-msg-btn-container button:active {
+  background-color: rgb(150, 168, 182);
+  color: white;
+  box-shadow: 0 1px 4px 0 rgba(150, 181, 194, 1);
+}
+
+/* ----- msg error ----- */
+.error-msg {
+  height: 20px;
+  display: flex;
+  /* text-align: center; */
+  align-items: center;
+  font-size: 12px;
+  color: red;
+  font-style: italic;
+}

@@ -7,7 +7,7 @@ import Modal from '../../Modal/Modal'
 export default function RequestCoachModal({
   setShowErrorDialog,
   coach,
-  setModalIsOpen,
+  setRequestModalIsOpen,
   specializations,
   fetchRequestStatus,
 }) {
@@ -24,9 +24,9 @@ export default function RequestCoachModal({
     })
     if (data) {
       fetchRequestStatus(coach.coachID)
-      setModalIsOpen(false)
+      setRequestModalIsOpen(false)
     } else {
-      setModalIsOpen(false)
+      setRequestModalIsOpen(false)
       setShowErrorDialog(true)
     }
   }
@@ -35,7 +35,7 @@ export default function RequestCoachModal({
   return (
     <Modal
       headerName={headerName}
-      setModalIsOpen={setModalIsOpen}
+      setModalIsOpen={setRequestModalIsOpen}
       inputFields={
         <>
           <AddGoal goal={goal} setGoal={setGoal} specializations={specializations} />
