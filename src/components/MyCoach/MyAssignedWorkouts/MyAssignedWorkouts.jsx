@@ -5,6 +5,7 @@ import apiClient from "../../../services/apiClient";
 export default function MyAssignedWorkouts() {
   // const [coach, setCoach] = useState(null);
   const [workoutPlan, setWorkoutPlan] = useState({});
+  const [errorMessage, setErrorMessage] = useState(null);
 
   useEffect(() => {    
     async function getWorkoutPlan(){
@@ -14,6 +15,7 @@ export default function MyAssignedWorkouts() {
       }
       if(error){
         setWorkoutPlan({});
+        setErrorMessage("Error getting assigned workouts");
       }
     }
     getWorkoutPlan();
@@ -21,6 +23,7 @@ export default function MyAssignedWorkouts() {
 
   return (
     <div className="my-assigned-workouts">
+      {successMessage && <p className="success-message">{errorMessage}</p>}
       <div className="my-assigned-workouts-container">
         <div className="my-assigned-workouts-header-container">
           <h2 className="my-assigned-workouts-header">Current Workout Assigned</h2>

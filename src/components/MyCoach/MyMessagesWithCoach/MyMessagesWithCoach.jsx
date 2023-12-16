@@ -36,7 +36,7 @@ export default function MyMessagesWithCoach({ coach }) {
         ]);
       }
       if(error){
-        alert("Error getting messages");
+        setMsgError("Error sending message");
       }
       
       setNewMsg("");
