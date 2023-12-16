@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import "./MyWorkouts.css"; 
 import apiClient from "../../services/apiClient"; // Adjust the import path as necessary
-import ExerciseBank from '../ExerciseBank/ExerciseBank.js';
+import WorkoutPlanExerciseBank from '../WorkoutPlanExerciseBank/WorkoutPlanExerciseBank.js';
 
 export default function MyWorkouts() {
     const [workoutPlan, setWorkoutPlan] = useState({});
@@ -66,7 +66,7 @@ function WeeklySchedule({ workoutPlan }) {
     var weekdaySchedule = ["sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday"];
     return (
         <div className="weekly-schedule">
-            <ExerciseBank viewOnly={false} onExerciseSelect={handleExerciseSelect}/>
+            <WorkoutPlanExerciseBank viewOnly={false} onExerciseSelect={handleExerciseSelect}/>
             {isAddExerciseModalOpen && <AddExerciseModal onClose={closeAddExercise} exerciseData={exerciseData}></AddExerciseModal>}
             {weekdaySchedule.map((day, index) => (
                 <div key={index}>
@@ -98,12 +98,15 @@ function DailySchedule({ day, exercise }) {
           </tr>
           {hasReps ? (
             exercise.reps.map((rep, index) => (
+              <>
+              {console.log(exercise)}
               <tr key={index}>
                 {index === 0 ? <td>{exercise.exercise}</td> : <td></td>}
                 <td>{index + 1}</td>
-                <td>{rep}</td>
-                <td>{exercise.equipment === 'Bodyweight' ? 'Bodyweight' : `${exercise.weight} lbs`}</td>
+                {exercise.metric === 'Reps' ? <td>{rep}</td> : <td>{exercise.duration[index]}</td>}
+                <td>{exercise.equipment === 'Bodyweight' ? 'Bodyweight' : `${exercise.weight[index]} lbs`}</td>
               </tr>
+              </>
             ))
           ) : (
             <tr>
@@ -113,9 +116,8 @@ function DailySchedule({ day, exercise }) {
         </table>
       </div>
     );
-  }
+}
   
-
 function NoWorkoutsAssigned() {
     return (
         <div className='day-card'>
@@ -128,11 +130,15 @@ function AddExerciseModal({ onClose, exerciseData }){
     // eslint-disable-next-line
     const [exerciseName, setExerciseName] = useState('');
     const [sets, setSets] = useState([{ reps: 0, weight: 0 }]);
-    const [duration, setDuration] = useState(0);
+    const [duration, setDuration] = useState([{ reps: 0, duration: 0 }]);
     const [dayOfWeek, setDayOfWeek] = useState('Monday');
   
     const handleAddSet = () => {
-      setSets((prevSets) => [...prevSets, { reps: 0, weight: 0 }]);
+      if(exerciseData.metric === 'Reps'){
+        setSets((prevSets) => [...prevSets, { reps: 0, weight: 0 }]);
+      }else{
+        setSets((prevSets) => [...prevSets, { reps: 0, duration: 0 }]);
+      }
     };
   
     const handleRemoveSet = (index) => {
@@ -198,7 +204,7 @@ function AddExerciseModal({ onClose, exerciseData }){
             <tr>
               <th>Set</th>
               {exerciseData.metric === 'Reps' ? <th>Reps</th> : <th>Duration</th>}
-              <th>Weight (lbs)</th>
+              {exerciseData.metric === 'Reps' ? <th>Weights (lbs)</th> : <></>}
               <th>Action</th>
             </tr>
           </thead>
@@ -217,20 +223,27 @@ function AddExerciseModal({ onClose, exerciseData }){
                     :
                         <input
                         type="number"
-                        value={duration}
-                        onChange={(e) => setDuration(Number(e.target.value))}
+                        value={set.duration}
+                        onChange={(e) => handleUpdateSet(index, 'duration', e.target.value)}
                         />
                     }
                 </td>
-                <td>{
-                    exerciseData.equipment === 'Bodyweight' ? <p>Bodyweight</p> :
-                    <input
-                        type="number"
-                        value={set.weight}
-                        onChange={(e) => handleUpdateSet(index, 'weight', e.target.value)}
-                    />
+                {
+                  exerciseData.metric === 'Reps' ?
+                    <td>
+                        {exerciseData.equipment === 'Bodyweight' ?
+                          <p>Bodyweight</p> 
+                          :
+                          <input
+                              type="number"
+                              value={set.weight}
+                              onChange={(e) => handleUpdateSet(index, 'weight', e.target.value)}
+                          />
+                        }
+                    </td>
+                    :
+                    <></>
                 }
-                </td>
                 <td>
                   <button type="button" onClick={() => handleRemoveSet(index)}>
                     Remove
