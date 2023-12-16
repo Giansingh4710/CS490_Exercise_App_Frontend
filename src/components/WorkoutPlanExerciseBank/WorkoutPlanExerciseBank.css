@@ -68,6 +68,10 @@ td {
   text-align: left;
 }
 
+tr {
+  cursor: pointer;
+}
+
 /* No Exercises Message */
 .exercise-list-container p {
   color: #777;
