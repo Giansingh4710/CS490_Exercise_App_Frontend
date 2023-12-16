@@ -19,7 +19,7 @@ function LandingPage() {
           fingertips, fostering your journey towards well-being. Your goals, our mission. Start
           transforming today!
         </p>
-        <ExerciseBank />
+        <ExerciseBank viewOnly={true}/>
         <Link to='/Register'>
           <LandingPageButton name='Sign Up Now!' additionalStyles={styles.button} />
         </Link>

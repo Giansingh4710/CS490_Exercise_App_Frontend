@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import ExerciseBankModal from './ExerciseModal/ExerciseModal'; // Import the modal component
+import ExerciseBankModal from './ExerciseModal/ExerciseModal';
 import './ExerciseBank.css';
 
-const ExerciseBank = () => {
+const ExerciseBank = ({ viewOnly }) => {
   const [exercises, setExercises] = useState([]);
   const [selectedMuscleGroup, setSelectedMuscleGroup] = useState('');
   const [searchTerm, setSearchTerm] = useState('');
@@ -56,7 +56,7 @@ const ExerciseBank = () => {
 
   return (
     <div>
-      <button onClick={openModal}>Open Exercise Bank Modal</button>
+      <button onClick={openModal}>Open Exercise Bank</button>
       {isModalOpen && (
         <ExerciseBankModal onClose={closeModal}>
           <h2>Exercise Bank</h2>
@@ -115,12 +115,16 @@ const ExerciseBank = () => {
             )}
           </div>
           <div className="button-container">
-            <button className="submit-button" id="exercise-bank-submit-button" onClick={handleSubmission}>
-              SUBMIT
-            </button>
-            <button className="cancel-button" id="exercise-bank-cancel-button" onClick={handleCancel}>
-              CANCEL
-            </button>
+            {!viewOnly && (
+              <>
+                <button className="submit-button" id="exercise-bank-submit-button" onClick={handleSubmission}>
+                  SUBMIT
+                </button>
+                <button className="cancel-button" id="exercise-bank-cancel-button" onClick={handleCancel}>
+                  CANCEL
+                </button>
+              </>
+            )}
           </div>
         </ExerciseBankModal>
       )}

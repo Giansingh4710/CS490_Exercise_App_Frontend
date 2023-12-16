@@ -25,11 +25,6 @@ const WaterInputModal = ({ setRecordedData }) => {
     }));
   };
 
-  // Log the unit whenever it changes
-  useEffect(() => {
-    console.log('Current Unit:', unit);
-  }, [unit]);
-
   return (
     <div>
       <link rel='stylesheet' href='./waterInput.css' />
