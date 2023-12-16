@@ -41,13 +41,6 @@ class ApiClient {
     })
   }
 
-  async getWorkoutPlan() {
-    return await this.request({
-      endpoint: `workoutPlan/assignedWorkouts`,
-      method: `GET`,
-    })
-  }
-
   async register(credentials) {
     return await this.request({
       endpoint: 'register',
@@ -68,6 +61,13 @@ class ApiClient {
   logoutUser() {
     this.setToken(null)
     localStorage.setItem(this.tokenName, '')
+  }
+
+  async deleteAccount(){
+    return await this.request({
+      endpoint: `user/deleteAccount`,
+      method: `DELETE`
+    })
   }
 
   // --------------- general requests -------------//
@@ -237,9 +237,9 @@ class ApiClient {
     })
   }
 
-  async dailyweight(data) {
+  async dailyweight() {
     return await this.request({
-      endpoint: `logActivity/dailyWeight`,
+      endpoint: `logActivity/dailyweight`,
       method: `GET`,
     })
   }
@@ -258,7 +258,40 @@ class ApiClient {
       data: data,
     })
   }
+
+  // Workout Plan / Exercises
+  async getExerciseData(exerciseID){
+    return await this.request({
+      endpoint: `exercises/${exerciseID}`,
+      method: `GET`
+    })
+  }
+
+  async getCoachAssignedWorkoutPlan() {
+    return await this.request({
+      endpoint: `workoutPlan/assignedWorkouts`,
+      method: `GET`,
+    })
+  }
+
+  async getPersonalWorkoutPlan() {
+    return await this.request({
+      endpoint: `workoutPlan/personalWorkouts`,
+      method: `GET`,
+    })
+  }
+
+  async clientAddExerciseToPlan(data){
+    return await this.request({
+      endpoint: `workoutPlan/client/addExercise`,
+      method: `POST`,
+      data: data
+    });
+  }
+
 }
+
+
 
 const apiClient = new ApiClient(API_BASE_URL)
 export default apiClient
