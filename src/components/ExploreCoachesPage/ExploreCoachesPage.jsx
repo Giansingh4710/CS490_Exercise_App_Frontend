@@ -30,7 +30,7 @@ export default function ExploreCoaches() {
       const specializationList = data.map((spec) => spec.specialties)
       setSpecializations(['Any Specialization', ...specializationList])
     } catch (error) {
-      setSpecializations(['Any specialization'])
+      setSpecializations(['Any Specialization'])
       throw new Error('Error fetching specializations')
     }
   }
