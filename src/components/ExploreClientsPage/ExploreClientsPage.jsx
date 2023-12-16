@@ -414,9 +414,12 @@ export function ClientView({
             </div>
 
             <div className='about-me'>
-              <h3 className='about-me-header'>About your client {selectedClient?.firstName}</h3>
+              <h3 className='about-me-header'>About {selectedClient?.firstName}</h3>
               <div>
                 {selectedClient?.firstName}'s goal: {selectedClient?.goal}{' '}
+              </div>
+              <div>
+                {selectedClient?.firstName}'s daily survey: {selectedClient?.dailySurvey}{' '}
               </div>
             </div>
           </div>
