@@ -1,10 +1,11 @@
 import React from 'react'
 import './ExploreClientsPage.css'
-import ClientView from './ClientView/ClientView'
 import { useState, useEffect } from 'react'
 import apiClient from '../../services/apiClient'
 import { Tabs } from '../ExploreComponents/Tabs/Tabs'
 import { List, ItemCard } from '../ExploreComponents/ItemList/ItemList'
+import { GreenAcceptButton, RedDeclineButton } from '../Buttons/Buttons'
+
 // components broken down:
 // ExploreClients is the overall page
 // ClientOverview is the search area for clients
@@ -19,6 +20,7 @@ export default function ExploreClients() {
   const [selectedClient, setSelectedClient] = useState({})
   const [selectedTab, setSelectedTab] = useState('Clients')
   const [modalIsOpen, setModalIsOpen] = useState(false)
+  const [searchTerm, setSearchTerm] = useState('')
 
   const fetchAllClients = async () => {
     setIsLoading(true)
@@ -30,6 +32,7 @@ export default function ExploreClients() {
     }
     if (error) {
       setClients([])
+      setClientsToDisplay([])
     }
     setIsLoading(false)
   }
@@ -41,9 +44,11 @@ export default function ExploreClients() {
     if (data) {
       const clients = data.map((item) => item.User)
       setNewRequests(clients)
+      setClientsToDisplay(clients)
     }
     if (error) {
       setClients([])
+      setClientsToDisplay([])
     }
     setIsLoading(false)
   }
@@ -95,23 +100,25 @@ export function ClientsOverview({
 }) {
   const [searchTerm, setSearchTerm] = useState('')
 
-  //   const [viewFilters, setViewFilters] = useState(false);
-  const handleOnRequestsTabClick = () => {
-    if (selectedTab == 'Clients') {
-      setSelectedTab('New Requests')
-      setClientsToDisplay(newRequests)
-    }
-  }
-
-  const handleOnClientsTabClick = () => {
-    if (selectedTab == 'New Requests') {
-      setSelectedTab('Clients')
-      setClientsToDisplay(clients)
-    }
-  }
   const tabs = [
-    { label: 'Clients', handler: handleOnClientsTabClick },
-    { label: 'New Requests', handler: handleOnRequestsTabClick },
+    {
+      label: 'Clients',
+      handler: () => {
+        if (selectedTab == 'New Requests') {
+          setSelectedTab('Clients')
+          setClientsToDisplay(clients)
+        }
+      },
+    },
+    {
+      label: 'New Requests',
+      handler: () => {
+        if (selectedTab == 'Clients') {
+          setSelectedTab('New Requests')
+          setClientsToDisplay(newRequests)
+        }
+      },
+    },
   ]
   const handleSearch = async () => {
     try {
@@ -122,6 +129,10 @@ export function ClientsOverview({
       // Handle the error appropriately
     }
   }
+
+  useEffect(() => {
+    handleSearch()
+  }, [searchTerm])
 
   return (
     <div className='clients-overview'>
@@ -137,30 +148,6 @@ export function ClientsOverview({
         selectedClient={selectedClient}
         selectedTab={selectedTab}
       />
-    </div>
-  )
-}
-
-export function ClientOrNewRequest({
-  selectedTab,
-  handleOnRequestsTabClick,
-  handleOnClientsTabClick,
-}) {
-  return (
-    <div className='clients-or-new-requests-tab'>
-      <div
-        className={selectedTab === 'Clients' ? 'clients-tab selected' : 'clients-tab'}
-        onClick={handleOnClientsTabClick}>
-        <p className='tab'>Clients</p>
-      </div>
-      <div className='divider'>|</div>
-      <div
-        className={
-          selectedTab === 'New Requests' ? 'new-requests-tab selected' : 'new-requests-tab'
-        }
-        onClick={handleOnRequestsTabClick}>
-        <p className='tab'>New Requests</p>
-      </div>
     </div>
   )
 }
@@ -263,5 +250,63 @@ export function ClientCard({ client, selectedClient, setSelectedClient, isLoadin
         </div>
       )}
     </>
+  )
+}
+
+export function ClientView({
+  selectedClient,
+  setSelectedClient,
+  loading,
+  setLoading,
+  setModalIsOpen,
+}) {
+  const handleOnDeclineClick = async () => {
+    setModalIsOpen(true)
+  }
+  const handleOnAcceptClick = async () => {
+    setModalIsOpen(true)
+  }
+  return selectedClient ? (
+    loading ? (
+      <>
+        <div className='client-view'>
+          <div className='client-header'>
+            <h2>Loading...</h2>
+          </div>
+        </div>
+      </>
+    ) : (
+      <>
+        <div className='client-view'>
+          <div className='client-header'>
+            <h2>
+              {selectedClient?.firstName} {selectedClient?.lastName}
+            </h2>
+            <RedDeclineButton handleOnClick={handleOnDeclineClick} />
+            <GreenAcceptButton handleOnClick={handleOnAcceptClick} />
+          </div>
+
+          <div className='client-details'>
+            <div className='client-location'>
+              <i className='material-icons'>location_on</i>
+              <div className='location-text'>
+                {selectedClient?.city}, {selectedClient?.state}
+              </div>
+            </div>
+
+            <div className='about-me'>
+              <h3 className='about-me-header'>ABOUT ME</h3>
+              <div>Specialties: {selectedClient?.specialties} </div>
+            </div>
+          </div>
+        </div>
+      </>
+    )
+  ) : (
+    <div className='client-view'>
+      <div className='client-header'>
+        <h2>No client selected</h2>
+      </div>
+    </div>
   )
 }
