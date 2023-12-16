@@ -30,6 +30,9 @@ export default function ManageExerciseBank() {
     setSelectedExercise(exercise);
   };
 
+  const addNewExercise = (newExercise) => {
+    setExercises([...exercises, newExercise]);
+  };
 
   return (
     <div className='manage-exercise-bank'>
@@ -41,6 +44,8 @@ export default function ManageExerciseBank() {
             <ExerciseOverview 
               exercises={exercises} 
               onSelectExercise={setSelectedExercise} 
+              onExerciseCreated={addNewExercise}  // Pass this function as a prop
+
             />
           </div>
           <div className="exercise-detail-container">
