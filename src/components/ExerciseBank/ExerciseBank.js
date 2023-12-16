@@ -2,12 +2,14 @@ import React, { useState, useEffect } from 'react';
 import ExerciseBankModal from './ExerciseModal/ExerciseModal';
 import './ExerciseBank.css';
 
-const ExerciseBank = ({ viewOnly }) => {
+const ExerciseBank = ({ viewOnly, onExerciseSelect }) => {
   const [exercises, setExercises] = useState([]);
   const [selectedMuscleGroup, setSelectedMuscleGroup] = useState('');
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedEquipment, setSelectedEquipment] = useState('');
   const [isModalOpen, setModalOpen] = useState(false);
+  const [selectedExerciseID, setSelectedExerciseID] = useState(null);
+  
 
   useEffect(() => {
     const fetchExercises = async () => {
@@ -26,6 +28,10 @@ const ExerciseBank = ({ viewOnly }) => {
     fetchExercises();
   }, []);
 
+  useEffect(() => {
+    setSelectedExerciseID(selectedExerciseID);
+  }, [selectedExerciseID])
+
   const filteredExercises = exercises
     ? exercises.filter((exercise) => {
         const isMuscleGroupMatch = !selectedMuscleGroup || exercise.muscleGroup.toLowerCase() === selectedMuscleGroup.toLowerCase() || selectedMuscleGroup === 'All';
@@ -39,11 +45,12 @@ const ExerciseBank = ({ viewOnly }) => {
   const equipmentOptions = exercises ? ['All', 'Barbell', 'Machine', 'Bodyweight', 'Dumbells', 'Bench Press', 'Other'] : [];
 
   const handleSubmission = () => {
-    console.log('Submitted!');
+    onExerciseSelect(selectedExerciseID);
+    setModalOpen(false);
   };
 
   const handleCancel = () => {
-    console.log('Cancelled!');
+    onExerciseSelect(null);
   };
 
   const openModal = () => {
@@ -52,6 +59,11 @@ const ExerciseBank = ({ viewOnly }) => {
 
   const closeModal = () => {
     setModalOpen(false);
+    onExerciseSelect(null);
+  };
+
+  const updateSelectedExerciseID = async (exerciseID) => {
+    setSelectedExerciseID(exerciseID);
   };
 
   return (
@@ -102,7 +114,7 @@ const ExerciseBank = ({ viewOnly }) => {
                 </thead>
                 <tbody>
                   {filteredExercises.map((exercise) => (
-                    <tr key={exercise.id !== undefined ? String(exercise.id) : Math.random().toString()}>
+                    <tr key={exercise.exerciseID} onClick={() => updateSelectedExerciseID(exercise.exerciseID)}>
                       <td>{exercise.name}</td>
                       <td>{exercise.difficulty}</td>
                       <td>{exercise.type}</td>
