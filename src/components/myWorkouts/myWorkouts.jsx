@@ -1,73 +1,70 @@
 import React, { useEffect, useState } from 'react';
-import ExerciseBankModal from './ExerciseBankModal'; // Import the modal component
-import apiClient from '../../services/apiClient'; // Update this path according to your project structure
+import "./MyWorkouts.css"; 
+import apiClient from "../../services/apiClient"; // Adjust the import path as necessary
+import ExerciseBank from '../ExerciseBank/ExerciseBank.js';
 
-function MyAssignedWorkouts() {
-  const [workoutPlan, setWorkoutPlan] = useState({});
-  const [isModalOpen, setModalOpen] = useState(false);
+export default function MyWorkouts() {
+    const [workoutPlan, setWorkoutPlan] = useState({});
 
-  useEffect(() => {
-    async function getWorkoutPlan() {
-      try {
-        const response = await apiClient.getWorkoutPlan();
-        if (response.data) {
-          setWorkoutPlan(response.data);
+    useEffect(() => {
+        async function getWorkoutPlan() {
+            try {
+                const response = await apiClient.getWorkoutPlan();
+                if (response.data) {
+                    setWorkoutPlan(response.data);
+                }
+            } catch (error) {
+                console.error("Error fetching workout plan:", error);
+            }
         }
-      } catch (error) {
-        console.error("Error fetching workout plan:", error);
-      }
-    }
-    getWorkoutPlan();
-  }, []);
+        getWorkoutPlan();
+    }, []);
 
-  const openModal = () => setModalOpen(true);
-  const closeModal = () => setModalOpen(false);
-
-  return (
-    <div className="my-assigned-workouts">
-      <MyWeeklySchedule workoutPlan={workoutPlan} onAddWorkout={openModal} />
-      {isModalOpen && <ExerciseBankModal onClose={closeModal} />}
-    </div>
-  );
+    return (
+        <div className="my-workouts">
+            <div className="my-workouts-container">
+                <div className="my-workouts-header-container">
+                    <h2 className="my-workouts-header">Workout Plan</h2>
+                    <WeeklySchedule workoutPlan={workoutPlan} />
+                </div>
+            </div>
+        </div>
+    );
 }
 
-function MyWeeklySchedule({ workoutPlan, onAddWorkout }) {
-  var weekdaySchedule = ["sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday"];
-  return (
-    <div className="my-weekly-schedule">
-      {weekdaySchedule.map((day, index) => (
-        <React.Fragment key={index}>
-          <div className='week-day'>{day.toUpperCase()}</div>
-          {workoutPlan[day] && workoutPlan[day].length > 0 ?
-            workoutPlan[day].map((exercise, exerciseIndex) => (
-              <DailySchedule key={exerciseIndex} day={day} exercise={exercise} />
-            ))
-            :
-            <NoWorkoutsAssigned />
-          }
-          <button onClick={onAddWorkout}>+ Add a new workout</button>
-          <hr />
-        </React.Fragment>
-      ))}
-    </div>
-  );
+function WeeklySchedule({ workoutPlan }) {
+    var weekdaySchedule = ["sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday"];
+    return (
+        <div className="weekly-schedule">
+            {weekdaySchedule.map((day, index) => (
+                <div key={index}>
+                    <div className='week-day'>{day.toUpperCase()}</div>
+                    {workoutPlan[day] && workoutPlan[day].length > 0 ?
+                        workoutPlan[day].map((exercise, exerciseIndex) => (
+                            <DailySchedule key={exerciseIndex} day={day} exercise={exercise} />
+                        ))
+                        :
+                        <NoWorkoutsAssigned />
+                    }
+                            <ExerciseBank viewOnly={false}/>
+                    <hr></hr>
+                </div>
+            ))}
+        </div>
+    );
 }
-
 function DailySchedule({ day, exercise }) {
-  const hasReps = Array.isArray(exercise.reps) && exercise.reps.length > 0;
-
-  return (
-    <div className='day-card'>
-      <table className='workout-card'>
-        <thead>
+    const hasReps = Array.isArray(exercise.reps) && exercise.reps.length > 0;
+  
+    return (
+      <div className='day-card'>
+        <table className='workout-card'>
           <tr>
             <th>Exercise</th>
             <th>Set #</th>
             {exercise.metric === 'Reps' ? <th># of Reps</th> : <th>Duration</th>}
             <th>Weight</th>
           </tr>
-        </thead>
-        <tbody>
           {hasReps ? (
             exercise.reps.map((rep, index) => (
               <tr key={index}>
@@ -82,18 +79,16 @@ function DailySchedule({ day, exercise }) {
               <td colSpan="4">No sets data available</td>
             </tr>
           )}
-        </tbody>
-      </table>
-    </div>
-  );
-}
+        </table>
+      </div>
+    );
+  }
+  
 
 function NoWorkoutsAssigned() {
-  return (
-    <div className='day-card'>
-      <p className='no-workout-text'>No workouts assigned!</p>
-    </div>
-  );
+    return (
+        <div className='day-card'>
+            <p className='no-workout-text'>No workouts assigned!</p>
+        </div>
+    );
 }
-
-export default MyAssignedWorkouts;
