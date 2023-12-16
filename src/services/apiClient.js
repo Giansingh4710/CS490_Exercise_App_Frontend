@@ -289,6 +289,32 @@ class ApiClient {
     });
   }
 
+
+
+  
+  async getAllPending() {
+    return await this.request({
+      endpoint: `/coachApply/allPending`,
+      method: `GET`,
+    })
+  }
+
+
+  async deleteExercise(exerciseID) {
+    return await this.request({
+      endpoint: `exercises/deleteExercise?exerciseID=${exerciseID}`,
+      method: 'GET',
+    });
+  }
+ 
+  async createNewRequestForCoachingFromClient(data) {
+    console.log(data)
+    return await this.request({
+      endpoint: `request`,
+      method: `POST`,
+      data: data,
+    })
+  }
 }
 
 

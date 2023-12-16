@@ -3,6 +3,7 @@ import './CoachView.css'
 import apiClient from '../../../services/apiClient'
 import { useState, useEffect } from 'react'
 import { BlueRequestButton, RedCancelButton } from '../../Buttons/Buttons'
+import { useAuthContext } from '../../../contexts/auth'
 
 export default function CoachView({
   selectedCoach,
@@ -16,8 +17,15 @@ export default function CoachView({
   fetchSentRequests,
 }) {
   const [error, setError] = useState('')
+  const { user } = useAuthContext()
   const handleOnRequestClick = async () => {
-    setModalIsOpen(true)
+    console.log('USER:', user)
+    if (user.role === null || user.role === '') {
+      setError('Please fill out initial survey on dashboard before requesting a coach.')
+    } else {
+      setError('')
+      setModalIsOpen(true)
+    }
   }
 
   const handleOnCancelClick = async () => {
@@ -42,10 +50,12 @@ export default function CoachView({
     ) : (
       <>
         <div className='coach-view'>
+          <div className='error'>{error ? <p>{error}</p> : <></>}</div>
           <div className='coach-header'>
             <h2>
               {selectedCoach?.firstName} {selectedCoach?.lastName}
             </h2>
+
             {/*if request is empty, show request button, otherwise show cancel button*/}
             {requestStatusForSelectedCoach?.exists ? (
               <RedCancelButton
