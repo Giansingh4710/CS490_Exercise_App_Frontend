@@ -20,19 +20,47 @@ export default function CoachesOverview({
   setRequestStatusForSelectedCoach,
   specializations,
 }) {
-  const [selectedTab, setSelectedTab] = useState('Coaches')
-  const [locations, setLocations] = useState([{ state: 'Any State', cities: [] }])
-
+  // search/filter managemnet
   const [searchTerm, setSearchTerm] = useState('')
   const [selectedSpecialization, setSelectedSpecialization] = useState('')
   const [selectedMaxPrice, setSelectedMaxPrice] = useState('')
   const [selectedState, setSelectedState] = useState('')
   const [selectedCity, setSelectedCity] = useState('')
-
+  const handleSearch = async () => {
+    try {
+      const { data, error } = await apiClient.getAllCoachesBySearchTermAndFilters(
+        searchTerm,
+        selectedSpecialization,
+        selectedMaxPrice,
+        selectedState,
+        selectedCity,
+      )
+      setCoachesToDisplay(data)
+    } catch (error) {
+      console.error('Error fetching coaches:', error)
+    }
+  }
   useEffect(() => {
     handleSearch()
   }, [searchTerm, selectedSpecialization, selectedMaxPrice, selectedState, selectedCity])
 
+  // location management
+  const [locations, setLocations] = useState([{ state: 'Any State', cities: [] }])
+  const fetchLocations = async () => {
+    try {
+      const { data, error } = await apiClient.getCoachLocations()
+      setLocations(data)
+    } catch (error) {
+      setLocations([{ state: 'Any State', cities: [] }])
+      throw new Error('Error fetching states and cities')
+    }
+  }
+  useEffect(() => {
+    fetchLocations()
+  }, [])
+
+  // tab management
+  const [selectedTab, setSelectedTab] = useState('Coaches')
   const tabs = [
     {
       label: 'Coaches',
@@ -54,35 +82,6 @@ export default function CoachesOverview({
     },
   ]
 
-  const fetchLocations = async () => {
-    try {
-      const { data, error } = await apiClient.getCoachLocations()
-      setLocations(data)
-    } catch (error) {
-      setLocations([{ state: 'Any State', cities: [] }])
-      throw new Error('Error fetching states and cities')
-    }
-  }
-
-  const handleSearch = async () => {
-    try {
-      const { data, error } = await apiClient.getAllCoachesBySearchTermAndFilters(
-        searchTerm,
-        selectedSpecialization,
-        selectedMaxPrice,
-        selectedState,
-        selectedCity,
-      )
-      setCoachesToDisplay(data)
-    } catch (error) {
-      console.error('Error fetching coaches:', error)
-    }
-  }
-
-  useEffect(() => {
-    fetchLocations()
-  }, [])
-
   return (
     <div className='coaches-overview'>
       <Tabs tabs={tabs} activeTab={selectedTab} />
@@ -91,6 +90,8 @@ export default function CoachesOverview({
         setSearchTerm={setSearchTerm}
         handleSearch={handleSearch}
       />
+
+      {/* conditionally render the filter options based on the selectedTab */}
       {selectedTab === 'Coaches' ? (
         <FilterForCoaches
           specializations={specializations}
