@@ -15,6 +15,7 @@ class ApiClient {
 
   async request({ endpoint, method = 'GET', data = {} }) {
     const url = `${this.remoteHostUrl}/${endpoint}`
+    console.log(url)
 
     const headers = {
       'Content-Type': 'application/json',
@@ -23,6 +24,7 @@ class ApiClient {
 
     try {
       const res = await axios({ url, method, data, headers })
+      console.log(res)
       return { data: res.data, error: null }
     } catch (error) {
       console.error({ errorResponse: error.response })
@@ -244,6 +246,20 @@ class ApiClient {
     })
   }
 
+  async getMeals() {
+    return await this.request({
+      endpoint: `/meals`,
+      method: `GET`,
+    })
+  }
+
+  async deleteMeal(mealID) {
+    return await this.request({
+      endpoint: `/meals/${mealID}`,
+      method: `DELETE`,
+    })
+  }
+
   async dailyweight() {
     return await this.request({
       endpoint: `logActivity/dailyweight`,
@@ -295,7 +311,31 @@ class ApiClient {
       data: data,
     })
   }
+
+  async getAllPending() {
+    return await this.request({
+      endpoint: `/coachApply/allPending`,
+      method: `GET`,
+    })
+  }
+
+  async deleteExercise(exerciseID) {
+    return await this.request({
+      endpoint: `exercises/deleteExercise?exerciseID=${exerciseID}`,
+      method: 'GET',
+    })
+  }
+
+  async createNewRequestForCoachingFromClient(data) {
+    console.log(data)
+    return await this.request({
+      endpoint: `request`,
+      method: `POST`,
+      data: data,
+    })
+  }
 }
 
+// console.log(API_BASE_URL);
 const apiClient = new ApiClient(API_BASE_URL)
 export default apiClient
