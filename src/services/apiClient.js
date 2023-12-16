@@ -63,10 +63,10 @@ class ApiClient {
     localStorage.setItem(this.tokenName, '')
   }
 
-  async deleteAccount(){
+  async deleteAccount() {
     return await this.request({
       endpoint: `user/deleteAccount`,
-      method: `DELETE`
+      method: `DELETE`,
     })
   }
 
@@ -209,7 +209,7 @@ class ApiClient {
 
   async getClientByID(clientID) {
     return await this.request({
-      endpoint: `client/${clientID}`,
+      endpoint: `coaches/clientInfo?userID=${clientID}`,
       method: `GET`,
     })
   }
@@ -260,10 +260,10 @@ class ApiClient {
   }
 
   // Workout Plan / Exercises
-  async getExerciseData(exerciseID){
+  async getExerciseData(exerciseID) {
     return await this.request({
       endpoint: `exercises/${exerciseID}`,
-      method: `GET`
+      method: `GET`,
     })
   }
 
@@ -281,17 +281,14 @@ class ApiClient {
     })
   }
 
-  async clientAddExerciseToPlan(data){
+  async clientAddExerciseToPlan(data) {
     return await this.request({
       endpoint: `workoutPlan/client/addExercise`,
       method: `POST`,
-      data: data
-    });
+      data: data,
+    })
   }
-
 }
-
-
 
 const apiClient = new ApiClient(API_BASE_URL)
 export default apiClient
