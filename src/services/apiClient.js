@@ -192,6 +192,13 @@ class ApiClient {
   }
 
   // ----------------------- requests to get client info for a coach ----------------------- //
+  async getUsersCoachID() {
+    return await this.request({
+      endpoint: `coaches/getCoachID`,
+      method: `GET`,
+    })
+  }
+
   // open requests that the logged in COACH has not answered
   async getOpenRequestsForCoach() {
     return await this.request({
@@ -200,9 +207,9 @@ class ApiClient {
     })
   }
 
-  async getCoachesClients(coachID) {
+  async getCoachesClients() {
     return await this.request({
-      endpoint: `coach/:${coachID}/clients`,
+      endpoint: `coaches/clients`,
       method: `GET`,
     })
   }

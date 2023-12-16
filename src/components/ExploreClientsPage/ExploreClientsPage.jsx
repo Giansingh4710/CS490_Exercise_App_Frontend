@@ -21,6 +21,17 @@ export default function ExploreClients() {
   const [selectedTab, setSelectedTab] = useState('Clients')
   const [modalIsOpen, setModalIsOpen] = useState(false)
   const [searchTerm, setSearchTerm] = useState('')
+  const [requestStatusForSelectedClient, setRequestStatusForSelectedCoach] = useState({})
+  const [usersCoachID, setUsersCoachID] = useState()
+
+  const fetchUsersCoachID = async () => {
+    const { data, error } = await apiClient.getUsersCoachID()
+    if (data) {
+      setUsersCoachID(data.coachID)
+    } else {
+      setUsersCoachID('')
+    }
+  }
 
   const fetchAllClients = async () => {
     setIsLoading(true)
@@ -43,7 +54,7 @@ export default function ExploreClients() {
     const { data, error } = await apiClient.getOpenRequestsForCoach()
     if (data) {
       const clients = data.map((item) => item.User)
-      setNewRequests(clients)
+      setNewRequests(data)
       setClientsToDisplay(clients)
     }
     if (error) {
@@ -54,10 +65,15 @@ export default function ExploreClients() {
   }
 
   useEffect(() => {
-    fetchAllClients()
-    fetchNewRequests()
+    fetchUsersCoachID()
+
     setSelectedClient(null)
   }, [])
+
+  useEffect(() => {
+    fetchAllClients()
+    fetchNewRequests()
+  }, [usersCoachID])
 
   return (
     <>
@@ -80,6 +96,9 @@ export default function ExploreClients() {
           loading={isLoading}
           setLoading={setIsLoading}
           setModalIsOpen={setModalIsOpen}
+          clients={clients}
+          newRequests={newRequests}
+          fetchAllClients={fetchAllClients}
         />
       </div>
     </>
@@ -115,11 +134,13 @@ export function ClientsOverview({
       handler: () => {
         if (selectedTab == 'Clients') {
           setSelectedTab('New Requests')
-          setClientsToDisplay(newRequests)
+          const clientsFromRequests = newRequests.map((request) => request.User)
+          setClientsToDisplay(clientsFromRequests)
         }
       },
     },
   ]
+
   const handleSearch = async () => {
     try {
       const { data, error } = await apiClient.getAllClientsBySearchTerm(searchTerm)
@@ -147,6 +168,7 @@ export function ClientsOverview({
         setSelectedClient={setSelectedClient}
         selectedClient={selectedClient}
         selectedTab={selectedTab}
+        newRequests={newRequests}
       />
     </div>
   )
@@ -182,7 +204,7 @@ export function SearchForClientByName({ setSearchTerm, searchTerm, handleSearch 
 
 export function ClientList({ clients, setSelectedClient, selectedClient, selectedTab }) {
   useEffect(() => {}, [selectedTab])
-
+  console.log('Clients to display:', clients)
   const handleOnClientClick = async (client) => {
     try {
       const { data, error } = await apiClient.getClientByID(client.userID)
@@ -259,13 +281,52 @@ export function ClientView({
   loading,
   setLoading,
   setModalIsOpen,
+  clients,
+  newRequests,
+  fetchAllClients,
 }) {
   const handleOnDeclineClick = async () => {
-    setModalIsOpen(true)
+    const matchingRequest = newRequests.find(
+      (request) => request.User.userID === selectedClient.userID,
+    )
+    if (matchingRequest) {
+      const reqID = matchingRequest.requestID
+      try {
+        const { data, error } = await apiClient.declineRequest(reqID)
+        if (data) {
+          console.log('Request declined', data)
+        } else if (error) {
+          console.error('Error declining request:', error)
+        }
+      } catch (err) {
+        console.error('Error:', err)
+      }
+    } else {
+      console.log('No matching request found for selected client.')
+    }
   }
   const handleOnAcceptClick = async () => {
-    setModalIsOpen(true)
+    const matchingRequest = newRequests.find(
+      (request) => request.User.userID === selectedClient.userID,
+    )
+    if (matchingRequest) {
+      const reqID = matchingRequest.requestID
+      try {
+        const { data, error } = await apiClient.acceptRequest(reqID)
+        if (data) {
+          console.log('Request Accepted', data)
+          fetchAllClients()
+        } else if (error) {
+          console.error('Error accepting request:', error)
+        }
+      } catch (err) {
+        console.error('Error:', err)
+      }
+    } else {
+      console.log('No matching request found for selected client.')
+    }
   }
+
   return selectedClient ? (
     loading ? (
       <>
@@ -282,6 +343,7 @@ export function ClientView({
             <h2>
               {selectedClient?.firstName} {selectedClient?.lastName}
             </h2>
+
             <RedDeclineButton handleOnClick={handleOnDeclineClick} />
             <GreenAcceptButton handleOnClick={handleOnAcceptClick} />
           </div>

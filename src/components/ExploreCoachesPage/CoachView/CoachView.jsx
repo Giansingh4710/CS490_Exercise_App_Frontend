@@ -19,7 +19,6 @@ export default function CoachView({
   const [error, setError] = useState('')
   const { user } = useAuthContext()
   const handleOnRequestClick = async () => {
-    console.log('USER:', user)
     if (user.role === null || user.role === '') {
       setError('Please fill out initial survey on dashboard before requesting a coach.')
     } else {
