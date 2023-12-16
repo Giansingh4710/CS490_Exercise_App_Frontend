@@ -9,7 +9,7 @@ export default function RequestCoachModal({
   coach,
   setModalIsOpen,
   specializations,
-  setNotes,
+  fetchRequestStatus,
 }) {
   const { user } = useAuthContext()
   const [goal, setGoal] = useState('')
@@ -23,10 +23,9 @@ export default function RequestCoachModal({
       note: message,
     })
     if (data) {
-      setNotes('')
+      fetchRequestStatus(coach.coachID)
       setModalIsOpen(false)
     } else {
-      setNotes('Error sending request')
       setModalIsOpen(false)
       setShowErrorDialog(true)
     }

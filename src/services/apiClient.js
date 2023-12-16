@@ -84,6 +84,27 @@ class ApiClient {
       method: `GET`,
     })
   }
+
+  // --------------- accept/decline/cancel requests -------------//
+  async acceptRequest(requestID) {
+    return await this.request({
+      endpoint: `request/accept?requestID=${requestID}`,
+      method: `GET`,
+    })
+  }
+  async declineRequest(requestID) {
+    return await this.request({
+      endpoint: `request/decline?requestID=${requestID}`,
+      method: `GET`,
+    })
+  }
+  async cancelRequest(requestID) {
+    return await this.request({
+      endpoint: `request/cancel?requestID=${requestID}`,
+      method: `GET`,
+    })
+  }
+
   // ----------------------- coaches requests ----------------------- //
   async getAllCoaches() {
     return await this.request({

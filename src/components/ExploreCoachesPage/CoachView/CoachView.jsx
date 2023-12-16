@@ -2,13 +2,7 @@ import React from 'react'
 import './CoachView.css'
 import apiClient from '../../../services/apiClient'
 import { useState, useEffect } from 'react'
-import {
-  BlueCancelButton,
-  BlueRequestButton,
-  GreenAcceptButton,
-  RedCancelButton,
-  RedDeclineButton,
-} from '../../Buttons/Buttons'
+import { BlueRequestButton, RedCancelButton } from '../../Buttons/Buttons'
 
 export default function CoachView({
   selectedCoach,
@@ -17,32 +11,29 @@ export default function CoachView({
   setLoading,
   setModalIsOpen,
   requestStatusForSelectedCoach,
-  notes,
   setShowErrorDialog,
+  fetchRequestStatus,
+  fetchSentRequests,
 }) {
   const [error, setError] = useState('')
-  console.log('SELECRTED OBJCET:', selectedCoach)
   const handleOnRequestClick = async () => {
     setModalIsOpen(true)
   }
 
   const handleOnCancelClick = async () => {
-    setModalIsOpen(false)
-    // call endpoint to update request to be canceled
+    if (requestStatusForSelectedCoach.status === 'Pending') {
+      const { data, error } = await apiClient.cancelRequest(requestStatusForSelectedCoach.requestID)
+      if (data) {
+        console.log('Successfully canceled request', data)
+        fetchRequestStatus()
+        fetchSentRequests()
+      }
+    }
   }
   return selectedCoach ? (
     loading ? (
       <>
         <div className='coach-view'>
-          {notes !== '' ? (
-            <div className='coach-view-notes'>
-              {' '}
-              <p>{notes}</p>
-            </div>
-          ) : (
-            <></>
-          )}
-
           <div className='coach-header'>
             <h2>Loading...</h2>
           </div>
@@ -56,13 +47,13 @@ export default function CoachView({
               {selectedCoach?.firstName} {selectedCoach?.lastName}
             </h2>
             {/*if request is empty, show request button, otherwise show cancel button*/}
-            {requestStatusForSelectedCoach === '' || requestStatusForSelectedCoach === null ? (
-              <BlueRequestButton handleOnClick={handleOnRequestClick} />
-            ) : (
+            {requestStatusForSelectedCoach?.exists ? (
               <RedCancelButton
                 handleOnClick={handleOnCancelClick}
                 title={'Cancel your outgoing request'}
               />
+            ) : (
+              <BlueRequestButton handleOnClick={handleOnRequestClick} />
             )}
           </div>
 

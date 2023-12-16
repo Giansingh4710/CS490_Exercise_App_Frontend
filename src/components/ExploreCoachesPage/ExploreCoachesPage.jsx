@@ -5,6 +5,7 @@ import CoachView from './CoachView/CoachView'
 import { useState, useEffect } from 'react'
 import apiClient from '../../services/apiClient'
 import RequestCoachModal from './RequestCoachModal/RequestCoachModal'
+import { useAuthContext } from '../../contexts/auth'
 
 // components broken down:
 // ExploreCoaches is the overall page
@@ -14,7 +15,6 @@ import RequestCoachModal from './RequestCoachModal/RequestCoachModal'
 export default function ExploreCoaches() {
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState('')
-  const [notes, setNotes] = useState('')
   const [coaches, setCoaches] = useState([])
   const [sentRequests, setSentRequests] = useState([])
   const [coachesToDisplay, setCoachesToDisplay] = useState([])
@@ -23,7 +23,7 @@ export default function ExploreCoaches() {
   const [requestStatusForSelectedCoach, setRequestStatusForSelectedCoach] = useState('')
   const [specializations, setSpecializations] = useState(['Any Specialization'])
   const [showErrorDialog, setShowErrorDialog] = useState(false)
-
+  const { user } = useAuthContext()
   const fetchSpecializations = async () => {
     try {
       const { data, error } = await apiClient.getCoachSpecializations()
@@ -61,6 +61,24 @@ export default function ExploreCoaches() {
     setIsLoading(false)
   }
 
+  const fetchRequestStatus = async (coachID) => {
+    const { data, error } = await apiClient.getRequestStatus({
+      userID: user.id,
+      coachID: coachID,
+    })
+    if (data) {
+      console.log('Request status!:', data)
+      if (data?.exists == true) {
+        setRequestStatusForSelectedCoach(data)
+      } else {
+        setRequestStatusForSelectedCoach('')
+      }
+    }
+    if (error) {
+      setRequestStatusForSelectedCoach('')
+    }
+  }
+
   useEffect(() => {
     fetchAllCoaches()
     fetchSentRequests()
@@ -72,6 +90,16 @@ export default function ExploreCoaches() {
     fetchSentRequests()
   }, [modalIsOpen])
 
+  useEffect(() => {
+    fetchSentRequests()
+    console.log('COACHES:', coaches)
+  }, [coaches])
+
+  useEffect(() => {
+    console.log('Selected coach', selectedCoach)
+    fetchRequestStatus(selectedCoach?.coachID)
+  }, [selectedCoach])
+
   return (
     <>
       {/* conditionally render the Modal to send a request  */}
@@ -80,8 +108,8 @@ export default function ExploreCoaches() {
           setModalIsOpen={setModalIsOpen}
           coach={selectedCoach}
           specializations={specializations}
-          setNotes={setNotes}
           setShowErrorDialog={setShowErrorDialog}
+          fetchRequestStatus={fetchRequestStatus}
         />
       )}
       {showErrorDialog && (
@@ -125,8 +153,9 @@ export default function ExploreCoaches() {
           setLoading={setIsLoading}
           setModalIsOpen={setModalIsOpen}
           requestStatusForSelectedCoach={requestStatusForSelectedCoach}
-          notes={notes}
           setShowErrorDialog={setShowErrorDialog}
+          fetchRequestStatus={fetchRequestStatus}
+          fetchSentRequests={fetchSentRequests}
         />
       </div>
     </>

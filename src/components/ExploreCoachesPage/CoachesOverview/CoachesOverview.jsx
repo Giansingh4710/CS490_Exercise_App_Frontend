@@ -6,6 +6,7 @@ import { useEffect } from 'react'
 import { Tabs } from '../../ExploreComponents/Tabs/Tabs'
 import { List, ItemCard } from '../../ExploreComponents/ItemList/ItemList'
 import { useAuthContext } from '../../../contexts/auth'
+import Dropdown from '../../ExploreComponents/Dropdown/Dropdown'
 
 export default function CoachesOverview({
   coaches,
@@ -90,18 +91,22 @@ export default function CoachesOverview({
         setSearchTerm={setSearchTerm}
         handleSearch={handleSearch}
       />
-      <FilterForCoaches
-        specializations={specializations}
-        locations={locations}
-        selectedSpecialization={selectedSpecialization}
-        setSelectedSpecialization={setSelectedSpecialization}
-        selectedMaxPrice={selectedMaxPrice}
-        setSelectedMaxPrice={setSelectedMaxPrice}
-        selectedState={selectedState}
-        setSelectedState={setSelectedState}
-        selectedCity={selectedCity}
-        setSelectedCity={setSelectedCity}
-      />
+      {selectedTab === 'Coaches' ? (
+        <FilterForCoaches
+          specializations={specializations}
+          locations={locations}
+          selectedSpecialization={selectedSpecialization}
+          setSelectedSpecialization={setSelectedSpecialization}
+          selectedMaxPrice={selectedMaxPrice}
+          setSelectedMaxPrice={setSelectedMaxPrice}
+          selectedState={selectedState}
+          setSelectedState={setSelectedState}
+          selectedCity={selectedCity}
+          setSelectedCity={setSelectedCity}
+        />
+      ) : (
+        <></>
+      )}
       <CoachList
         coaches={coachesToDisplay}
         setSelectedCoach={setSelectedCoach}
@@ -152,65 +157,6 @@ export function FilterForCoaches({
   selectedCity,
   setSelectedCity,
 }) {
-  return (
-    <div className='filter-container'>
-      <div className='filter-label'>
-        <span class='material-symbols-outlined'>filter_alt</span>
-        <p>Filters</p>
-      </div>
-      <div className='filter-select-container'>
-        <SpecializationDropdown
-          specializations={specializations}
-          selectedSpecialization={selectedSpecialization}
-          setSelectedSpecialization={setSelectedSpecialization}
-        />
-        <LocationDropdown
-          locations={locations}
-          selectedCity={selectedCity}
-          selectedState={selectedState}
-          setSelectedCity={setSelectedCity}
-          setSelectedState={setSelectedState}
-        />
-        <MaxPrice selectedMaxPrice={selectedMaxPrice} setSelectedMaxPrice={setSelectedMaxPrice} />
-      </div>
-    </div>
-  )
-}
-
-export function SpecializationDropdown({
-  specializations,
-  selectedSpecialization,
-  setSelectedSpecialization,
-}) {
-  return (
-    <div className='select-dropdown'>
-      <select
-        required
-        name='selectList'
-        id='selectList'
-        placeholder='Select specialization'
-        onChange={(evt) => {
-          setSelectedSpecialization(
-            evt.target.value === 'Any Specialization' ? '' : evt.target.value,
-          )
-        }}
-        value={selectedSpecialization}>
-        {specializations?.map((c) => (
-          <option value={c} key={c}>
-            {c}
-          </option>
-        ))}
-      </select>
-    </div>
-  )
-}
-export function LocationDropdown({
-  locations,
-  selectedState,
-  setSelectedState,
-  selectedCity,
-  setSelectedCity,
-}) {
   const states = ['Any State', ...locations.map((location) => location.state)]
   const [cities, setCities] = useState(['Any City'])
 
@@ -222,49 +168,48 @@ export function LocationDropdown({
   }, [selectedState])
 
   return (
-    <div className='select-location-container'>
-      <select
-        name='selectList'
-        id='selectList'
-        placeholder='Select state'
-        onChange={(evt) => {
-          setSelectedState(evt.target.value == 'Any State' ? '' : evt.target.value)
-        }}
-        value={selectedState}>
-        {states?.map((state) => (
-          <option value={state} key={state}>
-            {state}
-          </option>
-        ))}
-      </select>
-      <select
-        name='cityList'
-        id='cityList'
-        placeholder='Select city'
-        value={selectedCity}
-        onChange={(evt) => {
-          setSelectedCity(evt.target.value === 'Any City' ? '' : evt.target.value)
-        }}>
-        {cities.map((city, index) => (
-          <option key={index} value={city}>
-            {city}
-          </option>
-        ))}
-      </select>
-    </div>
-  )
-}
-export function MaxPrice({ selectedMaxPrice, setSelectedMaxPrice }) {
-  return (
-    <div className='select-price-input'>
-      <input
-        name='selectPrice'
-        placeholder='Type in a maximum monthly price'
-        onChange={(evt) => {
-          setSelectedMaxPrice(evt.target.value)
-        }}
-        value={selectedMaxPrice}
-      />
+    <div className='filter-container'>
+      <div className='filter-label'>
+        <span class='material-symbols-outlined'>filter_alt</span>
+        <p>Filters</p>
+      </div>
+      <div className='filter-select-container'>
+        <Dropdown
+          options={specializations}
+          value={selectedSpecialization}
+          onChange={(evt) => {
+            setSelectedSpecialization(
+              evt.target.value === 'Any Specialization' ? '' : evt.target.value,
+            )
+          }}
+        />
+        <div className='select-location-container'>
+          <Dropdown
+            options={states}
+            value={selectedState}
+            onChange={(evt) => {
+              setSelectedState(evt.target.value == 'Any State' ? '' : evt.target.value)
+            }}
+          />
+          <Dropdown
+            options={cities}
+            value={selectedCity}
+            onChange={(evt) => {
+              setSelectedCity(evt.target.value === 'Any City' ? '' : evt.target.value)
+            }}
+          />
+        </div>
+        <div className='select-price-input'>
+          <input
+            name='selectPrice'
+            placeholder='Type in a maximum monthly price'
+            onChange={(evt) => {
+              setSelectedMaxPrice(evt.target.value)
+            }}
+            value={selectedMaxPrice}
+          />
+        </div>{' '}
+      </div>
     </div>
   )
 }
@@ -276,6 +221,8 @@ export function CoachList({
   selectedTab,
   setRequestStatusForSelectedCoach,
 }) {
+  console.log('COACHES', coaches)
+  console.log('SELECTEDTAB:', selectedTab)
   const { user } = useAuthContext()
   const handleOnCoachClick = async (coach) => {
     try {
@@ -294,7 +241,7 @@ export function CoachList({
     })
     if (data) {
       if (data?.exists == true) {
-        setRequestStatusForSelectedCoach(data?.status)
+        setRequestStatusForSelectedCoach(data)
       } else {
         setRequestStatusForSelectedCoach('')
       }
