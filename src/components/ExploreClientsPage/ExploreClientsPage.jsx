@@ -7,6 +7,7 @@ import { Tabs } from '../ExploreComponents/Tabs/Tabs'
 import { List, ItemCard } from '../ExploreComponents/ItemList/ItemList'
 import { GreenAcceptButton, RedDeclineButton, MailIconButton } from '../Buttons/Buttons'
 import { useAuthContext } from '../../contexts/auth'
+import Modal from '../Modal/Modal'
 
 // components broken down:
 // ExploreClients is the overall page
@@ -25,6 +26,7 @@ export default function ExploreClients() {
   const [searchTerm, setSearchTerm] = useState('')
   const [requestStatusForSelectedClient, setRequestStatusForSelectedCoach] = useState({})
   const [usersCoachID, setUsersCoachID] = useState()
+  const [termianteModalIsOpen, setTerminateModalIsOpen] = useState(false)
 
   const { user } = useAuthContext()
   const fetchUsersCoachID = async () => {
@@ -56,13 +58,11 @@ export default function ExploreClients() {
     setError(null)
     const { data, error } = await apiClient.getOpenRequestsForCoach()
     if (data) {
-      const clients = data.map((item) => item.User)
+      const clients = data?.map((item) => item.User)
       setNewRequests(data)
-      setClientsToDisplay(clients)
     }
     if (error) {
       setClients([])
-      setClientsToDisplay([])
     }
     setIsLoading(false)
   }
@@ -89,6 +89,20 @@ export default function ExploreClients() {
   }
 
   useEffect(() => {
+    try {
+      const filteredClients = clients.filter(
+        (client) =>
+          client.firstName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          client.lastName.toLowerCase().includes(searchTerm.toLowerCase()),
+      )
+      setClientsToDisplay(filteredClients)
+    } catch (error) {
+      console.error('Error fetching clients:', error)
+    }
+  }, [searchTerm])
+
+  useEffect(() => {
+    fetchAllClients()
     fetchUsersCoachID()
     fetchRequestStatus()
     setSelectedClient(null)
@@ -105,36 +119,54 @@ export default function ExploreClients() {
 
   return (
     <>
-      {messageModalIsOpen ? (
+      {messageModalIsOpen && (
         <Messaging user={selectedClient} setModalIsOpen={setMessageModalIsOpen} />
-      ) : (
-        <></>
+      )}
+      {termianteModalIsOpen && (
+        <TerminateClientModal
+          setTerminateModalIsOpen={setTerminateModalIsOpen}
+          selectedClient={selectedClient}
+        />
       )}
 
-      <div className={messageModalIsOpen ? 'explore-clients blurred' : 'explore-clients'}>
-        <ClientsOverview
-          clients={clients}
-          setClients={setClients}
-          setSelectedClient={setSelectedClient}
-          selectedClient={selectedClient}
-          clientsToDisplay={clientsToDisplay}
-          setClientsToDisplay={setClientsToDisplay}
-          newRequests={newRequests}
-          fetchNewRequests={fetchNewRequests}
-          selectedTab={selectedTab}
-          setSelectedTab={setSelectedTab}
-        />
-        <ClientView
-          selectedClient={selectedClient}
-          setSelectedClient={setSelectedClient}
-          loading={isLoading}
-          setLoading={setIsLoading}
-          setMessageModalIsOpen={setMessageModalIsOpen}
-          clients={clients}
-          newRequests={newRequests}
-          fetchAllClients={fetchAllClients}
-          requestStatusForSelectedClient={requestStatusForSelectedClient}
-        />
+      <div
+        className={
+          messageModalIsOpen || termianteModalIsOpen ? 'explore-clients blurred' : 'explore-clients'
+        }>
+        <div className='explore-clients-content'>
+          <ClientsOverview
+            clients={clients}
+            setClients={setClients}
+            setSelectedClient={setSelectedClient}
+            selectedClient={selectedClient}
+            clientsToDisplay={clientsToDisplay}
+            setClientsToDisplay={setClientsToDisplay}
+            newRequests={newRequests}
+            fetchNewRequests={fetchNewRequests}
+            selectedTab={selectedTab}
+            setSelectedTab={setSelectedTab}
+          />
+          <ClientView
+            selectedClient={selectedClient}
+            setSelectedClient={setSelectedClient}
+            loading={isLoading}
+            setLoading={setIsLoading}
+            setMessageModalIsOpen={setMessageModalIsOpen}
+            clients={clients}
+            newRequests={newRequests}
+            fetchAllClients={fetchAllClients}
+            requestStatusForSelectedClient={requestStatusForSelectedClient}
+          />
+        </div>
+        {selectedClient && requestStatusForSelectedClient !== 'Pending' ? (
+          <div className='terminate-client-area'>
+            <p className='terminate-text' onClick={() => setTerminateModalIsOpen(true)}>
+              Terminate your contract with {selectedClient?.firstName} {selectedClient?.lastName}
+            </p>
+          </div>
+        ) : (
+          <></>
+        )}
       </div>
     </>
   )
@@ -321,7 +353,6 @@ export function ClientView({
   fetchAllClients,
   requestStatusForSelectedClient,
 }) {
-  console.log('SELCTED CLIENT', selectedClient)
   const handleOnDeclineClick = async () => {
     const matchingRequest = newRequests.find(
       (request) => request.User.userID === selectedClient.userID,
@@ -385,23 +416,17 @@ export function ClientView({
                 user={selectedClient}
                 handleOnClick={() => setMessageModalIsOpen(true)}
               />
-              {requestStatusForSelectedClient.status === 'Pending' && (
-                <>
-                  <RedDeclineButton handleOnClick={handleOnDeclineClick} />
-                  <GreenAcceptButton handleOnClick={handleOnAcceptClick} />
-                </>
-              )}
+              {requestStatusForSelectedClient?.exists &&
+                requestStatusForSelectedClient?.status === 'Pending' && (
+                  <>
+                    <RedDeclineButton handleOnClick={handleOnDeclineClick} />
+                    <GreenAcceptButton handleOnClick={handleOnAcceptClick} />
+                  </>
+                )}
             </div>
           </div>
 
           <div className='client-details'>
-            <div className='client-location'>
-              <i className='material-icons'>location_on</i>
-              <div className='location-text'>
-                {selectedClient?.city}, {selectedClient?.state}
-              </div>
-            </div>
-
             <div className='about-me'>
               <h3 className='about-me-header'>ABOUT {selectedClient?.firstName}</h3>
               <div>Goals: {selectedClient?.goal} </div>
@@ -433,5 +458,31 @@ export function ClientView({
         <h2>No client selected</h2>
       </div>
     </div>
+  )
+}
+
+export function TerminateClientModal({ setTerminateModalIsOpen, selectedClient }) {
+  const handleOnSubmitClick = async () => {
+    console.log('TERMINATE CLINET!')
+  }
+  const headerName = 'TERMINATE YOUR CLIENT'
+
+  return (
+    <Modal
+      headerName={headerName}
+      setModalIsOpen={setTerminateModalIsOpen}
+      inputFields={
+        <p className='terminate-client-modal-text'>
+          You are about to terminate your coaching contract with {selectedClient?.firstName}
+          <br />
+          This action is irreversible and will result in the loss of access to
+          {selectedClient?.firstName}'s progress and workout details. <br />
+          Please confirm you wish to proceed by selecting ‘Confirm’ below
+          <br />
+          If you need more time to decide, select 'Cancel
+        </p>
+      }
+      handleOnSubmitClick={handleOnSubmitClick}
+    />
   )
 }
