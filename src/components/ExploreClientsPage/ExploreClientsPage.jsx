@@ -67,9 +67,30 @@ export default function ExploreClients() {
     setIsLoading(false)
   }
 
+  const fetchRequestStatus = async () => {
+    if (selectedClient?.userID && usersCoachID) {
+      const { data, error } = await apiClient.getRequestStatus({
+        userID: selectedClient.userID,
+        coachID: usersCoachID,
+      })
+      if (data) {
+        if (data?.exists == true) {
+          setRequestStatusForSelectedCoach(data)
+        } else {
+          setRequestStatusForSelectedCoach('')
+        }
+      }
+      if (error) {
+        setRequestStatusForSelectedCoach('')
+      }
+    } else {
+      console.log('missing data- cannot get request status')
+    }
+  }
+
   useEffect(() => {
     fetchUsersCoachID()
-
+    fetchRequestStatus()
     setSelectedClient(null)
   }, [])
 
@@ -77,6 +98,10 @@ export default function ExploreClients() {
     fetchAllClients()
     fetchNewRequests()
   }, [usersCoachID])
+
+  useEffect(() => {
+    fetchRequestStatus()
+  }, [usersCoachID, selectedClient])
 
   return (
     <>
@@ -108,6 +133,7 @@ export default function ExploreClients() {
           clients={clients}
           newRequests={newRequests}
           fetchAllClients={fetchAllClients}
+          requestStatusForSelectedClient={requestStatusForSelectedClient}
         />
       </div>
     </>
@@ -293,7 +319,9 @@ export function ClientView({
   clients,
   newRequests,
   fetchAllClients,
+  requestStatusForSelectedClient,
 }) {
+  console.log('SELCTED CLIENT', selectedClient)
   const handleOnDeclineClick = async () => {
     const matchingRequest = newRequests.find(
       (request) => request.User.userID === selectedClient.userID,
@@ -357,8 +385,12 @@ export function ClientView({
                 user={selectedClient}
                 handleOnClick={() => setMessageModalIsOpen(true)}
               />
-              <RedDeclineButton handleOnClick={handleOnDeclineClick} />
-              <GreenAcceptButton handleOnClick={handleOnAcceptClick} />
+              {requestStatusForSelectedClient.status === 'Pending' && (
+                <>
+                  <RedDeclineButton handleOnClick={handleOnDeclineClick} />
+                  <GreenAcceptButton handleOnClick={handleOnAcceptClick} />
+                </>
+              )}
             </div>
           </div>
 
@@ -371,8 +403,25 @@ export function ClientView({
             </div>
 
             <div className='about-me'>
-              <h3 className='about-me-header'>ABOUT ME</h3>
-              <div>Specialties: {selectedClient?.specialties} </div>
+              <h3 className='about-me-header'>ABOUT {selectedClient?.firstName}</h3>
+              <div>Goals: {selectedClient?.goal} </div>
+              <div>
+                Daily Survey Information:
+                {selectedClient?.dailySurvey?.surveyDate ? (
+                  <div className='daily-survey-info'>
+                    <p className='survey-date'>Survey Date: {selectedClient?.surveyDate}</p>
+                    <p className='survey-date'>Mental State: {selectedClient?.mentalState}</p>
+                    <p className='survey-date'>
+                      Water Intake: {selectedClient?.waterIntake} {selectedClient?.waterUnits}
+                    </p>
+                    <p className='survey-date'>Current Weight: {selectedClient?.weight} lbs</p>
+                  </div>
+                ) : (
+                  <>
+                    <p> No survey information today</p>
+                  </>
+                )}
+              </div>
             </div>
           </div>
         </div>
