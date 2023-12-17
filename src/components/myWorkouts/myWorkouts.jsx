@@ -329,7 +329,6 @@ function LogExerciseModal({ onClose, exerciseData, message }) {
 
   const handleLogExercise = async () => {
     
-      // Placeholder for success/error handling
       message("Exercise logged successfully"); // Or handle the error
       onClose(); // Close the modal after logging
   };
