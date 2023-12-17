@@ -13,31 +13,30 @@ export default function AdminView({ selectedCoach }) {
     }
   }, [selectedCoach]);
 
-  const handleDeleteCoach = async () => {
-    try {
-      await apiClient.deleteCoach(selectedCoach.coachRequestID);
-    } catch (error) {
-      setError('Error deleting coach');
-      console.error(error);
-    }
-  };
-  const handleAcceptCoach = async () => {
-    try {
-      console.log('Accepted:', selectedCoach.coachRequestID);
-      // Implement the accept logic here or make an API call
-    } catch (error) {
-      setError('Error accepting coach');
-      console.error(error);
+
+
+  
+  const handleDenyCoach = async () => {
+    if (selectedCoach && selectedCoach.coachRequestID) {
+      try {
+        const response = await apiClient.denyCoach(selectedCoach.coachRequestID);
+        window.location.reload(false);
+
+      } catch (error) {
+        console.error('Error denying coach:', error);
+      }
     }
   };
 
-  const handleDenyCoach = async () => {
-    try {
-      console.log('Denied:', selectedCoach.coachRequestID);
-      // Implement the deny logic here or make an API call
-    } catch (error) {
-      setError('Error denying coach');
-      console.error(error);
+  const handleAcceptCoach = async () => {
+    if (selectedCoach && selectedCoach.coachRequestID) {
+      try {
+        const response = await apiClient.acceptCoach(selectedCoach.coachRequestID);
+        window.location.reload(false);
+
+      } catch (error) {
+        console.error('Error denying coach:', error);
+      }
     }
   };
   return selectedCoach ? (
@@ -53,8 +52,8 @@ export default function AdminView({ selectedCoach }) {
       
       <div className='coach-details'>
         <div>
-          <strong>Location:</strong>
-          <p>{selectedCoach.city}, {selectedCoach.state}</p>
+          <strong>Cost:</strong>
+          <p>{selectedCoach.cost}</p>
         </div>
         <div>
           <strong>Area of Expertise:</strong>

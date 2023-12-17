@@ -63,3 +63,13 @@
   padding: 5px 10px;
   cursor: pointer;
 }
+
+.activate-button {
+  background-color: #4CAF50; /* Green for activate */
+  /* other styles */
+}
+
+.deactivate-button {
+  background-color: #ff4d4d; /* Red for deactivate */
+  /* other styles */
+}

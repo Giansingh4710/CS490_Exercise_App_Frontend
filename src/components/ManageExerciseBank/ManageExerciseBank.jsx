@@ -8,7 +8,7 @@ export default function ManageExerciseBank() {
   const [isLoading, setIsLoading] = useState(false);
   const [exercises, setExercises] = useState([]);
   const [selectedExercise, setSelectedExercise] = useState(null);
-
+ 
   useEffect(() => {
     const fetchAllExercises = async () => {
       setIsLoading(true);
@@ -34,6 +34,21 @@ export default function ManageExerciseBank() {
     setExercises([...exercises, newExercise]);
   };
 
+  const updateExerciseState = (updatedExercise) => {
+    const updatedExercises = exercises.map(exercise => 
+      exercise.exerciseID === updatedExercise.exerciseID ? updatedExercise : exercise
+    );
+    setExercises(updatedExercises);
+  
+    // Additionally, update the selectedExercise if it's the one being modified
+    if (selectedExercise && selectedExercise.exerciseID === updatedExercise.exerciseID) {
+      setSelectedExercise(updatedExercise);
+    }
+    console.log('Updated exercises array:', updatedExercises);
+    console.log('Updated selectedExercise:', updatedExercise);
+  
+  };
+  
   return (
     <div className='manage-exercise-bank'>
       {isLoading ? (
@@ -49,9 +64,11 @@ export default function ManageExerciseBank() {
             />
           </div>
           <div className="exercise-detail-container">
-            <ExerciseDetail 
-              selectedExercise={selectedExercise} 
-            />
+      <ExerciseDetail 
+  selectedExercise={selectedExercise} 
+  updateExerciseState={updateExerciseState}
+/>
+
           </div>
         </div>
       )}

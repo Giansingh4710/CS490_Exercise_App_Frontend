@@ -115,6 +115,17 @@ class ApiClient {
     })
   }
 
+
+  async getAllPendingCoaches() {
+    return await this.request({
+      endpoint: `coachApply/allPending`,
+      method: `GET`,
+    })
+  }
+
+
+
+
   async getAllExercises() {
     return await this.request({
       endpoint: 'exercises/allExercises', // The API endpoint for fetching all exercises
@@ -160,6 +171,14 @@ class ApiClient {
       method: `GET`,
     })
   }
+
+  async getPendingByID(coachRequestID) {
+    return await this.request({
+      endpoint: `coachApply/pending?coachRequestID=${coachRequestID}`,
+      method: 'GET',
+    });
+  }
+
 
   // data must include: "userID", "coachID", "goals", "note"
   async createNewRequestForCoachingFromClient(data) {
@@ -312,19 +331,24 @@ class ApiClient {
     })
   }
 
-  async getAllPending() {
-    return await this.request({
-      endpoint: `/coachApply/allPending`,
-      method: `GET`,
-    })
-  }
 
-  async deleteExercise(exerciseID) {
+  async enableExercise(exerciseID) {
     return await this.request({
-      endpoint: `exercises/deleteExercise?exerciseID=${exerciseID}`,
+      endpoint: `exercises/enableExercise?exerciseID=${exerciseID}`,
       method: 'GET',
-    })
+    });
   }
+  
+ 
+
+  async disableExercise(exerciseID) {
+    return await this.request({
+      endpoint: `exercises/disableExercise?exerciseID=${exerciseID}`,
+      method: 'GET',
+    });
+  }
+  
+
 
   async createNewRequestForCoachingFromClient(data) {
     console.log(data)
@@ -334,6 +358,33 @@ class ApiClient {
       data: data,
     })
   }
+
+
+
+
+
+  async acceptCoach(coachRequestID) {
+    return await this.request({
+      endpoint: `coachApply/accept?coachRequestID=${coachRequestID}`,
+      method: 'GET',
+    });
+  }
+  async denyCoach(coachRequestID) {
+    return await this.request({
+      endpoint: `coachApply/deny?coachRequestID=${coachRequestID}`,
+      method: 'GET',
+    });
+  }
+
+
+
+
+
+
+
+
+
+
 }
 
 // console.log(API_BASE_URL);
