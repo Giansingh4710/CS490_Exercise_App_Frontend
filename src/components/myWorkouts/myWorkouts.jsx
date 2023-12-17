@@ -110,8 +110,10 @@ function WeeklySchedule({ workoutPlan }) {
             <WorkoutPlanExerciseBank viewOnly={false} onExerciseSelect={handleExerciseSelect}/>
             {isAddExerciseModalOpen && <AddExerciseModal onClose={closeAddExercise} exerciseData={exerciseData} message={setMessage}></AddExerciseModal>}
             {weekdaySchedule.map((day, index) => (
-                <div key={index}>
-                    <div className='week-day'>{day.toUpperCase()}</div>
+    <div key={index} className="day-card">
+    <div className='week-day'>{day.toUpperCase()}</div>
+                    <div className="exercise-list">
+
                     {workoutPlan[day] && workoutPlan[day].length > 0 ?
                         workoutPlan[day].map((exercise, exerciseIndex) => (
                             <DailySchedule key={exerciseIndex} day={day} exercise={exercise} onExerciseClick={handleExerciseClick} />
@@ -119,6 +121,8 @@ function WeeklySchedule({ workoutPlan }) {
                         :
                         <NoWorkoutsAssigned />
                     }
+                                    </div>
+
                 </div>
             ))}
             {isLogExerciseModalOpen && (
@@ -209,6 +213,7 @@ function AddExerciseModal({ onClose, exerciseData, message }){
         dayOfWeek,
         exerciseID: exerciseData.exerciseID,
         metric: exerciseData.metric
+        
       };
 
       const { data, error } = await apiClient.clientAddExerciseToPlan(newExerciseData);
@@ -223,6 +228,8 @@ function AddExerciseModal({ onClose, exerciseData, message }){
     //   onAddExercise();
   
       onClose();
+      window.location.reload(false);
+
     };
 
     return (
