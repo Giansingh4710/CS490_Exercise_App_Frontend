@@ -322,6 +322,12 @@ class ApiClient {
     })
   }
 
+  async getLoggedWorkout(){
+    return await this.request({
+      endpoint: `workoutPlan/getPastWorkouts`,
+      method: `GET`
+    })
+  }
 
 
   async getPersonalWorkoutPlan() {
