@@ -48,8 +48,11 @@ export default function CoachesOverview({
       handler: () => {
         if (selectedTab == 'Coaches') {
           setSelectedTab('Sent Requests')
-          const clientsFromRequests = sentRequests?.map((request) => request?.Coach)
-          setCoachesToDisplay(clientsFromRequests)
+          console.log('SENT REQUEST:', sentRequests)
+          const coachesFromSentRequests = sentRequests?.map((request) => request?.Coach)
+          console.log('clients from requests::', coachesFromSentRequests)
+
+          setCoachesToDisplay(coachesFromSentRequests)
         }
       },
     },
