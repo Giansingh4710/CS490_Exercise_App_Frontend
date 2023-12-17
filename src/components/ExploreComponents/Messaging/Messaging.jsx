@@ -10,7 +10,6 @@ export default function Messaging({ user, setModalIsOpen }) {
 
   const fetchMessages = async () => {
     const { data, error } = await apiClient.getMessages(user.userID)
-    console.log('FETCH MESSAGES DATA:', data)
     if (data) {
       setMsgs(data)
     }
