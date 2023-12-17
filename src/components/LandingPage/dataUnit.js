@@ -14,17 +14,17 @@ export default function DataUnit() {
         <InfoCard
           title='CONNECT'
           text='In FitFusion, discover a world of expert coaches. Get tailored guidance at your fingertips, making personal connections that helps transform goals into reality.'
-          img='./images/img_default.png'
+          img='./images/Connect.png'
         />
         <InfoCard
           title='TRACK'
           text='With FitFusion, every activity and calorie counts. Precision tracking meets intuitive design, empowering you with insights for a healthier lifestyle.'
-          img='./images/img_default.png'
+          img='./images/Track.jpg'
         />
         <InfoCard
           title='ACHIEVE'
           text='Achieve holistic well-being with FitFusion. Embrace mood tracking for emotional balance, helping you paving the way to a happier and more fulfilled you.'
-          img='./images/img_default.png'
+          img='./images/Achieve.jpg'
         />
       </div>
       <Link to='/Register'>
@@ -38,7 +38,7 @@ function InfoCard({ title, text, img }) {
   return (
     <div style={styles.card}>
       <h4 style={styles.cardTitle}>{title}</h4>
-      <img src={img} alt='this is a something' style={styles.image} />
+      <img src={require(`${img}`).default} alt='this is a something' style={styles.image} />
       <p style={styles.cardText}>{text}</p>
     </div>
   )

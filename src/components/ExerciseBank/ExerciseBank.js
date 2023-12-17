@@ -12,7 +12,7 @@ const ExerciseBank = ({ viewOnly }) => {
 
   useEffect(() => {
     const fetchExercises = async () => {
-        const { data, error } = await apiClient.getAllActiveExercises();
+        const { data, error } = await apiClient.getAllExercises();
         if(data){
           setExercises(data);
         }
