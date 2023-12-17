@@ -1,5 +1,5 @@
 import axios from 'axios'
-import BASE_URLS from '../constants'
+import API_BASE_URL from '../constants'
 
 class ApiClient {
   constructor(remoteHostUrl) {
@@ -113,6 +113,17 @@ class ApiClient {
     })
   }
 
+
+  async getAllPendingCoaches() {
+    return await this.request({
+      endpoint: `coachApply/allPending`,
+      method: `GET`,
+    })
+  }
+
+
+
+
   async getAllExercises() {
     return await this.request({
       endpoint: 'exercises/allExercises', // The API endpoint for fetching all exercises
@@ -158,6 +169,14 @@ class ApiClient {
       method: `GET`,
     })
   }
+
+  async getPendingByID(coachRequestID) {
+    return await this.request({
+      endpoint: `coachApply/pending?coachRequestID=${coachRequestID}`,
+      method: 'GET',
+    });
+  }
+
 
   // data must include: "userID", "coachID", "goals", "note"
   async createNewRequestForCoachingFromClient(data) {
@@ -246,14 +265,14 @@ class ApiClient {
 
   async getMeals() {
     return await this.request({
-      endpoint: `meals`,
+      endpoint: `/meals`,
       method: `GET`,
     })
   }
 
   async deleteMeal(mealID) {
     return await this.request({
-      endpoint: `meals/${mealID}`,
+      endpoint: `/meals/${mealID}`,
       method: `DELETE`,
     })
   }
@@ -310,19 +329,24 @@ class ApiClient {
     })
   }
 
-  async getAllPending() {
-    return await this.request({
-      endpoint: `coachApply/allPending`,
-      method: `GET`,
-    })
-  }
 
-  async deleteExercise(exerciseID) {
+  async enableExercise(exerciseID) {
     return await this.request({
-      endpoint: `exercises/deleteExercise?exerciseID=${exerciseID}`,
+      endpoint: `exercises/enableExercise?exerciseID=${exerciseID}`,
       method: 'GET',
-    })
+    });
   }
+  
+ 
+
+  async disableExercise(exerciseID) {
+    return await this.request({
+      endpoint: `exercises/disableExercise?exerciseID=${exerciseID}`,
+      method: 'GET',
+    });
+  }
+  
+
 
   async createNewRequestForCoachingFromClient(data) {
     console.log(data)
@@ -332,7 +356,35 @@ class ApiClient {
       data: data,
     })
   }
+
+
+
+
+
+  async acceptCoach(coachRequestID) {
+    return await this.request({
+      endpoint: `coachApply/accept?coachRequestID=${coachRequestID}`,
+      method: 'GET',
+    });
+  }
+  async denyCoach(coachRequestID) {
+    return await this.request({
+      endpoint: `coachApply/deny?coachRequestID=${coachRequestID}`,
+      method: 'GET',
+    });
+  }
+
+
+
+
+
+
+
+
+
+
 }
 
-const apiClient = new ApiClient(BASE_URLS.API_BASE_URL)
+// console.log(API_BASE_URL);
+const apiClient = new ApiClient(API_BASE_URL)
 export default apiClient

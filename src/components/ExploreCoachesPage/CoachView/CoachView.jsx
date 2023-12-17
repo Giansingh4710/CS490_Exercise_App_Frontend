@@ -1,22 +1,27 @@
 import React from 'react'
 import './CoachView.css'
 import apiClient from '../../../services/apiClient'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { BlueRequestButton, MailIconButton, RedCancelButton } from '../../Buttons/Buttons'
 import { useAuthContext } from '../../../contexts/auth'
+import Messaging from '../../ExploreComponents/Messaging/Messaging'
 
 export default function CoachView({
   selectedCoach,
+  setSelectedCoach,
   loading,
+  setLoading,
   setRequestModalIsOpen,
   setMessageModalIsOpen,
   requestStatusForSelectedCoach,
+  setShowErrorDialog,
   fetchRequestStatus,
   fetchSentRequests,
 }) {
   const [error, setError] = useState('')
   const { user } = useAuthContext()
   const handleOnRequestClick = async () => {
+    console.log('USER:', user)
     if (user.role === null || user.role === '') {
       setError('Please fill out initial survey on dashboard before requesting a coach.')
     } else {
@@ -26,12 +31,8 @@ export default function CoachView({
   }
 
   const handleOnCancelClick = async () => {
-    console.log('Cancel button cicked')
     if (requestStatusForSelectedCoach.status === 'Pending') {
       const { data, error } = await apiClient.cancelRequest(requestStatusForSelectedCoach.requestID)
-      console.log('Successfully canceled request', data)
-      fetchRequestStatus()
-      fetchSentRequests()
       if (data) {
         console.log('Successfully canceled request', data)
         fetchRequestStatus()

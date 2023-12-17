@@ -10,7 +10,6 @@ export default function RequestCoachModal({
   setRequestModalIsOpen,
   specializations,
   fetchRequestStatus,
-  fetchSentRequests,
 }) {
   const { user } = useAuthContext()
   const [goal, setGoal] = useState('')
@@ -25,7 +24,6 @@ export default function RequestCoachModal({
     })
     if (data) {
       fetchRequestStatus(coach.coachID)
-      fetchSentRequests()
       setRequestModalIsOpen(false)
     } else {
       setRequestModalIsOpen(false)
