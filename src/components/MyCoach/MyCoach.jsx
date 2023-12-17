@@ -6,7 +6,6 @@ import './MyCoach.css'
 import apiClient from '../../services/apiClient'
 import NoCoachFound from './NoCoach'
 import MyAssignedWorkouts from './MyAssignedWorkouts/MyAssignedWorkouts'
-import MyLoggedWorkouts from './MyLoggedWorkouts/MyLoggedWorkouts'
 
 function MyCoach() {
   const [showMessaging, setShowMessaging] = useState(false)
@@ -42,7 +41,8 @@ function MyCoach() {
 
   return (
     <>
-      <Navbar page='MyCoach' />{
+      <Navbar page='MyCoach' />
+      {
       coach ? (
         
         <div className='my-coach'>
@@ -64,10 +64,7 @@ function MyCoach() {
       (
         <NoCoachFound></NoCoachFound>
       )
-      }<div id='logged-workouts'>
-      <h2>Logged Workouts</h2>
-      <MyLoggedWorkouts></MyLoggedWorkouts>
-      </div>
+      }
   </>
       )
 }

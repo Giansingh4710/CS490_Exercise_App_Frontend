@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import "./MyWorkouts.css"; 
 import apiClient from "../../services/apiClient";
 import WorkoutPlanExerciseBank from '../WorkoutPlanExerciseBank/WorkoutPlanExerciseBank.js';
+import MyLoggedWorkouts from './MyLoggedWorkouts/MyLoggedWorkouts.jsx'
 
 export default function MyWorkouts() {
     const [workoutPlan, setWorkoutPlan] = useState({});
@@ -36,6 +37,7 @@ export default function MyWorkouts() {
     }, []);
 
     return (
+      <div>
         <div className="my-workouts">
             <div className="my-workouts-container">
                 <div className="my-workouts-header-container">
@@ -44,6 +46,11 @@ export default function MyWorkouts() {
                 </div>
             </div>  
         </div>
+        <div id='logged-workouts'>
+          <h2>Logged Workouts</h2>
+          <MyLoggedWorkouts></MyLoggedWorkouts>
+        </div>
+      </div>
     );
 }
 

@@ -10,7 +10,6 @@ export default function MyLoggedWorkouts() {
   useEffect(() => {    
     async function getWorkoutPlan(){
       const { data, error } = await apiClient.getLoggedWorkout();
-      console.log(data);
       if(data){
         setWorkoutPlan(data);
       }
@@ -27,7 +26,7 @@ export default function MyLoggedWorkouts() {
       {errorMessage && <p className="success-message">{errorMessage}</p>}
       <div className="my-assigned-workouts-container">
         <div className="my-assigned-workouts-header-container">
-          <h2 className="my-assigned-workouts-header">Current Workout Assigned</h2>
+          <h2 className="my-assigned-workouts-header">Logged Workouts For The Last 5 Days</h2>
           <MyWeeklySchedule workoutPlan={workoutPlan}/>
         </div>
       </div>
@@ -35,55 +34,52 @@ export default function MyLoggedWorkouts() {
   );
 }
 
-function MyWeeklySchedule({workoutPlan}) {
-  var weekdaySchedule = ["sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday"];
-  return (
-    <div className="my-weekly-schedule">
-        {console.log(workoutPlan)}
-      {workoutPlan.forEach((date, index) => (
-        <>
-        <div class='week-day'>{date}</div>
-          {workoutPlan[date] && workoutPlan[date].length > 0 ?
-              workoutPlan[date].map((exercise) => (
+function MyWeeklySchedule({ workoutPlan }) {
+    return (
+      <div className="my-weekly-schedule">
+        {Object.entries(workoutPlan).map(([date, exercises]) => (
+          <div key={date} className='week-day'>
+            {date}
+            {exercises && exercises.length > 0 ?
+              exercises.map((exercise, index) => (
                 <DailySchedule key={index} date={date} exercise={exercise}/>
-              ))
-            :
-            <NoWorkoutsAssigned></NoWorkoutsAssigned>
-          }
-          <p>+ Add a new workout</p>
-          <hr></hr>
-        </>
-      ))}
-    </div>
-  );
-}
-
-function DailySchedule({ date, exercise}) {
-  return (
-    <div class='day-card'>
-      {
-          <table class='workout-card'>
+              )) :
+              <NoWorkoutsAssigned />
+            }
+            <hr />
+          </div>
+        ))}
+      </div>
+    );
+  }
+  
+  function DailySchedule({exercise}) {
+    return (
+      <div className='day-card'>
+        <table className='workout-card'>
+          <thead>
             <tr>
               <th>Exercise</th>
               <th>Set #</th>
               {exercise.metric === 'Reps' ? <th># of Reps</th> : <th>Duration</th>}
               <th>Weight</th>
             </tr>
-            {
-              exercise.reps.map((rep, index) => (
-                <tr>
+          </thead>
+          <tbody>
+            {exercise.reps.map((rep, index) => (
+              <tr key={index}>
                 {index === 0 ? <td>{exercise.exercise}</td> : <td></td>}
-                <td>{index+1}</td>
+                <td>{index + 1}</td>
                 <td>{exercise.reps[index]}</td>
-                <td>{exercise.equipment === 'Bodyweight' ? <p>Bodyweight</p> : exercise.weight + ' lbs'}</td>
+                <td>{exercise.weight && exercise.weight[index] !== null ? 
+                     (exercise.equipment === 'Bodyweight' ? <p>Bodyweight</p> : `${exercise.weight[index]} lbs`) : ''}</td>
               </tr>
-              ))
-            }
-          </table>
-      }
-    </div>
-  );
-}
+            ))}
+          </tbody>
+        </table>
+      </div>
+    );
+  }
 
 function NoWorkoutsAssigned(){
   return (
