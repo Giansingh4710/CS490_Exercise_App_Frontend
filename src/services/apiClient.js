@@ -265,14 +265,14 @@ class ApiClient {
 
   async getMeals() {
     return await this.request({
-      endpoint: `/meals`,
+      endpoint: `meals`,
       method: `GET`,
     })
   }
 
   async deleteMeal(mealID) {
     return await this.request({
-      endpoint: `/meals/${mealID}`,
+      endpoint: `meals/${mealID}`,
       method: `DELETE`,
     })
   }
