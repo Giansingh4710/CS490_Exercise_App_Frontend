@@ -315,6 +315,15 @@ class ApiClient {
     })
   }
 
+  async getCoachAssignedWorkoutPlanForCoach(userID) {
+    return await this.request({
+      endpoint: `workoutPlan/coach/WorkoutsFromCoach?userID=${userID.clientID}`,
+      method: `GET`,
+    })
+  }
+
+
+
   async getPersonalWorkoutPlan() {
     return await this.request({
       endpoint: `workoutPlan/client/Workouts`,
@@ -329,6 +338,16 @@ class ApiClient {
       data: data,
     })
   }
+
+  async coachAddExerciseToPlan(data) {
+    return await this.request({
+      endpoint: `workoutPlan/coach/addExercise`,
+      method: `POST`,
+      data: data,
+    })
+  }
+
+  
 
   async enableExercise(exerciseID) {
     return await this.request({

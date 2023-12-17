@@ -21,6 +21,7 @@ import AdminOverview from './components/AdminCoach/AdminOverview/AdminOverview'
 import ManageExerciseBank from './components/ManageExerciseBank/ManageExerciseBank'
 import ProfilePage from './components/Profile/ProfilePage'
 import MyWorkouts from './components/myWorkouts/myWorkouts'
+import AdminCoaches from './components/AdminCoach/AdminCoaches'
 
 export function AppContainer() {
   return (
@@ -86,7 +87,7 @@ export function App() {
           {/* END Coach Specific Links */}
 
           {/* START Admin Specific Links */}
-          <Route path='/ManageCoaches' element={<ProtectedRoute element={<AdminOverview />} />} />
+          <Route path='/ManageCoaches' element={<ProtectedRoute element={<AdminCoaches />} />} />
           <Route
             path='/ManageExercises'
             element={<ProtectedRoute element={<ManageExerciseBank />} />}

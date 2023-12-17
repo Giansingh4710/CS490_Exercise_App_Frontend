@@ -61,6 +61,7 @@
   flex-direction: column;
   text-align: left;
   align-items: baseline;
+  overflow-y: scroll;
 }
 .client-search {
   position: relative;
@@ -186,6 +187,7 @@ input {
   height: 100%;
   background-color: white;
   box-shadow: var(--card-box-shadow);
+  overflow-y: scroll;
 }
 
 .client-header {

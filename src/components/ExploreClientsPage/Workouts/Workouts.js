@@ -3,12 +3,14 @@ import React, { useEffect, useState } from 'react'
 import apiClient from '../../../services/apiClient'
 import WorkoutPlanExerciseBank from '../../WorkoutPlanExerciseBank/WorkoutPlanExerciseBank.js'
 
-export default function Workouts() {
+export default function Workouts(clientUserID) {
   const [workoutPlan, setWorkoutPlan] = useState({})
   useEffect(() => {
     async function getWorkoutPlan() {
       try {
-        const response = await apiClient.getPersonalWorkoutPlan()
+        console.log(clientUserID);
+        const response = await apiClient.getCoachAssignedWorkoutPlanForCoach(clientUserID);
+        console.log(response);
         if (response.data) {
           setWorkoutPlan(response.data)
         }
@@ -23,14 +25,14 @@ export default function Workouts() {
       <div className='my-workouts-container'>
         <div className='my-workouts-header-container'>
           <h2 className='my-workouts-header'>Workout Plan</h2>
-          <WeeklySchedule workoutPlan={workoutPlan} />
+          <WeeklySchedule workoutPlan={workoutPlan} userID={clientUserID} />
         </div>
       </div>
     </div>
   )
 }
 
-function WeeklySchedule({ workoutPlan }) {
+function WeeklySchedule({ workoutPlan, userID }) {
   const [selectedExerciseID, setSelectedExerciseID] = useState(null)
   const [isAddExerciseModalOpen, setAddExerciseModalOpen] = useState(false)
   const [exerciseData, setExerciseData] = useState({})
@@ -84,7 +86,8 @@ function WeeklySchedule({ workoutPlan }) {
         <AddExerciseModal
           onClose={closeAddExercise}
           exerciseData={exerciseData}
-          message={setMessage}></AddExerciseModal>
+          message={setMessage}
+          userID={userID}></AddExerciseModal>
       )}
       {weekdaySchedule.map((day, index) => (
         <div key={index}>
@@ -147,7 +150,7 @@ function NoWorkoutsAssigned() {
   )
 }
 
-function AddExerciseModal({ onClose, exerciseData, message }) {
+function AddExerciseModal({ onClose, exerciseData, message, userID}) {
   // eslint-disable-next-line
   const [exerciseName, setExerciseName] = useState('')
   const [sets, setSets] = useState([{ reps: 0, weight: 0 }])
@@ -173,6 +176,7 @@ function AddExerciseModal({ onClose, exerciseData, message }) {
   }
 
   const handleAddExercise = async () => {
+    console.log(userID);
     const newExerciseData = {
       name: exerciseData.name,
       sets,
@@ -180,9 +184,10 @@ function AddExerciseModal({ onClose, exerciseData, message }) {
       dayOfWeek,
       exerciseID: exerciseData.exerciseID,
       metric: exerciseData.metric,
+      userID: userID.clientID
     }
 
-    const { data, error } = await apiClient.clientAddExerciseToPlan(newExerciseData)
+    const { data, error } = await apiClient.coachAddExerciseToPlan(newExerciseData)
     if (data) {
       message('Exercise added')
     }

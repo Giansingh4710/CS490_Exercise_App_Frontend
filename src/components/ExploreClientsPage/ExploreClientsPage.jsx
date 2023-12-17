@@ -465,7 +465,7 @@ export function ClientView({
               </div>
             </div>
           </div>
-          <Workouts />
+          <Workouts clientID={selectedClient.userID}/>
         </div>
       </>
     )
