@@ -154,6 +154,13 @@ class ApiClient {
     })
   }
 
+  async getAllActiveExercises() {
+    return await this.request({
+      endpoint: 'exercises/allActiveExercises', // The API endpoint for fetching all exercises
+      method: 'GET',
+    })
+  }
+
   async getPendingByID(coachRequestID) {
     return await this.request({
       endpoint: `coachApply/pending?coachRequestID=${coachRequestID}`,
