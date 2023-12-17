@@ -10,6 +10,7 @@ export default function Messaging({ user, setModalIsOpen }) {
 
   const fetchMessages = async () => {
     const { data, error } = await apiClient.getMessages(user.userID)
+    console.log('FETCH MESSAGES DATA:', data)
     if (data) {
       setMsgs(data)
     }
@@ -25,8 +26,8 @@ export default function Messaging({ user, setModalIsOpen }) {
         receiverID: user.userID,
         created: new Date().toLocaleString(),
       }
-      const { res, error } = await apiClient.sendMessage(newMessage)
-      if (res) {
+      const { data, error } = await apiClient.sendMessage(newMessage)
+      if (data) {
         setMsgs((prev) => [...prev, newMessage])
       }
       if (error) {
@@ -48,6 +49,7 @@ export default function Messaging({ user, setModalIsOpen }) {
     objDiv.scrollTop = objDiv.scrollHeight
   }, [msgs])
 
+  useEffect(() => {}, [msgs])
   return (
     <div className='modal-background'>
       <div className='modal-container'>
