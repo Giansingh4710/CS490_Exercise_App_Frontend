@@ -1,41 +1,51 @@
-import React from 'react'
 import './ExploreCoachesPage.css'
+import { useState, useEffect } from 'react'
+import { useAuthContext } from '../../contexts/auth'
+import React from 'react'
+import apiClient from '../../services/apiClient'
 import CoachesOverview from './CoachesOverview/CoachesOverview'
 import CoachView from './CoachView/CoachView'
-import { useState, useEffect } from 'react'
-import apiClient from '../../services/apiClient'
 import RequestCoachModal from './RequestCoachModal/RequestCoachModal'
-import { useAuthContext } from '../../contexts/auth'
 import Messaging from '../ExploreComponents/Messaging/Messaging'
-
-// components broken down:
-// ExploreCoaches is the overall page
-// CoachOverview is the search/filter area for coaches
-// CoachView is the detailed area for a selected coach
 
 export default function ExploreCoaches() {
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState('')
+
+  // coaches state: all coaches
   const [coaches, setCoaches] = useState([])
+  // sentRequests state: holds the unanswered requests that the user has sent out, an array of request objects
   const [sentRequests, setSentRequests] = useState([])
+  // coachesToDisplay: an array of coach objects that are to be displayed, based on selected tab, filters & search term
   const [coachesToDisplay, setCoachesToDisplay] = useState([])
+  // selectedCoach: the selected coach that a user has clicked on
   const [selectedCoach, setSelectedCoach] = useState({})
-  const [requestModalIsOpen, setRequestModalIsOpen] = useState(false)
-  const [messageModalIsOpen, setMessageModalIsOpen] = useState(false)
+  // requestStatusForSelectedCoach state: the status of the request for a selected coach
   const [requestStatusForSelectedCoach, setRequestStatusForSelectedCoach] = useState('')
+  // requestModalIsOpen state: boolean state that determines whether the Request Coach modal should be open or not
+  const [requestModalIsOpen, setRequestModalIsOpen] = useState(false)
+  // messageModalIsOpen state: boolean state that determines whether the Message modal should be open or not
+  const [messageModalIsOpen, setMessageModalIsOpen] = useState(false)
+  // specializations state: the list of specializations from back end
   const [specializations, setSpecializations] = useState(['Any Specialization'])
+  // showErrorDialog state: the error text to display if there is an error sending a request
   const [showErrorDialog, setShowErrorDialog] = useState(false)
+  // user: the logged in user
   const { user } = useAuthContext()
+
+  // fetchSpecializations function: gets the specializations from backend
   const fetchSpecializations = async () => {
     try {
       const { data, error } = await apiClient.getCoachSpecializations()
-      const specializationList = data.map((spec) => spec.specialties)
+      const specializationList = data?.map((spec) => spec.specialties)
       setSpecializations(['Any Specialization', ...specializationList])
     } catch (error) {
       setSpecializations(['Any Specialization'])
       throw new Error('Error fetching specializations')
     }
   }
+
+  // fetchAllCoaches function: sets coaches & coachesToDisplay to all the coaches
   const fetchAllCoaches = async () => {
     setIsLoading(true)
     setError(null)
@@ -50,6 +60,7 @@ export default function ExploreCoaches() {
     setIsLoading(false)
   }
 
+  // fetchSentRequests function: sets sentRequests to the open requests that have not been answered yet for the user
   const fetchSentRequests = async () => {
     setIsLoading(true)
     setError(null)
@@ -58,11 +69,12 @@ export default function ExploreCoaches() {
       setSentRequests(data)
     }
     if (error) {
-      setCoaches([])
+      setSentRequests([])
     }
     setIsLoading(false)
   }
 
+  // fetchRequestStatus function: given a coachID, gets the request status between the user and the coachID, and updates requestStatForSelectedCoach based on that
   const fetchRequestStatus = async (coachID) => {
     const { data, error } = await apiClient.getRequestStatus({
       userID: user.id,
@@ -80,6 +92,7 @@ export default function ExploreCoaches() {
     }
   }
 
+  // useEffect on mount: fetch all needed data & set the selectedCoach to null
   useEffect(() => {
     fetchAllCoaches()
     fetchSentRequests()
@@ -87,21 +100,14 @@ export default function ExploreCoaches() {
     setSelectedCoach(null)
   }, [])
 
-  useEffect(() => {
-    fetchSentRequests()
-  }, [requestModalIsOpen])
-
-  useEffect(() => {
-    fetchSentRequests()
-  }, [coaches])
-
+  // useEffect to get the request status when the selectedCoach changes
   useEffect(() => {
     fetchRequestStatus(selectedCoach?.coachID)
   }, [selectedCoach])
 
   return (
     <>
-      {/* conditionally render the modal to send a request/message a coach */}
+      {/* conditionally render the modals to send a request/message a coach */}
       {requestModalIsOpen && (
         <RequestCoachModal
           setRequestModalIsOpen={setRequestModalIsOpen}
@@ -109,11 +115,13 @@ export default function ExploreCoaches() {
           specializations={specializations}
           setShowErrorDialog={setShowErrorDialog}
           fetchRequestStatus={fetchRequestStatus}
+          fetchSentRequests={fetchSentRequests}
         />
       )}
       {messageModalIsOpen && (
         <Messaging user={selectedCoach} setModalIsOpen={setMessageModalIsOpen} />
       )}
+      {/* conditionally render error dialog box */}
       {showErrorDialog && (
         <dialog open>
           <form method='dialog'>
@@ -124,19 +132,9 @@ export default function ExploreCoaches() {
           </form>
         </dialog>
       )}
-      {error ? (
-        <dialog open>
-          <form method='dialog'>
-            <button type='submit' autofocus>
-              close
-            </button>
-          </form>
-        </dialog>
-      ) : (
-        <></>
-      )}
       <div
         className={
+          // if any of the modals are open, blur & disable the background
           requestModalIsOpen || messageModalIsOpen ? 'explore-coaches blurred' : 'explore-coaches'
         }>
         <CoachesOverview
