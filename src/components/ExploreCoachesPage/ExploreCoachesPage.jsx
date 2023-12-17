@@ -64,7 +64,10 @@ export default function ExploreCoaches() {
   const fetchSentRequests = async () => {
     setIsLoading(true)
     setError(null)
+
     const { data, error } = await apiClient.getOpenRequestsForClient()
+    console.log('SENT REQUESTS:', data)
+
     if (data) {
       setSentRequests(data)
     }
@@ -76,19 +79,21 @@ export default function ExploreCoaches() {
 
   // fetchRequestStatus function: given a coachID, gets the request status between the user and the coachID, and updates requestStatForSelectedCoach based on that
   const fetchRequestStatus = async (coachID) => {
-    const { data, error } = await apiClient.getRequestStatus({
-      userID: user.id,
-      coachID: coachID,
-    })
-    if (data) {
-      if (data?.exists == true) {
-        setRequestStatusForSelectedCoach(data)
-      } else {
+    if (coachID && user.id) {
+      const { data, error } = await apiClient.getRequestStatus({
+        userID: user.id,
+        coachID: coachID,
+      })
+      if (data) {
+        if (data?.exists == true) {
+          setRequestStatusForSelectedCoach(data)
+        } else {
+          setRequestStatusForSelectedCoach('')
+        }
+      }
+      if (error) {
         setRequestStatusForSelectedCoach('')
       }
-    }
-    if (error) {
-      setRequestStatusForSelectedCoach('')
     }
   }
 

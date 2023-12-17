@@ -8,6 +8,7 @@ import { List, ItemCard } from '../ExploreComponents/ItemList/ItemList'
 import { GreenAcceptButton, RedDeclineButton, MailIconButton } from '../Buttons/Buttons'
 import { useAuthContext } from '../../contexts/auth'
 import Modal from '../Modal/Modal'
+import Workouts from './Workouts/Workouts'
 
 // components broken down:
 // ExploreClients is the overall page
@@ -53,6 +54,21 @@ export default function ExploreClients() {
     setIsLoading(false)
   }
 
+  const handleOnTerminate = async () => {
+    console.log('TERMINATE CLINET!')
+    const { data, error } = await apiClient.terminateClient(selectedClient.userID)
+    if (data) {
+      fetchAllClients()
+      setSelectedClient(null)
+    }
+    if (error) {
+      fetchAllClients()
+      setSelectedClient(null)
+      console.error('ERROR terminating client')
+    }
+    setTerminateModalIsOpen(false)
+  }
+
   const fetchNewRequests = async () => {
     setIsLoading(true)
     setError(null)
@@ -90,10 +106,10 @@ export default function ExploreClients() {
 
   useEffect(() => {
     try {
-      const filteredClients = clients.filter(
+      const filteredClients = clients?.filter(
         (client) =>
-          client.firstName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-          client.lastName.toLowerCase().includes(searchTerm.toLowerCase()),
+          client?.firstName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          client?.lastName.toLowerCase().includes(searchTerm.toLowerCase()),
       )
       setClientsToDisplay(filteredClients)
     } catch (error) {
@@ -126,6 +142,7 @@ export default function ExploreClients() {
         <TerminateClientModal
           setTerminateModalIsOpen={setTerminateModalIsOpen}
           selectedClient={selectedClient}
+          handleOnSubmitClick={handleOnTerminate}
         />
       )}
 
@@ -271,7 +288,6 @@ export function SearchForClientByName({ setSearchTerm, searchTerm, handleSearch 
 
 export function ClientList({ clients, setSelectedClient, selectedClient, selectedTab }) {
   useEffect(() => {}, [selectedTab])
-  console.log('Clients to display:', clients)
   const handleOnClientClick = async (client) => {
     try {
       const { data, error } = await apiClient.getClientByID(client.userID)
@@ -292,7 +308,7 @@ export function ClientList({ clients, setSelectedClient, selectedClient, selecte
             isSelected={selectedClient?.userID === item?.userID}
             handleClick={() => handleOnClientClick(item)}>
             <p>
-              {item.firstName} {item.lastName}
+              {item?.firstName} {item?.lastName}
             </p>
           </ItemCard>
         ) : (
@@ -302,7 +318,7 @@ export function ClientList({ clients, setSelectedClient, selectedClient, selecte
             isSelected={selectedClient?.userID === item.userID}
             handleClick={() => handleOnClientClick(item)}>
             <p>
-              {item.firstName} {item.lastName}
+              {item?.firstName} {item?.lastName}
             </p>
           </ItemCard>
         )
@@ -449,6 +465,7 @@ export function ClientView({
               </div>
             </div>
           </div>
+          <Workouts />
         </div>
       </>
     )
@@ -461,10 +478,11 @@ export function ClientView({
   )
 }
 
-export function TerminateClientModal({ setTerminateModalIsOpen, selectedClient }) {
-  const handleOnSubmitClick = async () => {
-    console.log('TERMINATE CLINET!')
-  }
+export function TerminateClientModal({
+  setTerminateModalIsOpen,
+  selectedClient,
+  handleOnSubmitClick,
+}) {
   const headerName = 'TERMINATE YOUR CLIENT'
 
   return (
