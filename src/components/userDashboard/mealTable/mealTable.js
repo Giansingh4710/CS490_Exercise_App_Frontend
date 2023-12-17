@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-//import MealInputModal from '../mealInput/mealInput';
 import './mealTable.css';
 import apiClient from '../../../services/apiClient';
 
@@ -8,61 +7,52 @@ const MealTracker = ({ isMealInputModalOpen, setMealInputModalOpen }) => {
     breakfast: [],
     lunch: [],
     dinner: [],
-    snacks: [],
+    snack: [],
   });
   const [selectedMealType, setSelectedMealType] = useState(null);
 
   useEffect(() => {
-      async function getMeals(){
-        const { data, error } = await apiClient.getMeals();
-        if(data){
-          console.log('API Response:', data);
+    async function getMeals() {
+      const { data, error } = await apiClient.getMeals();
+      if (data) {
+        console.log('API Response:', data);
 
-          // Check if the response has the expected structure
-          if (data && typeof data === 'object') {
-            setMeals(data);
-          } else {
-            // Handle the case where the response doesn't have the expected structure
-            console.error('Unexpected response format:', data);
-          }
-          if(error){
-            console.error('Unexpected response format:', data);
-          }
+        // Check if the response has the expected structure
+        if (data && typeof data === 'object') {
+          setMeals(data);
+        } else {
+          // Handle the case where the response doesn't have the expected structure
+          console.error('Unexpected response format:', data);
+        }
+        if (error) {
+          console.error('Unexpected response format:', data);
         }
       }
-      getMeals();
+    }
+    getMeals();
   }, []);
 
   const handleDeleteMeal = async (mealType, mealId) => {
-    // Implement logic to delete a specific meal from the backend
-    let token = localStorage.getItem('fitness_token');
-    
     const { data, error } = await apiClient.deleteMeal(mealId);
 
-    if(data){
+    if (data) {
       const updatedMeals = { ...meals };
       updatedMeals[mealType] = updatedMeals[mealType].filter((meal) => meal.id !== mealId);
       setMeals(updatedMeals);
     }
 
-    if(error){
+    if (error) {
       console.error('Error deleting meal:', error);
-    }
-  };  
-
-  const handleAddMealClick = (mealType) => {
-    if (selectedMealType === mealType) {
-      // Toggle visibility if the same meal type is clicked again
-      setMealInputModalOpen(!isMealInputModalOpen);
-    } else {
-      // Set the new meal type and show the modal
-      setSelectedMealType(mealType);
-      setMealInputModalOpen(true);
     }
   };
 
+  const handleAddMealClick = (mealType) => {
+    setSelectedMealType(mealType);
+    setMealInputModalOpen(true);
+  };
+
   const renderMealTypes = () => {
-    const mealTypes = ['breakfast', 'lunch', 'dinner', 'snacks'];
+    const mealTypes = ['breakfast', 'lunch', 'dinner', 'snack'];
 
     return mealTypes.map((mealType) => (
       <div key={mealType} className='meal-type-container'>
@@ -81,12 +71,14 @@ const MealTracker = ({ isMealInputModalOpen, setMealInputModalOpen }) => {
           ) : (
             <li key={`empty-${mealType}`} className='meal-line'>
               <div>Nothing tracked yet</div>
-              <div>&nbsp;</div>
-              <button className='add-meal-button' onClick={() => handleAddMealClick(mealType)}>
-                + a meal
-              </button>
             </li>
           )}
+          {/* "Add a meal" button in line with each meal type */}
+          <li className='meal-line'>
+            <button className='add-meal-button' onClick={() => handleAddMealClick(mealType)}>
+              + a meal
+            </button>
+          </li>
         </ul>
       </div>
     ));
