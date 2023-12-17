@@ -8,19 +8,15 @@ export default function MyMessagesWithCoach({ coach }) {
   const [msgs, setMsgs] = useState(null);
   const [msgError, setMsgError] = useState("");
 
-  useEffect(() => {
-    async function getMessages(){
-      const { data, error } = await apiClient.getMessages(coach.userID);
-      if(data){
-        setMsgs(data);
-      }
-      if(error){
-        setMsgs([])
-      }
+  const getMessages = async () => {
+    const { data, error } = await apiClient.getMessages(coach.userID);
+    if(data){
+      setMsgs(data);
     }
-    getMessages();
-    // eslint-disable-next-line
-  }, [])
+    if(error){
+      setMsgs([])
+    }
+  }
 
   const handleOnSendMsg = async () => {
     if (newMsg !== "") {
@@ -29,8 +25,8 @@ export default function MyMessagesWithCoach({ coach }) {
         receiverID: coach.userID,
         created: new Date().toLocaleString()
       }
-      const { res, error } = await apiClient.sendMessage(newMessage);
-      if(res){
+      const { data, error } = await apiClient.sendMessage(newMessage);
+      if(data){
         setMsgs((prev) => [
           ...prev, newMessage
         ]);
@@ -46,10 +42,16 @@ export default function MyMessagesWithCoach({ coach }) {
   };
 
   useEffect(() => {
+    getMessages();
+    // eslint-disable-next-line
+  }, []);
+
+  useEffect(() => {
     const objDiv = document.getElementById("my-msgs-container");
     objDiv.scrollTop = objDiv.scrollHeight;
   }, [msgs]);
 
+  useEffect(() => {}, [msgs]);
   return (
     <div className="my-msg-with-coach">
       <div className="my-msg-with-coach-container">

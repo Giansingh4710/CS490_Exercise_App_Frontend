@@ -3,6 +3,8 @@ import './mealInput.css';
 import Modal from '../../Modal/Modal';
 import apiClient from '../../../services/apiClient';
 
+const mealTypes = ['Breakfast', 'Lunch', 'Dinner', 'Snack'];
+
 export default function MealInputModal({ setModalIsOpen }) {
   const [mealName, setMealName] = useState('');
   const [calories, setCalories] = useState('');
@@ -102,7 +104,14 @@ export function inputFields({
       <div className='input-field'>
         <label>
           Meal Type:
-          <input type='text' value={mealType} onChange={(e) => setMealType(e.target.value)} />
+          <select value={mealType} onChange={(e) => setMealType(e.target.value)}>
+            <option value=''>Select Meal Type</option>
+            {mealTypes.map((type) => (
+              <option key={type} value={type}>
+                {type}
+              </option>
+            ))}
+          </select>
         </label>
       </div>
     </>

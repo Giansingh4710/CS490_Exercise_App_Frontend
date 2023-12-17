@@ -112,32 +112,18 @@ class ApiClient {
       method: `GET`,
     })
   }
-
-
   async getAllPendingCoaches() {
     return await this.request({
       endpoint: `coachApply/allPending`,
       method: `GET`,
     })
   }
-
-
-
-
-  async getAllExercises() {
-    return await this.request({
-      endpoint: 'exercises/allExercises', // The API endpoint for fetching all exercises
-      method: 'GET',
-    })
-  }
-
   async getAllCoachesBySearchTerm(searchTerm) {
     return await this.request({
       endpoint: `coaches/searchByName?name=${encodeURIComponent(searchTerm)}`,
       method: `GET`,
     })
   }
-
   async getAllCoachesBySearchTermAndFilters(
     searchTerm,
     selectedSpecialization,
@@ -145,14 +131,6 @@ class ApiClient {
     selectedState,
     selectedCity,
   ) {
-    console.log(
-      'Search terms: ',
-      searchTerm,
-      selectedSpecialization,
-      selectedMaxPrice,
-      selectedState,
-      selectedCity,
-    )
     return await this.request({
       endpoint: `coaches/search?name=${encodeURIComponent(
         searchTerm,
@@ -162,7 +140,6 @@ class ApiClient {
       method: `GET`,
     })
   }
-
   async getCoachByID(coachID) {
     return await this.request({
       endpoint: `coaches/${coachID}`,
@@ -170,13 +147,26 @@ class ApiClient {
     })
   }
 
+  async getAllExercises() {
+    return await this.request({
+      endpoint: 'exercises/allExercises', // The API endpoint for fetching all exercises
+      method: 'GET',
+    })
+  }
+
+  async getAllActiveExercises() {
+    return await this.request({
+      endpoint: 'exercises/allActiveExercises', // The API endpoint for fetching all exercises
+      method: 'GET',
+    })
+  }
+
   async getPendingByID(coachRequestID) {
     return await this.request({
       endpoint: `coachApply/pending?coachRequestID=${coachRequestID}`,
       method: 'GET',
-    });
+    })
   }
-
 
   // data must include: "userID", "coachID", "goals", "note"
   async createNewRequestForCoachingFromClient(data) {
@@ -187,7 +177,14 @@ class ApiClient {
       data: data,
     })
   }
-
+  async createNewRequestForCoachingFromClient(data) {
+    console.log(data)
+    return await this.request({
+      endpoint: `request`,
+      method: `POST`,
+      data: data,
+    })
+  }
   // open requests from the logged in CLIENT that has not been answered yet
   async getOpenRequestsForClient() {
     return await this.request({
@@ -195,14 +192,12 @@ class ApiClient {
       method: `GET`,
     })
   }
-
   async getCoachLocations() {
     return await this.request({
       endpoint: `coaches/cities`,
       method: `GET`,
     })
   }
-
   async getCoachSpecializations() {
     return await this.request({
       endpoint: `coaches/specializations`,
@@ -217,7 +212,6 @@ class ApiClient {
       method: `GET`,
     })
   }
-
   // open requests that the logged in COACH has not answered
   async getOpenRequestsForCoach() {
     return await this.request({
@@ -236,6 +230,13 @@ class ApiClient {
   async getClientByID(clientID) {
     return await this.request({
       endpoint: `coaches/clientInfo?userID=${clientID}`,
+      method: `GET`,
+    })
+  }
+
+  async terminateClient(clientID) {
+    return await this.request({
+      endpoint: `coaches/terminate?userID=${clientID}`,
       method: `GET`,
     })
   }
@@ -265,14 +266,14 @@ class ApiClient {
 
   async getMeals() {
     return await this.request({
-      endpoint: `/meals`,
+      endpoint: `meals`,
       method: `GET`,
     })
   }
 
   async deleteMeal(mealID) {
     return await this.request({
-      endpoint: `/meals/${mealID}`,
+      endpoint: `meals/${mealID}`,
       method: `DELETE`,
     })
   }
@@ -329,60 +330,32 @@ class ApiClient {
     })
   }
 
-
   async enableExercise(exerciseID) {
     return await this.request({
       endpoint: `exercises/enableExercise?exerciseID=${exerciseID}`,
       method: 'GET',
-    });
+    })
   }
-  
- 
 
   async disableExercise(exerciseID) {
     return await this.request({
       endpoint: `exercises/disableExercise?exerciseID=${exerciseID}`,
       method: 'GET',
-    });
-  }
-  
-
-
-  async createNewRequestForCoachingFromClient(data) {
-    console.log(data)
-    return await this.request({
-      endpoint: `request`,
-      method: `POST`,
-      data: data,
     })
   }
-
-
-
-
 
   async acceptCoach(coachRequestID) {
     return await this.request({
       endpoint: `coachApply/accept?coachRequestID=${coachRequestID}`,
       method: 'GET',
-    });
+    })
   }
   async denyCoach(coachRequestID) {
     return await this.request({
       endpoint: `coachApply/deny?coachRequestID=${coachRequestID}`,
       method: 'GET',
-    });
+    })
   }
-
-
-
-
-
-
-
-
-
-
 }
 
 // console.log(API_BASE_URL);

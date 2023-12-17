@@ -12,7 +12,7 @@ const ExerciseBank = ({ viewOnly }) => {
 
   useEffect(() => {
     const fetchExercises = async () => {
-        const { data, error } = await apiClient.getAllExercises();
+        const { data, error } = await apiClient.getAllActiveExercises();
         if(data){
           setExercises(data);
         }
@@ -54,7 +54,7 @@ const ExerciseBank = ({ viewOnly }) => {
 
   return (
     <div>
-      <button onClick={openModal}>Open Exercise Bank</button>
+      <button onClick={openModal} className="exercise-bank-button">Open Exercise Bank</button>
       {isModalOpen && (
         <ExerciseBankModal onClose={closeModal}>
           <h2>Exercise Bank</h2>

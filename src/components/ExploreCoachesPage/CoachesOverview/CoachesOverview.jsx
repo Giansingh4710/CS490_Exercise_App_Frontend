@@ -48,7 +48,11 @@ export default function CoachesOverview({
       handler: () => {
         if (selectedTab == 'Coaches') {
           setSelectedTab('Sent Requests')
-          setCoachesToDisplay(sentRequests)
+          console.log('SENT REQUEST:', sentRequests)
+          const coachesFromSentRequests = sentRequests?.map((request) => request?.Coach)
+          console.log('clients from requests::', coachesFromSentRequests)
+
+          setCoachesToDisplay(coachesFromSentRequests)
         }
       },
     },
@@ -157,7 +161,7 @@ export function FilterForCoaches({
   selectedCity,
   setSelectedCity,
 }) {
-  const states = ['Any State', ...locations.map((location) => location.state)]
+  const states = ['Any State', ...locations?.map((location) => location.state)]
   const [cities, setCities] = useState(['Any City'])
 
   useEffect(() => {
@@ -248,34 +252,20 @@ export function CoachList({
       setRequestStatusForSelectedCoach('')
     }
   }
-
   return (
     <List
       items={coaches}
-      renderItem={(item, index) =>
-        selectedTab === 'Sent Requests' ? (
-          <ItemCard
-            key={index}
-            item={item.Coach}
-            isSelected={selectedCoach?.coachID === item?.Coach?.coachID}
-            handleClick={() => handleOnCoachClick(item.Coach)}>
-            <p>
-              {item.Coach.firstName} {item.Coach.lastName}
-            </p>
-            {/* You can add more content specific to coaches here */}
-          </ItemCard>
-        ) : (
-          <ItemCard
-            key={index}
-            item={item}
-            isSelected={selectedCoach?.coachID === item.coachID}
-            handleClick={() => handleOnCoachClick(item)}>
-            <p>
-              {item.firstName} {item.lastName}
-            </p>
-          </ItemCard>
-        )
-      }
+      renderItem={(item, index) => (
+        <ItemCard
+          key={index}
+          item={item}
+          isSelected={selectedCoach?.coachID === item?.coachID}
+          handleClick={() => handleOnCoachClick(item)}>
+          <p>
+            {item.firstName} {item.lastName}
+          </p>
+        </ItemCard>
+      )}
       noAvailableItemsMessage='No coaches available.'
     />
   )
