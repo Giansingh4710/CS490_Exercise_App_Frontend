@@ -1,8 +1,18 @@
-// const PRODUCTION_API_BASE_URL =
-// 'https://cs490-exerciseproj-backend.azurewebsites.net'
+// API URLs
+const PRODUCTION_API_BASE_URL = 'https://cs490-exerciseproj-backend.azurewebsites.net'
 const DEVELOPMENT_API_BASE_URL = 'http://localhost:1313'
 
-// change when switching from prod <=> dev
-const API_BASE_URL = DEVELOPMENT_API_BASE_URL
-// const API_BASE_URL = PRODUCTION_API_BASE_URL
-export default API_BASE_URL
+// UI URLs
+const PRODUCTION_FRONTEND_BASE_URL = 'https://proud-wave-0acf20910.4.azurestaticapps.net'
+const DEVELOPMENT_FRONTEND_BASE_URL = 'http://localhost:3000'
+
+// Set to true for production, false for development
+const isProduction = false
+
+// Export URLs based on the environment
+const BASE_URLS = {
+  API_BASE_URL: isProduction ? PRODUCTION_API_BASE_URL : DEVELOPMENT_API_BASE_URL,
+  UI_BASE_URL: isProduction ? PRODUCTION_FRONTEND_BASE_URL : DEVELOPMENT_FRONTEND_BASE_URL,
+}
+
+export default BASE_URLS

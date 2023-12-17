@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import { useEffect } from 'react'
 import apiClient from './services/apiClient'
 import { useAuthContext } from './contexts/auth'
@@ -21,7 +21,6 @@ import AdminOverview from './components/AdminCoach/AdminOverview/AdminOverview'
 import ManageExerciseBank from './components/ManageExerciseBank/ManageExerciseBank'
 import ProfilePage from './components/Profile/ProfilePage'
 import MyWorkouts from './components/myWorkouts/myWorkouts'
-
 export function AppContainer() {
   return (
     <AuthContextProvider>
@@ -71,7 +70,11 @@ export function App() {
               )
             }
           />
-          <Route path='/Login' element={user?.email ? <UserDashboard /> : <LoginPage />} />
+          {/* <Route path='/Login' element={user?.email ? <UserDashboard /> : <LoginPage />} /> */}
+          <Route
+            path='/Login'
+            element={user?.email ? <Navigate to='/UserDashboard' /> : <LoginPage />}
+          />
           <Route
             path='/Register'
             element={user?.email ? <UserDashboard /> : <RegistrationPage />}
