@@ -38,7 +38,7 @@ function InfoCard({ title, text, img }) {
   return (
     <div style={styles.card}>
       <h4 style={styles.cardTitle}>{title}</h4>
-      <img src={require(`${img}`).default} alt='this is a something' style={styles.image} />
+      <img src={`${img}`.default} alt='this is a something' style={styles.image} />
       <p style={styles.cardText}>{text}</p>
     </div>
   )
