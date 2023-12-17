@@ -41,13 +41,13 @@ export default function MyMessagesWithCoach({ coach }) {
       
       setNewMsg("");
     } else {
-      setMsgError("Cannot send an empty message!");
+      setMsgError('Cannot send an empty message!');
     }
   };
 
   useEffect(() => {
-    const objDiv = document.getElementById("my-msgs-container");
-    objDiv.scrollTop = objDiv.scrollHeight;
+    const messageContainer = document.getElementById('my-msgs-container');
+    messageContainer.scrollTop = messageContainer.scrollHeight;
   }, [msgs]);
 
   return (
@@ -76,8 +76,7 @@ export default function MyMessagesWithCoach({ coach }) {
             msgError={msgError}
             setMsgError={setMsgError}
           />
-          <div className="error-msg">{msgError === "" ? " " : msgError}</div>
-        </div>
+        ))}
       </div>
     </div>
   );
@@ -86,11 +85,7 @@ export default function MyMessagesWithCoach({ coach }) {
 function Message({ msgText, timeStamp, orientation }) {
   return (
     <div className="msg-line">
-      <div
-        className={
-          orientation === "left" ? "msg-container-left" : "msg-container-right"
-        }
-      >
+      <div className={orientation === 'left' ? 'msg-container-left' : 'msg-container-right'}>
         <div className="msg-text">{msgText}</div>
         <div className="msg-timestamp">{timeStamp}</div>
       </div>
@@ -98,16 +93,10 @@ function Message({ msgText, timeStamp, orientation }) {
   );
 }
 
-function SendMessage({
-  newMsg,
-  setNewMsg,
-  handleOnSendMsg,
-  msgError,
-  setMsgError,
-}) {
+function MessageInput({ newMsg, setNewMsg, handleOnSendMsg, msgError, setMsgError }) {
   const handleOnMsgTextChange = async (event) => {
-    if (msgError !== "") {
-      setMsgError("");
+    if (msgError !== '') {
+      setMsgError('');
     }
     setNewMsg(event.target.value);
   };
@@ -119,26 +108,25 @@ function SendMessage({
 
   return (
     <div className="send-msg-container">
-      <form
-        id="send-msg-form"
-        onSubmit={handleOnSubmit}
-        className="send-msg-form"
-      >
+      <form onSubmit={handleOnSubmit} className="send-msg-form">
         <div className="send-msg-text-box-container">
           <input
-            id="send-msg-input"
-            className="send-msg-text-box"
             value={newMsg}
             placeholder="Send a message ..."
             onChange={handleOnMsgTextChange}
-          ></input>
+            className="send-msg-text-box"
+          />
         </div>
         <div className="send-msg-btn-container">
-          <button className="send-msg-btn" type="submit">
+          <button type="submit" className="send-msg-btn">
             <span className="material-symbols-outlined send-icon">send</span>
           </button>
         </div>
       </form>
     </div>
   );
+}
+
+function ErrorMessage({ msgError }) {
+  return <div className="error-msg">{msgError || ' '}</div>;
 }
