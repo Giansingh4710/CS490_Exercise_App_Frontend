@@ -105,3 +105,17 @@ td {
     flex: 1 1 100%; /* Adjust for smaller screens */
   }
 }
+
+	.exercise-bank-button {
+    background-color: white;
+    color: #3F4D67;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+	
+  .exercise-bank-button:hover {
+    background-color: #c4c4c4;
+  }
+  
