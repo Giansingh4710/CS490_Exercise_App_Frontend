@@ -1,0 +1,48 @@
+.navbar {
+  color: #a9b7d0;
+  display: flex;
+  position: fixed;
+  width: 100%;
+  min-height: 70px;
+  padding: 0;
+  top: 0;
+  z-index: 100;
+  background: transparent;
+  -webkit-transition: all 0.3s ease-in-out;
+  box-shadow: 1px 0 20px 0 #3f4d67;
+  transition: all 0.3s ease-in-out;
+  background-color: var(--main-color);
+  cursor: default;
+}
+
+.navbar .navbar-content {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+  position: relative;
+  font-size: 30px;
+  padding: 15px;
+  transition: 0.5s;
+}
+
+.navbar .navbar-content .navbar-left-open {
+  position: relative;
+  margin-left: 264px;
+  transition: 0.5s;
+}
+
+.navbar .navbar-content .navbar-left-closed {
+  position: relative;
+  margin-left: 96px;
+  transition: 0.5s;
+}
+
+.navbar .material-symbols-outlined {
+  color: #a9b7d0;
+}
+
+.navbar .navbar-content .navbar-right span:hover {
+  color: var(--light-grey-color);
+  cursor: pointer;
+}

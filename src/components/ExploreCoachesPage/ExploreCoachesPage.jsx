@@ -41,7 +41,6 @@ export default function ExploreCoaches() {
       setSpecializations(['Any Specialization', ...specializationList])
     } catch (error) {
       setSpecializations(['Any Specialization'])
-      throw new Error('Error fetching specializations')
     }
   }
 
@@ -142,30 +141,32 @@ export default function ExploreCoaches() {
           // if any of the modals are open, blur & disable the background
           requestModalIsOpen || messageModalIsOpen ? 'explore-coaches blurred' : 'explore-coaches'
         }>
-        <CoachesOverview
-          coaches={coaches}
-          setCoaches={setCoaches}
-          setSelectedCoach={setSelectedCoach}
-          selectedCoach={selectedCoach}
-          coachesToDisplay={coachesToDisplay}
-          setCoachesToDisplay={setCoachesToDisplay}
-          sentRequests={sentRequests}
-          fetchSentRequests={fetchSentRequests}
-          setRequestStatusForSelectedCoach={setRequestStatusForSelectedCoach}
-          specializations={specializations}
-        />
-        <CoachView
-          selectedCoach={selectedCoach}
-          setSelectedCoach={setSelectedCoach}
-          loading={isLoading}
-          setLoading={setIsLoading}
-          setRequestModalIsOpen={setRequestModalIsOpen}
-          setMessageModalIsOpen={setMessageModalIsOpen}
-          requestStatusForSelectedCoach={requestStatusForSelectedCoach}
-          setShowErrorDialog={setShowErrorDialog}
-          fetchRequestStatus={fetchRequestStatus}
-          fetchSentRequests={fetchSentRequests}
-        />
+        <div className='explore-coaches-content'>
+          <CoachesOverview
+            coaches={coaches}
+            setCoaches={setCoaches}
+            setSelectedCoach={setSelectedCoach}
+            selectedCoach={selectedCoach}
+            coachesToDisplay={coachesToDisplay}
+            setCoachesToDisplay={setCoachesToDisplay}
+            sentRequests={sentRequests}
+            fetchSentRequests={fetchSentRequests}
+            setRequestStatusForSelectedCoach={setRequestStatusForSelectedCoach}
+            specializations={specializations}
+          />
+          <CoachView
+            selectedCoach={selectedCoach}
+            setSelectedCoach={setSelectedCoach}
+            loading={isLoading}
+            setLoading={setIsLoading}
+            setRequestModalIsOpen={setRequestModalIsOpen}
+            setMessageModalIsOpen={setMessageModalIsOpen}
+            requestStatusForSelectedCoach={requestStatusForSelectedCoach}
+            setShowErrorDialog={setShowErrorDialog}
+            fetchRequestStatus={fetchRequestStatus}
+            fetchSentRequests={fetchSentRequests}
+          />
+        </div>
       </div>
     </>
   )

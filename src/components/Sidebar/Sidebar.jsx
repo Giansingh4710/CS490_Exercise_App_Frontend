@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import './Sidebar.css'
 import { useAuthContext } from '../../contexts/auth'
 
-export default function Sidebar() {
+export default function Sidebar({ setSidebarIsOpen }) {
   const { logoutUser } = useAuthContext()
   const { user } = useAuthContext()
 
@@ -15,7 +15,10 @@ export default function Sidebar() {
   */
   const role = user?.role
   return (
-    <div className='sidebar'>
+    <div
+      className='sidebar'
+      onMouseOver={() => setSidebarIsOpen(true)}
+      onMouseOut={() => setSidebarIsOpen(false)}>
       <div className='sidebar-icons'>
         <div className='top-sidebar'>
           <div className='sidebar-logo'>

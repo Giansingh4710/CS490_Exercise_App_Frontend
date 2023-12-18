@@ -1,7 +1,6 @@
-import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import { useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import apiClient from './services/apiClient'
 import { useAuthContext } from './contexts/auth'
 import { AuthContextProvider } from './contexts/auth'
@@ -22,6 +21,7 @@ import ManageExerciseBank from './components/ManageExerciseBank/ManageExerciseBa
 import ProfilePage from './components/Profile/ProfilePage'
 import MyWorkouts from './components/myWorkouts/myWorkouts'
 import AdminCoaches from './components/AdminCoach/AdminCoaches'
+import Navbar from './components/Navbar/Navbar'
 
 export function AppContainer() {
   return (
@@ -33,6 +33,7 @@ export function AppContainer() {
 
 export function App() {
   const { user, setUser } = useAuthContext()
+  const [sidebarIsOpen, setSidebarIsOpen] = useState(false)
   useEffect(() => {
     const fetchUserInfo = async () => {
       const { data } = await apiClient.fetchUserFromToken()
@@ -52,7 +53,8 @@ export function App() {
       <main>
         {user?.email ? (
           <>
-            <Sidebar />
+            <Navbar sidebarIsOpen={sidebarIsOpen} />
+            <Sidebar setSidebarIsOpen={setSidebarIsOpen} />
           </>
         ) : (
           <></>

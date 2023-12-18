@@ -27,7 +27,7 @@ export default function ExploreClients() {
   const [searchTerm, setSearchTerm] = useState('')
   const [requestStatusForSelectedClient, setRequestStatusForSelectedCoach] = useState({})
   const [usersCoachID, setUsersCoachID] = useState()
-  const [termianteModalIsOpen, setTerminateModalIsOpen] = useState(false)
+  const [terminateModalIsOpen, setTerminateModalIsOpen] = useState(false)
 
   const { user } = useAuthContext()
   const fetchUsersCoachID = async () => {
@@ -105,17 +105,15 @@ export default function ExploreClients() {
   }
 
   useEffect(() => {
-    try {
-      const filteredClients = clients?.filter(
-        (client) =>
-          client?.firstName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-          client?.lastName.toLowerCase().includes(searchTerm.toLowerCase()),
-      )
-      setClientsToDisplay(filteredClients)
-    } catch (error) {
-      console.error('Error fetching clients:', error)
-    }
-  }, [searchTerm])
+    const filteredClients = clients.filter(
+      (client) =>
+        client?.firstName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        client?.lastName.toLowerCase().includes(searchTerm.toLowerCase()),
+    )
+
+    console.log('FIltered clients:', filteredClients)
+    setClientsToDisplay(filteredClients)
+  }, [searchTerm, clients])
 
   useEffect(() => {
     fetchAllClients()
@@ -138,7 +136,7 @@ export default function ExploreClients() {
       {messageModalIsOpen && (
         <Messaging user={selectedClient} setModalIsOpen={setMessageModalIsOpen} />
       )}
-      {termianteModalIsOpen && (
+      {terminateModalIsOpen && (
         <TerminateClientModal
           setTerminateModalIsOpen={setTerminateModalIsOpen}
           selectedClient={selectedClient}
@@ -148,7 +146,7 @@ export default function ExploreClients() {
 
       <div
         className={
-          messageModalIsOpen || termianteModalIsOpen ? 'explore-clients blurred' : 'explore-clients'
+          messageModalIsOpen || terminateModalIsOpen ? 'explore-clients blurred' : 'explore-clients'
         }>
         <div className='explore-clients-content'>
           <ClientsOverview
@@ -465,7 +463,7 @@ export function ClientView({
               </div>
             </div>
           </div>
-          <Workouts clientID={selectedClient.userID}/>
+          <Workouts clientID={selectedClient.userID} />
         </div>
       </>
     )
