@@ -1,7 +1,7 @@
 import React from 'react'
 import './CoachView.css'
 import apiClient from '../../../services/apiClient'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { BlueRequestButton, MailIconButton, RedCancelButton } from '../../Buttons/Buttons'
 import { useAuthContext } from '../../../contexts/auth'
 
@@ -15,6 +15,19 @@ export default function CoachView({
   fetchSentRequests,
 }) {
   const [error, setError] = useState('')
+  const [isRequestPending, setIsRequestPending] = useState(false)
+
+  useEffect(() => {
+    if (
+      requestStatusForSelectedCoach?.exists &&
+      requestStatusForSelectedCoach?.status === 'Pending'
+    ) {
+      setIsRequestPending(true)
+    } else {
+      setIsRequestPending(false)
+    }
+  }, [requestStatusForSelectedCoach])
+
   const { user } = useAuthContext()
   const handleOnRequestClick = async () => {
     if (user.role === null || user.role === '') {
@@ -26,19 +39,14 @@ export default function CoachView({
   }
 
   const handleOnCancelClick = async () => {
-    console.log('Cancel button cicked')
-    if (requestStatusForSelectedCoach.status === 'Pending') {
-      const { data, error } = await apiClient.cancelRequest(requestStatusForSelectedCoach.requestID)
-      console.log('Successfully canceled request', data)
+    const { data, error } = await apiClient.cancelRequest(requestStatusForSelectedCoach?.requestID)
+    if (data) {
+      setIsRequestPending(false)
       fetchRequestStatus()
       fetchSentRequests()
-      if (data) {
-        console.log('Successfully canceled request', data)
-        fetchRequestStatus()
-        fetchSentRequests()
-      }
     }
   }
+
   return selectedCoach ? (
     loading ? (
       <>
@@ -57,8 +65,8 @@ export default function CoachView({
               {selectedCoach?.firstName} {selectedCoach?.lastName}
             </h2>
 
-            {/*if request is empty, show request button, otherwise show cancel button*/}
-            {requestStatusForSelectedCoach?.exists ? (
+            {/*if there is no request pending, show request & message button, otherwise show cancel button*/}
+            {isRequestPending ? (
               <div className='buttons'>
                 <MailIconButton handleOnClick={() => setMessageModalIsOpen(true)} />
                 <RedCancelButton

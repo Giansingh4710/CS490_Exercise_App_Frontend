@@ -18,12 +18,15 @@
   padding-top: 80px;
   height: 100%;
   width: 100%;
+  justify-content: space-between;
 }
 .explore-clients-row {
   display: flex;
   flex-direction: row;
   width: 100%;
-  height: 100%;
+  height: calc(100% - 50px); /* Adjust 50px to the height of your terminate link */
+
+  /* height: 100%; */
 }
 
 .terminate-text {
@@ -184,6 +187,7 @@ input {
   height: 100%;
   background-color: white;
   box-shadow: var(--card-box-shadow);
+  overflow: auto;
 }
 
 .client-header {
@@ -206,4 +210,14 @@ input {
   cursor: pointer;
   outline: 0;
   border: none;
+}
+
+.client-about-me,
+.client-info-workouts {
+  width: 100%;
+}
+
+.explore-clients-content .my-workouts {
+  margin: 0;
+  padding: 0;
 }

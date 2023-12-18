@@ -434,7 +434,7 @@ export function ClientView({
           </div>
 
           <div className='client-details'>
-            <div className='about-me'>
+            <div className='client-about-me'>
               <h3 className='about-me-header'>ABOUT {selectedClient?.firstName}</h3>
               <div>Goals: {selectedClient?.goal} </div>
               <div>
@@ -455,8 +455,9 @@ export function ClientView({
                 )}
               </div>
             </div>
-
-            {/* <Workouts clientID={selectedClient.userID} /> */}
+            <div className='client-info-workouts'>
+              <Workouts clientID={selectedClient.userID} />
+            </div>
           </div>
         </div>
       </>
