@@ -165,7 +165,7 @@ export function FilterForCoaches({
   const [cities, setCities] = useState(['Any City'])
 
   useEffect(() => {
-    const selectedStateObj = locations.find((loc) => loc.state === selectedState)
+    const selectedStateObj = locations?.find((loc) => loc.state === selectedState)
     if (selectedStateObj) {
       setCities(['Any City', ...selectedStateObj?.cities])
     }

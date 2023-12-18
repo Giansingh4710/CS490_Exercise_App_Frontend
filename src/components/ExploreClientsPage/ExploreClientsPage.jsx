@@ -216,7 +216,7 @@ export function ClientsOverview({
       handler: () => {
         if (selectedTab == 'Clients') {
           setSelectedTab('New Requests')
-          const clientsFromRequests = newRequests.map((request) => request.User)
+          const clientsFromRequests = newRequests?.map((request) => request.User)
           setClientsToDisplay(clientsFromRequests)
         }
       },
