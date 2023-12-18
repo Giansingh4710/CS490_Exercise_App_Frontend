@@ -177,14 +177,6 @@ class ApiClient {
       data: data,
     })
   }
-  async createNewRequestForCoachingFromClient(data) {
-    console.log(data)
-    return await this.request({
-      endpoint: `request`,
-      method: `POST`,
-      data: data,
-    })
-  }
   // open requests from the logged in CLIENT that has not been answered yet
   async getOpenRequestsForClient() {
     return await this.request({
@@ -322,13 +314,12 @@ class ApiClient {
     })
   }
 
-  async getLoggedWorkout(){
+  async getLoggedWorkout() {
     return await this.request({
       endpoint: `workoutPlan/getPastWorkouts`,
-      method: `GET`
+      method: `GET`,
     })
   }
-
 
   async getPersonalWorkoutPlan() {
     return await this.request({
@@ -352,8 +343,6 @@ class ApiClient {
       data: data,
     })
   }
-
-  
 
   async enableExercise(exerciseID) {
     return await this.request({

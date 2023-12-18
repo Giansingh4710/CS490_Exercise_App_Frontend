@@ -8,9 +8,9 @@ export default function Workouts(clientUserID) {
   useEffect(() => {
     async function getWorkoutPlan() {
       try {
-        console.log(clientUserID);
-        const response = await apiClient.getCoachAssignedWorkoutPlanForCoach(clientUserID);
-        console.log(response);
+        console.log(clientUserID)
+        const response = await apiClient.getCoachAssignedWorkoutPlanForCoach(clientUserID)
+        console.log(response)
         if (response.data) {
           setWorkoutPlan(response.data)
         }
@@ -150,7 +150,7 @@ function NoWorkoutsAssigned() {
   )
 }
 
-function AddExerciseModal({ onClose, exerciseData, message, userID}) {
+function AddExerciseModal({ onClose, exerciseData, message, userID }) {
   // eslint-disable-next-line
   const [exerciseName, setExerciseName] = useState('')
   const [sets, setSets] = useState([{ reps: 0, weight: 0 }])
@@ -176,7 +176,7 @@ function AddExerciseModal({ onClose, exerciseData, message, userID}) {
   }
 
   const handleAddExercise = async () => {
-    console.log(userID);
+    console.log(userID)
     const newExerciseData = {
       name: exerciseData.name,
       sets,
@@ -184,7 +184,7 @@ function AddExerciseModal({ onClose, exerciseData, message, userID}) {
       dayOfWeek,
       exerciseID: exerciseData.exerciseID,
       metric: exerciseData.metric,
-      userID: userID.clientID
+      userID: userID.clientID,
     }
 
     const { data, error } = await apiClient.coachAddExerciseToPlan(newExerciseData)

@@ -17,17 +17,22 @@ export default function RequestCoachModal({
   const [message, setMessage] = useState('')
 
   const handleOnSubmitClick = async () => {
+    console.log('Submit click')
+    const requestData = { userID: user?.id, coachID: coach?.coachID, goals: goal, note: message }
+    console.log('Data', requestData)
     const { data, error } = await apiClient.createNewRequestForCoachingFromClient({
       userID: user?.id,
       coachID: coach?.coachID,
       goals: goal,
       note: message,
     })
-    if (data) {
-      fetchRequestStatus(coach.coachID)
-      fetchSentRequests()
-      setRequestModalIsOpen(false)
-    } else {
+
+    console.log('The data from the await:', data)
+    console.log("The error from the await:'", data)
+    setRequestModalIsOpen(false)
+    fetchRequestStatus(coach.coachID)
+    fetchSentRequests()
+    if (error) {
       setRequestModalIsOpen(false)
       setShowErrorDialog(true)
     }

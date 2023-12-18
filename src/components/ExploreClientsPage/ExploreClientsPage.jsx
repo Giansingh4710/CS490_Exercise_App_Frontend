@@ -55,7 +55,6 @@ export default function ExploreClients() {
   }
 
   const handleOnTerminate = async () => {
-    console.log('TERMINATE CLINET!')
     const { data, error } = await apiClient.terminateClient(selectedClient.userID)
     if (data) {
       fetchAllClients()
@@ -64,7 +63,6 @@ export default function ExploreClients() {
     if (error) {
       fetchAllClients()
       setSelectedClient(null)
-      console.error('ERROR terminating client')
     }
     setTerminateModalIsOpen(false)
   }
@@ -99,8 +97,6 @@ export default function ExploreClients() {
       if (error) {
         setRequestStatusForSelectedCoach('')
       }
-    } else {
-      console.log('missing data- cannot get request status')
     }
   }
 
@@ -110,10 +106,8 @@ export default function ExploreClients() {
         client?.firstName.toLowerCase().includes(searchTerm.toLowerCase()) ||
         client?.lastName.toLowerCase().includes(searchTerm.toLowerCase()),
     )
-
-    console.log('FIltered clients:', filteredClients)
     setClientsToDisplay(filteredClients)
-  }, [searchTerm, clients])
+  }, [searchTerm])
 
   useEffect(() => {
     fetchAllClients()
@@ -149,39 +143,43 @@ export default function ExploreClients() {
           messageModalIsOpen || terminateModalIsOpen ? 'explore-clients blurred' : 'explore-clients'
         }>
         <div className='explore-clients-content'>
-          <ClientsOverview
-            clients={clients}
-            setClients={setClients}
-            setSelectedClient={setSelectedClient}
-            selectedClient={selectedClient}
-            clientsToDisplay={clientsToDisplay}
-            setClientsToDisplay={setClientsToDisplay}
-            newRequests={newRequests}
-            fetchNewRequests={fetchNewRequests}
-            selectedTab={selectedTab}
-            setSelectedTab={setSelectedTab}
-          />
-          <ClientView
-            selectedClient={selectedClient}
-            setSelectedClient={setSelectedClient}
-            loading={isLoading}
-            setLoading={setIsLoading}
-            setMessageModalIsOpen={setMessageModalIsOpen}
-            clients={clients}
-            newRequests={newRequests}
-            fetchAllClients={fetchAllClients}
-            requestStatusForSelectedClient={requestStatusForSelectedClient}
-          />
-        </div>
-        {selectedClient && requestStatusForSelectedClient !== 'Pending' ? (
-          <div className='terminate-client-area'>
-            <p className='terminate-text' onClick={() => setTerminateModalIsOpen(true)}>
-              Terminate your contract with {selectedClient?.firstName} {selectedClient?.lastName}
-            </p>
+          <div className='explore-clients-row'>
+            <ClientsOverview
+              clients={clients}
+              setClients={setClients}
+              setSelectedClient={setSelectedClient}
+              setSearchTerm={setSearchTerm}
+              selectedClient={selectedClient}
+              clientsToDisplay={clientsToDisplay}
+              setClientsToDisplay={setClientsToDisplay}
+              newRequests={newRequests}
+              fetchNewRequests={fetchNewRequests}
+              selectedTab={selectedTab}
+              setSelectedTab={setSelectedTab}
+              searchTerm={searchTerm}
+            />
+            <ClientView
+              selectedClient={selectedClient}
+              setSelectedClient={setSelectedClient}
+              loading={isLoading}
+              setLoading={setIsLoading}
+              setMessageModalIsOpen={setMessageModalIsOpen}
+              clients={clients}
+              newRequests={newRequests}
+              fetchAllClients={fetchAllClients}
+              requestStatusForSelectedClient={requestStatusForSelectedClient}
+            />
           </div>
-        ) : (
-          <></>
-        )}
+          {selectedClient !== null && requestStatusForSelectedClient?.status !== 'Pending' ? (
+            <div className='terminate-client-area'>
+              <p className='terminate-text' onClick={() => setTerminateModalIsOpen(true)}>
+                Terminate your contract with {selectedClient?.firstName} {selectedClient?.lastName}
+              </p>
+            </div>
+          ) : (
+            <></>
+          )}
+        </div>
       </div>
     </>
   )
@@ -198,9 +196,9 @@ export function ClientsOverview({
   selectedClient,
   selectedTab,
   setSelectedTab,
+  setSearchTerm,
+  searchTerm,
 }) {
-  const [searchTerm, setSearchTerm] = useState('')
-
   const tabs = [
     {
       label: 'Clients',
@@ -232,10 +230,6 @@ export function ClientsOverview({
       // Handle the error appropriately
     }
   }
-
-  useEffect(() => {
-    handleSearch()
-  }, [searchTerm])
 
   return (
     <div className='clients-overview'>
@@ -378,10 +372,10 @@ export function ClientView({
         if (data) {
           console.log('Request declined', data)
         } else if (error) {
-          console.error('Error declining request:', error)
+          console.log('Error declining request:', error)
         }
       } catch (err) {
-        console.error('Error:', err)
+        console.log('Error:', err)
       }
     } else {
       console.log('No matching request found for selected client.')
@@ -396,7 +390,6 @@ export function ClientView({
       try {
         const { data, error } = await apiClient.acceptRequest(reqID)
         if (data) {
-          console.log('Request Accepted', data)
           fetchAllClients()
         } else if (error) {
           console.error('Error accepting request:', error)
@@ -462,8 +455,9 @@ export function ClientView({
                 )}
               </div>
             </div>
+
+            {/* <Workouts clientID={selectedClient.userID} /> */}
           </div>
-          <Workouts clientID={selectedClient.userID} />
         </div>
       </>
     )

@@ -4,9 +4,12 @@
   width: 100%;
   height: 100%;
   display: flex;
-  position: absolute;
+  position: fixed;
   justify-content: center;
-  vertical-align: top;
+  align-items: center;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.25);
   z-index: 1;
 }
 
@@ -18,6 +21,8 @@
   flex-direction: column;
   box-shadow: 1px 0 15px 0 #3f4d67;
   border-radius: 23px;
+  max-height: 90vh;
+  overflow-y: auto;
 }
 
 /* -------- header section styling ----------- */
