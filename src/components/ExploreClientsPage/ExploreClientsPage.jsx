@@ -456,7 +456,7 @@ export function ClientView({
               </div>
             </div>
             <div className='client-info-workouts'>
-              <Workouts clientID={selectedClient.userID} />
+              <Workouts userID={selectedClient.userID} />
             </div>
           </div>
         </div>
