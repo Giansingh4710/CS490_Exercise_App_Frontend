@@ -101,7 +101,7 @@ export default function ExploreClients() {
   }
 
   useEffect(() => {
-    const filteredClients = clients.filter(
+    const filteredClients = clients?.filter(
       (client) =>
         client?.firstName.toLowerCase().includes(searchTerm.toLowerCase()) ||
         client?.lastName.toLowerCase().includes(searchTerm.toLowerCase()),
