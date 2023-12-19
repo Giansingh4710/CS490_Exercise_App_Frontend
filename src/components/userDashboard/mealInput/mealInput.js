@@ -25,6 +25,7 @@ export default function MealInputModal({ setModalIsOpen }) {
       if (data) {
         // Handle successful response
         console.log('Meal input successful:', data);
+        window.location.reload();
 
         // Optionally close the modal or perform other actions on success
         setModalIsOpen(false);
