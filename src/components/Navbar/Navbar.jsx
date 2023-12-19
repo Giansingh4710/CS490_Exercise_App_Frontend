@@ -11,6 +11,8 @@ export default function Navbar({ sidebarIsOpen }) {
 
     if (path.includes('/MyClients')) {
       setHeader('MY CLIENTS')
+    } else if (path.includes('/Register/Survey')) {
+      setHeader('INITIAL SURVEY')
     } else if (path.includes('/ManageCoaches')) {
       setHeader('MANAGE COACHES')
     } else if (path.includes('/ManageExercises')) {
