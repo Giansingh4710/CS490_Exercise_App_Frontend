@@ -309,7 +309,7 @@ class ApiClient {
 
   async getCoachAssignedWorkoutPlanForCoach(userID) {
     return await this.request({
-      endpoint: `workoutPlan/coach/WorkoutsFromCoach?userID=${userID.clientID}`,
+      endpoint: `workoutPlan/coach/WorkoutsFromCoach?userID=${userID}`,
       method: `GET`,
     })
   }

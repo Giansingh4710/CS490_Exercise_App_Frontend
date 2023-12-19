@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from 'react'
 // import './MyWorkouts.css'
 import apiClient from '../../../services/apiClient'
-import WorkoutPlanExerciseBank from '../../WorkoutPlanExerciseBank/WorkoutPlanExerciseBank.js'
+import WorkoutPlanExerciseBank from '../WorkoutPlanExerciseBank/WorkoutPlanExerciseBank.js'
 
-export default function Workouts(clientUserID) {
+export default function Workouts({ userID }) {
   const [workoutPlan, setWorkoutPlan] = useState({})
   useEffect(() => {
     async function getWorkoutPlan() {
       try {
-        console.log(clientUserID)
-        const response = await apiClient.getCoachAssignedWorkoutPlanForCoach(clientUserID)
+        console.log(userID)
+        const response = await apiClient.getCoachAssignedWorkoutPlanForCoach(userID)
         console.log(response)
         if (response.data) {
           setWorkoutPlan(response.data)
@@ -25,7 +25,7 @@ export default function Workouts(clientUserID) {
       <div className='my-workouts-container'>
         <div className='my-workouts-header-container'>
           <h2 className='my-workouts-header'>Workout Plan</h2>
-          <WeeklySchedule workoutPlan={workoutPlan} userID={clientUserID} />
+          <WeeklySchedule workoutPlan={workoutPlan} userID={userID} />
         </div>
       </div>
     </div>
@@ -184,7 +184,7 @@ function AddExerciseModal({ onClose, exerciseData, message, userID }) {
       dayOfWeek,
       exerciseID: exerciseData.exerciseID,
       metric: exerciseData.metric,
-      userID: userID.clientID,
+      userID: userID,
     }
 
     const { data, error } = await apiClient.coachAddExerciseToPlan(newExerciseData)
