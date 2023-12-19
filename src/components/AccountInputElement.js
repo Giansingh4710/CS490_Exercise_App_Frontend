@@ -8,7 +8,8 @@ export default function InputElement({
   onChange,
   elementError,
   value,
-  disabled
+  disabled,
+  labelTextColor,
 }) {
   const handleChange = (event) => {
     const inputValue = event.target.value
@@ -34,7 +35,7 @@ export default function InputElement({
 
   return (
     <div style={styles.inputElementContainer}>
-      <p style={styles.label}>
+      <p style={labelTextColor ? styles.whiteTextLabel : styles.label}>
         <span style={styles.required}>*</span> {label}
       </p>
       <input
@@ -57,8 +58,7 @@ function Dropdown({ options, additionalStyles, onChange, disabled }) {
     <select
       style={{ ...styles.inputField, ...additionalStyles }}
       onChange={onChange}
-      disabled={disabled}
-    >
+      disabled={disabled}>
       {options.map((option, index) => (
         <option key={index} value={option}>
           {option}
@@ -77,7 +77,7 @@ const styles = {
     backgroundColor: '#FFFFFF',
     border: '1px solid gray',
     paddingLeft: '5px',
-    paddingBottom: '10px'
+    paddingBottom: '10px',
   },
   inputElementContainer: {
     textAlign: 'left',
@@ -86,6 +86,11 @@ const styles = {
     fontSize: '20px',
     fontWeight: 'bold',
     color: '#000000',
+  },
+  whiteTextLabel: {
+    fontSize: '20px',
+    fontWeight: 'bold',
+    color: 'white',
   },
   required: {
     color: '#FF5C5C',

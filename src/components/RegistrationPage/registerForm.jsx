@@ -3,15 +3,15 @@ import { LandingPageButton } from '../Buttons/Buttons.jsx'
 import { useState } from 'react'
 import apiClient from '../../services/apiClient'
 import { useAuthContext } from '../../contexts/auth'
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom'
 
 export default function RegistrationForm() {
-  const navigate = useNavigate();
+  const navigate = useNavigate()
   const { setUser } = useAuthContext()
   const [formData, setFormData] = useState({
-    email: 'bob@bob.com',
-    password: '123',
-    confirm_password: '123',
+    email: '',
+    password: '',
+    confirm_password: '',
   })
 
   const [error, setError] = useState({
@@ -35,7 +35,7 @@ export default function RegistrationForm() {
 
     if (data) {
       console.log('Data:', data)
-      navigate('/Register/Survey');
+      navigate('/Register/Survey')
       setUser(data.user) // will change page. When you change user
       apiClient.setToken(data.token)
     }
@@ -71,6 +71,7 @@ export default function RegistrationForm() {
           additionalStyles={{
             width: '400px',
           }}
+          labelTextColor='white'
           onChange={handleInputChange}
           value={formData.email}
         />
@@ -81,6 +82,7 @@ export default function RegistrationForm() {
           label='PASSWORD'
           onChange={handleInputChange}
           value={formData.password}
+          labelTextColor='white'
         />
         <InputElement
           type='password'
@@ -89,6 +91,7 @@ export default function RegistrationForm() {
           label='CONFIRM PASSWORD'
           onChange={handleInputChange}
           value={formData.confirm_password}
+          labelTextColor='white'
         />
         <Error />
         <LandingPageButton name='Create Account' type='submit' additionalStyles={styles.button} />

@@ -53,18 +53,20 @@ export default function LoginForm() {
         <InputElement
           type='email'
           name='email'
-          placeholder='Enter Email'
-          label='Enter Email'
+          placeholder='youremail@example.com'
+          label='EMAIL'
           onChange={handleInputChange}
           value={formData.email}
+          labelTextColor='white'
         />
         <InputElement
           type='password'
           name='password'
-          placeholder='Enter Password'
-          label='Enter Password'
+          placeholder='Password'
+          label='PASSWORD'
           onChange={handleInputChange}
           value={formData.password}
+          labelTextColor='white'
         />
         <LoginButton />
       </form>
