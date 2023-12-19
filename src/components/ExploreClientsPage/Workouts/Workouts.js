@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import apiClient from '../../../services/apiClient'
 import WorkoutPlanExerciseBank from '../../WorkoutPlanExerciseBank/WorkoutPlanExerciseBank.js'
 
-export default function Workouts(clientUserID) {
+export default function Workouts({ clientUserID }) {
   const [workoutPlan, setWorkoutPlan] = useState({})
   useEffect(() => {
     async function getWorkoutPlan() {
