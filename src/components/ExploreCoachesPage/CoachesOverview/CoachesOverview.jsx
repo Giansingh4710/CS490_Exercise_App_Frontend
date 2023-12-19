@@ -161,13 +161,15 @@ export function FilterForCoaches({
   selectedCity,
   setSelectedCity,
 }) {
-  const states = ['Any State', ...locations?.map((location) => location.state)]
+  const states = ['Any State', ...(locations ? locations.map((location) => location.state) : [])]
   const [cities, setCities] = useState(['Any City'])
 
   useEffect(() => {
     const selectedStateObj = locations?.find((loc) => loc.state === selectedState)
-    if (selectedStateObj) {
-      setCities(['Any City', ...selectedStateObj?.cities])
+    if (selectedStateObj && Array.isArray(selectedStateObj.cities)) {
+      setCities(['Any City', ...selectedStateObj.cities])
+    } else {
+      setCities(['Any City'])
     }
   }, [selectedState])
 
