@@ -22,6 +22,7 @@ import ProfilePage from './components/Profile/ProfilePage'
 import MyWorkouts from './components/myWorkouts/myWorkouts'
 import AdminCoaches from './components/AdminCoach/AdminCoaches'
 import Navbar from './components/Navbar/Navbar'
+import { Navigate } from 'react-router-dom'
 
 export function AppContainer() {
   return (
@@ -63,21 +64,30 @@ export function App() {
           <Route
             path='/'
             element={
-              user?.email ? (
-                user?.role !== null ? (
-                  <UserDashboard />
-                ) : (
-                  <SurveyPage />
-                )
-              ) : (
+              // user is not logged in (does not have email)
+              // default / to landing page
+              !user?.email ? (
                 <LandingPage />
+              ) : // user is logged in and their role is null
+              // default / to survey page
+              user.role === null ? (
+                <SurveyPage />
+              ) : // user is logged in, and their role is admin
+              // default to / to manage coaches
+              user.role === 'Admin' ? (
+                <AdminCoaches />
+              ) : (
+                // else
+                // user is logged in, and their role is not null and not admin
+                // default / to user dashboard
+                <UserDashboard />
               )
             }
           />
-          <Route path='/Login' element={user?.email ? <UserDashboard /> : <LoginPage />} />
+          <Route path='/Login' element={user?.email ? <Navigate to='/' /> : <LoginPage />} />
           <Route
             path='/Register'
-            element={user?.email ? <UserDashboard /> : <RegistrationPage />}
+            element={user?.email ? <Navigate to='/' /> : <RegistrationPage />}
           />
           <Route path='/UserDashboard' element={<ProtectedRoute element={<UserDashboard />} />} />
           <Route path='/MyCoach' element={<ProtectedRoute element={<MyCoach />} />} />

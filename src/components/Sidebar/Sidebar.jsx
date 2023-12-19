@@ -32,7 +32,8 @@ export default function Sidebar({ setSidebarIsOpen }) {
 
           {role !== 'Admin' && (
             <>
-              <Link to='/UserDashboard'>
+              {/* make dashboard link redirect to survey page if the user has not filled it out yet */}
+              <Link to={user?.role === null ? '/Register/Survey' : '/UserDashboard'}>
                 <div className='sidebar-icon dashboard'>
                   <span className='material-symbols-outlined dashboard'>desktop_windows</span>
                   <span className='icon-text'> Dashboard </span>

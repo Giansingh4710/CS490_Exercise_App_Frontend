@@ -15,7 +15,7 @@ export default function Navbar({ sidebarIsOpen }) {
       setHeader('MANAGE COACHES')
     } else if (path.includes('/ManageExercises')) {
       setHeader('MANAGE EXERCISES')
-    } else if (path.includes('/MyWorkouts')) {
+    } else if (path.includes('/Workouts')) {
       setHeader('MY WORKOUTS')
     } else if (path.includes('/MyCoach')) {
       setHeader('MY COACH')
@@ -38,7 +38,7 @@ export default function Navbar({ sidebarIsOpen }) {
         </div>
 
         <div className='navbar-right'>
-          <Link to='/userprofile'>
+          <Link to='/Profile'>
             <span className='material-symbols-outlined'>account_circle</span>
           </Link>
         </div>
