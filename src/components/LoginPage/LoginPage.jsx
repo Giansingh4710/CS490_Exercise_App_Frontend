@@ -11,10 +11,15 @@ function LoginPage() {
         <LoginForm />
       </div>
       <button
+        className='forgot-password-btn'
         style={{
           overflow: 'hidden',
           color: '#A9B7D0',
           fontStyle: 'italic',
+          background: 'transparent',
+          border: 'none',
+          padding: '20px',
+          cursor: 'pointer',
         }}>
         Forgot Password?
       </button>
