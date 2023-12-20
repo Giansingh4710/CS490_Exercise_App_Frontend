@@ -7,7 +7,7 @@ export const AuthContextProvider = ({ children }) => {
   const [initialized, setInitialized] = useState(false)
   const [isProcessing, setIsProcessing] = useState(false)
   const [error, setError] = useState()
-  const [coachID, setCoachID] = useState()
+  const [usersCoachID, setUsersCoachID] = useState('')
 
   const fetchUsersCoachID = async () => {
     if (user?.role === 'Coach') {
