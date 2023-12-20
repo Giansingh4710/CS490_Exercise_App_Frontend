@@ -344,6 +344,21 @@ class ApiClient {
     })
   }
 
+  async recordWorkout(data){
+    return await this.request({
+      endpoint: `workoutPlan/recordWorkout`,
+      method: `POST`,
+      data: data
+    })
+  }
+
+  async deleteExerciseFromWorkout(planID){
+    return await this.request({
+      endpoint: `workoutPlan/client/deleteExercise?planID=${planID}`,
+      method: `DELETE`,
+    })
+  }
+
   async enableExercise(exerciseID) {
     return await this.request({
       endpoint: `exercises/enableExercise?exerciseID=${exerciseID}`,

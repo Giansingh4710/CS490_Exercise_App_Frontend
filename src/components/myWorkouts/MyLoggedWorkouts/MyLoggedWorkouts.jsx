@@ -3,7 +3,6 @@ import "./MyLoggedWorkouts.css";
 import apiClient from "../../../services/apiClient";
 
 export default function MyLoggedWorkouts() {
-  // const [coach, setCoach] = useState(null);
   const [workoutPlan, setWorkoutPlan] = useState({});
   const [errorMessage, setErrorMessage] = useState(null);
 
@@ -54,28 +53,31 @@ function MyWeeklySchedule({ workoutPlan }) {
   }
   
   function DailySchedule({exercise}) {
+    const hasReps = Array.isArray(exercise.reps) && exercise.reps.length > 0;
     return (
       <div className='day-card'>
+        {console.log(exercise)}
         <table className='workout-card'>
-          <thead>
-            <tr>
-              <th>Exercise</th>
-              <th>Set #</th>
-              {exercise.metric === 'Reps' ? <th># of Reps</th> : <th>Duration</th>}
-              <th>Weight</th>
-            </tr>
-          </thead>
-          <tbody>
-            {exercise.reps.map((rep, index) => (
+          <tr>
+            <th>Exercise</th>
+            <th>Set #</th>
+            {exercise.metric === 'Reps' ? <th># of Reps</th> : <th>Duration</th>}
+            <th>Weight</th>
+          </tr>
+          {hasReps ? (
+            exercise.reps.map((rep, index) => (
               <tr key={index}>
                 {index === 0 ? <td>{exercise.exercise}</td> : <td></td>}
                 <td>{index + 1}</td>
-                <td>{exercise.reps[index]}</td>
-                <td>{exercise.weight && exercise.weight[index] !== null ? 
-                     (exercise.equipment === 'Bodyweight' ? <p>Bodyweight</p> : `${exercise.weight[index]} lbs`) : ''}</td>
+                {exercise.metric === 'Reps' ? <td>{rep}</td> : <td>{exercise.duration[index]}</td>}
+                <td>{exercise.equipment === 'Bodyweight' ? 'Bodyweight' : `${exercise.weight[index]} lbs`}</td>
               </tr>
-            ))}
-          </tbody>
+            ))
+          ) : (
+            <tr>
+              <td colSpan="4">No sets data available</td>
+            </tr>
+          )}
         </table>
       </div>
     );
