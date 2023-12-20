@@ -39,7 +39,9 @@ export default function Messaging({ user, setModalIsOpen }) {
     }
   }
 
-  fetchMessages()
+  useEffect(() => {
+    fetchMessages()
+  }, [])
 
   useEffect(() => {
     const objDiv = document.getElementById('my-msgs-container')

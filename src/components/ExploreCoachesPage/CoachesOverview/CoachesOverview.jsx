@@ -22,16 +22,11 @@ export default function CoachesOverview({
 }) {
   const [selectedTab, setSelectedTab] = useState('Coaches')
   const [locations, setLocations] = useState([{ state: 'Any State', cities: [] }])
-
   const [searchTerm, setSearchTerm] = useState('')
   const [selectedSpecialization, setSelectedSpecialization] = useState('')
   const [selectedMaxPrice, setSelectedMaxPrice] = useState('')
   const [selectedState, setSelectedState] = useState('')
   const [selectedCity, setSelectedCity] = useState('')
-
-  useEffect(() => {
-    handleSearch()
-  }, [searchTerm, selectedSpecialization, selectedMaxPrice, selectedState, selectedCity])
 
   const tabs = [
     {
@@ -48,10 +43,7 @@ export default function CoachesOverview({
       handler: () => {
         if (selectedTab === 'Coaches') {
           setSelectedTab('Sent Requests')
-          console.log('SENT REQUEST:', sentRequests)
           const coachesFromSentRequests = sentRequests?.map((request) => request?.Coach)
-          console.log('clients from requests::', coachesFromSentRequests)
-
           setCoachesToDisplay(coachesFromSentRequests)
         }
       },
@@ -61,10 +53,16 @@ export default function CoachesOverview({
   const fetchLocations = async () => {
     try {
       const { data, error } = await apiClient.getCoachLocations()
-      setLocations(data)
+      if (data) {
+        setLocations(data)
+      }
+      if (error) {
+        setLocations([{ state: 'Any State', cities: [] }])
+        console.log('ERROR: fetching coach locations ')
+      }
     } catch (error) {
       setLocations([{ state: 'Any State', cities: [] }])
-      throw new Error('Error fetching states and cities')
+      console.log('ERROR: fetching coach locations ')
     }
   }
 
@@ -77,7 +75,12 @@ export default function CoachesOverview({
         selectedState,
         selectedCity,
       )
-      setCoachesToDisplay(data)
+      if (data) {
+        setCoachesToDisplay(data)
+      }
+      if (error) {
+        setCoachesToDisplay([])
+      }
     } catch (error) {
       console.error('Error fetching coaches:', error)
     }
@@ -86,6 +89,10 @@ export default function CoachesOverview({
   useEffect(() => {
     fetchLocations()
   }, [])
+
+  useEffect(() => {
+    handleSearch()
+  }, [searchTerm, selectedSpecialization, selectedMaxPrice, selectedState, selectedCity])
 
   return (
     <div className='coaches-overview'>
@@ -194,7 +201,7 @@ export function FilterForCoaches({
             options={states}
             value={selectedState}
             onChange={(evt) => {
-              setSelectedState(evt.target.value == 'Any State' ? '' : evt.target.value)
+              setSelectedState(evt.target.value === 'Any State' ? '' : evt.target.value)
             }}
           />
           <Dropdown
@@ -231,8 +238,14 @@ export function CoachList({
   const handleOnCoachClick = async (coach) => {
     try {
       const { data, error } = await apiClient.getCoachByID(coach.coachID)
-      setSelectedCoach(data)
-      fetchRequestStatus(coach.coachID)
+      if (data) {
+        setSelectedCoach(data)
+        fetchRequestStatus(coach.coachID)
+      }
+      if (error) {
+        setSelectedCoach({})
+        console.error('ERROR: fetching selected coach details')
+      }
     } catch (error) {
       console.error('Failed to fetch coach details:', error)
     }
@@ -246,12 +259,9 @@ export function CoachList({
     if (data) {
       if (data?.exists === true) {
         setRequestStatusForSelectedCoach(data)
-      } else {
+      } else if (!data || error) {
         setRequestStatusForSelectedCoach('')
       }
-    }
-    if (error) {
-      setRequestStatusForSelectedCoach('')
     }
   }
   return (

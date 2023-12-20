@@ -10,7 +10,6 @@ import Messaging from '../ExploreComponents/Messaging/Messaging'
 
 export default function ExploreCoaches() {
   const [isLoading, setIsLoading] = useState(false)
-  const [error, setError] = useState('')
 
   // coaches state: all coaches
   const [coaches, setCoaches] = useState([])
@@ -37,24 +36,29 @@ export default function ExploreCoaches() {
   const fetchSpecializations = async () => {
     try {
       const { data, error } = await apiClient.getCoachSpecializations()
-      const specializationList = data?.map((spec) => spec.specialties)
-      setSpecializations(['Any Specialization', ...specializationList])
+      if (data) {
+        const specializationList = data?.map((spec) => spec.specialties)
+        setSpecializations(['Any Specialization', ...specializationList])
+      } else if (!data || error) {
+        setSpecializations(['Any Specialization'])
+        console.error('ERROR: fetching specializations')
+      }
     } catch (error) {
       setSpecializations(['Any Specialization'])
+      console.error('ERROR: fetching specializations')
     }
   }
 
   // fetchAllCoaches function: sets coaches & coachesToDisplay to all the coaches
   const fetchAllCoaches = async () => {
     setIsLoading(true)
-    setError(null)
     const { data, error } = await apiClient.getAllCoaches()
     if (data) {
       setCoaches(data)
       setCoachesToDisplay(data)
-    }
-    if (error) {
+    } else if (error || !data) {
       setCoaches([])
+      console.error('ERROR: fetching all coaches')
     }
     setIsLoading(false)
   }
@@ -62,11 +66,7 @@ export default function ExploreCoaches() {
   // fetchSentRequests function: sets sentRequests to the open requests that have not been answered yet for the user
   const fetchSentRequests = async () => {
     setIsLoading(true)
-    setError(null)
-
     const { data, error } = await apiClient.getOpenRequestsForClient()
-    console.log('SENT REQUESTS:', data)
-
     if (data) {
       setSentRequests(data)
     }
@@ -102,7 +102,7 @@ export default function ExploreCoaches() {
     fetchSentRequests()
     fetchSpecializations()
     setSelectedCoach(null)
-  }, [])
+  })
 
   // useEffect to get the request status when the selectedCoach changes
   useEffect(() => {

@@ -8,9 +8,7 @@ export default function Workouts({ userID }) {
   useEffect(() => {
     async function getWorkoutPlan() {
       try {
-        console.log(userID)
         const response = await apiClient.getCoachAssignedWorkoutPlanForCoach(userID)
-        console.log(response)
         if (response.data) {
           setWorkoutPlan(response.data)
         }
@@ -19,7 +17,7 @@ export default function Workouts({ userID }) {
       }
     }
     getWorkoutPlan()
-  }, [])
+  }, [userID])
   return (
     <div className='my-workouts'>
       <div className='my-workouts-container'>
@@ -194,9 +192,6 @@ function AddExerciseModal({ onClose, exerciseData, message, userID }) {
     if (error) {
       message('Error adding exercise')
     }
-
-    //   onAddExercise();
-
     onClose()
   }
 

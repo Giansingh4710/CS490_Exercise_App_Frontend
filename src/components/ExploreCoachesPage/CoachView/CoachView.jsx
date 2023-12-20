@@ -45,6 +45,9 @@ export default function CoachView({
       fetchRequestStatus()
       fetchSentRequests()
     }
+    if (error) {
+      console.error('ERROR canceling:', error)
+    }
   }
 
   return selectedCoach ? (

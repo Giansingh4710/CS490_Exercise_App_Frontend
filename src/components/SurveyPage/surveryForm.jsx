@@ -13,7 +13,7 @@ import { useAuthContext } from '../../contexts/auth'
 
 export default function SurveyForm() {
   const nav = useNavigate()
-  const { user, setUser, fetchUserFromToken } = useAuthContext() //get user data like email
+  const { user, fetchUserFromToken } = useAuthContext() //get user data like email
 
   // const [serverRes, setServerRes] = useState('')
   const errorsRef = useRef({

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import './ExerciseDetail.css'
 import apiClient from '../../../services/apiClient'
 
@@ -13,11 +13,16 @@ export default function ExerciseDetail({ selectedExercise }) {
   const handleCheckboxChange = async () => {
     if (selectedExercise && selectedExercise.exerciseID) {
       try {
-        let response
         if (exerciseIsActive) {
-          response = await apiClient.disableExercise(selectedExercise.exerciseID)
+          const { data } = await apiClient.disableExercise(selectedExercise.exerciseID)
+          if (data) {
+            console.log('Successfully disabled exercise')
+          }
         } else {
-          response = await apiClient.enableExercise(selectedExercise.exerciseID)
+          const { data } = await apiClient.enableExercise(selectedExercise.exerciseID)
+          if (data) {
+            console.log('Successfully enabled exercise')
+          }
         }
         setExerciseIsActive(!exerciseIsActive)
       } catch (error) {
@@ -25,10 +30,6 @@ export default function ExerciseDetail({ selectedExercise }) {
       }
     }
   }
-
-  useEffect(() => {
-    setExerciseStatus()
-  }, [selectedExercise])
 
   if (!selectedExercise) {
     return (

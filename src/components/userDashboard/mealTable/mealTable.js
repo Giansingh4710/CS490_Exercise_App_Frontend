@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import './mealTable.css';
-import apiClient from '../../../services/apiClient';
+import React, { useState, useEffect } from 'react'
+import './mealTable.css'
+import apiClient from '../../../services/apiClient'
 
 const MealTracker = ({ isMealInputModalOpen, setMealInputModalOpen }) => {
   const [meals, setMeals] = useState({
@@ -8,52 +8,50 @@ const MealTracker = ({ isMealInputModalOpen, setMealInputModalOpen }) => {
     lunch: [],
     dinner: [],
     snack: [],
-  });
-  const [selectedMealType, setSelectedMealType] = useState(null);
+  })
 
   useEffect(() => {
     async function getMeals() {
-      const { data, error } = await apiClient.getMeals();
+      const { data, error } = await apiClient.getMeals()
       if (data) {
-        console.log('API Response:', data);
+        console.log('API Response:', data)
 
         // Check if the response has the expected structure
         if (data && typeof data === 'object') {
-          setMeals(data);
+          setMeals(data)
         } else {
           // Handle the case where the response doesn't have the expected structure
-          console.error('Unexpected response format:', data);
+          console.error('Unexpected response format:', data)
         }
         if (error) {
-          console.error('Unexpected response format:', data);
+          console.error('Unexpected response format:', data)
         }
       }
     }
-    getMeals();
-  }, []);
+    getMeals()
+  }, [])
 
   const handleDeleteMeal = async (mealType, mealId) => {
-    const { data, error } = await apiClient.deleteMeal(mealId);
+    const { data, error } = await apiClient.deleteMeal(mealId)
 
     if (data) {
-      const updatedMeals = { ...meals };
-      updatedMeals[mealType] = updatedMeals[mealType].filter((meal) => meal.id !== mealId);
-      setMeals(updatedMeals);
-      window.location.reload();
+      const updatedMeals = { ...meals }
+      updatedMeals[mealType] = updatedMeals[mealType].filter((meal) => meal.id !== mealId)
+      setMeals(updatedMeals)
+      window.location.reload()
     }
 
     if (error) {
-      console.error('Error deleting meal:', error);
+      console.error('Error deleting meal:', error)
     }
-  };
+  }
 
   const handleAddMealClick = (mealType) => {
-    setSelectedMealType(mealType);
-    setMealInputModalOpen(true);
-  };
+    setMealInputModalOpen(true)
+  }
 
   const renderMealTypes = () => {
-    const mealTypes = ['breakfast', 'lunch', 'dinner', 'snack'];
+    const mealTypes = ['breakfast', 'lunch', 'dinner', 'snack']
 
     return mealTypes.map((mealType) => (
       <div key={mealType} className='meal-type-container'>
@@ -64,7 +62,9 @@ const MealTracker = ({ isMealInputModalOpen, setMealInputModalOpen }) => {
               <li key={`${mealType}-${index}`} className='meal-line'>
                 <div>{meal.foodName}</div>
                 <div>{meal.calories} calories</div>
-                <button className='delete-a-meal' onClick={() => handleDeleteMeal(mealType, meal.id)}>
+                <button
+                  className='delete-a-meal'
+                  onClick={() => handleDeleteMeal(mealType, meal.id)}>
                   <span className='material-symbols-outlined'>delete</span>
                 </button>
               </li>
@@ -82,15 +82,15 @@ const MealTracker = ({ isMealInputModalOpen, setMealInputModalOpen }) => {
           </li>
         </ul>
       </div>
-    ));
-  };
+    ))
+  }
 
   return (
     <div className='meal-table-container'>
       <h1 className='meal-table-heading'>Today’s Meals</h1>
       {renderMealTypes()}
     </div>
-  );
-};
+  )
+}
 
-export default MealTracker;
+export default MealTracker

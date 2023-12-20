@@ -6,14 +6,8 @@ import apiClient from '../../services/apiClient'
 import { Tabs } from '../ExploreComponents/Tabs/Tabs'
 import { List, ItemCard } from '../ExploreComponents/ItemList/ItemList'
 import { GreenButton, RedButton, MailIconButton } from '../Buttons/Buttons'
-import { useAuthContext } from '../../contexts/auth'
 import Modal from '../Modal/Modal'
 import Workouts from './Workouts/Workouts'
-
-// components broken down:
-// ExploreClients is the overall page
-// ClientOverview is the search area for clients
-// ClientView is the detailed area for a selected client
 
 export default function ExploreClients() {
   const [isLoading, setIsLoading] = useState(false)
@@ -32,7 +26,8 @@ export default function ExploreClients() {
     const { data, error } = await apiClient.getUsersCoachID()
     if (data) {
       setUsersCoachID(data.coachID)
-    } else {
+    }
+    if (error) {
       setUsersCoachID('')
     }
   }
@@ -109,7 +104,7 @@ export default function ExploreClients() {
     fetchUsersCoachID()
     fetchRequestStatus()
     setSelectedClient(null)
-  }, [])
+  }, [fetchAllClients, fetchUsersCoachID, fetchRequestStatus, setSelectedClient])
 
   useEffect(() => {
     fetchAllClients()
