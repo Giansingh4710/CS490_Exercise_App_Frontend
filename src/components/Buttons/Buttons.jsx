@@ -51,11 +51,11 @@ export function LoginButton() {
   )
 }
 
-export function BlueSubmitButton({ handleOnClick }) {
+export function BlueButton({ handleOnClick, text }) {
   return (
     <div className='blue-btn'>
       <button className='blue-submit-btn' onClick={handleOnClick}>
-        SUBMIT
+        {text ? text : 'SUBMIT'}
       </button>
     </div>
   )
@@ -73,11 +73,11 @@ export function BlueCancelButton({ handleOnClick }) {
 
 export function RedCancelButton({ handleOnClick, title }) {
   return (
-    <div className='red-btn btn'>
-      <button className='red-cancel-btn' onClick={handleOnClick} title={title}>
-        CANCEL
-      </button>
-    </div>
+    // <div className='red-btn btn'>
+    <button className='red-cancel-btn' onClick={handleOnClick} title={title}>
+      CANCEL
+    </button>
+    // </div>
   )
 }
 export function GreenButton({ handleOnClick, text }) {
@@ -88,9 +88,9 @@ export function GreenButton({ handleOnClick, text }) {
   )
 }
 
-export function RedButton({ handleOnClick, text }) {
+export function RedButton({ handleOnClick, text, title }) {
   return (
-    <button className='red-btn btn' onClick={handleOnClick}>
+    <button className='red-btn btn' onClick={handleOnClick} title={title}>
       {text}
     </button>
   )
@@ -98,8 +98,8 @@ export function RedButton({ handleOnClick, text }) {
 
 export function BlueRequestButton({ handleOnClick }) {
   return (
-    <div className='btn'>
-      <button className='request-btn btn' onClick={() => handleOnClick()} title='Request'>
+    <div className='btn-container'>
+      <button className='request-btn' onClick={() => handleOnClick()} title='Request'>
         Request
       </button>
     </div>
@@ -109,7 +109,7 @@ export function BlueRequestButton({ handleOnClick }) {
 export function MailIconButton({ handleOnClick }) {
   return (
     <span
-      className='material-symbols-outlined mail-icon-btn btn'
+      className='material-symbols-outlined mail-icon-btn'
       onClick={() => handleOnClick()}
       title='Send a message'>
       mail

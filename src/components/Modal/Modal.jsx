@@ -1,5 +1,5 @@
 // import { inputFields } from '../ExploreCoaches/RequestCoachModal/RequestCoachModal'
-import { BlueCancelButton, BlueSubmitButton } from '../Buttons/Buttons'
+import { BlueButton } from '../Buttons/Buttons'
 import './Modal.css'
 
 export default function Modal({ headerName, setModalIsOpen, handleOnSubmitClick, inputFields }) {
@@ -25,12 +25,13 @@ export default function Modal({ headerName, setModalIsOpen, handleOnSubmitClick,
           </div>
           {/* cancel and submit buttons */}
           <div className='modal-buttons'>
-            <BlueCancelButton
+            <BlueButton
               handleOnClick={() => {
                 setModalIsOpen(false)
               }}
+              text='CANCEL'
             />
-            <BlueSubmitButton handleOnClick={handleOnSubmitClick} />
+            <BlueButton handleOnClick={handleOnSubmitClick} text='SUBMIT' />
           </div>
         </div>
       </div>

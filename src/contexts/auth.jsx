@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from 'react'
+import { createContext, useContext, useState, useEffect } from 'react'
 import apiClient from '../services/apiClient'
 const AuthContext = createContext(null)
 
@@ -22,7 +22,7 @@ export const AuthContextProvider = ({ children }) => {
   }
 
   useEffect(() => {
-    fetchUsersCoachID
+    fetchUsersCoachID()
   }, [user])
   const loginUser = async (credentials) => {
     setIsProcessing(true)

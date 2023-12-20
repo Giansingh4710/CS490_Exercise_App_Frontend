@@ -8,6 +8,7 @@ import { List, ItemCard } from '../ExploreComponents/ItemList/ItemList'
 import { GreenButton, RedButton, MailIconButton } from '../Buttons/Buttons'
 import Modal from '../Modal/Modal'
 import Workouts from './Workouts/Workouts'
+import { useAuthContext } from '../../contexts/auth'
 
 export default function ExploreClients() {
   const [isLoading, setIsLoading] = useState(false)
@@ -19,18 +20,18 @@ export default function ExploreClients() {
   const [messageModalIsOpen, setMessageModalIsOpen] = useState(false)
   const [searchTerm, setSearchTerm] = useState('')
   const [requestStatusForSelectedClient, setRequestStatusForSelectedCoach] = useState({})
-  const [usersCoachID, setUsersCoachID] = useState()
+  // const [usersCoachID, setUsersCoachID] = useState()
   const [terminateModalIsOpen, setTerminateModalIsOpen] = useState(false)
-
-  const fetchUsersCoachID = async () => {
-    const { data, error } = await apiClient.getUsersCoachID()
-    if (data) {
-      setUsersCoachID(data.coachID)
-    }
-    if (error) {
-      setUsersCoachID('')
-    }
-  }
+  const { usersCoachID } = useAuthContext()
+  // const fetchUsersCoachID = async () => {
+  //   const { data, error } = await apiClient.getUsersCoachID()
+  //   if (data) {
+  //     setUsersCoachID(data.coachID)
+  //   }
+  //   if (error) {
+  //     setUsersCoachID('')
+  //   }
+  // }
 
   const fetchAllClients = async () => {
     setIsLoading(true)
@@ -99,9 +100,9 @@ export default function ExploreClients() {
     setClientsToDisplay(filteredClients)
   }, [searchTerm])
 
-  useEffect(() => {
-    fetchUsersCoachID()
-  }, [])
+  // useEffect(() => {
+  //uchUsersCoachID()
+  // }, [])
 
   useEffect(() => {
     fetchAllClients()
