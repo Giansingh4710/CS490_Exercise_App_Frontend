@@ -1,6 +1,7 @@
 .user-dashboard {
   margin-left: 100px;
   margin-right: 10px;
+  margin-top: 70px;
   padding: 20px;
   display: flex;
   flex-direction: column;

@@ -1,9 +1,0 @@
-/* Have css file for doing stuff like :hover 
-* and other css stuff because need more js to do
-*/
-
-.linkATag:hover {
-  text-decoration: underline;
-  color: blue;
-  background-color: #f5f5f5;
-}

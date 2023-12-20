@@ -1,67 +1,86 @@
-import React from 'react';
-import Navbar from '../Navbar.jsx';
-import { Link } from 'react-router-dom';
-import { LandingPageButton } from '../Buttons/Buttons.jsx';
-import DataUnit from './dataUnit';
-import ExerciseBank from '../ExerciseBank/ExerciseBank.js';
-import '../styles.css';
+import React from 'react'
+import Navbar from '../Navbar.jsx'
+import { Link } from 'react-router-dom'
+import { LandingPageButton } from '../Buttons/Buttons.jsx'
+import ExerciseBank from '../ExerciseBank/ExerciseBank.js'
+import Achieve from '../../images/Achieve.jpg'
+import Track from '../../images/Track.jpg'
+import Connect from '../../images/Connect.png'
+import './LandingPage.css'
+import { useState } from 'react'
 
-function LandingPage() {
+export default function LandingPage() {
+  const [exerciseBankModalIsOpen, setExerciseModalIsOpen] = useState(false)
 
   return (
-    <div style={styles.container}>
-      <Navbar page='landing' />
-      <div style={styles.div}>
-        <h1 style={styles.title}>Welcome to FitFusion</h1>
-        <p style={styles.paragraph}>
-          Discover a healthier, happier you with FitFusion. This is where expert coaching, activity
-          tracking, and mood management converge. Tailored insights and personal guidance at your
-          fingertips, fostering your journey towards well-being. Your goals, our mission. Start
-          transforming today!
-        </p>
-        <ExerciseBank viewOnly={true}/>
-        <Link to='/Register'>
-          <LandingPageButton name='Sign Up Now!' additionalStyles={styles.button} />
-        </Link>
+    <>
+      {exerciseBankModalIsOpen && (
+        <ExerciseBank viewOnly={true} setExerciseModalIsOpen={setExerciseModalIsOpen} />
+      )}
+      <div className={exerciseBankModalIsOpen ? 'landing-page-blurred' : 'landing-page'}>
+        <Navbar page='landing' />
+        <div className='landing-page-first-box'>
+          <h1 className='landing-page-header'>Welcome to FitFusion</h1>
+          <p className='landing-page-info'>
+            Discover a healthier, happier you with FitFusion. This is where expert coaching,
+            activity tracking, and mood management converge. Tailored insights and personal guidance
+            at your fingertips, fostering your journey towards well-being. Your goals, our mission.
+            Start transforming today!
+          </p>
+          <div className='exercise-bank-link-container'>
+            <p className='landing-page-info landing-page-exercise-bank-link'>
+              Click{' '}
+              <p
+                className='landing-page-info landing-page-exercise-bank-link exercise-link'
+                onClick={() => setExerciseModalIsOpen(true)}>
+                here
+              </p>{' '}
+              to browse our exercise bank!
+            </p>
+          </div>
+          <div className='landing-page-register-btn'>
+            <Link to='/Register'>
+              <LandingPageButton name='Sign Up Now!' />
+            </Link>
+          </div>
+        </div>
+
+        <div className='landing-page-second-box'>
+          <h1 className='landing-page-header-second-box'>SEE WHAT FITFUSION CAN DO FOR YOU</h1>
+          <div className='landing-page-card-container'>
+            <InfoCard
+              title='CONNECT'
+              text='In FitFusion, discover a world of expert coaches. Get tailored guidance at your fingertips, making personal connections that helps transform goals into reality.'
+              img={Connect}
+            />
+            <InfoCard
+              title='TRACK'
+              text='With FitFusion, every activity and calorie counts. Precision tracking meets intuitive design, empowering you with insights for a healthier lifestyle.'
+              img={Track}
+            />
+            <InfoCard
+              title='ACHIEVE'
+              text='Achieve holistic well-being with FitFusion. Embrace mood tracking for emotional balance, helping you paving the way to a happier and more fulfilled you.'
+              img={Achieve}
+            />
+          </div>
+          <div className='landing-page-register-btn'>
+            <Link to='/Register'>
+              <LandingPageButton name='Sign Up Now!' />
+            </Link>
+          </div>
+        </div>
       </div>
-      <DataUnit />
-    </div>
-  );
+    </>
+  )
 }
 
-const styles = {
-  container: {
-    textAlign: 'center',
-    backgroundColor: '#3F4D67',
-    overflow: 'hidden',
-  },
-  div: {
-    height: '750px',
-    backgroundColor: '#3F4D67',
-  },
-  title: {
-    textAlign: 'center',
-    fontSize: '64px',
-    fontWeight: 'bold',
-    marginTop: '10%',
-    color: 'white',
-  },
-  paragraph: {
-    fontSize: '36px',
-    margin: 'auto',
-    width: '1040px',
-    color: 'white',
-  },
-  button: {
-    backgroundColor: '#D9D9D9',
-    color: '#00000',
-    cursor: 'pointer',
-    marginRight: 'auto',
-    width: '273px',
-    height: '62px',
-    marginTop: '60px',
-  },
-};
-
-export default LandingPage;
-
+export function InfoCard({ title, text, img }) {
+  return (
+    <div className='landing-page-info-card'>
+      <h4 className='landing-page-info-card-header'>{title}</h4>
+      <img className='landing-page-info-card-img' src={img} alt={text} />
+      <p className='landing-page-info-card-text'>{text}</p>
+    </div>
+  )
+}
