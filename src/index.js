@@ -54,8 +54,8 @@ export function App() {
       <main>
         {user?.email ? (
           <>
-            <Navbar sidebarIsOpen={sidebarIsOpen} />
             <Sidebar setSidebarIsOpen={setSidebarIsOpen} />
+            <Navbar sidebarIsOpen={sidebarIsOpen} />
           </>
         ) : (
           <></>

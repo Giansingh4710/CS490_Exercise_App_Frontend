@@ -470,7 +470,7 @@ function InputGridElement(props) {
   )
 }
 
-function Button({ name }) {
+function Button({ name, type }) {
   const hover = (e) => {
     e.target.style.background = '#252e3d'
     e.target.style.color = '#FFFFFF'
@@ -481,7 +481,12 @@ function Button({ name }) {
   }
 
   return (
-    <button style={styles.submitButton} onMouseEnter={hover} onMouseLeave={unHover}>
+    <button
+      style={styles.submitButton}
+      onMouseEnter={hover}
+      onMouseLeave={unHover}
+      type={type}
+      name={name}>
       {name}
     </button>
   )

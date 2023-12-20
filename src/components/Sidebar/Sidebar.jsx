@@ -23,7 +23,7 @@ export default function Sidebar({ setSidebarIsOpen }) {
         <div className='top-sidebar'>
           <div className='sidebar-logo'>
             <Link to='/'>
-              <div className='sidebar-icon'>
+              <div className='sidebar-icon sidebar-dashboard-btn'>
                 <span className='material-symbols-outlined'>run_circle</span>
                 <span className='icon-text'> FITFUSION </span>
               </div>
@@ -34,26 +34,26 @@ export default function Sidebar({ setSidebarIsOpen }) {
             <>
               {/* make dashboard link redirect to survey page if the user has not filled it out yet */}
               <Link to={user?.role === null ? '/Register/Survey' : '/UserDashboard'}>
-                <div className='sidebar-icon dashboard'>
+                <div className='sidebar-icon dashboard sidebar-dashboard-btn'>
                   <span className='material-symbols-outlined dashboard'>desktop_windows</span>
                   <span className='icon-text'> Dashboard </span>
                 </div>
               </Link>
               <Link to='/ExploreCoaches'>
-                <div className='sidebar-icon'>
+                <div className='sidebar-icon sidebar-explore coaches-btn'>
                   <span className='material-symbols-outlined'>explore</span>
                   <span className='icon-text'> EXPLORE COACHES</span>
                 </div>
               </Link>
 
               <Link to='/MyCoach'>
-                <div className='sidebar-icon'>
+                <div className='sidebar-icon sidebar-my-coach-btn'>
                   <span className='material-symbols-outlined'>group</span>
                   <span className='icon-text'> MY COACH </span>
                 </div>
               </Link>
               <Link to='/Workouts'>
-                <div className='sidebar-icon'>
+                <div className='sidebar-icon sidebar-my-workouts-btn'>
                   <span className='material-symbols-outlined'>exercise</span>
                   <span className='icon-text'> MY WORKOUTS </span>
                 </div>
@@ -64,7 +64,7 @@ export default function Sidebar({ setSidebarIsOpen }) {
           {/* START Coach Specific Links */}
           {role === 'Coach' && (
             <Link to='/MyClients'>
-              <div className='sidebar-icon'>
+              <div className='sidebar-icon sidebar-my-clients-btn'>
                 <span class='material-symbols-outlined'>groups_3</span>{' '}
                 <span className='icon-text'> MY CLIENTS </span>
               </div>
@@ -76,13 +76,13 @@ export default function Sidebar({ setSidebarIsOpen }) {
           {role === 'Admin' && (
             <>
               <Link to='/ManageCoaches'>
-                <div className='sidebar-icon'>
+                <div className='sidebar-icon sidebar-manage-coaches-btn'>
                   <span class='material-symbols-outlined'>manage_accounts</span>{' '}
                   <span className='icon-text'> MANAGE COACHES </span>
                 </div>
               </Link>
               <Link to='/ManageExercises'>
-                <div className='sidebar-icon'>
+                <div className='sidebar-icon sidebar-manage-exercises-btn'>
                   <span class='material-symbols-outlined'>folder_managed</span>
                   <span className='icon-text'> MANAGE EXERCISES </span>
                 </div>
@@ -94,19 +94,19 @@ export default function Sidebar({ setSidebarIsOpen }) {
 
         <div className='bottom-sidebar'>
           <Link to='/Profile'>
-            <div className='sidebar-icon'>
+            <div className='sidebar-icon sidebar-profile-btn'>
               <span className='material-symbols-outlined'>account_circle</span>
               <span className='icon-text'> PROFILE </span>
             </div>
           </Link>
           <Link to='/Settings'>
-            <div className='sidebar-icon'>
+            <div className='sidebar-icon sidebar-settings-btn'>
               <span className='material-symbols-outlined'>settings</span>
               <span className='icon-text'> SETTINGS </span>
             </div>
           </Link>
           <Link to='/'>
-            <div className='sidebar-icon' onClick={logoutUser}>
+            <div className='sidebar-icon sidebar-logout-btn' onClick={logoutUser}>
               <span className='material-symbols-outlined'>logout</span>
               <span className='icon-text'> LOG OUT </span>
             </div>

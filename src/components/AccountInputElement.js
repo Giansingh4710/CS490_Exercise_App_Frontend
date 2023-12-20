@@ -23,6 +23,7 @@ export default function InputElement({
           <span style={styles.required}>*</span> {label}
         </p>
         <Dropdown
+          name={name}
           options={options}
           additionalStyles={additionalStyles}
           onChange={handleChange}
@@ -53,12 +54,13 @@ export default function InputElement({
   )
 }
 
-function Dropdown({ options, additionalStyles, onChange, disabled }) {
+function Dropdown({ options, additionalStyles, onChange, disabled, name }) {
   return (
     <select
       style={{ ...styles.inputField, ...additionalStyles }}
       onChange={onChange}
-      disabled={disabled}>
+      disabled={disabled}
+      name={name}>
       {options.map((option, index) => (
         <option key={index} value={option}>
           {option}

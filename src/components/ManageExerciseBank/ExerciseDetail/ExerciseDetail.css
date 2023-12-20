@@ -17,6 +17,10 @@
   margin-bottom: 20px;
 }
 
+.enable-disable-exercise {
+  display: flex;
+}
+
 .exercise-header h2 {
   font-size: 24px;
   color: #333;
@@ -29,24 +33,22 @@
 }
 
 .exercise-details p {
-  margin-bottom: 10px; 
+  margin-bottom: 10px;
   text-align: left;
 }
 .exercise-details {
   font-size: 22px;
   color: black;
-    text-align: left;
-
+  text-align: left;
 }
 
 .exercise-details div {
-  margin-bottom: 5%; 
+  margin-bottom: 5%;
 }
 
 .exercise-details strong {
   font-weight: bold;
 }
-
 
 .exercise-header {
   display: flex;
@@ -55,7 +57,7 @@
 }
 
 .active-button {
-  background-color: clear; 
+  background-color: clear;
   opacity: 100%;
   color: black;
   border: none;
@@ -65,7 +67,7 @@
 }
 
 .activate-button {
-  background-color: #4CAF50; /* Green for activate */
+  background-color: #4caf50; /* Green for activate */
   /* other styles */
 }
 
