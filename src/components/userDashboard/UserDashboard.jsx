@@ -69,7 +69,6 @@ function UserDashboard() {
     <>
       {modalIsOpen && <MealInput setModalIsOpen={setModalIsOpen} />}
       <div className={modalIsOpen ? 'user-dashboard blurred' : 'user-dashboard'}>
-        <h1>ACTIVITY LOGGER</h1>
         <div className='user-dashboard-columns'>
           <div className='user-dashboard-column meal-tracker'>
             <MealTracker
