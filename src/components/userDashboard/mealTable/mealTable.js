@@ -39,6 +39,7 @@ const MealTracker = ({ isMealInputModalOpen, setMealInputModalOpen }) => {
       const updatedMeals = { ...meals };
       updatedMeals[mealType] = updatedMeals[mealType].filter((meal) => meal.id !== mealId);
       setMeals(updatedMeals);
+      window.location.reload();
     }
 
     if (error) {

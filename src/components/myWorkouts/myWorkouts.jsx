@@ -11,7 +11,7 @@ export default function MyWorkouts() {
     useEffect(() => {
         async function getLast5DaysWorkouts() {
             try {
-                const response = await apiClient.getLastFiveDaysWorkouts();
+                const response = await apiClient.getLoggedWorkout();
                 if (response.data) {
                     setWorkouts(response.data);
                 }
@@ -223,10 +223,7 @@ function AddExerciseModal({ onClose, exerciseData, message }){
       if(error){
         message("Error adding exercise");
       }
-    
-  
-    //   onAddExercise();
-  
+
       onClose();
       window.location.reload(false);
 
@@ -324,7 +321,6 @@ function AddExerciseModal({ onClose, exerciseData, message }){
 
 function LogExerciseModal({ onClose, exerciseData, message }) {
   const [sets, setSets] = useState([{ reps: 0, weight: 0, duration: 0 }]);
-  const [dayOfWeek, setDayOfWeek] = useState('Monday');
   const [selectedDate, setSelectedDate] = useState('');
 
   const handleAddSet = () => {
@@ -342,25 +338,54 @@ function LogExerciseModal({ onClose, exerciseData, message }) {
   };
 
   const handleLogExercise = async () => {
-    
-      message("Exercise logged successfully"); // Or handle the error
+      const logExerciseData = {
+        planID: exerciseData.planID,
+        sets: sets,
+        date: selectedDate
+      }
+
+      const { data, error } = apiClient.recordWorkout(logExerciseData);
+
+      if(data){
+        message("Exercise logged successfully");
+      }
+      
+      if(error){
+        message("Error recording workout");
+      }
+      window.location.reload(false);
       onClose(); // Close the modal after logging
+
   };
+
+  const deleteExercise = async () => {
+    const { data, error } = apiClient.deleteExerciseFromWorkout(exerciseData.planID);
+
+    if(data){
+      message("Exercise deleted");
+    }
+    
+    if(error){
+      message("Error deleting exercise");
+    }
+    onClose(); // Close the modal after logging
+
+  }
 
   return (
     <div className="add-exercise-modal">
     <div className="modal-content">
-              <h2>Log Exercise</h2>
+              <h2>Log/Delete Workout</h2>
               <label>
                   Exercise Name:
                   <input
                       type="text"
-                      value={exerciseData.name}
+                      value={exerciseData.exercise}
                       disabled
                   />
               </label>
               <label>
-                  Day of the Week:
+                  Date:
                   <input
                         type="date"
                         id="exerciseDate"
@@ -388,15 +413,22 @@ function LogExerciseModal({ onClose, exerciseData, message }) {
                                       onChange={(e) => handleUpdateSet(index, exerciseData.metric === 'Reps' ? 'reps' : 'duration', e.target.value)}
                                   />
                               </td>
-                              {exerciseData.metric === 'Reps' && (
+                              {
+                                exerciseData.metric === 'Reps' ?
                                   <td>
-                                      <input
-                                          type="number"
-                                          value={set.weight}
-                                          onChange={(e) => handleUpdateSet(index, 'weight', e.target.value)}
-                                      />
+                                      {exerciseData.equipment === 'Bodyweight' ?
+                                        <p>Bodyweight</p> 
+                                        :
+                                        <input
+                                            type="number"
+                                            value={set.weight}
+                                            onChange={(e) => handleUpdateSet(index, 'weight', e.target.value)}
+                                        />
+                                      }
                                   </td>
-                              )}
+                                  :
+                                  <></>
+                              }
                               <td>
                                   <button type="button" onClick={() => handleRemoveSet(index)}>
                                       Remove
@@ -413,6 +445,7 @@ function LogExerciseModal({ onClose, exerciseData, message }) {
           <div className="modal-buttons">
               <button onClick={handleLogExercise}>Log Exercise</button>
               <button onClick={onClose}>Cancel</button>
+              <button onClick={deleteExercise}>Delete Exercise</button>
           </div>
       </div>
   );
