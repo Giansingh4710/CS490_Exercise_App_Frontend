@@ -39,16 +39,13 @@ export default function Messaging({ user, setModalIsOpen }) {
     }
   }
 
-  useEffect(() => {
-    fetchMessages()
-  }, [])
+  fetchMessages()
 
   useEffect(() => {
     const objDiv = document.getElementById('my-msgs-container')
     objDiv.scrollTop = objDiv.scrollHeight
   }, [msgs])
 
-  useEffect(() => {}, [msgs])
   return (
     <div className='modal-background'>
       <div className='modal-container'>

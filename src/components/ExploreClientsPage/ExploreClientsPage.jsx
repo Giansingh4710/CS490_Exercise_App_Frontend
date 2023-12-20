@@ -17,7 +17,6 @@ import Workouts from './Workouts/Workouts'
 
 export default function ExploreClients() {
   const [isLoading, setIsLoading] = useState(false)
-  const [error, setError] = useState('')
   const [clients, setClients] = useState([])
   const [newRequests, setNewRequests] = useState([])
   const [clientsToDisplay, setClientsToDisplay] = useState([])
@@ -29,7 +28,6 @@ export default function ExploreClients() {
   const [usersCoachID, setUsersCoachID] = useState()
   const [terminateModalIsOpen, setTerminateModalIsOpen] = useState(false)
 
-  const { user } = useAuthContext()
   const fetchUsersCoachID = async () => {
     const { data, error } = await apiClient.getUsersCoachID()
     if (data) {
@@ -41,7 +39,6 @@ export default function ExploreClients() {
 
   const fetchAllClients = async () => {
     setIsLoading(true)
-    setError(null)
     const { data, error } = await apiClient.getCoachesClients()
     if (data) {
       setClients(data)
@@ -69,10 +66,8 @@ export default function ExploreClients() {
 
   const fetchNewRequests = async () => {
     setIsLoading(true)
-    setError(null)
     const { data, error } = await apiClient.getOpenRequestsForCoach()
     if (data) {
-      const clients = data?.map((item) => item.User)
       setNewRequests(data)
     }
     if (error) {
@@ -88,7 +83,7 @@ export default function ExploreClients() {
         coachID: usersCoachID,
       })
       if (data) {
-        if (data?.exists == true) {
+        if (data?.exists === true) {
           setRequestStatusForSelectedCoach(data)
         } else {
           setRequestStatusForSelectedCoach('')
@@ -203,7 +198,7 @@ export function ClientsOverview({
     {
       label: 'Clients',
       handler: () => {
-        if (selectedTab == 'New Requests') {
+        if (selectedTab === 'New Requests') {
           setSelectedTab('Clients')
           setClientsToDisplay(clients)
         }
@@ -212,7 +207,7 @@ export function ClientsOverview({
     {
       label: 'New Requests',
       handler: () => {
-        if (selectedTab == 'Clients') {
+        if (selectedTab === 'Clients') {
           setSelectedTab('New Requests')
           const clientsFromRequests = newRequests?.map((request) => request.User)
           setClientsToDisplay(clientsFromRequests)

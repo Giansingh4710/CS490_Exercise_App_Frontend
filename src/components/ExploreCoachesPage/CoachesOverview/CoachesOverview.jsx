@@ -37,7 +37,7 @@ export default function CoachesOverview({
     {
       label: 'Coaches',
       handler: () => {
-        if (selectedTab == 'Sent Requests') {
+        if (selectedTab === 'Sent Requests') {
           setSelectedTab('Coaches')
           setCoachesToDisplay(coaches)
         }
@@ -46,7 +46,7 @@ export default function CoachesOverview({
     {
       label: 'Sent Requests',
       handler: () => {
-        if (selectedTab == 'Coaches') {
+        if (selectedTab === 'Coaches') {
           setSelectedTab('Sent Requests')
           console.log('SENT REQUEST:', sentRequests)
           const coachesFromSentRequests = sentRequests?.map((request) => request?.Coach)
@@ -244,7 +244,7 @@ export function CoachList({
       coachID: coachID,
     })
     if (data) {
-      if (data?.exists == true) {
+      if (data?.exists === true) {
         setRequestStatusForSelectedCoach(data)
       } else {
         setRequestStatusForSelectedCoach('')

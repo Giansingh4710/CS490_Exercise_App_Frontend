@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react'
-import ExerciseBankModal from './ExerciseModal/ExerciseModal'
 import './ExerciseBank.css'
 import apiClient from '../../services/apiClient'
 
@@ -52,10 +51,6 @@ const ExerciseBank = ({ viewOnly, setExerciseModalIsOpen }) => {
 
   const handleCancel = () => {
     console.log('Cancelled!')
-    setExerciseModalIsOpen(false)
-  }
-
-  const closeModal = () => {
     setExerciseModalIsOpen(false)
   }
 

@@ -84,8 +84,7 @@ export default function ExploreCoaches() {
         coachID: coachID,
       })
       if (data) {
-        console.log('THE REQUEST STATUS in this func:', data)
-        if (data?.exists == true) {
+        if (data?.exists === true) {
           setRequestStatusForSelectedCoach(data)
         } else {
           setRequestStatusForSelectedCoach('')

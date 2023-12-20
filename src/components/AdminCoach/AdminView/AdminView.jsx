@@ -1,23 +1,16 @@
 import React from 'react'
 import './AdminView.css'
 import apiClient from '../../../services/apiClient'
-import { useState, useEffect } from 'react'
 import { GreenButton, RedButton } from '../../Buttons/Buttons'
 
 export default function AdminView({ selectedCoach }) {
-  const [isLoading, setIsLoading] = useState(true)
-  const [error, setError] = useState('')
-
-  useEffect(() => {
-    if (selectedCoach) {
-      setIsLoading(false)
-    }
-  }, [selectedCoach])
-
   const handleDenyCoach = async () => {
     if (selectedCoach && selectedCoach.coachRequestID) {
       try {
-        const response = await apiClient.denyCoach(selectedCoach.coachRequestID)
+        const data = await apiClient.denyCoach(selectedCoach.coachRequestID)
+        if (data) {
+          console.log('Successfully denied coach')
+        }
         window.location.reload(false)
       } catch (error) {
         console.error('Error denying coach:', error)
@@ -28,10 +21,13 @@ export default function AdminView({ selectedCoach }) {
   const handleAcceptCoach = async () => {
     if (selectedCoach && selectedCoach.coachRequestID) {
       try {
-        const response = await apiClient.acceptCoach(selectedCoach.coachRequestID)
+        const data = await apiClient.acceptCoach(selectedCoach.coachRequestID)
+        if (data) {
+          console.log('Successfully accepted coach')
+        }
         window.location.reload(false)
       } catch (error) {
-        console.error('Error denying coach:', error)
+        console.error('Error accepting coach:', error)
       }
     }
   }
