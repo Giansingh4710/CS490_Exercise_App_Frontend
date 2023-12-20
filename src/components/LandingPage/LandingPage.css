@@ -1,0 +1,124 @@
+.landing-page {
+  text-align: center;
+  background-color: #3f4d67;
+  height: 100%;
+}
+.landing-page-blurred {
+  text-align: center;
+  background-color: #3f4d67;
+  height: 100%;
+  filter: blur(5px);
+}
+.landing-page-first-box {
+  height: 750px;
+  background-color: #3f4d67;
+}
+.landing-page-header {
+  text-align: center;
+  font-size: 64px;
+  font-weight: bold;
+  margin-top: 10%;
+  color: white;
+  cursor: default;
+}
+.landing-page-info {
+  font-size: 36px;
+  margin: auto;
+  width: 1040px;
+  color: white;
+  cursor: default;
+}
+
+.exercise-bank-link-container {
+  padding: 25px;
+  padding-top: 40px;
+}
+.landing-page-exercise-bank-link {
+  font-style: italic;
+  font-size: 22px;
+  display: inline;
+}
+.exercise-link {
+  font-weight: bolder;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.landing-page-second-box {
+  background-color: #a9b7d0;
+  overflow-x: hidden;
+}
+.landing-page-header-second-box {
+  text-align: center;
+  position: relative;
+  top: 30px;
+  font-size: 40px;
+  padding-bottom: 50px;
+  color: black;
+}
+.landing-page-card-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  position: relative;
+  top: 5%;
+}
+.landing-page-info-card {
+  margin: auto;
+  width: 350px;
+}
+.landing-page-info-card-header {
+  padding: 15px;
+  border-radius: 10px;
+  background-color: #3f4d67;
+  width: 300px;
+  font-size: 32px;
+  margin: auto;
+  color: #ffffff;
+}
+.landing-page-info-card-img {
+  margin-top: 5%;
+  margin-bottom: 3%;
+  height: 350px;
+  width: 300px;
+}
+.landing-page-info-card-text {
+  margin: auto;
+  color: #ffffff;
+  font-size: 22px;
+}
+
+.landing-page-register-btn {
+  padding-top: 60px;
+  padding-bottom: 60px;
+}
+
+.landing-page-register-btn button {
+  background-color: #d9d9d9;
+  color: #000000;
+  cursor: pointer;
+  margin-right: auto;
+  width: 273px;
+  height: 62px;
+}
+
+.exercise-bank-modal {
+  width: 700px;
+  height: 700px;
+}
+.modal-background .exercise-bank {
+  height: 700px;
+  width: 800px;
+  background-color: white;
+}
+
+.modal-background .exercise-bank {
+  height: 700px;
+  width: 800px;
+}
+
+.exercise-bank-content {
+  display: flex;
+  flex-direction: column;
+  padding: 30px;
+  height: 100%;
+}
