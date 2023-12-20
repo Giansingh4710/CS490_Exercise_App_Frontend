@@ -3,9 +3,9 @@
 // import BASE_URLS from '../constants'
 // const baseURL = BASE_URLS.UI_BASE_URL
 
-// // Automated UI testing to test Coach Search features:
-// //  Client can view list of Coaches and request to hire a Coach (1)
-// //  Client can filter through Coaches based on specialization/price/location (1)
+// // Automated UI testing to test Admin features:
+// //  Admin can add or delete (deactivate) exercises from the master exercise bank (1)
+// //  Admin can approve or reject Coach Requests (1)
 // describe('LoginPage Tests', function () {
 //   let driver
 //   console.log('BASEURL', baseURL)

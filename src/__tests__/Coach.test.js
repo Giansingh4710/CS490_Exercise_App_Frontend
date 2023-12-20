@@ -3,9 +3,10 @@
 // import BASE_URLS from '../constants'
 // const baseURL = BASE_URLS.UI_BASE_URL
 
-// // Automated UI testing to test Coach Search features:
-// //  Client can view list of Coaches and request to hire a Coach (1)
-// //  Client can filter through Coaches based on specialization/price/location (1)
+// // Automated UI testing to test Coach Dashboard features:
+// //  Coach can view list of their clients (1)
+// //  Coach can accept/decline new clients requests (1)
+// //  Coach can send messages to Client (1)
 // describe('LoginPage Tests', function () {
 //   let driver
 //   console.log('BASEURL', baseURL)
