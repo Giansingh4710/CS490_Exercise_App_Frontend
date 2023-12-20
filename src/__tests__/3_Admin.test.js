@@ -71,5 +71,5 @@ describe('Admin Tests', function () {
       assert(isCheckedBefore != isCheckedAfter)
     }
   })
-  logout()
+  logout(driver)
 })

@@ -5,7 +5,7 @@ import { useState, useEffect } from 'react'
 import apiClient from '../../services/apiClient'
 import { Tabs } from '../ExploreComponents/Tabs/Tabs'
 import { List, ItemCard } from '../ExploreComponents/ItemList/ItemList'
-import { GreenAcceptButton, RedDeclineButton, MailIconButton } from '../Buttons/Buttons'
+import { GreenButton, RedButton, MailIconButton } from '../Buttons/Buttons'
 import { useAuthContext } from '../../contexts/auth'
 import Modal from '../Modal/Modal'
 import Workouts from './Workouts/Workouts'
@@ -426,8 +426,8 @@ export function ClientView({
               {requestStatusForSelectedClient?.exists &&
                 requestStatusForSelectedClient?.status === 'Pending' && (
                   <>
-                    <RedDeclineButton handleOnClick={handleOnDeclineClick} />
-                    <GreenAcceptButton handleOnClick={handleOnAcceptClick} />
+                    <RedButton handleOnClick={handleOnDeclineClick} text='DECLINE' />
+                    <GreenButton handleOnClick={handleOnAcceptClick} text='ACCEPT' />
                   </>
                 )}
             </div>

@@ -12,10 +12,11 @@ describe('Coach Tests', function () {
   beforeAll(async function () {
     driver = await new Builder().forBrowser('chrome').build()
   })
-  loginAsCoach()
+  loginAsCoach(driver)
   it('Coach can accept/decline new clients requests', async function () {})
   it('Coach can view list of their clients', async function () {})
   it('Coach can send messages to Client', async function () {})
 
   afterAll(() => driver && driver.quit())
+  logout(driver)
 })

@@ -2,7 +2,7 @@ import React from 'react'
 import './AdminView.css'
 import apiClient from '../../../services/apiClient'
 import { useState, useEffect } from 'react'
-import { GreenAcceptButton, RedDeclineButton } from '../../Buttons/Buttons'
+import { GreenButton, RedButton } from '../../Buttons/Buttons'
 
 export default function AdminView({ selectedCoach }) {
   const [isLoading, setIsLoading] = useState(true)
@@ -41,15 +41,10 @@ export default function AdminView({ selectedCoach }) {
         <h2>
           Coach: {selectedCoach.firstName} {selectedCoach.lastName}
         </h2>
-
-        {/* <GreenAcceptButton handleOnClick={handleAcceptCoach} /> */}
-        <button onClick={handleAcceptCoach} className='accept-button'>
-          Accept
-        </button>
-        {/* <RedDeclineButton handleOnClick={handleDenyCoach} /> */}
-        <button onClick={handleDenyCoach} className='deny-button'>
-          Decline
-        </button>
+        <div className='buttons'>
+          <GreenButton handleOnClick={handleAcceptCoach} text='ACCEPT' />
+          <RedButton handleOnClick={handleDenyCoach} text='DECLINE' />
+        </div>
       </div>
 
       <div className='coach-details'>

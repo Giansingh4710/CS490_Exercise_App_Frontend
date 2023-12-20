@@ -14,10 +14,11 @@ describe('Client Tests', function () {
   })
   afterAll(() => driver && driver.quit())
 
-  loginAsClient()
+  loginAsClient(driver)
 
   it('Client can view list of Coaches and request to hire a Coach'), async function () {}
 
   it('Client can filter through Coaches based on specialization/price/location'),
     async function () {}
+  logout(driver)
 })

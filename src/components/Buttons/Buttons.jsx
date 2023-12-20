@@ -80,23 +80,19 @@ export function RedCancelButton({ handleOnClick, title }) {
     </div>
   )
 }
-export function GreenAcceptButton({ handleOnClick }) {
+export function GreenButton({ handleOnClick, text }) {
   return (
-    <div className='green-btn btn'>
-      <button className='green-accept-btn' onClick={handleOnClick}>
-        ACCEPT
-      </button>
-    </div>
+    <button className='green-btn btn' onClick={handleOnClick}>
+      {text}
+    </button>
   )
 }
 
-export function RedDeclineButton({ handleOnClick }) {
+export function RedButton({ handleOnClick, text }) {
   return (
-    <div className='red-decline-btn btn'>
-      <button className='red-decline-btn' onClick={handleOnClick}>
-        DECLINE
-      </button>
-    </div>
+    <button className='red-btn btn' onClick={handleOnClick}>
+      {text}
+    </button>
   )
 }
 

@@ -1,31 +1,31 @@
 .admin-view {
-    padding: 10px 30px 10px 30px;
-    margin-left: 20px;
-    width: 100%;
-    height: 100%;
-    background-color: white;
-    box-shadow: var(--card-box-shadow);
-  }
-  
-  .admin-header {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: left;
-    border-bottom: 1px solid black;
-  }
+  padding: 10px 30px 10px 30px;
+  margin-left: 20px;
+  width: 100%;
+  height: 100%;
+  background-color: white;
+  box-shadow: var(--card-box-shadow);
+}
 
-  .admin-header h2{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: left;
-    font-weight: bold;
-    font-size: 30px;
-    border-bottom: 1px solid black;
-  }
+.admin-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: left;
+  border-bottom: 1px solid black;
+}
 
-  /* Base styles */
+.admin-header h2 {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: left;
+  font-weight: bold;
+  font-size: 30px;
+  border-bottom: 1px solid black;
+}
+
+/* Base styles */
 .admin-coaches {
   margin-left: 100px;
   margin-right: 10px;
@@ -47,7 +47,8 @@
   border-bottom: 1px solid #ccc; /* Adds a border line to separate details */
 }
 
-.coach-details strong, .coach-details p {
+.coach-details strong,
+.coach-details p {
   text-align: left; /* Ensuring text alignment is left for both labels and values */
   display: block; /* Ensures each item is on its own line */
   font-weight: bold; /* Optional for labels */
@@ -56,7 +57,8 @@
 .coach-details p {
   margin-top: 5px;
   font-weight: normal; /* Resets the font weight for paragraph text */
-}.admin-view .coach-details {
+}
+.admin-view .coach-details {
   display: flex;
   flex-direction: column;
 }
@@ -77,26 +79,7 @@
   margin-top: 5px;
   font-weight: normal;
 }
-.admin-header button{
-  font-size: 12px;
 
-}
-.accept-button, .deny-button {
-  padding: 10px 15px;  /* Adjust the padding to control the size of the buttons */
-  border: none;        /* No border for the buttons */
-  border-radius: 50%;  /* This will make the buttons round */
-  color: white;        /* Text color */
-  font-size: 3em;      /* Adjust font size as needed */
-  cursor: pointer;     /* Changes the cursor to a pointer on hover */
-  outline: none;       /* Removes the outline to keep the bubble shape intact */
-  margin: 0 5px;       /* Adds space between the buttons */
-}
-.accept-button {
-  background-color: #4CAF50; /* Green background */
-  color: white; /* White text */
-}
-
-.deny-button {
-  background-color: #F44336; /* Red background */
-  color: white; /* White text */
+.admin-header .buttons button {
+  margin-left: 10px;
 }

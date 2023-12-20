@@ -33,7 +33,7 @@ describe('Login Page Tests - client login', function () {
     const expectedUrl = baseURL + '/  '
     expect(currentUrl).toBe(expectedUrl)
   })
-  logout()
+  logout(driver)
   afterAll(() => driver && driver.quit())
 })
 
@@ -64,7 +64,7 @@ describe('Login Page Tests - coach login', function () {
     const expectedUrl = baseURL + '/'
     expect(currentUrl).toBe(expectedUrl)
   })
-  logout()
+  logout(driver)
 
   afterAll(() => driver && driver.quit())
 })
