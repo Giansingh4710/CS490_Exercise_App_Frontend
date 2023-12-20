@@ -2,7 +2,7 @@ const { Builder, By, Key, until } = require('selenium-webdriver')
 const assert = require('assert')
 import BASE_URLS from '../constants'
 const baseURL = BASE_URLS.UI_BASE_URL
-import { selectDropdownOption } from './helperFunctions'
+import { selectDropdownOption } from './utils/testHelperFunctions'
 
 jest.setTimeout(30000)
 

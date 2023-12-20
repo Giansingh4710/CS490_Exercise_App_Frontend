@@ -1,5 +1,5 @@
 const { Builder, By, Key, until } = require('selenium-webdriver')
-import BASE_URLS from '../constants'
+import BASE_URLS from '../../constants'
 const baseURL = BASE_URLS.UI_BASE_URL
 
 // client login function

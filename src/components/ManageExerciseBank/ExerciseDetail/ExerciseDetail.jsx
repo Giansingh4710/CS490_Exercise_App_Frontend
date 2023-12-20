@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import './ExerciseDetail.css'
 import apiClient from '../../../services/apiClient'
 
@@ -6,6 +6,7 @@ export default function ExerciseDetail({ selectedExercise }) {
   const [exerciseIsActive, setExerciseIsActive] = useState(true)
 
   const setExerciseStatus = async () => {
+    console.log('selected exercise:', selectedExercise)
     if (selectedExercise?.status === 'Disabled') setExerciseIsActive(false)
     else if (selectedExercise?.status === 'Enabled') setExerciseIsActive(true)
   }
@@ -30,6 +31,10 @@ export default function ExerciseDetail({ selectedExercise }) {
       }
     }
   }
+
+  useEffect(() => {
+    setExerciseStatus()
+  }, [selectedExercise])
 
   if (!selectedExercise) {
     return (

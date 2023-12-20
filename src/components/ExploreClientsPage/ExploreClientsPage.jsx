@@ -100,15 +100,14 @@ export default function ExploreClients() {
   }, [searchTerm])
 
   useEffect(() => {
-    fetchAllClients()
     fetchUsersCoachID()
-    fetchRequestStatus()
-    setSelectedClient(null)
-  }, [fetchAllClients, fetchUsersCoachID, fetchRequestStatus, setSelectedClient])
+  }, [])
 
   useEffect(() => {
     fetchAllClients()
     fetchNewRequests()
+    fetchRequestStatus()
+    setSelectedClient(null)
   }, [usersCoachID])
 
   useEffect(() => {
@@ -269,7 +268,6 @@ export function SearchForClientByName({ setSearchTerm, searchTerm, handleSearch 
 }
 
 export function ClientList({ clients, setSelectedClient, selectedClient, selectedTab }) {
-  useEffect(() => {}, [selectedTab])
   const handleOnClientClick = async (client) => {
     try {
       const { data, error } = await apiClient.getClientByID(client.userID)

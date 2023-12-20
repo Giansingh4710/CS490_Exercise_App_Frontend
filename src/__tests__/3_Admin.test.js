@@ -2,8 +2,7 @@ const { Builder, By, Key } = require('selenium-webdriver')
 const assert = require('assert')
 import BASE_URLS from '../constants'
 const baseURL = BASE_URLS.UI_BASE_URL
-import { loginAsAdmin, logout, selectDropdownOption } from './helperFunctions'
-
+import { loginAsAdmin, logout, selectDropdownOption } from './utils/testHelperFunctions'
 // Automated UI testing to test Admin features:
 //  Admin can add or delete (deactivate) exercises from the master exercise bank (1)
 //  Admin can approve or reject Coach Requests (1)
@@ -18,9 +17,10 @@ describe('Admin Tests', function () {
 
   it('Admin should accept a pending coach request'),
     async function () {
+      await driver.get(baseURL + '/ManageCoaches')
+
       const pendingCoachesBefore = await driver.findElements(By.css('.coach-card'))
       let pendingCoachesListLengthBefore = pendingCoachesBefore.length
-      await driver.get(baseURL + '/ManageCoaches')
       if (pendingCoaches.length > 0) {
         await pendingCoaches[pendingCoaches.length - 1].click() // Clicks the last coach in the list (newest coach)
         await driver.findElement(By.css('.accept-button')).click()
@@ -57,7 +57,7 @@ describe('Admin Tests', function () {
       assert(exerciseListLengthBefore != exerciseListLengthAfter)
     }
 
-  it('Admin should disable an exercise', async function () {
+  it('Admin should enable/disable an exercise', async function () {
     await driver.get(baseURL + '/ManageExercises')
     const exercises = await driver.findElement(By.css('.add-exercise-button'))
     if (exercises.length > 0) {

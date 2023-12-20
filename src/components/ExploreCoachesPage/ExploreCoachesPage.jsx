@@ -102,7 +102,7 @@ export default function ExploreCoaches() {
     fetchSentRequests()
     fetchSpecializations()
     setSelectedCoach(null)
-  })
+  }, [])
 
   // useEffect to get the request status when the selectedCoach changes
   useEffect(() => {

@@ -2,7 +2,7 @@ const { Builder, By, Key } = require('selenium-webdriver')
 const assert = require('assert')
 import BASE_URLS from '../constants'
 const baseURL = BASE_URLS.UI_BASE_URL
-import { logout } from './helperFunctions'
+import { logout } from './utils/testHelperFunctions'
 
 // Automated UI testing to test login feature for client, coach (both created in the Register tests) and admin (already populated in database)
 
