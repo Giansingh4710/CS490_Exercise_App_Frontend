@@ -20,18 +20,8 @@ export default function ExploreClients() {
   const [messageModalIsOpen, setMessageModalIsOpen] = useState(false)
   const [searchTerm, setSearchTerm] = useState('')
   const [requestStatusForSelectedClient, setRequestStatusForSelectedCoach] = useState({})
-  // const [usersCoachID, setUsersCoachID] = useState()
   const [terminateModalIsOpen, setTerminateModalIsOpen] = useState(false)
   const { usersCoachID } = useAuthContext()
-  // const fetchUsersCoachID = async () => {
-  //   const { data, error } = await apiClient.getUsersCoachID()
-  //   if (data) {
-  //     setUsersCoachID(data.coachID)
-  //   }
-  //   if (error) {
-  //     setUsersCoachID('')
-  //   }
-  // }
 
   const fetchAllClients = async () => {
     setIsLoading(true)
@@ -73,21 +63,20 @@ export default function ExploreClients() {
   }
 
   const fetchRequestStatus = async () => {
-    if (selectedClient?.userID && usersCoachID) {
-      const { data, error } = await apiClient.getRequestStatus({
-        userID: selectedClient.userID,
-        coachID: usersCoachID,
-      })
-      if (data) {
-        if (data?.exists === true) {
-          setRequestStatusForSelectedCoach(data)
-        } else {
-          setRequestStatusForSelectedCoach('')
-        }
+    const { data, error } = await apiClient.getRequestStatus({
+      userID: selectedClient?.userID,
+      coachID: usersCoachID,
+    })
+    console.log('THE COACH ID:', usersCoachID)
+    console.log("USERID:'", selectedClient?.userID)
+    console.log('the request status in ehre:', data)
+    if (data) {
+      if (data?.exists === true) {
+        setRequestStatusForSelectedCoach(data)
       }
-      if (error) {
-        setRequestStatusForSelectedCoach('')
-      }
+    }
+    if (error) {
+      setRequestStatusForSelectedCoach('')
     }
   }
 
@@ -100,10 +89,6 @@ export default function ExploreClients() {
     setClientsToDisplay(filteredClients)
   }, [searchTerm])
 
-  // useEffect(() => {
-  //uchUsersCoachID()
-  // }, [])
-
   useEffect(() => {
     fetchAllClients()
     fetchNewRequests()
@@ -112,6 +97,8 @@ export default function ExploreClients() {
   }, [usersCoachID])
 
   useEffect(() => {
+    console.log('REQUEST STATUS updating')
+    console.log('SELECTED CLIENT', selectedClient)
     fetchRequestStatus()
   }, [usersCoachID, selectedClient])
 
@@ -391,6 +378,7 @@ export function ClientView({
     }
   }
 
+  console.log('selected CLIENT REQUEST:', requestStatusForSelectedClient)
   return selectedClient ? (
     loading ? (
       <>

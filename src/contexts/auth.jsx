@@ -12,6 +12,7 @@ export const AuthContextProvider = ({ children }) => {
   const fetchUsersCoachID = async () => {
     if (user?.role === 'Coach') {
       const { data, error } = await apiClient.getUsersCoachID()
+      console.log('COACHID DATA', data)
       if (data) {
         setUsersCoachID(data.coachID)
       }
@@ -80,6 +81,7 @@ export const AuthContextProvider = ({ children }) => {
     registerUser,
     fetchUserFromToken,
     logoutUser,
+    usersCoachID,
   }
 
   return (
