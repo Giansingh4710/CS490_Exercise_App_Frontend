@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps, no-unused-vars */
 import { LandingPageButton } from './Buttons/Buttons.jsx'
 import Logo from './Logo.js'
 import { Link } from 'react-router-dom'
