@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import apiClient from '../../services/apiClient.js'
-import { BlueSubmitButton } from '../Buttons/Buttons.jsx'
+import { BlueButton } from '../Buttons/Buttons.jsx'
 import WaterInputModal from './waterInput/waterInput.js'
 import WeightInputModal from './weightInput/weightInput.jsx'
 import MealTracker from '../userDashboard/mealTable/mealTable.js'
@@ -93,7 +93,7 @@ function UserDashboard() {
           {alreadyRecordedMessage && <p className='info-message'>{alreadyRecordedMessage}</p>}
         </div>
         <div className='user-dashboard-btn' onClick={handleSubmission}>
-          <BlueSubmitButton />
+          <BlueButton handleOnClick={handleSubmission} text='SUBMIT' />
         </div>
       </div>
     </>

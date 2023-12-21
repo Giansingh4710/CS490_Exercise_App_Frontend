@@ -2,7 +2,7 @@ import React from 'react'
 import './CoachView.css'
 import apiClient from '../../../services/apiClient'
 import { useState, useEffect } from 'react'
-import { BlueRequestButton, MailIconButton, RedCancelButton } from '../../Buttons/Buttons'
+import { BlueButton, MailIconButton, RedButton } from '../../Buttons/Buttons'
 import { useAuthContext } from '../../../contexts/auth'
 
 export default function CoachView({
@@ -72,13 +72,15 @@ export default function CoachView({
             {isRequestPending ? (
               <div className='buttons'>
                 <MailIconButton handleOnClick={() => setMessageModalIsOpen(true)} />
-                <RedCancelButton
+                <RedButton
                   handleOnClick={handleOnCancelClick}
-                  title={'Cancel your outgoing request'}
+                  title='Cancel your outgoing request'
+                  text='CANCEL'
                 />
               </div>
             ) : (
-              <BlueRequestButton handleOnClick={handleOnRequestClick} />
+              <BlueButton handleOnClick={handleOnRequestClick} text='REQUEST' />
+              // <BlueRequestButton handleOnClick={handleOnRequestClick} />
             )}
           </div>
 
