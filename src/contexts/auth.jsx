@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps, no-unused-vars */
 import { createContext, useContext, useState, useEffect } from 'react'
 import apiClient from '../services/apiClient'
 const AuthContext = createContext(null)

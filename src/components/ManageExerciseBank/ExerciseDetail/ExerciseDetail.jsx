@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps, no-unused-vars */
 import React, { useEffect, useState } from 'react'
 import './ExerciseDetail.css'
 import apiClient from '../../../services/apiClient'
