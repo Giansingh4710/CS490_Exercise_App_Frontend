@@ -188,6 +188,9 @@ function AddExerciseModal({ onClose, exerciseData, message, userID }) {
 
     const { data, error } = await apiClient.coachAddExerciseToPlan(newExerciseData)
     if (data) {
+      //reload page
+      window.location.reload(false)
+
       message('Exercise added')
     }
     if (error) {
