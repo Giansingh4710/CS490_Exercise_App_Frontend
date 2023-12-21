@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps, no-unused-vars */
 import './ExploreCoachesPage.css'
 import { useState, useEffect } from 'react'
 import { useAuthContext } from '../../contexts/auth'

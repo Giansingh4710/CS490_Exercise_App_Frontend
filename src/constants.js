@@ -7,7 +7,7 @@ const PRODUCTION_UI_BASE_URL = 'https://proud-wave-0acf20910.4.azurestaticapps.n
 const DEVELOPMENT_UI_BASE_URL = 'http://localhost:3000'
 
 // set to true for production, false for development
-const isProduction = false
+const isProduction = true
 
 // export URLs based on the environment
 const BASE_URLS = {

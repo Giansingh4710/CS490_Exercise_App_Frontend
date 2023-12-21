@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps, no-unused-vars */
 import './ExploreClientsPage.css'
 import React from 'react'
 import Messaging from '../ExploreComponents/Messaging/Messaging'
@@ -20,18 +21,8 @@ export default function ExploreClients() {
   const [messageModalIsOpen, setMessageModalIsOpen] = useState(false)
   const [searchTerm, setSearchTerm] = useState('')
   const [requestStatusForSelectedClient, setRequestStatusForSelectedCoach] = useState({})
-  // const [usersCoachID, setUsersCoachID] = useState()
   const [terminateModalIsOpen, setTerminateModalIsOpen] = useState(false)
   const { usersCoachID } = useAuthContext()
-  // const fetchUsersCoachID = async () => {
-  //   const { data, error } = await apiClient.getUsersCoachID()
-  //   if (data) {
-  //     setUsersCoachID(data.coachID)
-  //   }
-  //   if (error) {
-  //     setUsersCoachID('')
-  //   }
-  // }
 
   const fetchAllClients = async () => {
     setIsLoading(true)
@@ -73,21 +64,17 @@ export default function ExploreClients() {
   }
 
   const fetchRequestStatus = async () => {
-    if (selectedClient?.userID && usersCoachID) {
-      const { data, error } = await apiClient.getRequestStatus({
-        userID: selectedClient.userID,
-        coachID: usersCoachID,
-      })
-      if (data) {
-        if (data?.exists === true) {
-          setRequestStatusForSelectedCoach(data)
-        } else {
-          setRequestStatusForSelectedCoach('')
-        }
+    const { data, error } = await apiClient.getRequestStatus({
+      userID: selectedClient?.userID,
+      coachID: usersCoachID,
+    })
+    if (data) {
+      if (data?.exists === true) {
+        setRequestStatusForSelectedCoach(data)
       }
-      if (error) {
-        setRequestStatusForSelectedCoach('')
-      }
+    }
+    if (error) {
+      setRequestStatusForSelectedCoach('')
     }
   }
 
@@ -99,10 +86,6 @@ export default function ExploreClients() {
     )
     setClientsToDisplay(filteredClients)
   }, [searchTerm])
-
-  // useEffect(() => {
-  //uchUsersCoachID()
-  // }, [])
 
   useEffect(() => {
     fetchAllClients()
@@ -158,6 +141,8 @@ export default function ExploreClients() {
               newRequests={newRequests}
               fetchAllClients={fetchAllClients}
               requestStatusForSelectedClient={requestStatusForSelectedClient}
+              fetchRequestStatus={fetchRequestStatus}
+              fetchNewRequests={fetchNewRequests}
             />
           </div>
           {selectedClient !== null && requestStatusForSelectedClient?.status !== 'Pending' ? (
@@ -341,14 +326,13 @@ export function ClientCard({ client, selectedClient, setSelectedClient, isLoadin
 
 export function ClientView({
   selectedClient,
-  setSelectedClient,
   loading,
-  setLoading,
   setMessageModalIsOpen,
-  clients,
   newRequests,
   fetchAllClients,
   requestStatusForSelectedClient,
+  fetchRequestStatus,
+  fetchNewRequests,
 }) {
   const handleOnDeclineClick = async () => {
     const matchingRequest = newRequests.find(
@@ -359,6 +343,8 @@ export function ClientView({
       try {
         const { data, error } = await apiClient.declineRequest(reqID)
         if (data) {
+          fetchNewRequests()
+          fetchRequestStatus()
           console.log('Request declined', data)
         } else if (error) {
           console.log('Error declining request:', error)
@@ -391,6 +377,7 @@ export function ClientView({
     }
   }
 
+  console.log('selected CLIENT REQUEST:', requestStatusForSelectedClient)
   return selectedClient ? (
     loading ? (
       <>

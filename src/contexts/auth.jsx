@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps, no-unused-vars */
 import { createContext, useContext, useState, useEffect } from 'react'
 import apiClient from '../services/apiClient'
 const AuthContext = createContext(null)
@@ -12,6 +13,7 @@ export const AuthContextProvider = ({ children }) => {
   const fetchUsersCoachID = async () => {
     if (user?.role === 'Coach') {
       const { data, error } = await apiClient.getUsersCoachID()
+      console.log('COACHID DATA', data)
       if (data) {
         setUsersCoachID(data.coachID)
       }
@@ -80,6 +82,7 @@ export const AuthContextProvider = ({ children }) => {
     registerUser,
     fetchUserFromToken,
     logoutUser,
+    usersCoachID,
   }
 
   return (

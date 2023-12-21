@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps, no-unused-vars */
 import React, { useState, useEffect } from 'react'
 import './ManageExerciseBank.css'
 import ExerciseOverview from './ExerciseOverview/ExerciseOverview'

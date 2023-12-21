@@ -35,8 +35,12 @@ function UserDashboard() {
         setError(null)
       } else {
         console.error('Error:', error)
-        if (error && error.status === 400) {
+        if (error && error.status === 400 && error.message === "User already completed daily survey for today") {
           setAlreadyRecordedMessage("Today's survey has already been recorded.")
+          setSuccessMessage(null)
+          setError(null)
+        }else if(error && error.status === 400 && error.message === "Water intake is too high."){
+          setAlreadyRecordedMessage("Water intake is too high.")
           setSuccessMessage(null)
           setError(null)
         } else {
