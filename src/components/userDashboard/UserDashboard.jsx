@@ -33,6 +33,7 @@ function UserDashboard() {
         setSuccessMessage("Today's survey has been recorded successfully.")
         setAlreadyRecordedMessage(null)
         setError(null)
+        window.location.reload();
       } else {
         console.error('Error:', error)
         if (error && error.status === 400 && error.message === "User already completed daily survey for today") {
