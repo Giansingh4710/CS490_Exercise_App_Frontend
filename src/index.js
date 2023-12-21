@@ -106,7 +106,6 @@ export function App() {
           {/* END Admin Specific Links */}
 
           <Route path='/Profile' element={<ProtectedRoute element={<ProfilePage />} />} />
-          <Route path='/Settings' element={<ProtectedRoute element={<SurveyPage />} />} />
           <Route path='*' element={<NotFound />} />
         </Routes>
       </main>

@@ -99,12 +99,6 @@ export default function Sidebar({ setSidebarIsOpen }) {
               <span className='icon-text'> PROFILE </span>
             </div>
           </Link>
-          <Link to='/Settings'>
-            <div className='sidebar-icon sidebar-settings-btn'>
-              <span className='material-symbols-outlined'>settings</span>
-              <span className='icon-text'> SETTINGS </span>
-            </div>
-          </Link>
           <Link to='/'>
             <div className='sidebar-icon sidebar-logout-btn' onClick={logoutUser}>
               <span className='material-symbols-outlined'>logout</span>
