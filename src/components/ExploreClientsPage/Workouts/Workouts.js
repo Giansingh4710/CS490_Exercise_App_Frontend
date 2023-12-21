@@ -92,7 +92,7 @@ function WeeklySchedule({ workoutPlan, userID }) {
         <div key={index}>
           <div className='week-day'>{day.toUpperCase()}</div>
           {workoutPlan[day] && workoutPlan[day].length > 0 ? (
-            workoutPlan[day].map((exercise, exerciseIndex) => (
+            workoutPlan[day]?.map((exercise, exerciseIndex) => (
               <DailySchedule key={exerciseIndex} day={day} exercise={exercise} />
             ))
           ) : (
@@ -117,7 +117,7 @@ function DailySchedule({ day, exercise }) {
           <th>Weight</th>
         </tr>
         {hasReps ? (
-          exercise.reps.map((rep, index) => (
+          exercise?.reps?.map((rep, index) => (
             <>
               <tr key={index}>
                 {index === 0 ? <td>{exercise.exercise}</td> : <td></td>}

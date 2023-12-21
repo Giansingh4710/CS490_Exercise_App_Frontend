@@ -61,7 +61,7 @@ function Dropdown({ options, additionalStyles, onChange, disabled, name }) {
       onChange={onChange}
       disabled={disabled}
       name={name}>
-      {options.map((option, index) => (
+      {options?.map((option, index) => (
         <option key={index} value={option}>
           {option}
         </option>

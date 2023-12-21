@@ -3,15 +3,17 @@ import './AdminView.css'
 import apiClient from '../../../services/apiClient'
 import { GreenButton, RedButton } from '../../Buttons/Buttons'
 
-export default function AdminView({ selectedCoach }) {
+export default function AdminView({ selectedCoach, fetchPendingCoaches, setSelectedCoach }) {
   const handleDenyCoach = async () => {
     if (selectedCoach && selectedCoach.coachRequestID) {
       try {
         const data = await apiClient.denyCoach(selectedCoach.coachRequestID)
         if (data) {
+          fetchPendingCoaches()
+          setSelectedCoach(null)
           console.log('Successfully denied coach')
         }
-        window.location.reload(false)
+        // window.location.reload(false)
       } catch (error) {
         console.error('Error denying coach:', error)
       }
@@ -23,9 +25,11 @@ export default function AdminView({ selectedCoach }) {
       try {
         const data = await apiClient.acceptCoach(selectedCoach.coachRequestID)
         if (data) {
+          fetchPendingCoaches()
+          setSelectedCoach(null)
           console.log('Successfully accepted coach')
         }
-        window.location.reload(false)
+        // window.location.reload(false)
       } catch (error) {
         console.error('Error accepting coach:', error)
       }

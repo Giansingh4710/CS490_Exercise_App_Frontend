@@ -14,6 +14,7 @@ describe('RegisterPage Tests', function () {
   beforeAll(async function () {
     driver = await new Builder().forBrowser('chrome').build()
   })
+  console.log('BASE URL', baseURL)
   afterAll(() => driver && driver.quit())
 
   describe('Visitor can register as a client and fill out initial survey ', function () {

@@ -95,7 +95,7 @@ const WorkoutPlanExerciseBank = ({ viewOnly, onExerciseSelect }) => {
               <select
                 onChange={(e) => setSelectedMuscleGroup(e.target.value)}
                 value={selectedMuscleGroup}>
-                {muscleGroups.map((group) => (
+                {muscleGroups?.map((group) => (
                   <option key={group} value={group}>
                     {group}
                   </option>
@@ -107,7 +107,7 @@ const WorkoutPlanExerciseBank = ({ viewOnly, onExerciseSelect }) => {
               <select
                 onChange={(e) => setSelectedEquipment(e.target.value)}
                 value={selectedEquipment}>
-                {equipmentOptions.map((equipment) => (
+                {equipmentOptions?.map((equipment) => (
                   <option key={equipment} value={equipment}>
                     {equipment}
                   </option>
@@ -130,18 +130,18 @@ const WorkoutPlanExerciseBank = ({ viewOnly, onExerciseSelect }) => {
                   </tr>
                 </thead>
                 <tbody>
-                  {filteredExercises.map((exercise) => (
+                  {filteredExercises?.map((exercise) => (
                     <tr
-                      key={exercise.exerciseID}
-                      onClick={() => updateSelectedExerciseID(exercise.exerciseID)}
+                      key={exercise?.exerciseID}
+                      onClick={() => updateSelectedExerciseID(exercise?.exerciseID)}
                       className={
-                        selectedExerciseID === exercise.exerciseID ? 'exercise-selected' : ''
+                        selectedExerciseID === exercise?.exerciseID ? 'exercise-selected' : ''
                       }>
-                      <td>{exercise.name}</td>
-                      <td>{exercise.difficulty}</td>
-                      <td>{exercise.type}</td>
-                      <td>{exercise.muscleGroup}</td>
-                      <td>{exercise.equipment}</td>
+                      <td>{exercise?.name}</td>
+                      <td>{exercise?.difficulty}</td>
+                      <td>{exercise?.type}</td>
+                      <td>{exercise?.muscleGroup}</td>
+                      <td>{exercise?.equipment}</td>
                     </tr>
                   ))}
                 </tbody>

@@ -321,6 +321,14 @@ class ApiClient {
     })
   }
 
+  async createExercise(data) {
+    return await this.request({
+      endpoint: `exercises/createExercise`,
+      method: `POST`,
+      data: data,
+    })
+  }
+
   async getPersonalWorkoutPlan() {
     return await this.request({
       endpoint: `workoutPlan/client/Workouts`,
@@ -344,15 +352,15 @@ class ApiClient {
     })
   }
 
-  async recordWorkout(data){
+  async recordWorkout(data) {
     return await this.request({
       endpoint: `workoutPlan/recordWorkout`,
       method: `POST`,
-      data: data
+      data: data,
     })
   }
 
-  async deleteExerciseFromWorkout(planID){
+  async deleteExerciseFromWorkout(planID) {
     return await this.request({
       endpoint: `workoutPlan/client/deleteExercise?planID=${planID}`,
       method: `DELETE`,
