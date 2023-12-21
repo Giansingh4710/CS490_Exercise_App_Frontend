@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps, no-unused-vars */
 import './ExploreClientsPage.css'
 import React from 'react'
 import Messaging from '../ExploreComponents/Messaging/Messaging'
