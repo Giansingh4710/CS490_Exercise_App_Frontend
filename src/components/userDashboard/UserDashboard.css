@@ -58,3 +58,21 @@
   width: 100%;
   text-align: center;
 }
+
+.success-message {
+  background-color: #dff0d8; /* Success message background color */
+  border: 1px solid #3c763d; /* Success message border color */
+  color: #3c763d; /* Success message text color */
+}
+
+.info-message {
+  background-color: #d9edf7; /* Info message background color */
+  border: 1px solid #31708f; /* Info message border color */
+  color: #31708f; /* Info message text color */
+}
+
+.error-message {
+  background-color: #f2dede; /* Error message background color */
+  border: 1px solid #a94442; /* Error message border color */
+  color: #a94442; /* Error message text color */
+}
