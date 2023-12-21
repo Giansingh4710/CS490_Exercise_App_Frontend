@@ -22,18 +22,17 @@ export default function MyWorkouts() {
     }
     getLast5DaysWorkouts()
   }, [])
-
-  useEffect(() => {
-    async function getWorkoutPlan() {
-      try {
-        const response = await apiClient.getPersonalWorkoutPlan()
-        if (response.data) {
-          setWorkoutPlan(response.data)
-        }
-      } catch (error) {
-        console.error('Error fetching workout plan:', error)
+  async function getWorkoutPlan() {
+    try {
+      const response = await apiClient.getPersonalWorkoutPlan()
+      if (response.data) {
+        setWorkoutPlan(response.data)
       }
+    } catch (error) {
+      console.error('Error fetching workout plan:', error)
     }
+  }
+  useEffect(() => {
     getWorkoutPlan()
   }, [])
 
@@ -43,7 +42,7 @@ export default function MyWorkouts() {
         <div className='my-workouts-container'>
           <div className='my-workouts-header-container'>
             <h2 className='my-workouts-header'>Workout Plan</h2>
-            <WeeklySchedule workoutPlan={workoutPlan} />
+            <WeeklySchedule workoutPlan={workoutPlan} getWorkoutPlan={getWorkoutPlan} />
           </div>
         </div>
       </div>
@@ -55,7 +54,7 @@ export default function MyWorkouts() {
   )
 }
 
-function WeeklySchedule({ workoutPlan }) {
+function WeeklySchedule({ workoutPlan, getWorkoutPlan }) {
   const [selectedExerciseID, setSelectedExerciseID] = useState(null)
   const [isAddExerciseModalOpen, setAddExerciseModalOpen] = useState(false)
   const [exerciseData, setExerciseData] = useState({})
@@ -71,20 +70,20 @@ function WeeklySchedule({ workoutPlan }) {
   const handleCloseLogExerciseModal = () => {
     setLogExerciseModalOpen(false)
   }
+  async function getExerciseData() {
+    if (selectedExerciseID !== null) {
+      const { data, error } = await apiClient.getExerciseData(selectedExerciseID)
+      if (data) {
+        setExerciseData(data[0])
+      }
+      if (error) {
+        setMessage('Error getting exercise data')
+      }
+      setAddExerciseModalOpen(true)
+    }
+  }
 
   useEffect(() => {
-    async function getExerciseData() {
-      if (selectedExerciseID !== null) {
-        const { data, error } = await apiClient.getExerciseData(selectedExerciseID)
-        if (data) {
-          setExerciseData(data[0])
-        }
-        if (error) {
-          setMessage('Error getting exercise data')
-        }
-        setAddExerciseModalOpen(true)
-      }
-    }
     getExerciseData()
   }, [selectedExerciseID])
 
@@ -121,7 +120,10 @@ function WeeklySchedule({ workoutPlan }) {
         <AddExerciseModal
           onClose={closeAddExercise}
           exerciseData={exerciseData}
-          message={setMessage}></AddExerciseModal>
+          message={setMessage}
+          // getExerciseData={getExerciseData}
+          getWorkoutPlan={getWorkoutPlan}
+        />
       )}
       {weekdaySchedule.map((day, index) => (
         <div key={index} className='day-card'>
@@ -200,7 +202,7 @@ function NoWorkoutsAssigned() {
   )
 }
 
-function AddExerciseModal({ onClose, exerciseData, message }) {
+function AddExerciseModal({ onClose, exerciseData, message, getWorkoutPlan }) {
   // eslint-disable-next-line
   const [exerciseName, setExerciseName] = useState('')
   const [sets, setSets] = useState([{ reps: 0, weight: 0 }])
@@ -237,6 +239,8 @@ function AddExerciseModal({ onClose, exerciseData, message }) {
 
     const { data, error } = await apiClient.clientAddExerciseToPlan(newExerciseData)
     if (data) {
+      // getExerciseData()
+      getWorkoutPlan()
       message('Exercise added')
     }
     if (error) {
@@ -244,7 +248,7 @@ function AddExerciseModal({ onClose, exerciseData, message }) {
     }
 
     onClose()
-    window.location.reload(false)
+    // window.location.reload(false)
   }
 
   return (
