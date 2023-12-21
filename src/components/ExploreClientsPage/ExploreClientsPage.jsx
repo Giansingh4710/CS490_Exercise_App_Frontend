@@ -67,9 +67,6 @@ export default function ExploreClients() {
       userID: selectedClient?.userID,
       coachID: usersCoachID,
     })
-    console.log('THE COACH ID:', usersCoachID)
-    console.log("USERID:'", selectedClient?.userID)
-    console.log('the request status in ehre:', data)
     if (data) {
       if (data?.exists === true) {
         setRequestStatusForSelectedCoach(data)
@@ -97,8 +94,6 @@ export default function ExploreClients() {
   }, [usersCoachID])
 
   useEffect(() => {
-    console.log('REQUEST STATUS updating')
-    console.log('SELECTED CLIENT', selectedClient)
     fetchRequestStatus()
   }, [usersCoachID, selectedClient])
 
@@ -145,6 +140,8 @@ export default function ExploreClients() {
               newRequests={newRequests}
               fetchAllClients={fetchAllClients}
               requestStatusForSelectedClient={requestStatusForSelectedClient}
+              fetchRequestStatus={fetchRequestStatus}
+              fetchNewRequests={fetchNewRequests}
             />
           </div>
           {selectedClient !== null && requestStatusForSelectedClient?.status !== 'Pending' ? (
@@ -328,14 +325,13 @@ export function ClientCard({ client, selectedClient, setSelectedClient, isLoadin
 
 export function ClientView({
   selectedClient,
-  setSelectedClient,
   loading,
-  setLoading,
   setMessageModalIsOpen,
-  clients,
   newRequests,
   fetchAllClients,
   requestStatusForSelectedClient,
+  fetchRequestStatus,
+  fetchNewRequests,
 }) {
   const handleOnDeclineClick = async () => {
     const matchingRequest = newRequests.find(
@@ -346,6 +342,8 @@ export function ClientView({
       try {
         const { data, error } = await apiClient.declineRequest(reqID)
         if (data) {
+          fetchNewRequests()
+          fetchRequestStatus()
           console.log('Request declined', data)
         } else if (error) {
           console.log('Error declining request:', error)
