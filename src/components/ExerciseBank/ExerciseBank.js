@@ -10,7 +10,7 @@ const ExerciseBank = ({ viewOnly, setExerciseModalIsOpen }) => {
 
   useEffect(() => {
     const fetchExercises = async () => {
-      const { data, error } = await apiClient.getAllExercises()
+      const { data, error } = await apiClient.getAllActiveExercises()
       if (data) {
         setExercises(data)
       }
