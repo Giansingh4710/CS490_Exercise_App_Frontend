@@ -84,7 +84,7 @@ const ExerciseBank = ({ viewOnly, setExerciseModalIsOpen }) => {
                 <select
                   onChange={(e) => setSelectedMuscleGroup(e.target.value)}
                   value={selectedMuscleGroup}>
-                  {muscleGroups.map((group) => (
+                  {muscleGroups?.map((group) => (
                     <option key={group} value={group}>
                       {group}
                     </option>
@@ -96,7 +96,7 @@ const ExerciseBank = ({ viewOnly, setExerciseModalIsOpen }) => {
                 <select
                   onChange={(e) => setSelectedEquipment(e.target.value)}
                   value={selectedEquipment}>
-                  {equipmentOptions.map((equipment) => (
+                  {equipmentOptions?.map((equipment) => (
                     <option key={equipment} value={equipment}>
                       {equipment}
                     </option>
@@ -119,7 +119,7 @@ const ExerciseBank = ({ viewOnly, setExerciseModalIsOpen }) => {
                     </tr>
                   </thead>
                   <tbody>
-                    {filteredExercises.map((exercise) => (
+                    {filteredExercises?.map((exercise) => (
                       <tr
                         key={
                           exercise.id !== undefined ? String(exercise.id) : Math.random().toString()

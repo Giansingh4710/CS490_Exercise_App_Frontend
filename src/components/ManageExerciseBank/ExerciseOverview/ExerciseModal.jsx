@@ -14,22 +14,26 @@ export default function ExerciseModal({ isOpen, closeModal, onSave }) {
   const handleSave = async () => {
     const exerciseData = {
       name: exerciseName,
-      muscleGroup,
-      equipment,
+      muscleGroup: muscleGroup,
+      difficulty: 'Beginner',
+      equipment: equipment,
       type: 'Compound',
       metric: 'Reps',
     }
 
     try {
-      const response = await apiClient.createExercise(exerciseData)
-      onSave(response.data) // Pass the response data to the parent component
+      const { data } = await apiClient.createExercise(exerciseData)
+      console.log('exercise data:', exerciseData)
+      onSave(data) // Pass the response data to the parent component
       // Clear the input fields and close the modal
+      console.log('The data in here', data)
       setExerciseName('')
       setMuscleGroup('')
       setDescription('')
       setEquipment('')
       closeModal()
-      window.location.reload() // Reloads the current page
+      console.log('exercise created!')
+      // window.location.reload() // Reloads the current page
     } catch (error) {
       console.error('Error creating exercise:', error)
       // Handle error scenarios here
